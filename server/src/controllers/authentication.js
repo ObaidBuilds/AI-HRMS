@@ -4,13 +4,17 @@ import jwt from "jsonwebtoken";
 import { catchErrors } from "../utils/index.js";
 
 const adminLogin = catchErrors(async (req, res) => {
-  const { employeeId, password } = req.body;
+  const { employeeId, password, department } = req.body;
 
-  if (!employeeId || !password) throw new Error("Please provide all fields");
+  if (!employeeId || !password || !department)
+    throw new Error("Please provide all fields");
 
   const employee = await Employee.findOne({ employeeId });
 
   if (!employee || !employee.admin) throw new Error("Invalid credentials");
+
+  if (!(employee.department == department))
+    throw new Error("Invalid department");
 
   const comparePassword = await bcrypt.compare(password, employee.password);
 
@@ -46,6 +50,5 @@ const adminLogout = catchErrors(async (req, res) => {
       message: "Logged out successfully",
     });
 });
-
 
 export { adminLogin, adminLogout };

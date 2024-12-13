@@ -6,11 +6,10 @@
   font-family: "Poppins";
 }
 
-body{
+body {
   color: white;
   overflow-x: hidden;
 }
-
 
 body::-webkit-scrollbar,
 #overflow::-webkit-scrollbar {
@@ -61,14 +60,14 @@ body::-webkit-scrollbar,
 }
 
 input:checked + .slider {
-  background-color: #4CAF50;
+  background-color: #4caf50;
 }
 
 input:checked + .slider:before {
   transform: translateX(14px);
 }
 
-td{
+td {
   font-size: 0.83rem;
 }
 
@@ -77,10 +76,10 @@ td{
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-2px); 
+    transform: translateY(-2px);
   }
   100% {
-    transform: translateY(0px); 
+    transform: translateY(0px);
   }
 }
 
@@ -88,12 +87,11 @@ td{
   animation: float 2s ease-in-out infinite;
 }
 
-
 .loading-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 7px; 
+  gap: 7px;
 }
 
 .loading-circle {
@@ -113,7 +111,9 @@ td{
 }
 
 @keyframes wave {
-  0%, 60%, 100% {
+  0%,
+  60%,
+  100% {
     transform: scale(1);
   }
   30% {
@@ -121,11 +121,31 @@ td{
   }
 }
 
-#form input, #form select{
+#form input,
+#form select {
   padding: 0.5rem;
   border-radius: 0.25rem;
-  background-color: #4B5563;
-  color: #E5E7EB; 
+  background-color: #4b5563;
+  color: #e5e7eb;
   width: 100%;
+}
 
+#background {
+  background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.90) 0,  
+      rgba(0, 0, 0, 0.90) 60%, 
+      rgba(0, 0, 0, 0.90) 100%  
+    ),
+    url("https://media.istockphoto.com/id/1219813015/photo/food-stocking-east-end-montreal-during-pandemic.jpg?s=612x612&w=0&k=20&c=wBGAVhRvfLm6Y6h_PfMbfD4w8HDnA2pecEJ53OwW6Gc=");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+#select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
