@@ -48,7 +48,7 @@ app.use("/api/attendance", attendanceRoutes);
 app.use("/api/insights", inshightRoutes);
 
 app.get("/", (req, res) => {
-  res.send("HRMS");
+  res.send("HRMS For Metro");
 });
 
 const port = process.env.PORT || 3000;
