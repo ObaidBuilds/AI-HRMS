@@ -65,8 +65,8 @@ const Login = () => {
                 name="department"
                 value={formData.department}
                 onChange={handleChange}
-                required
                 className="w-full bg-gray-700 text-center text-sm p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                required
               >
                 <option>--- Select Depart ---</option>
                 {departments &&
