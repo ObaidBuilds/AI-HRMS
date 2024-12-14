@@ -1,14 +1,14 @@
-import React, { Suspense, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
-import Login from "./pages/auth/Login";
 import App from "./app";
 import ProtectedRoute from "./routes";
-import Loader from "./components/shared/Loader";
-import { useDispatch, useSelector } from "react-redux";
+import Login from "./pages/auth/Login";
+import { Toaster } from "react-hot-toast";
 import { getRoles } from "./services/role";
+import { Route, Routes } from "react-router-dom";
+import Loader from "./components/shared/Loader";
+import React, { Suspense, useEffect } from "react";
 import { getInsights } from "./services/insights";
 import { getDepartments } from "./services/department";
-import { Toaster } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 
 const RootApp = () => {
   const dispatch = useDispatch();
