@@ -68,7 +68,7 @@ const Login = () => {
                 className="w-full bg-gray-700 text-center text-sm p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                 required
               >
-                <option>--- Select Depart ---</option>
+                <option value="">--- Select Depart ---</option>
                 {departments &&
                   departments.map((department) => (
                     <option key={department._id} value={department._id}>
@@ -87,6 +87,7 @@ const Login = () => {
                 value={formData.employeeId}
                 onChange={handleChange}
                 required
+                autoComplete="off"
                 className="w-full bg-gray-700 text-sm sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
               />
             </div>

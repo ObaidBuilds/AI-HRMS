@@ -319,14 +319,28 @@ const AddEmployee = () => {
                   handleChange("bankDetails", e.target.value, "accountNumber")
                 }
               />
-              <input
-                type="text"
-                placeholder="Bank Name"
+              <select
                 value={formData.bankDetails.bankName}
                 onChange={(e) =>
                   handleChange("bankDetails", e.target.value, "bankName")
                 }
-              />
+                required
+              >
+                <option value="">--Select Bank--</option>
+                <option value="JSBank">JS Bank</option>
+                <option value="Faysal">Faysal Bank</option>
+                <option value="Meezan">Meezan Bank</option>
+                <option value="Summit">Summit Bank</option>
+                <option value="BankAlFalah">Bank Alfalah</option>
+                <option value="HBL">Habib Bank Limited</option>
+                <option value="UBL">United Bank Limited</option>
+                <option value="ABL">Allied Bank Limited</option>
+                <option value="MCB">Muslim Commercial Bank</option>
+                <option value="NBP">National Bank of Pakistan</option>
+                <option value="StandardChartered">
+                  Standard Chartered Bank
+                </option>
+              </select>
             </div>
           </div>
 
@@ -347,7 +361,11 @@ const AddEmployee = () => {
               <select
                 value={formData.emergencyContact.relationship}
                 onChange={(e) =>
-                  handleChange("emergencyContact", e.target.value)
+                  handleChange(
+                    "emergencyContact",
+                    e.target.value,
+                    "relationship"
+                  )
                 }
                 required
               >
