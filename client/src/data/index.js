@@ -10,7 +10,7 @@ const sidebarLinks = [
     iconClass: "fas fa-user",
     childrens: [
       {
-        name: "Employees Detail",
+        name: "Employees Details",
         link: "/hrms/employees",
       },
       {

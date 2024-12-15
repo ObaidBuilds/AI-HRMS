@@ -5,12 +5,14 @@ import { useSelector } from "react-redux";
 const FilterBar = ({ hideFilterBar, onApplyFilters }) => {
   const [filters, setFilters] = useState({
     department: "",
-    position: "",
+    role: "",
     status: "",
+    departmentName: "",
+    roleName: "",
   });
 
   const departments = useSelector((state) => state.department.departments);
-  const positions = useSelector((state) => state.role.roles);
+  const role = useSelector((state) => state.role.roles);
   const statuses = ["Active", "Inactive", "Leave"];
 
   const handleToggle = (filterName) => {
@@ -23,12 +25,11 @@ const FilterBar = ({ hideFilterBar, onApplyFilters }) => {
   const handleCheckboxChange = (filterName, value) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
-      [filterName]: prevFilters[filterName] === value ? null : value, // Toggle the value
+      [filterName]: prevFilters[filterName] === value ? null : value,
     }));
   };
 
   const handleApplyFilters = () => {
-
     onApplyFilters(filters);
     hideFilterBar(false);
   };
@@ -69,9 +70,10 @@ const FilterBar = ({ hideFilterBar, onApplyFilters }) => {
                     type="checkbox"
                     className="w-[10px] h-[9px] cursor-pointer"
                     checked={filters.department === department._id}
-                    onChange={() =>
-                      handleCheckboxChange("department", department._id)
-                    }
+                    onChange={() => {
+                      handleCheckboxChange("department", department._id);
+                      handleCheckboxChange("departmentName", department.name);
+                    }}
                   />
                   <p className="text-[0.83rem] font-medium">
                     {department.name}
@@ -95,20 +97,18 @@ const FilterBar = ({ hideFilterBar, onApplyFilters }) => {
               )}
             </div>
             <div>
-              {positions.map((position) => (
-                <div
-                  className="flex gap-2 items-center pb-5"
-                  key={position._id}
-                >
+              {role.map((role) => (
+                <div className="flex gap-2 items-center pb-5" key={role._id}>
                   <input
                     type="checkbox"
                     className="w-[10px] h-[9px] cursor-pointer"
-                    checked={filters.position === position._id}
-                    onChange={() =>
-                      handleCheckboxChange("position", position._id)
-                    }
+                    checked={filters.role === role._id}
+                    onChange={() => {
+                      handleCheckboxChange("role", role._id);
+                      handleCheckboxChange("roleName", role.name);
+                    }}
                   />
-                  <p className="text-[0.83rem] font-medium">{position.name}</p>
+                  <p className="text-[0.83rem] font-medium">{role.name}</p>
                 </div>
               ))}
             </div>

@@ -21,7 +21,7 @@ import toast from "react-hot-toast";
 
 // Fetch all employees
 const getAllEmployees = async (dispatch, currentPage, filters) => {
-  const { department, position, status } = filters;
+  const { department, role, status } = filters;
 
   dispatch(startFetchingEmployees());
 
@@ -29,7 +29,7 @@ const getAllEmployees = async (dispatch, currentPage, filters) => {
     const queryParams = new URLSearchParams({
       page: currentPage,
       department: department || "",
-      position: position || "",
+      role: role || "",
       status: status || "",
     }).toString();
 
@@ -78,7 +78,7 @@ const addEmployee = async (dispatch, employee) => {
 };
 
 // Update an existing employee
-const editEmployee = async (dispatch, id, employee) => {
+const editEmployee = async (dispatch, navigate, id, employee) => {
   dispatch(startEditingEmployee());
 
   try {
@@ -88,6 +88,7 @@ const editEmployee = async (dispatch, id, employee) => {
       configuration
     );
     dispatch(editEmployeeSuccess(data.employee));
+    navigate("/hrms/employees");
     toast.success(data.message);
   } catch (error) {
     dispatch(failEditingEmployee());

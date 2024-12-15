@@ -1,111 +1,23 @@
 import { formatDate } from "../../utils";
-import { useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import Error from "../../components/shared/Error";
+import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
 import Loader from "../../components/shared/Loader";
 import Heading from "../../components/shared/Heading";
 import { useDispatch, useSelector } from "react-redux";
+import { useForm, Controller } from "react-hook-form";
 import { editEmployee, getEmployeeById } from "../../services/employee";
 
 const EditEmployee = () => {
   const { employeeID } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const roles = useSelector((state) => state.role.roles);
   const { employee, loading } = useSelector((state) => state.employee);
   const departments = useSelector((state) => state.department.departments);
 
-  const [formData, setFormData] = useState({
-    employeeId: "",
-    name: "",
-    dob: "",
-    email: "",
-    phoneNumber: "",
-    address: {
-      street: "",
-      city: "",
-      state: "",
-      postalCode: "",
-      country: "",
-    },
-    department: "",
-    role: "",
-    dateOfJoining: "",
-    gender: "",
-    martialStatus: "",
-    employmentType: "",
-    shift: "",
-    status: "Active",
-    salary: "",
-    bankDetails: {
-      accountNumber: "",
-      bankName: "",
-    },
-    emergencyContact: {
-      name: "",
-      relationship: "",
-      phoneNumber: "",
-    },
-    leaveBalance: 0,
-    admin: false,
-  });
-
-  const handleChange = (field, value, subField) => {
-    if (subField) {
-      setFormData((prev) => ({
-        ...prev,
-        [field]: {
-          ...prev[field],
-          [subField]: value,
-        },
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [field]: value,
-      }));
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    editEmployee(dispatch, employeeID, formData);
-
-    setFormData({
-      employeeId: "",
-      name: "",
-      dob: "",
-      email: "",
-      phoneNumber: "",
-      address: {
-        street: "",
-        city: "",
-        state: "",
-        postalCode: "",
-        country: "",
-      },
-      department: "",
-      role: "",
-      dateOfJoining: "",
-      gender: "",
-      martialStatus: "",
-      employmentType: "",
-      shift: "",
-      status: "Active",
-      salary: "",
-      bankDetails: {
-        accountNumber: "",
-        bankName: "",
-      },
-      emergencyContact: {
-        name: "",
-        relationship: "",
-        phoneNumber: "",
-      },
-      leaveBalance: 0,
-      admin: false,
-    });
-  };
+  const { control, handleSubmit, setValue, reset } = useForm();
 
   useEffect(() => {
     if (employeeID) getEmployeeById(dispatch, employeeID);
@@ -113,42 +25,47 @@ const EditEmployee = () => {
 
   useEffect(() => {
     if (employee) {
-      setFormData({
-        employeeId: employee.employeeId || "",
-        name: employee.name || "",
-        dob: formatDate(employee.dob),
-        email: employee.email || "",
-        phoneNumber: employee.phoneNumber || "",
-        address: {
-          street: employee.address?.street || "",
-          city: employee.address?.city || "",
-          state: employee.address?.state || "",
-          postalCode: employee.address?.postalCode || "",
-          country: employee.address?.country || "",
-        },
-        department: employee.department?._id || "",
-        role: employee.role?._id || "",
-        dateOfJoining: formatDate(employee.dateOfJoining),
-        gender: employee.gender || "",
-        martialStatus: employee.martialStatus || "",
-        employmentType: employee.employmentType || "",
-        shift: employee.shift || "",
-        status: employee.status || "Active",
-        salary: employee.salary || "",
-        bankDetails: {
-          accountNumber: employee.bankDetails?.accountNumber || "",
-          bankName: employee.bankDetails?.bankName || "",
-        },
-        emergencyContact: {
-          name: employee.emergencyContact?.name || "",
-          relationship: employee.emergencyContact?.relationship || "",
-          phoneNumber: employee.emergencyContact?.phoneNumber || "",
-        },
-        leaveBalance: employee.leaveBalance || 0,
-        admin: employee.admin || false,
-      });
+      setValue("employeeId", employee.employeeId || "");
+      setValue("name", employee.name || "");
+      setValue("dob", formatDate(employee.dob));
+      setValue("email", employee.email || "");
+      setValue("phoneNumber", employee.phoneNumber || "");
+      setValue("address.street", employee.address?.street || "");
+      setValue("address.city", employee.address?.city || "");
+      setValue("address.state", employee.address?.state || "");
+      setValue("address.postalCode", employee.address?.postalCode || "");
+      setValue("address.country", employee.address?.country || "");
+      setValue("department", employee.department?._id || "");
+      setValue("role", employee.role?._id || "");
+      setValue("dateOfJoining", formatDate(employee.dateOfJoining));
+      setValue("gender", employee.gender || "");
+      setValue("martialStatus", employee.martialStatus || "");
+      setValue("employmentType", employee.employmentType || "");
+      setValue("shift", employee.shift || "");
+      setValue("status", employee.status || "Active");
+      setValue("salary", employee.salary || "");
+      setValue(
+        "bankDetails.accountNumber",
+        employee.bankDetails?.accountNumber || ""
+      );
+      setValue("bankDetails.bankName", employee.bankDetails?.bankName || "");
+      setValue("emergencyContact.name", employee.emergencyContact?.name || "");
+      setValue(
+        "emergencyContact.relationship",
+        employee.emergencyContact?.relationship || ""
+      );
+      setValue(
+        "emergencyContact.phoneNumber",
+        employee.emergencyContact?.phoneNumber || ""
+      );
+      setValue("leaveBalance", employee.leaveBalance || 0);
+      setValue("admin", employee.admin || false);
     }
-  }, [employee]);
+  }, [employee, setValue]);
+
+  const onSubmit = (data) => {
+    editEmployee(dispatch, navigate, employeeID, data);
+  };
 
   if (!employee) {
     return <Error />;
@@ -158,70 +75,94 @@ const EditEmployee = () => {
     <section>
       {loading && <Loader />}
 
-      <Heading heading={"Add Employee"} />
+      <Heading heading={"Edit Employee"} />
       <div className="w-full min-h-screen mt-2 rounded-lg bg-gray-700 border border-gray-600 p-3 text-sm">
         <form
           id="form"
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           className="space-y-2 sm:space-y-4"
         >
           {/* Basic Details */}
           <div className="bg-gray-800 p-4 rounded-lg">
             <h4 className="text-gray-200 font-semibold mb-3">Basic Details</h4>
             <div className="grid gap-4 sm:grid-cols-2">
-              <input
-                type="text"
-                placeholder="Employee ID"
-                value={formData.employeeId}
-                onChange={(e) => handleChange("employeeId", e.target.value)}
-                required
+              <Controller
+                name="employeeId"
+                control={control}
+                render={({ field }) => (
+                  <input
+                    type="text"
+                    placeholder="Employee ID"
+                    {...field}
+                    required
+                  />
+                )}
               />
-              <input
-                type="text"
-                placeholder="Full Name"
-                value={formData.name}
-                onChange={(e) => handleChange("name", e.target.value)}
-                required
+              <Controller
+                name="name"
+                control={control}
+                render={({ field }) => (
+                  <input
+                    type="text"
+                    placeholder="Full Name"
+                    {...field}
+                    required
+                  />
+                )}
               />
-              <input
-                type="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={(e) => handleChange("email", e.target.value)}
-                required
+              <Controller
+                name="email"
+                control={control}
+                render={({ field }) => (
+                  <input type="email" placeholder="Email" {...field} required />
+                )}
               />
-              <input
-                type="date"
-                placeholder="Date of Birth"
-                value={formData.dob}
-                onChange={(e) => handleChange("dob", e.target.value)}
-                required
+              <Controller
+                name="dob"
+                control={control}
+                render={({ field }) => (
+                  <input
+                    type="date"
+                    placeholder="Date of Birth"
+                    {...field}
+                    required
+                  />
+                )}
               />
-              <input
-                type="text"
-                placeholder="Phone Number"
-                value={formData.phoneNumber}
-                onChange={(e) => handleChange("phoneNumber", e.target.value)}
-                required
+              <Controller
+                name="phoneNumber"
+                control={control}
+                render={({ field }) => (
+                  <input
+                    type="text"
+                    placeholder="Phone Number"
+                    {...field}
+                    required
+                  />
+                )}
               />
-              <select
-                value={formData.gender}
-                onChange={(e) => handleChange("gender", e.target.value)}
-                required
-              >
-                <option value="">--Gender--</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-              <select
-                value={formData.martialStatus}
-                onChange={(e) => handleChange("martialStatus", e.target.value)}
-                required
-              >
-                <option value="">--Marital Status--</option>
-                <option value="Single">Single</option>
-                <option value="Married">Married</option>
-              </select>
+              <Controller
+                name="gender"
+                control={control}
+                render={({ field }) => (
+                  <select {...field} required>
+                    <option value="">--Gender--</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                )}
+              />
+              <Controller
+                name="martialStatus"
+                control={control}
+                render={({ field }) => (
+                  <select {...field} required>
+                    <option value="">--Marital Status--</option>
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                  </select>
+                )}
+              />
             </div>
           </div>
 
@@ -229,45 +170,40 @@ const EditEmployee = () => {
           <div className="bg-gray-800 p-4 rounded-lg">
             <h4 className="text-gray-200 font-semibold mb-3">Address</h4>
             <div className="grid gap-4 sm:grid-cols-2">
-              <input
-                type="text"
-                placeholder="Street"
-                value={formData.address.street}
-                onChange={(e) =>
-                  handleChange("address", e.target.value, "street")
-                }
+              <Controller
+                name="address.street"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="Street" {...field} />
+                )}
               />
-              <input
-                type="text"
-                placeholder="City"
-                value={formData.address.city}
-                onChange={(e) =>
-                  handleChange("address", e.target.value, "city")
-                }
+              <Controller
+                name="address.city"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="City" {...field} />
+                )}
               />
-              <input
-                type="text"
-                placeholder="State"
-                value={formData.address.state}
-                onChange={(e) =>
-                  handleChange("address", e.target.value, "state")
-                }
+              <Controller
+                name="address.state"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="State" {...field} />
+                )}
               />
-              <input
-                type="text"
-                placeholder="Postal Code"
-                value={formData.address.postalCode}
-                onChange={(e) =>
-                  handleChange("address", e.target.value, "postalCode")
-                }
+              <Controller
+                name="address.postalCode"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="Postal Code" {...field} />
+                )}
               />
-              <input
-                type="text"
-                placeholder="Country"
-                value={formData.address.country}
-                onChange={(e) =>
-                  handleChange("address", e.target.value, "country")
-                }
+              <Controller
+                name="address.country"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="Country" {...field} />
+                )}
               />
             </div>
           </div>
@@ -278,74 +214,88 @@ const EditEmployee = () => {
               Department & Role
             </h4>
             <div className="grid gap-4 sm:grid-cols-2">
-              <select
-                value={formData.department}
-                onChange={(e) => handleChange("department", e.target.value)}
-                required
-              >
-                <option value="">--Department--</option>
-                {departments.map((department) => (
-                  <option key={department._id} value={department._id}>
-                    {department.name}
-                  </option>
-                ))}
-              </select>
-
-              <select
-                value={formData.role}
-                onChange={(e) => handleChange("role", e.target.value)}
-                required
-              >
-                <option value="">--Role--</option>
-                {roles.map((role) => (
-                  <option key={role._id} value={role._id}>
-                    {role.name}
-                  </option>
-                ))}
-              </select>
-              <input
-                type="text"
-                placeholder="Salary"
-                value={formData.salary}
-                onChange={(e) => handleChange("salary", e.target.value)}
-                required
+              <Controller
+                name="department"
+                control={control}
+                render={({ field }) => (
+                  <select {...field} required>
+                    <option value="">--Department--</option>
+                    {departments.map((department) => (
+                      <option key={department._id} value={department._id}>
+                        {department.name}
+                      </option>
+                    ))}
+                  </select>
+                )}
               />
-              <select
-                value={formData.shift}
-                onChange={(e) => handleChange("shift", e.target.value)}
-                required
-              >
-                <option value="">--Shift--</option>
-                <option value="Morning">Morning</option>
-                <option value="Evening">Evening</option>
-                <option value="Night">Night</option>
-              </select>
-              <select
-                value={formData.status}
-                onChange={(e) => handleChange("status", e.target.value)}
-              >
-                <option value="">--Status--</option>
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
-                <option value="Leave">Leave</option>
-              </select>
-              <input
-                type="date"
-                placeholder="Date of Joining"
-                value={formData.dateOfJoining}
-                onChange={(e) => handleChange("dateOfJoining", e.target.value)}
-                required
+              <Controller
+                name="role"
+                control={control}
+                render={({ field }) => (
+                  <select {...field} required>
+                    <option value="">--Role--</option>
+                    {roles.map((role) => (
+                      <option key={role._id} value={role._id}>
+                        {role.name}
+                      </option>
+                    ))}
+                  </select>
+                )}
               />
-              <select
-                value={formData.employmentType}
-                onChange={(e) => handleChange("employmentType", e.target.value)}
-                required
-              >
-                <option value="">--Employment Type--</option>
-                <option value="Full-Time">Full-Time</option>
-                <option value="Part-Time">Part-Time</option>
-                <option value="Contract">Contract</option>
-              </select>
+              <Controller
+                name="salary"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="Salary" {...field} required />
+                )}
+              />
+              <Controller
+                name="shift"
+                control={control}
+                render={({ field }) => (
+                  <select {...field} required>
+                    <option value="">--Shift--</option>
+                    <option value="Morning">Morning</option>
+                    <option value="Evening">Evening</option>
+                    <option value="Night">Night</option>
+                  </select>
+                )}
+              />
+              <Controller
+                name="status"
+                control={control}
+                render={({ field }) => (
+                  <select {...field}>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                    <option value="Leave">Leave</option>
+                  </select>
+                )}
+              />
+              <Controller
+                name="dateOfJoining"
+                control={control}
+                render={({ field }) => (
+                  <input
+                    type="date"
+                    placeholder="Date of Joining"
+                    {...field}
+                    required
+                  />
+                )}
+              />
+              <Controller
+                name="employmentType"
+                control={control}
+                render={({ field }) => (
+                  <select {...field} required>
+                    <option value="">--Employment Type--</option>
+                    <option value="Full-Time">Full-Time</option>
+                    <option value="Part-Time">Part-Time</option>
+                    <option value="Contract">Contract</option>
+                  </select>
+                )}
+              />
             </div>
           </div>
 
@@ -353,21 +303,19 @@ const EditEmployee = () => {
           <div className="bg-gray-800 p-4 rounded-lg">
             <h4 className="text-gray-200 font-semibold mb-3">Bank Details</h4>
             <div className="grid gap-4 sm:grid-cols-2">
-              <input
-                type="text"
-                placeholder="Account Number"
-                value={formData.bankDetails.accountNumber}
-                onChange={(e) =>
-                  handleChange("bankDetails", e.target.value, "accountNumber")
-                }
+              <Controller
+                name="bankDetails.accountNumber"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="Account Number" {...field} />
+                )}
               />
-              <input
-                type="text"
-                placeholder="Bank Name"
-                value={formData.bankDetails.bankName}
-                onChange={(e) =>
-                  handleChange("bankDetails", e.target.value, "bankName")
-                }
+              <Controller
+                name="bankDetails.bankName"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="Bank Name" {...field} />
+                )}
               />
             </div>
           </div>
@@ -378,48 +326,36 @@ const EditEmployee = () => {
               Emergency Contact
             </h4>
             <div className="grid gap-4 sm:grid-cols-2">
-              <input
-                type="text"
-                placeholder="Contact Name"
-                value={formData.emergencyContact.name}
-                onChange={(e) =>
-                  handleChange("emergencyContact", e.target.value, "name")
-                }
+              <Controller
+                name="emergencyContact.name"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="Name" {...field} />
+                )}
               />
-              <select
-                value={formData.emergencyContact.relationship}
-                onChange={(e) =>
-                  handleChange("emergencyContact", e.target.value)
-                }
-                required
-              >
-                <option value="">--Relationship--</option>
-                <option value="Father">Father</option>
-                <option value="Brother">Brother</option>
-                <option value="Relative">Relative</option>
-                <option value="Friend">Friend</option>
-              </select>
-
-              <input
-                type="text"
-                placeholder="Contact Phone Number"
-                value={formData.emergencyContact.phoneNumber}
-                onChange={(e) =>
-                  handleChange(
-                    "emergencyContact",
-                    e.target.value,
-                    "phoneNumber"
-                  )
-                }
+              <Controller
+                name="emergencyContact.relationship"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="Relationship" {...field} />
+                )}
+              />
+              <Controller
+                name="emergencyContact.phoneNumber"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="Phone Number" {...field} />
+                )}
               />
             </div>
           </div>
 
+          {/* Submit Button */}
           <button
             type="submit"
-            className="bg-blue-600 text-gray-200 p-2 rounded hover:bg-blue-700 w-full"
+            className="bg-blue-600 text-white p-3 mt-4 w-full rounded-lg"
           >
-            Submit
+            Update Employee
           </button>
         </form>
       </div>
