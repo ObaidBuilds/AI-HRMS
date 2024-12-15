@@ -133,7 +133,7 @@ const Login = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-[85%] text-[0.86rem] sm:text-[0.95rem] p-[15px] bg-green-500 text-white rounded-full text-lg font-medium hover:bg-gray-500 transition duration-300"
+              className="w-[85%] text-[0.85rem] sm:text-[0.95rem] p-[15px] bg-green-500 text-white rounded-full text-lg font-medium hover:bg-gray-500 transition duration-300"
             >
               {loading ? (
                 <ClipLoader size={10} color="white" loading={loading} />

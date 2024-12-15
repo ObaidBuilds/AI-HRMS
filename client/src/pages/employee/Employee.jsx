@@ -28,7 +28,6 @@ function Employee() {
     departmentName: null,
     roleName: null,
   });
-  const [toggleDropdown, setToggleDropdown] = useState(false);
 
   const goToPage = (page) => setCurrentPage(page);
 
@@ -112,14 +111,11 @@ function Employee() {
         )}
 
         {/* Three-dot icon for dropdown aligned to the right */}
-        <div className="relative flex items-center justify-between sm:px-3 mb-2">
+        <div className="relative flex items-center justify-between sm:px-3 mb-3">
           {!(filters.status || filters.department || filters.role) && (
             <button
-              onClick={() => {
-                setToggleFilterBar(true);
-                setToggleDropdown(false);
-              }}
-              className="flex justify-between items-center gap-2 text-[0.8rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold"
+              onClick={() => setToggleFilterBar(true)}
+              className="flex justify-between items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold"
             >
               <i className="fa-solid fa-filter text-[0.7rem] sm:text-xs"></i>{" "}
               Apply Filters
@@ -154,43 +150,14 @@ function Employee() {
                 ></i>
               </button>
             )}
+            <button
+              onClick={handleExportToExcel}
+              className="flex flex-grow justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold"
+            >
+              <i class="fas fa-file-excel text-[0.7rem] text-xs"></i>
+              Export to Excel
+            </button>
           </div>
-          <button
-            className="text-gray-500 hover:text-gray-300 p-2"
-            onClick={() => setToggleDropdown(!toggleDropdown)}
-          >
-            <i className="fa-solid fa-ellipsis-v"></i>
-          </button>
-          {toggleDropdown && (
-            <div className="absolute right-2 top-6 mt-2 w-48 bg-gray-800 text-white rounded-lg shadow-lg z-10">
-              <ul className="py-2">
-                <li>
-                  <button
-                    onClick={() => {
-                      setToggleFilterBar(true);
-                      setToggleDropdown(false);
-                    }}
-                    className="w-full flex items-center px-4 py-2 text-sm hover:bg-gray-600"
-                  >
-                    <i className="fa-solid fa-filter mr-2"></i>
-                    Apply Filters
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => {
-                      handleExportToExcel();
-                      setToggleDropdown(false);
-                    }}
-                    className="w-full flex items-center px-4 py-2 text-sm hover:bg-gray-600"
-                  >
-                    <i className="fa-solid fa-file-excel mr-2"></i>
-                    Export to Excel
-                  </button>
-                </li>
-              </ul>
-            </div>
-          )}
         </div>
 
         <div id="overflow" className="overflow-x-auto min-h-[75vh]">
@@ -213,63 +180,70 @@ function Employee() {
               </tr>
             </thead>
             <tbody>
-              {employees.map((employee, index) => (
-                <tr
-                  key={index}
-                  className="even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600"
-                >
-                  <td className="py-3 px-4 border-b border-gray-500">
-                    EMP {employee.employeeId}
-                  </td>
-                  <td className="py-3 px-4 border-b border-gray-500">
-                    {employee.name}
-                  </td>
-                  <td className="py-3 px-4 border-b border-gray-500">
-                    {employee.department.name}
-                  </td>
-                  <td className="py-3 px-4 border-b border-gray-500">
-                    {employee.role.name}
-                  </td>
-                  <td className="py-3 px-4 border-b border-gray-500">
-                    {employee.status}
-                  </td>
-                  <td className="py-3 px-4 border-b border-gray-500">
-                    {employee.phoneNumber}
-                  </td>
-                  <td className="py-3 px-4 border-b border-gray-500 flex items-center space-x-2">
-                    <Link to={`/hrms/employee/${employee._id}`}>
-                      <button
-                        className="text-blue-500 hover:text-blue-400"
-                        title="View"
-                      >
-                        <i className="fa-solid fa-eye"></i>
-                      </button>
-                    </Link>
+              {employees &&
+                employees.map((employee, index) => (
+                  <tr
+                    key={index}
+                    className="even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600"
+                  >
+                    <td className="py-3 px-4 border-b border-gray-500">
+                      EMP {employee.employeeId}
+                    </td>
+                    <td className="py-3 px-4 border-b border-gray-500">
+                      {employee.name}
+                    </td>
+                    <td className="py-3 px-4 border-b border-gray-500">
+                      {employee.department.name}
+                    </td>
+                    <td className="py-3 px-4 border-b border-gray-500">
+                      {employee.role.name}
+                    </td>
+                    <td className="py-3 px-4 border-b border-gray-500">
+                      {employee.status}
+                    </td>
+                    <td className="py-3 px-4 border-b border-gray-500">
+                      {employee.phoneNumber}
+                    </td>
+                    <td className="py-3 px-4 border-b border-gray-500 flex items-center space-x-2">
+                      <Link to={`/hrms/employee/${employee._id}`}>
+                        <button
+                          className="text-blue-500 hover:text-blue-400"
+                          title="View"
+                        >
+                          <i className="fa-solid fa-eye"></i>
+                        </button>
+                      </Link>
 
-                    <Link to={`/hrms/edit-employee/${employee._id}`}>
-                      <button
-                        className="text-green-500 hover:text-green-400"
-                        title="Edit"
-                      >
-                        <i className="fa-solid fa-edit"></i>
-                      </button>
-                    </Link>
+                      <Link to={`/hrms/edit-employee/${employee._id}`}>
+                        <button
+                          className="text-green-500 hover:text-green-400"
+                          title="Edit"
+                        >
+                          <i className="fa-solid fa-edit"></i>
+                        </button>
+                      </Link>
 
-                    <button
-                      onClick={() => {
-                        setDeletedEmployee(employee);
-                        setToggleModal(!toggleModal);
-                      }}
-                      className="text-red-500 hover:text-red-400"
-                      title="Delete"
-                    >
-                      <i className="fa-solid fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-              ))}
+                      <button
+                        onClick={() => {
+                          setDeletedEmployee(employee);
+                          setToggleModal(!toggleModal);
+                        }}
+                        className="text-red-500 hover:text-red-400"
+                        title="Delete"
+                      >
+                        <i className="fa-solid fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
+          {employees.length === 0 && (
+            <div className="w-full h-[50vh] flex flex-col justify-center items-center">
+              <i className="fas fa-ban text-4xl text-gray-500"></i>
+              <p className="mt-2 text-xl text-gray-500">No Employees Found</p>
+            </div>
+          )}
         </div>
 
         <Pagination
