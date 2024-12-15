@@ -1,18 +1,19 @@
 import express from "express";
-import { 
-  createRole, 
-  getAllRoles, 
-  getRoleById, 
-  deleteRole, 
-  updateRole 
+import {
+  createRole,
+  getAllRoles,
+  getRoleById,
+  deleteRole,
+  updateRole,
 } from "../controllers/role.js";
+import { verifyAdminToken } from "../middlewares/index.js";
 
 const router = express.Router();
 
-router.post("/", createRole);
-router.get("/", getAllRoles);
-router.get("/:roleID", getRoleById);
-router.delete("/:roleID", deleteRole);
-router.patch("/:roleID", updateRole);
+router.post("/", verifyAdminToken, createRole);
+router.get("/", verifyAdminToken, getAllRoles);
+router.get("/:roleID", verifyAdminToken, getRoleById);
+router.delete("/:roleID", verifyAdminToken, deleteRole);
+router.patch("/:roleID", verifyAdminToken, updateRole);
 
 export default router;

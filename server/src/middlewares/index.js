@@ -4,6 +4,7 @@ import Employee from "../models/employee.js";
 
 const verifyEmployeeToken = catchErrors(async (req, res, next) => {
   const { token } = req.cookies;
+
   if (!token) throw new Error("Unauthorized access");
 
   const decoded = jwt.verify(token, process.env.JWTSECRET);
@@ -18,7 +19,7 @@ const verifyEmployeeToken = catchErrors(async (req, res, next) => {
 
 const verifyAdminToken = catchErrors(async (req, res, next) => {
   const { token } = req.cookies;
-  
+
   if (!token) throw new Error("Unauthorized access");
 
   const decoded = jwt.verify(token, process.env.JWTSECRET);

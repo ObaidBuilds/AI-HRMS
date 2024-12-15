@@ -6,18 +6,20 @@ import { getRoles } from "./services/role";
 import { Route, Routes } from "react-router-dom";
 import Loader from "./components/shared/Loader";
 import React, { Suspense, useEffect } from "react";
-import { getInsights } from "./services/insights";
 import { getDepartments } from "./services/department";
 import { useDispatch, useSelector } from "react-redux";
+import { getInsights } from "./services/insights";
 
 const RootApp = () => {
   const dispatch = useDispatch();
-
+  const isAuthenticated = useSelector(
+    (state) => state.authentication.isAuthenticated
+  );
   useEffect(() => {
     getDepartments(dispatch);
     getInsights(dispatch);
-    getRoles(dispatch);
-  }, [dispatch]);
+    if (isAuthenticated) getRoles(dispatch);
+  }, [dispatch, isAuthenticated]);
 
   return (
     <Suspense fallback={<Loader />}>

@@ -29,6 +29,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     }),
+  devTools: import.meta.env.VITE_ENV !== "production",
 });
 
 export const persistor = persistStore(store);

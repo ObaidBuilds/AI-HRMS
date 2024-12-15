@@ -6,7 +6,9 @@ import BarGraph from "../../components/shared/BarGraph";
 import { useSelector } from "react-redux";
 
 const Dashboard = () => {
+
   const insight = useSelector((state) => state.insight.insights);
+
 
   const infoCardData = [
     {
@@ -28,6 +30,7 @@ const Dashboard = () => {
       range: 50,
     },
   ];
+
 
   return (
     <section>
