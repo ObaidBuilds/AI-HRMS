@@ -76,7 +76,7 @@ function Employee() {
     } else {
       document.body.classList.remove("no-scroll");
     }
-  }, [showSidebar]);
+  }, [toggleFilterBar]);
 
   const clearFilter = (filterKey) => {
     setFilters((prevFilters) => ({
