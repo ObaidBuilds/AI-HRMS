@@ -6,31 +6,25 @@ import BarGraph from "../../components/shared/BarGraph";
 import { useSelector } from "react-redux";
 
 const Dashboard = () => {
-  const totalDepartments = useSelector(
-    (state) => state.insight.insights.totalDepartments
-  );
-  const totalEmployees = useSelector(
-    (state) => state.insight.insights.totalEmployees
-  );
-  const totalRoles = useSelector((state) => state.insight.insights.totalRoles);
+  const insight = useSelector((state) => state.insight.insights);
 
   const infoCardData = [
     {
       id: 1,
       title: "Total Employees",
-      stats: totalEmployees || 0,
+      stats: insight?.totalEmployees || 0,
       range: 70,
     },
     {
       id: 2,
       title: "Total Department",
-      stats: totalDepartments || 0,
+      stats: insight?.totalDepartments || 0,
       range: 30,
     },
     {
       id: 3,
       title: "Total Position",
-      stats: totalRoles || 0,
+      stats: insight?.totalRoles || 0,
       range: 50,
     },
   ];

@@ -70,6 +70,14 @@ function Employee() {
     downloadXls(data);
   };
 
+  useEffect(() => {
+    if (toggleFilterBar) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  }, [showSidebar]);
+
   const clearFilter = (filterKey) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
