@@ -12,7 +12,7 @@ import { verifyAdminToken } from "../middlewares/index.js";
 const router = express.Router();
 
 router.post("/", verifyAdminToken, createDepartment);
-router.get("/", verifyAdminToken, getAllDepartments);
+router.get("/", getAllDepartments);
 router.get("/:departmentID", verifyAdminToken, getDepartmentById);
 router.get(
   "/:departmentID/employees",
