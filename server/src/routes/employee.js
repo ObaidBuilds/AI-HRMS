@@ -10,8 +10,8 @@ import { verifyAdminToken, verifyEmployeeToken } from "../middlewares/index.js";
 
 const router = express.Router();
 
-router.post("/", verifyAdminToken, createEmployee);
-router.get("/", verifyAdminToken, getAllEmployees);
+router.post("/", createEmployee);
+router.get("/", getAllEmployees);
 router.get("/:employeeID", verifyEmployeeToken, getEmployeeById);
 router.delete("/:employeeID", verifyAdminToken, deleteEmployee);
 router.patch("/:employeeID", verifyEmployeeToken, updateEmployee);
