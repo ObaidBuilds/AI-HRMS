@@ -12,17 +12,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 const RootApp = () => {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector(
-    (state) => state.authentication.isAuthenticated
-  );
 
   useEffect(() => {
     getDepartments(dispatch);
-    if (isAuthenticated) {
-      getRoles(dispatch);
-      getInsights(dispatch);
-    }
-  }, [dispatch, isAuthenticated]);
+    getInsights(dispatch);
+    getRoles(dispatch);
+  }, [dispatch]);
 
   return (
     <Suspense fallback={<Loader />}>
