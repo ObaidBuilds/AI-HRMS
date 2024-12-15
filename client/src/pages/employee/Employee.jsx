@@ -34,13 +34,13 @@ function Employee() {
   const onApplyFilters = (newFilters) => setFilters(newFilters);
 
   const confirmation = () => {
-    deleteEmployee(dispatch, deletedEmployee._id);
+    dispatch(deleteEmployee(deletedEmployee._id));
     setDeletedEmployee(null);
     setToggleModal(false);
   };
 
   useEffect(() => {
-    getAllEmployees(dispatch, currentPage, filters);
+    dispatch(getAllEmployees({ currentPage, filters }));
   }, [dispatch, currentPage, filters]);
 
   const handleExportToExcel = () => {
@@ -85,9 +85,7 @@ function Employee() {
     }));
   };
 
-  if (!employees) {
-    return <Error />;
-  }
+  if (!employees) return <Error />;
 
   return (
     <div className="w-full rounded-lg bg-gray-900">

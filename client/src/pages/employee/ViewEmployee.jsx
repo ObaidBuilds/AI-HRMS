@@ -10,16 +10,15 @@ import { formatDate } from "../../utils";
 const ViewEmployee = () => {
   const { employeeID } = useParams();
   const dispatch = useDispatch();
-
-  const { employee, loading } = useSelector((state) => state.employee);
+  const { employee, loading, error } = useSelector((state) => state.employee);
 
   useEffect(() => {
-    if (employeeID) getEmployeeById(dispatch, employeeID);
-  }, [employeeID]);
+    if (employeeID) {
+      dispatch(getEmployeeById(employeeID));
+    }
+  }, [employeeID, dispatch]);
 
-  if (!employee) {
-    return <Error />;
-  }
+  if (error || !employee) return <Error />;
 
   return (
     <div className="w-full rounded-lg bg-gray-900 text-white">

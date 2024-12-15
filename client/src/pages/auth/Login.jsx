@@ -21,7 +21,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const departments = useSelector((state) => state.department.departments);
   const loading = useSelector((state) => state.authentication.loading);
-
+console.log(loading)
   const [active, setActive] = useState(false);
 
   const {
@@ -34,8 +34,13 @@ const Login = () => {
 
   const handleShowPass = () => setActive(!active);
 
-  const onSubmit = async (data) => {
-    await loginAdmin(dispatch, navigate, data);
+  const onSubmit = (credentials) => {
+    dispatch(loginAdmin(credentials))
+      .unwrap()
+      .then(() => navigate("/hrms"))
+      .catch((error) => {
+        console.error("Login failed:", error);
+      });
   };
 
   return (

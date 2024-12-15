@@ -1,15 +1,21 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { setInsights } from "../store/slices/inshights";
 import { configuration, URL } from "../utils";
 
-// Fetch a quick insights
-const getInsights = async (dispatch) => {
-  try {
-    const { data } = await axios.get(`${URL}/insights`, configuration);
-    dispatch(setInsights(data.insights));
-  } catch (error) {
-    console.error(error.response?.data.message || "Client : " + error.message);
+// Fetch quick insights using createAsyncThunk
+export const getInsights = createAsyncThunk(
+  "insight/getInsights",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`${URL}/insights`, configuration);
+      return data.insights;
+    } catch (error) {
+      console.error(
+        error.response?.data.message || "Client : " + error.message
+      );
+      return rejectWithValue(
+        error.response?.data.message || "Client : " + error.message
+      ); // Handle error
+    }
   }
-};
-
-export { getInsights };
+);

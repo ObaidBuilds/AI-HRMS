@@ -19,7 +19,7 @@ const AddEmployee = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    addEmployee(dispatch, data);
+    dispatch(addEmployee(data))
     reset();
   };
 

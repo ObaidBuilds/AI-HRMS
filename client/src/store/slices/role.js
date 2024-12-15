@@ -1,85 +1,79 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getRoles, addRole, editRole, deleteRole } from "../../services/role";
 
 const initialState = {
   roles: [],
   loading: false,
+  error: null,
 };
 
 const roleSlice = createSlice({
   name: "role",
   initialState,
-  reducers: {
-    // Fetch Roles
-    startFetchRoles(state) {
-      state.loading = true;
-    },
-    setRoles(state, action) {
-      state.roles = action.payload;
-      state.loading = false;
-    },
-    failFetchingRoles(state) {
-      state.loading = false;
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      // Handling the getRoles action
+      .addCase(getRoles.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getRoles.fulfilled, (state, action) => {
+        state.roles = action.payload;
+        state.loading = false;
+      })
+      .addCase(getRoles.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to fetch roles";
+      })
 
-    // Add Role
-    startAddRole(state) {
-      state.loading = true;
-    },
-    addRoleSuccess(state, action) {
-      state.roles.push(action.payload);
-      state.loading = false;
-    },
-    addRoleFail(state) {
-      state.loading = false;
-    },
+      // Handling the addRole action
+      .addCase(addRole.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addRole.fulfilled, (state, action) => {
+        state.roles.push(action.payload);
+        state.loading = false;
+      })
+      .addCase(addRole.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to add role";
+      })
 
-    // Edit Role
-    startEditRole(state) {
-      state.loading = true;
-    },
-    editRoleSuccess(state, action) {
-      const index = state.roles.findIndex(
-        (role) => role.id === action.payload.id
-      );
-      if (index !== -1) {
-        state.roles[index] = {
-          ...state.roles[index],
-          ...action.payload,
-        };
-      }
-      state.loading = false;
-    },
-    editRoleFail(state) {
-      state.loading = false;
-    },
+      // Handling the editRole action
+      .addCase(editRole.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(editRole.fulfilled, (state, action) => {
+        const index = state.roles.findIndex(
+          (role) => role.id === action.payload.id
+        );
+        if (index !== -1) {
+          state.roles[index] = { ...state.roles[index], ...action.payload };
+        }
+        state.loading = false;
+      })
+      .addCase(editRole.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to edit role";
+      })
 
-    // Delete Role
-    startDeleteRole(state) {
-      state.loading = true;
-    },
-    deleteRoleSuccess(state, action) {
-      state.roles = state.roles.filter((role) => role.id !== action.payload.id);
-      state.loading = false;
-    },
-    deleteRoleFail(state) {
-      state.loading = false;
-    },
+      // Handling the deleteRole action
+      .addCase(deleteRole.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteRole.fulfilled, (state, action) => {
+        state.roles = state.roles.filter((role) => role.id !== action.payload); // Remove deleted role from state
+        state.loading = false;
+      })
+      .addCase(deleteRole.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to delete role";
+      });
   },
 });
-
-export const {
-  startFetchRoles,
-  setRoles,
-  failFetchingRoles,
-  startAddRole,
-  addRoleSuccess,
-  addRoleFail,
-  startEditRole,
-  editRoleSuccess,
-  editRoleFail,
-  startDeleteRole,
-  deleteRoleSuccess,
-  deleteRoleFail,
-} = roleSlice.actions;
 
 export default roleSlice.reducer;

@@ -9,7 +9,6 @@ const Dashboard = () => {
 
   const insight = useSelector((state) => state.insight.insights);
 
-
   const infoCardData = [
     {
       id: 1,

@@ -11,8 +11,16 @@ const Sidebar = () => {
   const [openSubMenuIndex, setOpenSubMenuIndex] = useState(null);
   const admin = useSelector((state) => state.authentication.admin);
 
-  const toggleSubMenu = (index) => {
+  const toggleSubMenu = (index) =>
     setOpenSubMenuIndex(openSubMenuIndex === index ? null : index);
+
+  const handleLogout = () => {
+    dispatch(logoutAdmin())
+      .unwrap()
+      .then(() => navigate("/"))
+      .catch((error) => {
+        console.error("Logout failed:", error);
+      });
   };
 
   useEffect(() => {
@@ -115,7 +123,7 @@ const Sidebar = () => {
             </li>
           ))}
           <button
-            onClick={() => logoutAdmin(dispatch, navigate)}
+            onClick={handleLogout}
             className="flex items-center border-b py-[6px] border-[#4d4d4d] hover:text-gray-300"
           >
             <i className="fas fa-sign-out-alt mr-3 text-sm text-gray-300"></i>

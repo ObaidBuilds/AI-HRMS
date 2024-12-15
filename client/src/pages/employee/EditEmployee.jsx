@@ -14,13 +14,15 @@ const EditEmployee = () => {
   const navigate = useNavigate();
 
   const roles = useSelector((state) => state.role.roles);
-  const { employee, loading } = useSelector((state) => state.employee);
   const departments = useSelector((state) => state.department.departments);
+  const { loading, success, employee } = useSelector((state) => state.employee);
 
-  const { control, handleSubmit, setValue, reset } = useForm();
+  const { control, handleSubmit, setValue } = useForm();
 
   useEffect(() => {
-    if (employeeID) getEmployeeById(dispatch, employeeID);
+    if (employeeID) {
+      dispatch(getEmployeeById(employeeID));
+    }
   }, [employeeID, dispatch]);
 
   useEffect(() => {
@@ -64,12 +66,11 @@ const EditEmployee = () => {
   }, [employee, setValue]);
 
   const onSubmit = (data) => {
-    editEmployee(dispatch, navigate, employeeID, data);
+    dispatch(editEmployee({ id: employeeID, employee: data }));
+    navigate("/hrms/employees");
   };
 
-  if (!employee) {
-    return <Error />;
-  }
+  if (!employee) return <Error />;
 
   return (
     <section>

@@ -16,9 +16,9 @@ const RootApp = () => {
     (state) => state.authentication.isAuthenticated
   );
   useEffect(() => {
-    getDepartments(dispatch);
-    getInsights(dispatch);
-    if (isAuthenticated) getRoles(dispatch);
+    dispatch(getDepartments());
+    dispatch(getInsights());
+    if (isAuthenticated) dispatch(getRoles());
   }, [dispatch, isAuthenticated]);
 
   return (

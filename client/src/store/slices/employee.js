@@ -1,93 +1,104 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {
+  getAllEmployees,
+  getEmployeeById,
+  addEmployee,
+  editEmployee,
+  deleteEmployee,
+} from "../../services/employee";
 
 const initialState = {
   employees: [],
   pagination: null,
   employee: null,
   loading: false,
+  error: null,
 };
 
 const employeeSlice = createSlice({
   name: "employee",
   initialState,
-  reducers: {
-    // Fetch all employees
-    startFetchingEmployees: (state) => {
-      state.loading = true;
-    },
-    setEmployees: (state, action) => {
-      state.loading = false;
-      state.employees = action.payload.employees;
-      state.pagination = action.payload.pagination;
-    },
-    failFetchingEmployees: (state) => {
-      state.loading = false;
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      // Handle getAllEmployees async action
+      .addCase(getAllEmployees.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getAllEmployees.fulfilled, (state, action) => {
+        state.loading = false;
+        state.employees = action.payload.employees;
+        state.pagination = action.payload.pagination;
+      })
+      .addCase(getAllEmployees.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
 
-    // Fetch a single employee by ID
-    startFetchingEmployeeById: (state) => {
-      state.loading = true;
-    },
-    setEmployeeById: (state, action) => {
-      state.loading = false;
-      state.employee = action.payload;
-    },
-    failFetchingEmployeeById: (state) => {
-      state.loading = false;
-    },
+      // Handle getEmployeeById async action
+      .addCase(getEmployeeById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getEmployeeById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.employee = action.payload;
+      })
+      .addCase(getEmployeeById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
 
-    // Add Employee
-    startAddingEmployee: (state) => {
-      state.loading = true;
-    },
-    addEmployeeSuccess: (state, action) => {
-      state.loading = false;
-      state.employees.push(action.payload);
-    },
-    failAddingEmployee: (state) => {
-      state.loading = false;
-    },
+      // Handle addEmployee async action
+      .addCase(addEmployee.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addEmployee.fulfilled, (state, action) => {
+        state.loading = false;
+        state.employees.push(action.payload);
+      })
+      .addCase(addEmployee.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
 
-    // Edit Employee
-    startEditingEmployee: (state) => {
-      state.loading = true;
-    },
-    editEmployeeSuccess: (state, action) => {
-      state.loading = false;
-    },
-    failEditingEmployee: (state) => {
-      state.loading = false;
-    },
+      // Handle editEmployee async action
+      .addCase(editEmployee.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(editEmployee.fulfilled, (state, action) => {
+        state.loading = false;
+        const index = state.employees.findIndex(
+          (employee) => employee._id === action.payload._id
+        );
+        if (index !== -1) {
+          state.employees[index] = action.payload;
+        }
+      })
+      .addCase(editEmployee.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
 
-    // Delete Employee
-    startDeletingEmployee: (state) => {
-      state.loading = true;
-    },
-    deleteEmployeeSuccess: (state, action) => {
-      state.loading = false;
-    },    
-    failDeletingEmployee: (state) => {
-      state.loading = false;
-    },
+      // Handle deleteEmployee async action
+      .addCase(deleteEmployee.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteEmployee.fulfilled, (state, action) => {
+        state.loading = false;
+        state.employees = state.employees.filter(
+          (employee) => employee._id !== action.payload
+        );
+      })
+      .addCase(deleteEmployee.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
-
-export const {
-  startFetchingEmployees,
-  setEmployees,
-  failFetchingEmployees,
-  startFetchingEmployeeById,
-  setEmployeeById,
-  failFetchingEmployeeById,
-  startAddingEmployee,
-  addEmployeeSuccess,
-  failAddingEmployee,
-  startEditingEmployee,
-  editEmployeeSuccess,
-  failEditingEmployee,
-  startDeletingEmployee,
-  deleteEmployeeSuccess,
-  failDeletingEmployee,
-} = employeeSlice.actions;
 
 export default employeeSlice.reducer;

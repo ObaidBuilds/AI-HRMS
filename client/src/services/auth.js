@@ -1,42 +1,42 @@
-import toast from "react-hot-toast";
-import {
-  loginError,
-  loginStart,
-  loginSuccess,
-  logout,
-} from "../store/slices/auth";
-import { configuration, URL } from "../utils";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import toast from "react-hot-toast";
+import { URL, configuration } from "../utils";
 
 // Admin login
-const loginAdmin = async (dispatch, navigate, credentials) => {
-  dispatch(loginStart());
-
-  try {
-    const { data } = await axios.post(
-      `${URL}/auth/login`,
-      credentials,
-      configuration
-    );
-    dispatch(loginSuccess(data.admin));
-    toast.success(data.message);
-    navigate("/hrms");
-  } catch (error) {
-    dispatch(loginError());
-    toast.error(error.response?.data.message || "Client : " + error.message);
+export const loginAdmin = createAsyncThunk(
+  "auth/loginAdmin",
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(
+        `${URL}/auth/login`,
+        credentials,
+        configuration
+      );
+      toast.success(data.message);
+      return data.admin;
+    } catch (error) {
+      toast.error(error.response?.data.message || "Client : " + error.message);
+      return rejectWithValue(
+        error.response?.data.message || "Client : " + error.message
+      );
+    }
   }
-};
+);
 
 // Admin logout
-const logoutAdmin = async (dispatch, navigate) => {
-  try {
-    const { data } = await axios.get(`${URL}/auth/logout`, configuration);
-    dispatch(logout());
-    toast.success(data.message);
-    if (data.success) navigate("/");
-  } catch (error) {
-    toast.error(error.response?.data.message || "Client : " + error.message);
+export const logoutAdmin = createAsyncThunk(
+  "auth/logoutAdmin",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`${URL}/auth/logout`, configuration);
+      toast.success(data.message);
+      return data.success;
+    } catch (error) {
+      toast.error(error.response?.data.message || "Client : " + error.message);
+      return rejectWithValue(
+        error.response?.data.message || "Client : " + error.message
+      );
+    }
   }
-};
-
-export { loginAdmin, logoutAdmin };
+);
