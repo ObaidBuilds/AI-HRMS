@@ -120,7 +120,7 @@ function Employee() {
             </button>
           )}
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2">
             {filters.status && (
               <button className="flex flex-grow justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
                 {filters.status}

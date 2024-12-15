@@ -17,8 +17,11 @@ const RootApp = () => {
   );
   useEffect(() => {
     dispatch(getDepartments());
-    dispatch(getInsights());
-    if (isAuthenticated) dispatch(getRoles());
+
+    if (isAuthenticated) {
+      dispatch(getRoles());
+      dispatch(getInsights());
+    }
   }, [dispatch, isAuthenticated]);
 
   return (

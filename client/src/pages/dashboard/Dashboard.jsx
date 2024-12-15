@@ -4,35 +4,39 @@ import LineChart from "../../components/shared/LineChart";
 import PieChart from "../../components/shared/Pie";
 import BarGraph from "../../components/shared/BarGraph";
 import { useSelector } from "react-redux";
+import Loader from "../../components/shared/Loader";
+import Error from "../../components/shared/Error";
 
 const Dashboard = () => {
-
-  const insight = useSelector((state) => state.insight.insights);
+  const { insights, loading, error } = useSelector((state) => state.insight);
 
   const infoCardData = [
     {
       id: 1,
       title: "Total Employees",
-      stats: insight?.totalEmployees || 0,
+      stats: insights?.totalEmployees || 0,
       range: 70,
     },
     {
       id: 2,
       title: "Total Department",
-      stats: insight?.totalDepartments || 0,
+      stats: insights?.totalDepartments || 0,
       range: 30,
     },
     {
       id: 3,
       title: "Total Position",
-      stats: insight?.totalRoles || 0,
+      stats: insights?.totalRoles || 0,
       range: 50,
     },
   ];
 
+  if (error) return <Error />;
 
   return (
     <section>
+      {loading && <Loader />}
+
       <div className="w-full flex flex-wrap justify-between gap-2 lg:gap-0">
         {infoCardData.map((item) => (
           <InfoCard key={item.id} detail={item} />
