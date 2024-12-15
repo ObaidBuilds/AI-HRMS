@@ -19,6 +19,10 @@ const EditEmployee = () => {
 
   const { control, handleSubmit, setValue } = useForm();
 
+  const onSubmit = (data) => {
+    dispatch(editEmployee({ id: employeeID, employee: data }));
+  };
+
   useEffect(() => {
     if (employeeID) {
       dispatch(getEmployeeById(employeeID));
@@ -65,10 +69,9 @@ const EditEmployee = () => {
     }
   }, [employee, setValue]);
 
-  const onSubmit = (data) => {
-    dispatch(editEmployee({ id: employeeID, employee: data }));
-    navigate("/hrms/employees");
-  };
+  useEffect(() => {
+    if (success) navigate("/hrms/employees");
+  }, [success]);
 
   if (!employee) return <Error />;
 
