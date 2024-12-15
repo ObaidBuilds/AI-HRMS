@@ -25,6 +25,8 @@ const adminLogin = catchErrors(async (req, res) => {
   return res
     .cookie("token", token, {
       httpOnly: true,
+      secure: true,
+      sameSite: 'Strict'
     })
     .status(201)
     .json({

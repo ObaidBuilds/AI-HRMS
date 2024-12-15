@@ -35,7 +35,7 @@ app.use(
     },
     methods: "GET, POST, PUT, DELETE, PATCH, OPTIONS",
     credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type"],
     exposedHeaders: ["Set-Cookie"],
   })
 );
