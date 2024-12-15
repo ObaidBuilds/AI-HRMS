@@ -11,10 +11,8 @@ const adminLogin = catchErrors(async (req, res) => {
 
   const employee = await Employee.findOne({ employeeId });
 
-  if (!employee || !employee.admin) throw new Error("Invalid credentials");
-
-  if (!(employee.department == department))
-    throw new Error("Invalid department");
+  if (!employee || !employee.admin || !(employee.department == department))
+    throw new Error("Invalid credentials");
 
   const comparePassword = await bcrypt.compare(password, employee.password);
 
@@ -26,7 +24,7 @@ const adminLogin = catchErrors(async (req, res) => {
     .cookie("token", token, {
       httpOnly: true,
       secure: true,
-      sameSite: 'Strict'
+      sameSite: "Strict",
     })
     .status(201)
     .json({
