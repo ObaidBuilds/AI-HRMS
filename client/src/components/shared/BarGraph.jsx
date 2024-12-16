@@ -22,18 +22,24 @@ ChartJS.register(
 );
 
 const BarGraph = () => {
-  const departments = useSelector((state) => state.department.departments).map(
+  const departments = useSelector((state) => state.department.departments)?.map(
     (department) => {
       return department.name;
     }
   );
 
+  const departmentAttendancePercentage = useSelector(
+    (state) => state.insight.insights.departmentAttandancePercent
+  ).map((department) => {
+    return parseInt(department.attendancePercentage)
+  });
+
   const data = {
-    labels: departments || ["HR", "Sales", "IT", "Finance", "Operations"],
+    labels: departments || [],
     datasets: [
       {
         label: "Attendance Rate (%)",
-        data: [95, 48, 92, 65, 80],
+        data: departmentAttendancePercentage|| [],
         backgroundColor: [
           "rgba(54, 162, 235, 0.6)",
           "rgba(255, 99, 132, 0.6)",

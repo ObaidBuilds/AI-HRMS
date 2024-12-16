@@ -13,7 +13,7 @@ export const getAttendanceList = createAsyncThunk(
       }).toString();
 
       const { data } = await axios.get(
-        `${URL}/attendance/list?${queryParams}`,
+        `${URL}/attendance/?${queryParams}`,
         configuration
       );
       return data.employees;
@@ -32,12 +32,12 @@ export const markAttendance = createAsyncThunk(
     try {
       const { data } = await axios.post(
         `${URL}/attendance/mark`,
-        {attendanceRecords},
+        { attendanceRecords },
         configuration
       );
       toast.success(data.message);
     } catch (error) {
-        toast.error(error.response?.data.message || "An error occurred.");
+      toast.error(error.response?.data.message || "An error occurred.");
       return rejectWithValue(
         error.response?.data.message || "Client : " + error.message
       );

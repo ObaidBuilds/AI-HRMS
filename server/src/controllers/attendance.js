@@ -1,4 +1,6 @@
+import mongoose from "mongoose";
 import Attendance from "../models/attendance.js";
+import Department from "../models/department.js";
 import Employee from "../models/employee.js";
 import { catchErrors } from "../utils/index.js";
 
@@ -37,11 +39,11 @@ const markAttendance = catchErrors(async (req, res) => {
 });
 
 const getEmployeeAttendance = catchErrors(async (req, res) => {
-  const { employeeId } = req.params;
+  const { employeeID } = req.params;
 
-  if (!employeeId) throw new Error("Please provide employee id ");
+  if (!employeeID) throw new Error("Please provide employee id ");
 
-  const attendanceRecord = await Attendance.find({ employee: employeeId });
+  const attendanceRecord = await Attendance.find({ employee: employeeID });
 
   if (!attendanceRecord || attendanceRecord.length === 0)
     throw new Error("No attendance records found");
@@ -97,9 +99,70 @@ const getEmployeesAttendancePercentage = catchErrors(async (req, res) => {
   });
 });
 
+const getDepartmentAttendancePercentage = async () => {
+  try {
+    const departments = await Department.find();
+    if (departments.length === 0) {
+      throw new Error("No departments found.");
+    }
+
+    const departmentAttendance = [];
+
+    for (const department of departments) {
+      const departmentId = department._id;
+
+      const employees = await Employee.find({ department: departmentId });
+
+      if (employees.length === 0) {
+        departmentAttendance.push({
+          department: department.name,
+          totalEmployees: 0,
+          presentCount: 0,
+          attendancePercentage: "N/A",
+        });
+        continue;
+      }
+
+      const attendanceRecords = await Attendance.aggregate([
+        {
+          $match: {
+            employee: { $in: employees.map((e) => e._id) },
+            status: "Present",
+          },
+        },
+        {
+          $group: {
+            _id: "$employee", 
+            count: { $sum: 1 },
+          },
+        },
+      ]);
+
+      const presentCount = attendanceRecords.length;
+      const totalEmployees = employees.length;
+      const attendancePercentage = (
+        (presentCount / totalEmployees) *
+        100
+      ).toFixed(2);
+
+      departmentAttendance.push({
+        department: department.name,
+        totalEmployees,
+        presentCount,
+        attendancePercentage: `${attendancePercentage}%`,
+      });
+    }
+
+    return departmentAttendance
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
 export {
   getAttendanceList,
   markAttendance,
   getEmployeeAttendance,
   getEmployeesAttendancePercentage,
+  getDepartmentAttendancePercentage,
 };
