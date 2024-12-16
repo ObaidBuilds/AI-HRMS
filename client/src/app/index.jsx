@@ -1,8 +1,12 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import Footer from "../components/ui/Footer";
 import Sidebar from "../components/ui/Sidebar";
 import Loader from "../components/shared/Loader";
 import { Route, Routes } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getRoles } from "../services/role";
+import { getInsights } from "../services/insights";
+import NotFound from "../components/shared/NotFound";
 
 // Lazy loading the components
 const Dashboard = React.lazy(() => import("../pages/dashboard/Dashboard"));
@@ -12,6 +16,14 @@ const EditEmployee = React.lazy(() => import("../pages/employee/EditEmployee"));
 const ViewEmployee = React.lazy(() => import("../pages/employee/ViewEmployee"));
 
 const App = () => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getRoles());
+    dispatch(getInsights());
+  }, [dispatch]);
+
   return (
     <div>
       <div className="min-h-screen max-h-auto bg-gray-900 text-white flex relative">
@@ -30,6 +42,7 @@ const App = () => {
                 path="/edit-employee/:employeeID"
                 element={<EditEmployee />}
               />
+              <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />
           </main>

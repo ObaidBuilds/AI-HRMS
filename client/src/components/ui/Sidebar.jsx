@@ -16,11 +16,7 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     dispatch(logoutAdmin())
-      .unwrap()
-      .then(() => navigate("/"))
-      .catch((error) => {
-        console.error("Logout failed:", error);
-      });
+  
   };
 
   useEffect(() => {

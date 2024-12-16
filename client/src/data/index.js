@@ -2,7 +2,7 @@ const sidebarLinks = [
   {
     name: "Dashboard",
     iconClass: "fas fa-tachometer-alt",
-    link: "/hrms",
+    link: "/",
     childrens: [],
   },
   {
@@ -11,18 +11,18 @@ const sidebarLinks = [
     childrens: [
       {
         name: "Employees Details",
-        link: "/hrms/employees",
+        link: "/employees",
       },
       {
         name: "Add Employee",
-        link: "/hrms/add-employee",
+        link: "/add-employee",
       },
     ],
   },
   {
     name: "Attendance Management",
     iconClass: "fas fa-calendar-check",
-    link: "/hrms/attendance-management",
+    link: "/attendance-management",
   },
   {
     name: "Dept & Role Management",
@@ -32,7 +32,7 @@ const sidebarLinks = [
   {
     name: "Payroll Management",
     iconClass: "fas fa-wallet",
-    link: "/hrms/payroll-management",
+    link: "/payroll-management",
     childrens: [],
   },
   {
@@ -43,19 +43,19 @@ const sidebarLinks = [
   {
     name: "Complaint Management",
     iconClass: "fas fa-exclamation-circle",
-    link: "/hrms/complaint-management",
+    link: "/complaint-management",
     childrens: [],
   },
   {
     name: "Feedback Management",
     iconClass: "fas fa-brain",
-    link: "/hrms/ai-sentiment-analysis",
+    link: "/ai-sentiment-analysis",
     childrens: [],
   },
   {
     name: "Reports & Analytics",
     iconClass: "fas fa-chart-bar",
-    link: "/hrms/report",
+    link: "/report",
     childrens: [],
   },
 ];

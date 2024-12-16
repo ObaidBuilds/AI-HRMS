@@ -22,7 +22,7 @@ const EditEmployee = () => {
   const onSubmit = (data) => {
     dispatch(editEmployee({ id: employeeID, employee: data }))
       .unwrap()
-      .then(() => navigate("/hrms/employees"))
+      .then(() => navigate("/employees"))
       .catch((error) => {
         console.error("Error updating employee:", error);
       });

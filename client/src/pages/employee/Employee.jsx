@@ -77,6 +77,7 @@ function Employee() {
     }
   }, [toggleFilterBar]);
 
+  
   const clearFilter = (filterKey) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
@@ -203,7 +204,7 @@ function Employee() {
                       {employee.phoneNumber}
                     </td>
                     <td className="py-3 px-4 border-b border-gray-500 flex items-center space-x-2">
-                      <Link to={`/hrms/employee/${employee._id}`}>
+                      <Link to={`/employee/${employee._id}`}>
                         <button
                           className="text-blue-500 hover:text-blue-400"
                           title="View"
@@ -212,7 +213,7 @@ function Employee() {
                         </button>
                       </Link>
 
-                      <Link to={`/hrms/edit-employee/${employee._id}`}>
+                      <Link to={`/edit-employee/${employee._id}`}>
                         <button
                           className="text-green-500 hover:text-green-400"
                           title="Edit"

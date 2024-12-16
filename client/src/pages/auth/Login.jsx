@@ -35,12 +35,7 @@ const Login = () => {
   const handleShowPass = () => setActive(!active);
 
   const onSubmit = (credentials) => {
-    dispatch(loginAdmin(credentials))
-      .unwrap()
-      .then(() => navigate("/hrms"))
-      .catch((error) => {
-        console.error("Login failed:", error);
-      });
+    dispatch(loginAdmin(credentials));
   };
 
   return (
