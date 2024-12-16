@@ -13,6 +13,7 @@ export const loginAdmin = createAsyncThunk(
         credentials,
         configuration
       );
+      sessionStorage.setItem("session", data.token);
       toast.success(data.message);
       return data.admin;
     } catch (error) {

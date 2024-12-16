@@ -1,7 +1,8 @@
 import axios from "axios";
-import { configuration, URL } from "../utils";
+import { URL, configuration } from "../utils";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
+
 
 // Fetch all employees
 export const getAllEmployees = createAsyncThunk(
@@ -17,9 +18,10 @@ export const getAllEmployees = createAsyncThunk(
         status: status || "",
       }).toString();
 
-      const { data } = await axios.get(`${URL}/employees?${queryParams}`, {
-        withCredentials: true,
-      });
+      const { data } = await axios.get(
+        `${URL}/employees?${queryParams}`,
+        configuration
+      );
 
       return data;
     } catch (error) {
@@ -35,9 +37,7 @@ export const getEmployeeById = createAsyncThunk(
   "employee/getEmployeeById",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${URL}/employees/${id}`, {
-        withCredentials: true,
-      });
+      const { data } = await axios.get(`${URL}/employees/${id}`, configuration);
       return data.employee;
     } catch (error) {
       return rejectWithValue(

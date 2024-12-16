@@ -2,12 +2,25 @@ import * as XLSX from "xlsx";
 
 const URL = import.meta.env.VITE_URL;
 
+const useGetToken = () => {
+  try {
+    const token = sessionStorage.getItem("session");
+    if (!token) return null;
+    return token;
+  } catch (error) {
+    console.log(error.message);
+    return null;
+  }
+};
+
+const token = useGetToken()
 const configuration = {
   headers: {
     "Content-Type": "application/json",
+    Authorization: token ? `Bearer ${token}` : "",
   },
-  withCredentials: true,
 };
+
 
 const formatDate = (date) => {
   if (!date) return "";
@@ -28,4 +41,4 @@ function downloadXls(data) {
   XLSX.writeFile(wb, "employees.xlsx");
 }
 
-export { configuration, URL, formatDate, downloadXls };
+export { configuration, useGetToken, URL, formatDate, downloadXls };

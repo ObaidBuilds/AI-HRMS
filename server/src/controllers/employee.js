@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Employee from "../models/employee.js";
 import { catchErrors } from "../utils/index.js";
 import bcrypt from "bcrypt";
@@ -27,10 +28,7 @@ const createEmployee = catchErrors(async (req, res) => {
     admin,
   } = req.body;
 
-  console.log(
-    "Hello",
-    martialStatus,
-  );
+  console.log("Hello", martialStatus);
 
   if (
     !employeeId ||
@@ -90,33 +88,35 @@ const getAllEmployees = catchErrors(async (req, res) => {
 
   const query = {};
 
-  if (role) query.role = role;
   if (status) query.status = status;
-  if (department) query.department = department;
   if (name) query.name = { $regex: name, $options: "i" };
+  if (role && mongoose.Types.ObjectId.isValid(role)) query.role = role;
+  if (department && mongoose.Types.ObjectId.isValid(department))
+    query.department = department;
 
-  const skip = (page - 1) * limit;
+  const pageNumber = Math.max(parseInt(page), 1);
+  const limitNumber = Math.max(parseInt(limit), 1);
+  const skip = (pageNumber - 1) * limitNumber;
 
   const employees = await Employee.find(query)
     .populate("department", "name")
     .populate("role", "name")
     .select("-password")
     .skip(skip)
-    .limit(parseInt(limit));
+    .limit(limitNumber);
 
   const totalEmployees = await Employee.countDocuments(query);
-
-  const totalPages = Math.ceil(totalEmployees / limit);
+  const totalPages = Math.ceil(totalEmployees / limitNumber);
 
   return res.status(200).json({
     success: true,
     message: "Employees fetched successfully",
     employees,
     pagination: {
-      currentPage: parseInt(page),
+      currentPage: pageNumber,
       totalPages,
       totalEmployees,
-      limit: parseInt(limit),
+      limit: limitNumber,
     },
   });
 });

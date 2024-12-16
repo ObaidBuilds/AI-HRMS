@@ -13,7 +13,7 @@ import { getInsights } from "./services/insights";
 const RootApp = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(
-    (state) => state.authentication.isAuthenticated
+    (state) => state.authentication.admin
   );
   useEffect(() => {
     dispatch(getDepartments());

@@ -15,12 +15,17 @@ const EditEmployee = () => {
 
   const roles = useSelector((state) => state.role.roles);
   const departments = useSelector((state) => state.department.departments);
-  const { loading, success, employee } = useSelector((state) => state.employee);
+  const { loading, employee } = useSelector((state) => state.employee);
 
   const { control, handleSubmit, setValue } = useForm();
 
   const onSubmit = (data) => {
-    dispatch(editEmployee({ id: employeeID, employee: data }));
+    dispatch(editEmployee({ id: employeeID, employee: data }))
+      .unwrap()
+      .then(() => navigate("/hrms/employees"))
+      .catch((error) => {
+        console.error("Error updating employee:", error);
+      });
   };
 
   useEffect(() => {
@@ -68,10 +73,6 @@ const EditEmployee = () => {
       setValue("admin", employee.admin || false);
     }
   }, [employee, setValue]);
-
-  useEffect(() => {
-    if (success) navigate("/hrms/employees");
-  }, [success]);
 
   if (!employee) return <Error />;
 

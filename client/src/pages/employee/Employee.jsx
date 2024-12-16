@@ -109,7 +109,7 @@ function Employee() {
         )}
 
         {/* Three-dot icon for dropdown aligned to the right */}
-        <div className="relative flex items-center justify-between sm:px-3 mb-3">
+        <div className="relative flex items-center justify-between py-1 sm:px-3 mb-3">
           {!(filters.status || filters.department || filters.role) && (
             <button
               onClick={() => setToggleFilterBar(true)}

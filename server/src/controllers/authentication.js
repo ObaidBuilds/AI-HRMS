@@ -20,36 +20,23 @@ const adminLogin = catchErrors(async (req, res) => {
 
   const token = jwt.sign({ employeeId: employee._id }, process.env.JWTSECRET);
 
-  return res
-    .cookie("token", token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
-      path: "/", 
-    })
-    .status(201)
-    .json({
-      success: true,
-      message: "Logged in successfuly",
-      admin: {
-        name: employee.name,
-        email: employee.email,
-        profilePicture: employee.profilePicture,
-      },
-    });
+  return res.status(201).json({
+    success: true,
+    message: "Logged in successfuly",
+    token,
+    admin: {
+      name: employee.name,
+      email: employee.email,
+      profilePicture: employee.profilePicture,
+    },
+  });
 });
 
 const adminLogout = catchErrors(async (req, res) => {
-  return res
-    .clearCookie("token", {
-      httpOnly: true,
-      sameSite: "strict",
-    })
-    .status(200)
-    .json({
-      success: true,
-      message: "Logged out successfully",
-    });
+  return res.status(200).json({
+    success: true,
+    message: "Logged out successfully",
+  });
 });
 
 export { adminLogin, adminLogout };

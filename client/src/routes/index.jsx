@@ -1,13 +1,13 @@
 import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Navigate, Outlet } from "react-router-dom";
+import { useGetToken } from "../utils";
 
 const ProtectedRoute = () => {
-  const isAuthenticated = useSelector(
-    (state) => state.authentication.isAuthenticated
-  );
+  const admin = useSelector((state) => state.authentication.admin);
+  const session = useGetToken();
 
-  return isAuthenticated ? <Outlet /> : <Navigate to="/" />;
+  return session && admin ? <Outlet /> : <Navigate to="/" />;
 };
 
 export default ProtectedRoute;

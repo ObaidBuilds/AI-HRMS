@@ -21,7 +21,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const departments = useSelector((state) => state.department.departments);
   const loading = useSelector((state) => state.authentication.loading);
-console.log(loading)
+
   const [active, setActive] = useState(false);
 
   const {

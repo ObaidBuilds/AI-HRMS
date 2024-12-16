@@ -8,7 +8,7 @@ export const getDepartments = createAsyncThunk(
   "department/getDepartments",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${URL}/departments`, configuration);
+      const { data } = await axios.get(`${URL}/departments`);
       return data.department;
     } catch (error) {
       console.error(

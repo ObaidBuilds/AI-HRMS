@@ -47,7 +47,11 @@ const Sidebar = () => {
           alt="logo"
         />
         <div className="w-[35px] h-[35px] border-[2px] border-gray-700 rounded-full overflow-hidden cursor-pointer">
-          <img className="w-full" src={admin.profilePicture} alt={admin.name} />
+          <img
+            className="w-full"
+            src={admin.profilePicture || "https://via.placeholder.com/40"}
+            alt={admin?.name}
+          />
         </div>
       </nav>
 
@@ -135,13 +139,13 @@ const Sidebar = () => {
               <div className="w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer">
                 <img
                   className="w-full"
-                  src={admin.profilePicture}
+                  src={admin.profilePicture || "https://via.placeholder.com/40"}
                   alt="obaid"
                 />
               </div>
               <div>
-                <p className="text-sm">{admin.name}</p>
-                <p className="text-xs">{admin.email}</p>
+                <p className="text-sm">{admin?.name}</p>
+                <p className="text-xs">{admin?.email}</p>
               </div>
             </div>
           </div>
