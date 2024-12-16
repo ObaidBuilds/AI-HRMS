@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useGetToken } from "./utils";
 import NotFound from "./components/shared/NotFound";
 import { getInsights } from "./services/insights";
+import { getAllEmployees } from "./services/employee";
+import { getRoles } from "./services/role";
 
 function HrmsForMetroCashAndCarry() {
   const isAuthenticated = useSelector((state) => state.authentication.admin);
@@ -27,6 +29,7 @@ function AppRouter() {
 }
 
 function AuthRouter() {
+
   return (
     <Routes>
       <Route path="/" element={<Login />} />
@@ -41,6 +44,8 @@ const RootApp = () => {
   useEffect(() => {
     dispatch(getDepartments());
     dispatch(getInsights());
+    dispatch(getRoles());
+    dispatch(getAllEmployees());
   }, [dispatch]);
 
   return (

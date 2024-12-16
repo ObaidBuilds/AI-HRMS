@@ -3,10 +3,8 @@ import Footer from "../components/ui/Footer";
 import Sidebar from "../components/ui/Sidebar";
 import Loader from "../components/shared/Loader";
 import { Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getRoles } from "../services/role";
 import NotFound from "../components/shared/NotFound";
-import { getAllEmployees } from "../services/employee";
+
 
 // Lazy loading the components
 const Dashboard = React.lazy(() => import("../pages/dashboard/Dashboard"));
@@ -17,12 +15,7 @@ const ViewEmployee = React.lazy(() => import("../pages/employee/ViewEmployee"));
 const Attendance = React.lazy(() => import("../pages/attendance/Attendance"));
 
 const App = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getRoles());
-    dispatch(getAllEmployees());
-  }, [dispatch]);
+ 
 
   return (
     <div>
