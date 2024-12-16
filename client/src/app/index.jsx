@@ -15,6 +15,7 @@ const Employee = React.lazy(() => import("../pages/employee/Employee"));
 const AddEmployee = React.lazy(() => import("../pages/employee/AddEmployee"));
 const EditEmployee = React.lazy(() => import("../pages/employee/EditEmployee"));
 const ViewEmployee = React.lazy(() => import("../pages/employee/ViewEmployee"));
+const Attendance = React.lazy(() => import("../pages/attendance/Attendance"));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const App = () => {
           >
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              {/* Employee Modules */}
               <Route path="/employees" element={<Employee />} />
               <Route path="/employee/:employeeID" element={<ViewEmployee />} />
               <Route path="/add-employee" element={<AddEmployee />} />
@@ -43,6 +45,10 @@ const App = () => {
                 path="/edit-employee/:employeeID"
                 element={<EditEmployee />}
               />
+              {/* Attendance Modules */}
+              <Route path="/mark-attendance" element={<Attendance />} />
+
+
               <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />

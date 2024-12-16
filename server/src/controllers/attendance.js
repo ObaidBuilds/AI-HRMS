@@ -1,5 +1,22 @@
 import Attendance from "../models/attendance.js";
+import Employee from "../models/employee.js";
 import { catchErrors } from "../utils/index.js";
+
+const getAttendanceList = catchErrors(async (req, res) => {
+  const { department } = req.query;
+
+  if (!department) throw new Error("Please provide department to get sheet");
+
+  const employees = await Employee.find({ department }).select(
+    "name employeeId"
+  );
+
+  return res.status(201).json({
+    success: true,
+    message: "Attendance list fetched successfully",
+    employees,
+  });
+});
 
 const markAttendance = catchErrors(async (req, res) => {
   const { attendanceRecords } = req.body;
@@ -80,8 +97,8 @@ const getEmployeesAttendancePercentage = catchErrors(async (req, res) => {
   });
 });
 
-
 export {
+  getAttendanceList,
   markAttendance,
   getEmployeeAttendance,
   getEmployeesAttendancePercentage,

@@ -22,7 +22,7 @@ const sidebarLinks = [
   {
     name: "Attendance Management",
     iconClass: "fas fa-calendar-check",
-    link: "/attendance-management",
+    link: "/mark-attendance",
   },
   {
     name: "Dept & Role Management",

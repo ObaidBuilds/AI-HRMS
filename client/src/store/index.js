@@ -1,16 +1,17 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage/session"; 
+import storage from "redux-persist/lib/storage/session";
 import authReducer from "./slices/auth";
 import roleReducer from "./slices/role";
 import employeeReducer from "./slices/employee";
 import departmentReducer from "./slices/department";
 import insightReducer from "./slices/inshights";
+import attendanceReducer from "./slices/attendance";
 
 const persistConfig = {
   key: "root",
-  storage, 
-  whitelist: ["authentication"], 
+  storage,
+  whitelist: ["authentication"],
 };
 
 const rootReducer = combineReducers({
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   authentication: authReducer,
   employee: employeeReducer,
   department: departmentReducer,
+  attendance: attendanceReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
