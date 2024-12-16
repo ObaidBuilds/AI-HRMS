@@ -41,7 +41,7 @@ function Employee() {
 
   useEffect(() => {
     dispatch(getAllEmployees({ currentPage, filters }));
-  }, [dispatch, currentPage, filters]);
+  }, [currentPage, filters]);
 
   const handleExportToExcel = () => {
     const data = employees.map((employee) => ({
@@ -70,14 +70,10 @@ function Employee() {
   };
 
   useEffect(() => {
-    if (toggleFilterBar) {
-      document.body.classList.add("no-scroll");
-    } else {
-      document.body.classList.remove("no-scroll");
-    }
+    if (toggleFilterBar) document.body.classList.add("no-scroll");
+    else document.body.classList.remove("no-scroll");
   }, [toggleFilterBar]);
 
-  
   const clearFilter = (filterKey) => {
     setFilters((prevFilters) => ({
       ...prevFilters,

@@ -1,13 +1,13 @@
 import axios from "axios";
-import { URL, configuration } from "../utils";
+import { URL, configuration, useGetToken } from "../utils";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
-
 
 // Fetch all employees
 export const getAllEmployees = createAsyncThunk(
   "employee/getAllEmployees",
   async ({ currentPage, filters }, { rejectWithValue }) => {
+    const token = useGetToken();
     const { department, role, status } = filters;
 
     try {
@@ -18,10 +18,11 @@ export const getAllEmployees = createAsyncThunk(
         status: status || "",
       }).toString();
 
-      const { data } = await axios.get(
-        `${URL}/employees?${queryParams}`,
-        configuration
-      );
+      const { data } = await axios.get(`${URL}/employees?${queryParams}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       return data;
     } catch (error) {

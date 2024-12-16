@@ -16,7 +16,11 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     dispatch(logoutAdmin())
-  
+    .unwrap()
+    .then(() => navigate("/"))
+    .catch((error) => {
+      console.error("Error Logging out:", error);
+    });
   };
 
   useEffect(() => {

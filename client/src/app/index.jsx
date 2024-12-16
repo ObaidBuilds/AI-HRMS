@@ -4,7 +4,8 @@ import Sidebar from "../components/ui/Sidebar";
 import Loader from "../components/shared/Loader";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "../components/shared/NotFound";
-
+import { getRoles } from "../services/role";
+import { useDispatch } from "react-redux";
 
 // Lazy loading the components
 const Dashboard = React.lazy(() => import("../pages/dashboard/Dashboard"));
@@ -15,7 +16,11 @@ const ViewEmployee = React.lazy(() => import("../pages/employee/ViewEmployee"));
 const Attendance = React.lazy(() => import("../pages/attendance/Attendance"));
 
 const App = () => {
- 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getRoles());
+  }, []);
 
   return (
     <div>
@@ -38,7 +43,6 @@ const App = () => {
               />
               {/* Attendance Modules */}
               <Route path="/mark-attendance" element={<Attendance />} />
-
 
               <Route path="*" element={<NotFound />} />
             </Routes>
