@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { getRoles } from "../services/role";
 import { getInsights } from "../services/insights";
 import NotFound from "../components/shared/NotFound";
+import { getAllEmployees } from "../services/employee";
 
 // Lazy loading the components
 const Dashboard = React.lazy(() => import("../pages/dashboard/Dashboard"));
@@ -16,12 +17,12 @@ const EditEmployee = React.lazy(() => import("../pages/employee/EditEmployee"));
 const ViewEmployee = React.lazy(() => import("../pages/employee/ViewEmployee"));
 
 const App = () => {
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getRoles());
     dispatch(getInsights());
+    dispatch(getAllEmployees());
   }, [dispatch]);
 
   return (
