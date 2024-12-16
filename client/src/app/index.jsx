@@ -5,7 +5,6 @@ import Loader from "../components/shared/Loader";
 import { Route, Routes } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getRoles } from "../services/role";
-import { getInsights } from "../services/insights";
 import NotFound from "../components/shared/NotFound";
 import { getAllEmployees } from "../services/employee";
 
@@ -22,7 +21,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getRoles());
-    dispatch(getInsights());
     dispatch(getAllEmployees());
   }, [dispatch]);
 
