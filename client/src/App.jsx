@@ -9,20 +9,20 @@ import React, { Suspense, useEffect } from "react";
 import { getDepartments } from "./services/department";
 import { useDispatch, useSelector } from "react-redux";
 import { getInsights } from "./services/insights";
+import { useGetToken } from "./utils";
 
 const RootApp = () => {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector(
-    (state) => state.authentication.admin
-  );
+  const isAuthenticated = useSelector((state) => state.authentication.admin);
+  const token = useGetToken();
   useEffect(() => {
     dispatch(getDepartments());
 
-    if (isAuthenticated) {
+    if (token && isAuthenticated) {
       dispatch(getRoles());
       dispatch(getInsights());
     }
-  }, [dispatch, isAuthenticated]);
+  }, [dispatch, isAuthenticated, token]);
 
   return (
     <Suspense fallback={<Loader />}>

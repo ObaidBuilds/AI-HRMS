@@ -31,7 +31,7 @@ const Dashboard = () => {
     },
   ];
 
-  if (error) return <Error />;
+  if (!insights || error) return <Error />;
 
   return (
     <section>
