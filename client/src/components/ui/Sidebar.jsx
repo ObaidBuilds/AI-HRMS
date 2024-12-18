@@ -58,7 +58,7 @@ const Sidebar = () => {
       {/* Sidebar */}
       <aside
         id="overflow"
-        className={`fixed top-0 h-screen bg-navy transition-all duration-300 ease-in-out z-50 text-[0.82rem] overflow-y-auto ${
+        className={`fixed top-0 h-screen bg-[#1F2937] transition-all duration-300 ease-in-out z-50 text-[0.82rem] overflow-y-auto ${
           showSidebar ? "left-0" : "-left-full"
         } lg:left-0 w-full lg:w-[250px]`}
       >
@@ -82,7 +82,7 @@ const Sidebar = () => {
           {sidebarLinks.map((item, index) => (
             <li
               key={index}
-              className="cursor-pointer border-b border-[#4d4d4d] py-[6px]"
+              className="cursor-pointer border-b border-gray-700 py-[6px]"
             >
               {/* Main Link */}
               <div className="flex justify-between items-center">

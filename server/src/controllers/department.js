@@ -1,12 +1,15 @@
+import { myCache } from "../index.js";
 import Department from "../models/department.js";
 import { catchErrors } from "../utils/index.js";
 
 const createDepartment = catchErrors(async (req, res) => {
   const { name, head } = req.body;
 
-  if (!name || !head ) throw new Error("Please provide all fields");
+  if (!name || !head) throw new Error("Please provide all fields");
 
   const department = await Department.create({ name, head });
+
+  myCache.del("insights");
 
   return res.status(201).json({
     success: true,
@@ -16,18 +19,18 @@ const createDepartment = catchErrors(async (req, res) => {
 });
 
 const getAllDepartments = catchErrors(async (req, res) => {
-  const { name, head } = req.query;
+  const department = await Department.find().populate("head", "name");
 
-  const query = {};
-
-  if (name) query.name = { $regex: name, $options: "i" };
-  if (head) query.head = { $regex: head, $options: "i" };
-
-  const department = await Department.find(query).populate("head", "name");
+  if (!department) {
+    return res.status(404).json({
+      success: false,
+      message: "No departments found",
+    });
+  }
 
   return res.status(201).json({
     success: true,
-    message: "Departments fetched successfuly",
+    message: "Departments fetched successfully",
     department,
   });
 });
@@ -70,6 +73,8 @@ const deleteDepartment = catchErrors(async (req, res) => {
 
   await Department.findByIdAndDelete(departmentID);
 
+  myCache.del("insights");
+
   return res.status(201).json({
     success: true,
     message: "Department deleted successfuly",
@@ -87,6 +92,8 @@ const updateDepartment = catchErrors(async (req, res) => {
     { name, head },
     { new: true }
   );
+
+  myCache.del("insights");
 
   return res.status(201).json({
     success: true,

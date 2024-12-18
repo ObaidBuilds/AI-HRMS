@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import Employee from "../models/employee.js";
 import { catchErrors } from "../utils/index.js";
 import bcrypt from "bcrypt";
+import { myCache } from "../index.js";
 
 const createEmployee = catchErrors(async (req, res) => {
   const {
@@ -108,6 +109,7 @@ const getAllEmployees = catchErrors(async (req, res) => {
   const totalEmployees = await Employee.countDocuments(query);
   const totalPages = Math.ceil(totalEmployees / limitNumber);
 
+
   return res.status(200).json({
     success: true,
     message: "Employees fetched successfully",
@@ -144,6 +146,8 @@ const deleteEmployee = catchErrors(async (req, res) => {
   if (!employeeID) throw new Error("Please provide employee Id");
 
   await Employee.findByIdAndDelete(employeeID);
+
+  myCache.del("insights");
 
   return res.status(200).json({
     success: true,
@@ -204,6 +208,8 @@ const updateEmployee = catchErrors(async (req, res) => {
     },
     { new: true }
   );
+
+  myCache.del("insights");
 
   return res.status(200).json({
     success: true,

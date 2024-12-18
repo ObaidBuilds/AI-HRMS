@@ -1,13 +1,15 @@
+import { myCache } from "../index.js";
 import Role from "../models/role.js";
 import { catchErrors } from "../utils/index.js";
 
 const createRole = catchErrors(async (req, res) => {
   const { name, description } = req.body;
 
-
   if (!name || !description) throw new Error("Please provide all fields");
 
   const role = await Role.create({ name, description });
+
+  myCache.del("insights");
 
   return res.status(201).json({
     success: true,
@@ -60,6 +62,8 @@ const deleteRole = catchErrors(async (req, res) => {
 
   await Role.findByIdAndDelete(roleID);
 
+  myCache.del("insights");
+
   return res.status(201).json({
     success: true,
     message: "Role deleted successfuly",
@@ -77,6 +81,8 @@ const updateRole = catchErrors(async (req, res) => {
     { name, description },
     { new: true }
   );
+
+  myCache.del("insights");
 
   return res.status(201).json({
     success: true,

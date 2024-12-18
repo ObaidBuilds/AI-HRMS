@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
 import Attendance from "../models/attendance.js";
 import Department from "../models/department.js";
 import Employee from "../models/employee.js";
 import { catchErrors } from "../utils/index.js";
+import { myCache } from "../index.js";
 
 const getAttendanceList = catchErrors(async (req, res) => {
   const { department } = req.query;
@@ -31,6 +31,8 @@ const markAttendance = catchErrors(async (req, res) => {
   });
 
   await Attendance.insertMany(attendance);
+
+  myCache.del("insights");
 
   return res.status(201).json({
     success: true,
@@ -132,7 +134,7 @@ const getDepartmentAttendancePercentage = async () => {
         },
         {
           $group: {
-            _id: "$employee", 
+            _id: "$employee",
             count: { $sum: 1 },
           },
         },
@@ -153,7 +155,7 @@ const getDepartmentAttendancePercentage = async () => {
       });
     }
 
-    return departmentAttendance
+    return departmentAttendance;
   } catch (error) {
     console.error(error.message);
   }

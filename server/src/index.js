@@ -5,6 +5,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import NodeCache from "node-cache";
 import connectDB from "./config/index.js";
 import roleRoutes from "./routes/role.js";
 import employeeRoutes from "./routes/employee.js";
@@ -14,6 +15,7 @@ import attendanceRoutes from "./routes/attendance.js";
 import inshightRoutes from "./routes/insights.js";
 
 const app = express();
+const myCache = new NodeCache();
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -70,3 +72,5 @@ app.use((err, req, res, next) => {
     message,
   });
 });
+
+export { myCache };

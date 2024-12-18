@@ -41,7 +41,7 @@ function Employee() {
 
   useEffect(() => {
     dispatch(getAllEmployees({ currentPage, filters }));
-  }, [currentPage, filters]);
+  }, [dispatch, currentPage, filters]);
 
   const handleExportToExcel = () => {
     const data = employees.map((employee) => ({
@@ -175,7 +175,7 @@ function Employee() {
               </tr>
             </thead>
             <tbody>
-              {employees &&
+              {employees.length &&
                 employees.map((employee, index) => (
                   <tr
                     key={index}
@@ -185,7 +185,7 @@ function Employee() {
                       EMP {employee.employeeId}
                     </td>
                     <td className="py-3 px-4 border-b border-gray-500">
-                      {employee.name}
+                      {employee?.name}
                     </td>
                     <td className="py-3 px-4 border-b border-gray-500">
                       {employee.department.name}
