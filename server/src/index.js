@@ -22,7 +22,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const allowedOrigins = [
   "http://localhost:8000",
-  "http://localhost:8001",
   "https://metrohrms.netlify.app",
 ];
 
