@@ -1,4 +1,4 @@
-import { myCache } from "../index.js";
+import { myCache } from "../utils/index.js";
 import Department from "../models/department.js";
 import { catchErrors } from "../utils/index.js";
 

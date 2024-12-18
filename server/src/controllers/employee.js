@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import Employee from "../models/employee.js";
 import { catchErrors } from "../utils/index.js";
 import bcrypt from "bcrypt";
-import { myCache } from "../index.js";
+import { myCache } from "../utils/index.js";
 
 const createEmployee = catchErrors(async (req, res) => {
   const {

@@ -3,7 +3,7 @@ import Department from "../models/department.js";
 import Role from "../models/role.js";
 import { catchErrors } from "../utils/index.js";
 import { getDepartmentAttendancePercentage } from "./attendance.js";
-import { myCache } from "../index.js";
+import { myCache } from "../utils/index.js";
 
 const getInsights = catchErrors(async (req, res) => {
   const cacheKey = 'insights'; 

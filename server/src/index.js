@@ -3,7 +3,6 @@ dotenv.config();
 
 import express from "express";
 import cors from "cors";
-import NodeCache from "node-cache"
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import connectDB from "./config/index.js";
@@ -15,7 +14,6 @@ import attendanceRoutes from "./routes/attendance.js";
 import inshightRoutes from "./routes/insights.js";
 
 const app = express();
-export const myCache = new NodeCache();
 
 app.use(cookieParser());
 app.use(bodyParser.json());

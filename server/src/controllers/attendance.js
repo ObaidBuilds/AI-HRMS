@@ -2,7 +2,7 @@ import Attendance from "../models/attendance.js";
 import Department from "../models/department.js";
 import Employee from "../models/employee.js";
 import { catchErrors } from "../utils/index.js";
-import { myCache } from "../index.js";
+import { myCache } from "../utils/index.js";
 
 const getAttendanceList = catchErrors(async (req, res) => {
   const { department } = req.query;
