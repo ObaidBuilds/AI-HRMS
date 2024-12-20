@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Heading from "../../components/shared/Heading";
 import Loader from "../../components/shared/Loader";
+import Modal from "../../components/shared/SheetModal";
 import { getAttendanceList, markAttendance } from "../../services/attendance";
 
 function Attendance() {
@@ -12,21 +13,28 @@ function Attendance() {
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split("T")[0]
   );
+  const [showModal, setShowModal] = useState(false);
   const [attendaceRecord, setAttendaceRecord] = useState([]);
 
-  useEffect(() => {
+  function handleModalSubmit(e) {
+    e.preventDefault();
+
     if (selectedDepartment) {
       dispatch(getAttendanceList(selectedDepartment));
     }
-  }, [selectedDepartment, dispatch]);
+    setShowModal(false);
+  }
 
   function handleMarkAttendance({ employee, date, status }) {
     setAttendaceRecord((prevRecord) => {
-      const updatedRecord = prevRecord.filter(
-        (rec) => rec.employee !== employee
-      );
-
-      return [...updatedRecord, { employee, date, status }];
+      if (status === "Present") {
+        return [
+          ...prevRecord.filter((rec) => rec.employee !== employee),
+          { employee, date, status },
+        ];
+      } else {
+        return prevRecord.filter((rec) => rec.employee !== employee);
+      }
     });
   }
 
@@ -36,7 +44,7 @@ function Attendance() {
       return;
     }
     const confirm = window.confirm("Are you sure you want to submit");
-    if(!confirm) return;
+    if (!confirm) return;
     dispatch(markAttendance(attendaceRecord));
     setAttendaceRecord([]);
   }
@@ -47,77 +55,19 @@ function Attendance() {
 
       <Heading heading={"Attendance Management ⏰"} />
 
-      <div className="mt-2 rounded-md flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
-        {/* Department Dropdown */}
-        <div className="w-full h-[105px] md:w-1/4 bg-gray-800 border border-gray-700 md:border-0 md:border-b-4 p-4 rounded-md shadow-md">
-          <label
-            htmlFor="department"
-            className="text-[0.9rem] text-gray-400 mb-2 block"
-          >
-            Select Department
-          </label>
-          <select
-            value={selectedDepartment}
-            onChange={(e) => setSelectedDepartment(e.target.value)}
-            id="department"
-            className="w-full text-[0.8rem] bg-gray-900 text-gray-300 border border-gray-600 rounded-md p-2 focus:outline-none "
-            required
-          >
-            <option value="">--Select Department--</option>
-            {departments &&
-              departments.map((department) => (
-                <option key={department._id} value={department._id}>
-                  {department.name}
-                </option>
-              ))}
-          </select>
-        </div>
-
-        {/* Date Picker */}
-        <div className="w-full h-[110px] md:w-1/4 bg-gray-800 border border-gray-700 md:border-0 md:border-b-4 p-4 rounded-md shadow-md">
-          <label
-            htmlFor="date"
-            className="text-[0.9rem] text-gray-400 mb-2 block"
-          >
-            Select Date
-          </label>
-          <input
-            type="date"
-            id="date"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-            className="w-full text-[0.8rem] bg-gray-900 text-gray-300 border border-gray-600 rounded-md p-2 "
-          />
-        </div>
-
-        {/* Present Count */}
-        <div className="w-full hidden h-[110px] md:w-1/4 bg-gray-800 border-l-4 border-green-500 p-4 rounded-md md:flex justify-between items-center">
-          <div>
-            <p className="text-sm text-gray-400">Present</p>
-            <p className="text-xl font-semibold text-green-500">
-              {attendaceRecord.length}
-            </p>
-          </div>
-          <div className="text-indigo-500 text-3xl">
-            <i className="fas fa-user-check"></i>{" "}
-          </div>
-        </div>
-
-        {/* Absent Count */}
-        <div className="w-full hidden h-[110px] md:w-1/4 bg-gray-800 border-l-4 border-red-500 p-4 rounded-md md:flex justify-between px-5 items-center">
-          <div>
-            <p className="text-sm text-gray-400">Absent</p>
-            <p className="text-xl font-semibold text-red-500">
-              {attendanceList.length - attendaceRecord.length}
-            </p>
-          </div>
-          <div className="text-red-500 text-3xl">
-            <i className="fas fa-user-times"></i>
-          </div>
-        </div>
-      </div>
-
       <section className="bg-gray-700 mt-2 p-3 rounded-lg">
+        <div className="flex justify-between items-center py-1 sm:py-0 sm:px-3">
+          <button className="flex justify-between items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold">
+            <i className="fa-solid fa-user text-[0.7rem] sm:text-xs"></i> Total
+            Emp : {attendanceList.length}
+          </button>
+
+          <button className="flex justify-between items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold">
+            <i className="fas fa-check-circle text-[0.7rem] sm:text-xs"></i>
+            Total Present : {attendaceRecord.length}
+          </button>
+        </div>
+
         <div className="overflow-x-auto mt-3">
           <table className="min-w-full text-left table-auto border-collapse text-[0.83rem] whitespace-nowrap">
             <thead>
@@ -155,6 +105,12 @@ function Attendance() {
                               status: e.target.checked ? "Present" : "Absent",
                             })
                           }
+                          checked={attendaceRecord.some(
+                            (record) =>
+                              record.employee === employee._id &&
+                              record.date === selectedDate &&
+                              record.status === "Present"
+                          )}
                         />
                         <span className="slider round"></span>
                       </label>
@@ -165,9 +121,15 @@ function Attendance() {
           </table>
 
           {attendanceList && attendanceList.length === 0 && (
-            <p className="text-center text-[0.82rem] font-semibold text-gray-300 py-[135px]">
-              Select Department to get sheet
-            </p>
+            <div className="flex flex-col items-center justify-center h-[61vh] sm:h-[69vh]">
+              <button
+                onClick={() => setShowModal(true)}
+                className="p-4 rounded-md text-center text-[0.83rem] font-semibold text-gray-300"
+              >
+                <i className="fas fa-building mr-2 "></i>
+                Select Department to get sheet
+              </button>
+            </div>
           )}
 
           {attendanceList.length >= 1 && (
@@ -180,6 +142,18 @@ function Attendance() {
             </button>
           )}
         </div>
+
+        {showModal && (
+          <Modal
+            onClose={() => setShowModal(false)}
+            departments={departments}
+            setSelectedDate={setSelectedDate}
+            selectedDate={selectedDate}
+            selectedDepartment={selectedDepartment}
+            setSelectedDepartment={setSelectedDepartment}
+            handleModalSubmit={handleModalSubmit}
+          />
+        )}
       </section>
     </div>
   );
