@@ -35,6 +35,8 @@ function Attendance() {
       toast("No attendance records to submit!");
       return;
     }
+    const confirm = window.confirm("Are you sure you want to submit");
+    if(!confirm) return;
     dispatch(markAttendance(attendaceRecord));
     setAttendaceRecord([]);
   }
@@ -168,13 +170,15 @@ function Attendance() {
             </p>
           )}
 
-          <button
-            onClick={handleAttendanceSubmit}
-            type="button"
-            className="bg-blue-600 text-gray-200 p-2 mt-5 rounded-md hover:bg-blue-700 w-full"
-          >
-            Submit
-          </button>
+          {attendanceList.length >= 1 && (
+            <button
+              onClick={handleAttendanceSubmit}
+              type="button"
+              className="bg-blue-600 text-gray-200 p-2 mt-5 rounded-md hover:bg-blue-700 w-full"
+            >
+              Submit
+            </button>
+          )}
         </div>
       </section>
     </div>
