@@ -1,6 +1,6 @@
 import React from "react";
 
-const Modal = ({ onClose, isConfirm }) => {
+const Modal = ({ onClose, isConfirm, action }) => {
   return (
     <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
       <div
@@ -13,18 +13,18 @@ const Modal = ({ onClose, isConfirm }) => {
         >
           Confirmation
         </h3>
-        <p id="modal-message">Are you sure you want to delete?</p>
+        <p id="modal-message">Are you sure you want to {action}?</p>
         <div className="flex justify-end gap-2 mt-4">
           <button
             onClick={() => isConfirm()}
             id="modal-confirm"
-            className="bg-blue-500 text-white px-4 py-2 rounded"
+            className="bg-blue-500 text-sm text-white px-4 py-2 rounded"
           >
             Confirm
           </button>
           <button
             id="modal-cancel"
-            className="bg-gray-500 text-white px-4 py-2 rounded"
+            className="bg-gray-500 text-sm text-white px-4 py-2 rounded"
             onClick={onClose}
           >
             Cancel

@@ -101,6 +101,7 @@ function Employee() {
         {toggleModal && (
           <Modal
             onClose={() => setToggleModal(false)}
+            action={"delete"}
             isConfirm={confirmation}
           />
         )}
@@ -110,7 +111,7 @@ function Employee() {
           {!(filters.status || filters.department || filters.role) && (
             <button
               onClick={() => setToggleFilterBar(true)}
-              className="flex sm:flex-grow-0 flex-grow justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold"
+              className="flex sm:flex-grow-0 flex-grow justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold"
             >
               <i className="fa-solid fa-filter text-[0.7rem] sm:text-xs"></i>{" "}
               Apply Filters
@@ -145,18 +146,11 @@ function Employee() {
                 ></i>
               </button>
             )}
-            <button
-              onClick={handleExportToExcel}
-              className="sm:hidden flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold"
-            >
-              <i class="fas fa-file-excel text-[0.7rem] text-xs"></i>
-              Export to Excel
-            </button>
           </div>
 
           <button
             onClick={handleExportToExcel}
-            className="hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold"
+            className="hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold"
           >
             <i class="fas fa-file-excel text-[0.7rem] text-xs"></i>
             Export to Excel

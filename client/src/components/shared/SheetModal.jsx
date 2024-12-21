@@ -18,7 +18,7 @@ const SheetModal = ({
       >
         {/* Modal Header */}
         <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-          <h2 className="text-lg font-semibold text-gray-600">
+          <h2 className="text-base sm:text-lg font-semibold text-gray-600">
             Select Department & Date
           </h2>
           <button

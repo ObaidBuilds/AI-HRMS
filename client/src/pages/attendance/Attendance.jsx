@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Heading from "../../components/shared/Heading";
 import Loader from "../../components/shared/Loader";
-import Modal from "../../components/shared/SheetModal";
+import SheetModal from "../../components/shared/SheetModal";
+import Modal from "../../components/shared/Modal";
 import { getAttendanceList, markAttendance } from "../../services/attendance";
 
 function Attendance() {
@@ -14,6 +15,7 @@ function Attendance() {
     new Date().toISOString().split("T")[0]
   );
   const [showModal, setShowModal] = useState(false);
+  const [showConfimModal, setShowConfimModal] = useState(false);
   const [attendaceRecord, setAttendaceRecord] = useState([]);
 
   function handleModalSubmit(e) {
@@ -38,13 +40,17 @@ function Attendance() {
     });
   }
 
+  function isConfirm() {
+    handleAttendanceSubmit();
+    setShowConfimModal(false);
+  }
+
   function handleAttendanceSubmit() {
     if (attendaceRecord.length === 0) {
       toast("No attendance records to submit!");
       return;
     }
-    const confirm = window.confirm("Are you sure you want to submit");
-    if (!confirm) return;
+
     dispatch(markAttendance(attendaceRecord));
     setAttendaceRecord([]);
   }
@@ -57,12 +63,12 @@ function Attendance() {
 
       <section className="bg-gray-700 mt-2 p-3 rounded-lg">
         <div className="flex gap-2 flex-wrap justify-between items-center sm:px-3">
-          <button className="flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold">
+          <button className="hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold">
             Total Employees : {attendanceList.length}
           </button>
 
           {attendanceList.length >= 1 && (
-            <button className="flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold">
+            <button className="hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold">
               Total Present : {attendaceRecord.length}
             </button>
           )}
@@ -70,7 +76,7 @@ function Attendance() {
           {!attendanceList.length && (
             <button
               onClick={() => setShowModal(true)}
-              className="flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold"
+              className="flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold"
             >
               Select Department
             </button>
@@ -143,9 +149,9 @@ function Attendance() {
 
           {attendanceList.length >= 1 && (
             <button
-              onClick={handleAttendanceSubmit}
+              onClick={() => setShowConfimModal(true)}
               type="button"
-              className="bg-blue-600 text-gray-200 p-2 mt-5 rounded-md hover:bg-blue-700 w-full"
+              className="bg-blue-600 mb-4 text-gray-200 p-3 mt-5 rounded-3xl hover:bg-blue-700 w-full"
             >
               Submit
             </button>
@@ -153,7 +159,7 @@ function Attendance() {
         </div>
 
         {showModal && (
-          <Modal
+          <SheetModal
             onClose={() => setShowModal(false)}
             departments={departments}
             setSelectedDate={setSelectedDate}
@@ -161,6 +167,13 @@ function Attendance() {
             selectedDepartment={selectedDepartment}
             setSelectedDepartment={setSelectedDepartment}
             handleModalSubmit={handleModalSubmit}
+          />
+        )}
+        {showConfimModal && (
+          <Modal
+            onClose={() => setShowConfimModal(false)}
+            action={"edit"}
+            isConfirm={isConfirm}
           />
         )}
       </section>
