@@ -19,7 +19,7 @@ const AddEmployee = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    dispatch(addEmployee(data))
+    dispatch(addEmployee(data));
     reset();
   };
 
@@ -353,11 +353,11 @@ const AddEmployee = () => {
                 defaultValue=""
                 render={({ field }) => (
                   <select {...field} className="input">
-                  <option value="">--Bank Name--</option>
-                  <option value="HBL">HBL</option>
-                  <option value="ABL">ABL</option>
-                  <option value="GOP">GOP</option>
-                </select>
+                    <option value="">--Bank Name--</option>
+                    <option value="HBL">HBL</option>
+                    <option value="ABL">ABL</option>
+                    <option value="GOP">GOP</option>
+                  </select>
                 )}
               />
             </div>
@@ -414,7 +414,7 @@ const AddEmployee = () => {
 
           <button
             type="submit"
-            className="w-full p-4 bg-blue-600 hover:bg-blue-700 text-white rounded-3xl"
+            className="w-full p-4 bg-blue-600 hover:bg-blue-700 text-white rounded-3xl mb-3"
           >
             Add Employee
           </button>

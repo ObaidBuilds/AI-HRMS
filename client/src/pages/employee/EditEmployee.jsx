@@ -358,7 +358,7 @@ const EditEmployee = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="p-4 bg-blue-600 hover:bg-blue-700 text-white mt-4 w-full rounded-3xl"
+            className="p-4 bg-blue-600 hover:bg-blue-700 text-white mt-4 w-full rounded-3xl mb-3"
           >
             Update Employee
           </button>
