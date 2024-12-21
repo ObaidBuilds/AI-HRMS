@@ -414,7 +414,7 @@ const AddEmployee = () => {
 
           <button
             type="submit"
-            className="w-full px-4 py-3 bg-blue-600 text-white rounded"
+            className="w-full p-4 bg-blue-600 hover:bg-blue-700 text-white rounded-3xl"
           >
             Add Employee
           </button>
