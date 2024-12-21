@@ -106,11 +106,11 @@ function Employee() {
         )}
 
         {/* Three-dot icon for dropdown aligned to the right */}
-        <div className="relative flex items-center justify-between py-1 sm:px-3 mb-3">
+        <div className="relative flex gap-1 items-center justify-between py-1 sm:px-3 mb-3">
           {!(filters.status || filters.department || filters.role) && (
             <button
               onClick={() => setToggleFilterBar(true)}
-              className="flex justify-between items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold"
+              className="flex sm:flex-grow-0 flex-grow justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold"
             >
               <i className="fa-solid fa-filter text-[0.7rem] sm:text-xs"></i>{" "}
               Apply Filters
@@ -119,7 +119,7 @@ function Employee() {
 
           <div className="flex flex-wrap items-center gap-2">
             {filters.status && (
-              <button className="flex flex-grow justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
+              <button className="flex flex-grow sm:flex-grow-0 justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
                 {filters.status}
                 <i
                   onClick={() => clearFilter("status")}
@@ -128,7 +128,7 @@ function Employee() {
               </button>
             )}
             {filters.department && (
-              <button className="flex flex-grow justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
+              <button className="flex flex-grow sm:flex-grow-0 justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
                 {filters.departmentName}
                 <i
                   onClick={() => clearFilter("department")}
@@ -137,7 +137,7 @@ function Employee() {
               </button>
             )}
             {filters.role && (
-              <button className="flex flex-grow justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
+              <button className="flex flex-grow sm:flex-grow-0 justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
                 {filters.roleName}
                 <i
                   onClick={() => clearFilter("role")}
@@ -147,12 +147,20 @@ function Employee() {
             )}
             <button
               onClick={handleExportToExcel}
-              className="flex flex-grow justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold"
+              className="sm:hidden flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold"
             >
               <i class="fas fa-file-excel text-[0.7rem] text-xs"></i>
               Export to Excel
             </button>
           </div>
+
+          <button
+            onClick={handleExportToExcel}
+            className="hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold"
+          >
+            <i class="fas fa-file-excel text-[0.7rem] text-xs"></i>
+            Export to Excel
+          </button>
         </div>
 
         <div id="overflow" className="overflow-x-auto min-h-[75vh]">
@@ -175,7 +183,7 @@ function Employee() {
               </tr>
             </thead>
             <tbody>
-              {employees.length &&
+              {employees.length >= 1 &&
                 employees.map((employee, index) => (
                   <tr
                     key={index}

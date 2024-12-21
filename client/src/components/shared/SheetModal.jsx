@@ -14,37 +14,31 @@ const SheetModal = ({
       <form
         id="modal"
         onSubmit={handleModalSubmit}
-        className="bg-white text-black w-[95%] sm:max-w-lg p-6 border border-gray-300 rounded-lg shadow-xl space-y-6"
+        className="bg-white text-black w-[95%] sm:max-w-lg p-6 border border-gray-300 rounded-lg shadow-xl space-y-5"
       >
         {/* Modal Header */}
         <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-          <h2 className="text-xl font-semibold text-gray-700">
-            Select Options
+          <h2 className="text-lg font-semibold text-gray-600">
+            Select Department & Date
           </h2>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 text-xl"
+            className="text-gray-500 hover:text-gray-700 text-sm"
           >
             <i className="fas fa-times"></i>
           </button>
         </div>
 
-        {/* Department Dropdown */}
-        <div className="w-full">
-          <label
-            htmlFor="department"
-            className="text-sm text-gray-600 mb-2 block"
-          >
-            Select Department
-          </label>
+        <div className="w-full relative">
+          <i className="fa fa-building-columns text-sm icon absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600"></i>
           <select
             value={selectedDepartment}
             onChange={(e) => setSelectedDepartment(e.target.value)}
-            id="department"
-            className="w-full text-sm bg-gray-100 border border-gray-300 rounded-md p-3 focus:outline-none focus:ring focus:ring-indigo-500 focus:bg-white"
+            id="select"
+            className="w-full text-center text-sm p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
             required
           >
-            <option value="">--Select Department--</option>
+            <option value="">--- Select Depart ---</option>
             {departments &&
               departments.map((department) => (
                 <option key={department._id} value={department._id}>
@@ -54,28 +48,27 @@ const SheetModal = ({
           </select>
         </div>
 
-        {/* Date Picker */}
         <div className="w-full">
-          <label htmlFor="date" className="text-sm text-gray-600 mb-2 block">
-            Select Date
-          </label>
-          <input
-            type="date"
-            id="date"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-            className="w-full text-sm bg-gray-100 border border-gray-300 rounded-md p-3 focus:outline-none focus:ring focus:ring-indigo-500 focus:bg-white"
-            required
-          />
+          <div className="w-full relative">
+            <i className="fa fa-calendar text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
+            <input
+              type="date"
+              id="date"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+              className="w-full bg-[#EFEFEF] text-sm sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+              required
+            />
+          </div>
         </div>
 
         {/* Submit Button */}
         <div className="w-full flex justify-end">
           <button
             type="submit"
-            className="bg-blue-500 text-white text-sm font-medium px-5 py-2 rounded-md shadow-md hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-400"
+            className="bg-blue-500 w-full text-white text-sm font-medium p-4 rounded-3xl shadow-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400"
           >
-            Submit
+            Get Sheet
           </button>
         </div>
       </form>

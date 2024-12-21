@@ -7,9 +7,9 @@ import { getAttendanceList, markAttendance } from "../../services/attendance";
 
 function Attendance() {
   const dispatch = useDispatch();
-  const [selectedDepartment, setSelectedDepartment] = useState("");
   const { departments } = useSelector((state) => state.department);
   const { attendanceList, loading } = useSelector((state) => state.attendance);
+  const [selectedDepartment, setSelectedDepartment] = useState("");
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split("T")[0]
   );
@@ -56,16 +56,25 @@ function Attendance() {
       <Heading heading={"Attendance Management ⏰"} />
 
       <section className="bg-gray-700 mt-2 p-3 rounded-lg">
-        <div className="flex justify-between items-center py-1 sm:py-0 sm:px-3">
-          <button className="flex justify-between items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold">
-            <i className="fa-solid fa-user text-[0.7rem] sm:text-xs"></i> Total
-            Emp : {attendanceList.length}
+        <div className="flex gap-2 flex-wrap justify-between items-center sm:px-3">
+          <button className="flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold">
+            Total Employees : {attendanceList.length}
           </button>
 
-          <button className="flex justify-between items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold">
-            <i className="fas fa-check-circle text-[0.7rem] sm:text-xs"></i>
-            Total Present : {attendaceRecord.length}
-          </button>
+          {attendanceList.length >= 1 && (
+            <button className="flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold">
+              Total Present : {attendaceRecord.length}
+            </button>
+          )}
+
+          {!attendanceList.length && (
+            <button
+              onClick={() => setShowModal(true)}
+              className="flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-2xl font-semibold"
+            >
+              Select Department
+            </button>
+          )}
         </div>
 
         <div className="overflow-x-auto mt-3">
