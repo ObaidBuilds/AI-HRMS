@@ -172,7 +172,7 @@ function Attendance() {
         {showConfimModal && (
           <Modal
             onClose={() => setShowConfimModal(false)}
-            action={"edit"}
+            action={"submit"}
             isConfirm={isConfirm}
           />
         )}
