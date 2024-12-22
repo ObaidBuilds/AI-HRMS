@@ -49,6 +49,7 @@ const Login = () => {
                 alt="user"
                 width={"70"}
                 height={"70"}
+                loading="lazy"
                 className="w-[70px] sm:w-[80px]"
               />
             </div>
