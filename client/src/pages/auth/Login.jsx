@@ -47,6 +47,8 @@ const Login = () => {
               <img
                 src="/metro.png"
                 alt="user"
+                width={"70"}
+                height={"70"}
                 className="w-[70px] sm:w-[80px]"
               />
             </div>
