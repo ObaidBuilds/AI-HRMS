@@ -1,4 +1,5 @@
 import App from "./app";
+import 'typeface-poppins';
 import Login from "./pages/auth/Login";
 import { Toaster } from "react-hot-toast";
 import { Route, Routes } from "react-router-dom";
@@ -9,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useGetToken } from "./utils";
 import NotFound from "./components/shared/NotFound";
 import { getInsights } from "./services/insights";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 function HrmsForMetroCashAndCarry() {
