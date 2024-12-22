@@ -133,6 +133,7 @@ const Login = () => {
             {/* Submit Button */}
             <button
               type="submit"
+              disabled={loading}
               className="w-[85%] text-sm sm:text-[0.95rem] p-[18px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
             >
               {loading ? (
