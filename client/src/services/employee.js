@@ -1,5 +1,5 @@
 import axios from "axios";
-import { URL, configuration, useGetToken } from "../utils";
+import { URL, useGetToken } from "../utils";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
@@ -36,8 +36,13 @@ export const getAllEmployees = createAsyncThunk(
 export const getEmployeeById = createAsyncThunk(
   "employee/getEmployeeById",
   async (id, { rejectWithValue }) => {
+    const token = useGetToken();
     try {
-      const { data } = await axios.get(`${URL}/employees/${id}`, configuration);
+      const { data } = await axios.get(`${URL}/employees/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return data.employee;
     } catch (error) {
       return rejectWithValue(
@@ -51,12 +56,14 @@ export const getEmployeeById = createAsyncThunk(
 export const addEmployee = createAsyncThunk(
   "employee/addEmployee",
   async (employee, { rejectWithValue }) => {
+    const token = useGetToken();
     try {
-      const { data } = await axios.post(
-        `${URL}/employees`,
-        employee,
-        configuration
-      );
+      const { data } = await axios.post(`${URL}/employees`, employee, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       toast.success(data.message);
       return data.employee;
     } catch (error) {
@@ -72,12 +79,14 @@ export const addEmployee = createAsyncThunk(
 export const editEmployee = createAsyncThunk(
   "employee/editEmployee",
   async ({ id, employee }, { rejectWithValue }) => {
+    const token = useGetToken();
     try {
-      const { data } = await axios.patch(
-        `${URL}/employees/${id}`,
-        employee,
-        configuration
-      );
+      const { data } = await axios.patch(`${URL}/employees/${id}`, employee, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       toast.success(data.message);
       return data.employee;
     } catch (error) {
@@ -93,11 +102,13 @@ export const editEmployee = createAsyncThunk(
 export const deleteEmployee = createAsyncThunk(
   "employee/deleteEmployee",
   async (id, { rejectWithValue }) => {
+    const token = useGetToken();
     try {
-      const { data } = await axios.delete(
-        `${URL}/employees/${id}`,
-        configuration
-      );
+      const { data } = await axios.delete(`${URL}/employees/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       toast.success(data.message);
       return id;
     } catch (error) {

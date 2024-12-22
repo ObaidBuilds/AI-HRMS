@@ -13,14 +13,6 @@ const useGetToken = () => {
   }
 };
 
-const token = useGetToken();
-const configuration = {
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  },
-};
-
 const formatDate = (date) => {
   if (!date) return "";
   const d = new Date(date);
@@ -40,4 +32,4 @@ function downloadXls(data) {
   XLSX.writeFile(wb, "employees.xlsx");
 }
 
-export { configuration, useGetToken, URL, formatDate, downloadXls };
+export { useGetToken, URL, formatDate, downloadXls };

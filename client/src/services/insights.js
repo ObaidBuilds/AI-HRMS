@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { configuration, URL, useGetToken } from "../utils";
+import {  URL, useGetToken } from "../utils";
 
 // Fetch quick insights using createAsyncThunk
 export const getInsights = createAsyncThunk(

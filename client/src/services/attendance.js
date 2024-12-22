@@ -1,5 +1,5 @@
 import axios from "axios";
-import { URL, configuration } from "../utils";
+import { URL, useGetToken } from "../utils";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
@@ -7,15 +7,17 @@ import toast from "react-hot-toast";
 export const getAttendanceList = createAsyncThunk(
   "attendance/getAttendanceList",
   async (department, { rejectWithValue }) => {
+    const token = useGetToken();
     try {
       const queryParams = new URLSearchParams({
         department: department || "",
       }).toString();
 
-      const { data } = await axios.get(
-        `${URL}/attendance/?${queryParams}`,
-        configuration
-      );
+      const { data } = await axios.get(`${URL}/attendance/?${queryParams}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return data.employees;
     } catch (error) {
       return rejectWithValue(
@@ -29,11 +31,17 @@ export const getAttendanceList = createAsyncThunk(
 export const markAttendance = createAsyncThunk(
   "attendance/markAttendance",
   async (attendanceRecords, { rejectWithValue }) => {
+    const token = useGetToken();
     try {
       const { data } = await axios.post(
         `${URL}/attendance/mark`,
         { attendanceRecords },
-        configuration
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       toast.success(data.message);
     } catch (error) {

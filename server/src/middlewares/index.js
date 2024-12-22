@@ -12,6 +12,7 @@ const verifyEmployeeToken = catchErrors(async (req, res, next) => {
   if (!decoded.employeeId) throw new Error("Unauthorized access");
 
   req.user = decoded.employeeId;
+  
   next();
 });
 
@@ -26,7 +27,6 @@ const verifyAdminToken = catchErrors(async (req, res, next) => {
 
   if (!user || !user.admin) throw new Error("Unauthorized access");
 
-  req.user = user; 
   next();
 });
 
