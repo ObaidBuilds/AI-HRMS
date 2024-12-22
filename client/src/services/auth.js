@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { URL } from "../utils";
+import { URL, useGetToken } from "../utils";
 
 // Admin login
 export const loginAdmin = createAsyncThunk(
@@ -29,6 +29,7 @@ export const loginAdmin = createAsyncThunk(
 export const logoutAdmin = createAsyncThunk(
   "auth/logoutAdmin",
   async (_, { rejectWithValue }) => {
+    const token = useGetToken();
     try {
       const { data } = await axios.get(`${URL}/auth/logout`, {
         headers: {
