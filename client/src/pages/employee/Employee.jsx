@@ -39,10 +39,6 @@ function Employee() {
     setToggleModal(false);
   };
 
-  useEffect(() => {
-    dispatch(getAllEmployees({ currentPage, filters }));
-  }, [dispatch, currentPage, filters]);
-
   const handleExportToExcel = () => {
     const data = employees.map((employee) => ({
       EmployeeID: `EMP ${employee.employeeId}`,
@@ -70,6 +66,10 @@ function Employee() {
   };
 
   useEffect(() => {
+    dispatch(getAllEmployees({ currentPage, filters }));
+  }, [currentPage, filters]);
+
+  useEffect(() => {
     if (toggleFilterBar) document.body.classList.add("no-scroll");
     else document.body.classList.remove("no-scroll");
   }, [toggleFilterBar]);
@@ -85,171 +85,177 @@ function Employee() {
   if (!employees) return <Error />;
 
   return (
-    <div className="w-full min-h-[100vh] rounded-lg">
+    <>
       {loading && <Loader />}
 
-      <Heading heading={"Employee Management 👥"} />
+      <div className="w-full min-h-[100vh] rounded-lg">
+        <Heading heading={"Employee Management 👥"} />
 
-      <section className="bg-secondary mt-2 p-3 sm:p-4 rounded-lg">
-        {toggleFilterBar && (
-          <FilterBar
-            hideFilterBar={setToggleFilterBar}
-            onApplyFilters={onApplyFilters}
-          />
-        )}
-
-        {toggleModal && (
-          <Modal
-            onClose={() => setToggleModal(false)}
-            action={"delete"}
-            isConfirm={confirmation}
-          />
-        )}
-
-        {/* Three-dot icon for dropdown aligned to the right */}
-        <div className="relative flex gap-1 items-center justify-between py-1 sm:px-3 mb-3">
-          {!(filters.status || filters.department || filters.role) && (
-            <button
-              onClick={() => setToggleFilterBar(true)}
-              className="flex sm:flex-grow-0 flex-grow justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold"
-            >
-              <i className="fa-solid fa-filter text-[0.7rem] sm:text-xs"></i>{" "}
-              Apply Filters
-            </button>
+        <section className="bg-secondary mt-2 p-3 sm:p-4 rounded-lg">
+          {toggleFilterBar && (
+            <FilterBar
+              hideFilterBar={setToggleFilterBar}
+              onApplyFilters={onApplyFilters}
+            />
           )}
 
-          <div className="flex flex-wrap items-center gap-2">
-            {filters.status && (
-              <button className="flex flex-grow sm:flex-grow-0 justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
-                {filters.status}
-                <i
-                  onClick={() => clearFilter("status")}
-                  className="fa-solid fa-close text-xs cursor-pointer"
-                ></i>
+          {toggleModal && (
+            <Modal
+              onClose={() => setToggleModal(false)}
+              action={"delete"}
+              isConfirm={confirmation}
+            />
+          )}
+
+          {/* Three-dot icon for dropdown aligned to the right */}
+          <div className="relative flex gap-1 items-center justify-between py-1 sm:px-3 mb-3">
+            {!(filters.status || filters.department || filters.role) && (
+              <button
+                onClick={() => setToggleFilterBar(true)}
+                className="flex sm:flex-grow-0 flex-grow justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold"
+              >
+                <i className="fa-solid fa-filter text-[0.7rem] sm:text-xs"></i>{" "}
+                Apply Filters
               </button>
             )}
-            {filters.department && (
-              <button className="flex flex-grow sm:flex-grow-0 justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
-                {filters.departmentName}
-                <i
-                  onClick={() => clearFilter("department")}
-                  className="fa-solid fa-close text-xs cursor-pointer"
-                ></i>
-              </button>
-            )}
-            {filters.role && (
-              <button className="flex flex-grow sm:flex-grow-0 justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
-                {filters.roleName}
-                <i
-                  onClick={() => clearFilter("role")}
-                  className="fa-solid fa-close text-xs cursor-pointer"
-                ></i>
-              </button>
+
+            <div className="flex flex-wrap items-center gap-2">
+              {filters.status && (
+                <button className="flex flex-grow sm:flex-grow-0 justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
+                  {filters.status}
+                  <i
+                    onClick={() => clearFilter("status")}
+                    className="fa-solid fa-close text-xs cursor-pointer"
+                  ></i>
+                </button>
+              )}
+              {filters.department && (
+                <button className="flex flex-grow sm:flex-grow-0 justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
+                  {filters.departmentName}
+                  <i
+                    onClick={() => clearFilter("department")}
+                    className="fa-solid fa-close text-xs cursor-pointer"
+                  ></i>
+                </button>
+              )}
+              {filters.role && (
+                <button className="flex flex-grow sm:flex-grow-0 justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
+                  {filters.roleName}
+                  <i
+                    onClick={() => clearFilter("role")}
+                    className="fa-solid fa-close text-xs cursor-pointer"
+                  ></i>
+                </button>
+              )}
+            </div>
+
+            <button
+              onClick={handleExportToExcel}
+              className="hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold"
+            >
+              <i className="fas fa-file-excel text-[0.7rem] text-xs"></i>
+              Export to Excel
+            </button>
+          </div>
+
+          <div id="overflow" className="overflow-x-auto min-h-[75vh]">
+            <table className="min-w-full text-left table-auto border-collapse text-[0.83rem] whitespace-nowrap">
+              <thead>
+                <tr className="bg-gray-600 text-gray-200">
+                  <th className="py-3 px-4 border-b border-gray-500">
+                    Employee ID
+                  </th>
+                  <th className="py-3 px-4 border-b border-gray-500">Name</th>
+                  <th className="py-3 px-4 border-b border-gray-500">
+                    Department
+                  </th>
+                  <th className="py-3 px-4 border-b border-gray-500">
+                    Position
+                  </th>
+                  <th className="py-3 px-4 border-b border-gray-500">Status</th>
+                  <th className="py-3 px-4 border-b border-gray-500">
+                    Contact Info
+                  </th>
+                  <th className="py-3 px-4 border-b border-gray-500">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {employees.length >= 1 &&
+                  employees.map((employee, index) => (
+                    <tr
+                      key={index}
+                      className="even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600"
+                    >
+                      <td className="py-3 px-4 border-b border-gray-500">
+                        EMP {employee.employeeId}
+                      </td>
+                      <td className="py-3 px-4 border-b border-gray-500">
+                        {employee?.name}
+                      </td>
+                      <td className="py-3 px-4 border-b border-gray-500">
+                        {employee.department.name}
+                      </td>
+                      <td className="py-3 px-4 border-b border-gray-500">
+                        {employee.role.name}
+                      </td>
+                      <td className="py-3 px-4 border-b border-gray-500">
+                        {employee.status}
+                      </td>
+                      <td className="py-3 px-4 border-b border-gray-500">
+                        {employee.phoneNumber}
+                      </td>
+                      <td className="py-3 px-4 border-b border-gray-500 flex items-center space-x-2">
+                        <Link to={`/employee/${employee._id}`}>
+                          <button
+                            className="text-blue-500 hover:text-blue-400"
+                            title="View"
+                          >
+                            <i className="fa-solid fa-eye"></i>
+                          </button>
+                        </Link>
+
+                        <Link to={`/edit-employee/${employee._id}`}>
+                          <button
+                            className="text-green-500 hover:text-green-400"
+                            title="Edit"
+                          >
+                            <i className="fa-solid fa-edit"></i>
+                          </button>
+                        </Link>
+
+                        <button
+                          onClick={() => {
+                            setDeletedEmployee(employee);
+                            setToggleModal(!toggleModal);
+                          }}
+                          className="text-red-500 hover:text-red-400"
+                          title="Delete"
+                        >
+                          <i className="fa-solid fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+            {!loading && employees.length === 0 && (
+              <div className="w-full h-[50vh] flex flex-col justify-center items-center">
+                <i className="fas fa-ban text-4xl text-gray-400"></i>
+                <p className="mt-2 text-xl text-gray-400">No Employees Found</p>
+              </div>
             )}
           </div>
 
-          <button
-            onClick={handleExportToExcel}
-            className="hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold"
-          >
-            <i class="fas fa-file-excel text-[0.7rem] text-xs"></i>
-            Export to Excel
-          </button>
-        </div>
-
-        <div id="overflow" className="overflow-x-auto min-h-[75vh]">
-          <table className="min-w-full text-left table-auto border-collapse text-[0.83rem] whitespace-nowrap">
-            <thead>
-              <tr className="bg-gray-600 text-gray-200">
-                <th className="py-3 px-4 border-b border-gray-500">
-                  Employee ID
-                </th>
-                <th className="py-3 px-4 border-b border-gray-500">Name</th>
-                <th className="py-3 px-4 border-b border-gray-500">
-                  Department
-                </th>
-                <th className="py-3 px-4 border-b border-gray-500">Position</th>
-                <th className="py-3 px-4 border-b border-gray-500">Status</th>
-                <th className="py-3 px-4 border-b border-gray-500">
-                  Contact Info
-                </th>
-                <th className="py-3 px-4 border-b border-gray-500">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {employees.length >= 1 &&
-                employees.map((employee, index) => (
-                  <tr
-                    key={index}
-                    className="even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600"
-                  >
-                    <td className="py-3 px-4 border-b border-gray-500">
-                      EMP {employee.employeeId}
-                    </td>
-                    <td className="py-3 px-4 border-b border-gray-500">
-                      {employee?.name}
-                    </td>
-                    <td className="py-3 px-4 border-b border-gray-500">
-                      {employee.department.name}
-                    </td>
-                    <td className="py-3 px-4 border-b border-gray-500">
-                      {employee.role.name}
-                    </td>
-                    <td className="py-3 px-4 border-b border-gray-500">
-                      {employee.status}
-                    </td>
-                    <td className="py-3 px-4 border-b border-gray-500">
-                      {employee.phoneNumber}
-                    </td>
-                    <td className="py-3 px-4 border-b border-gray-500 flex items-center space-x-2">
-                      <Link to={`/employee/${employee._id}`}>
-                        <button
-                          className="text-blue-500 hover:text-blue-400"
-                          title="View"
-                        >
-                          <i className="fa-solid fa-eye"></i>
-                        </button>
-                      </Link>
-
-                      <Link to={`/edit-employee/${employee._id}`}>
-                        <button
-                          className="text-green-500 hover:text-green-400"
-                          title="Edit"
-                        >
-                          <i className="fa-solid fa-edit"></i>
-                        </button>
-                      </Link>
-
-                      <button
-                        onClick={() => {
-                          setDeletedEmployee(employee);
-                          setToggleModal(!toggleModal);
-                        }}
-                        className="text-red-500 hover:text-red-400"
-                        title="Delete"
-                      >
-                        <i className="fa-solid fa-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-          {!loading && employees.length === 0 && (
-            <div className="w-full h-[50vh] flex flex-col justify-center items-center">
-              <i className="fas fa-ban text-4xl text-gray-400"></i>
-              <p className="mt-2 text-xl text-gray-400">No Employees Found</p>
-            </div>
-          )}
-        </div>
-
-        <Pagination
-          currentPage={currentPage}
-          totalPages={pagination?.totalPages}
-          onPageChange={goToPage}
-        />
-      </section>
-    </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={pagination?.totalPages}
+            onPageChange={goToPage}
+          />
+        </section>
+      </div>
+    </>
   );
 }
 

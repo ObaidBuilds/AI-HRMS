@@ -23,7 +23,6 @@ export const getAllEmployees = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(data.employees[0].name);
       return data;
     } catch (error) {
       return rejectWithValue(

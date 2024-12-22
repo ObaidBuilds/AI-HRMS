@@ -29,8 +29,6 @@ const createEmployee = catchErrors(async (req, res) => {
     admin,
   } = req.body;
 
-  console.log("Hello", martialStatus);
-
   if (
     !employeeId ||
     !name ||
@@ -108,7 +106,6 @@ const getAllEmployees = catchErrors(async (req, res) => {
 
   const totalEmployees = await Employee.countDocuments(query);
   const totalPages = Math.ceil(totalEmployees / limitNumber);
-
 
   return res.status(200).json({
     success: true,

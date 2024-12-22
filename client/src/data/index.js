@@ -25,11 +25,6 @@ const sidebarLinks = [
     link: "/mark-attendance",
   },
   {
-    name: "Dept & Role Management",
-    iconClass: "fas fa-user-plus",
-    childrens: [],
-  },
-  {
     name: "Payroll Management",
     iconClass: "fas fa-wallet",
     link: "/payroll-management",

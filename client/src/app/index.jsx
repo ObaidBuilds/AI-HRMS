@@ -43,7 +43,6 @@ const App = () => {
               />
               {/* Attendance Modules */}
               <Route path="/mark-attendance" element={<Attendance />} />
-
               <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />
