@@ -78,7 +78,7 @@ const EditEmployee = () => {
 
   return (
     <section>
-      {loading && <Loader/>}
+      {loading && <Loader />}
       <Heading heading={"Edit Employee"} />
       <div className="w-full min-h-screen mt-2 rounded-lg bg-secondary border border-gray-600 p-3 text-sm">
         <form
@@ -357,6 +357,7 @@ const EditEmployee = () => {
           {/* Submit Button */}
           <button
             type="submit"
+            disabled={loading}
             className="p-4 bg-blue-600 hover:bg-blue-700 text-white mt-4 w-full rounded-3xl mb-3"
           >
             Update Employee

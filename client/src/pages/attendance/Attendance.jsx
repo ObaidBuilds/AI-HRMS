@@ -55,10 +55,9 @@ function Attendance() {
     setAttendaceRecord([]);
   }
 
-
   return (
     <div className="w-full rounded-lg">
-      {loading && <Loader/>}
+      {loading && <Loader />}
       <Heading heading={"Attendance Management ⏰"} />
 
       <section className="bg-secondary mt-2 p-3 rounded-lg">
@@ -150,6 +149,7 @@ function Attendance() {
           {attendanceList.length >= 1 && (
             <button
               onClick={() => setShowConfimModal(true)}
+              disabled={loading}
               type="button"
               className="bg-blue-600 mb-4 text-gray-200 p-3 mt-5 rounded-3xl hover:bg-blue-700 w-full"
             >

@@ -409,6 +409,7 @@ const AddEmployee = () => {
 
           <button
             type="submit"
+            disabled={loading}
             className="w-full p-4 bg-blue-600 hover:bg-blue-700 text-white rounded-3xl mb-3"
           >
             Add Employee
