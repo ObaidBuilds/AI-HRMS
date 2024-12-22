@@ -4,14 +4,8 @@ const InfoCard = ({ detail }) => {
       <h3 className="text-[1.1rem] font-extrabold mb-3 flex items-center gap-3">
         {detail.title}
       </h3>
-      <p
-        className={`${
-          typeof detail.stats === "string"
-            ? "md:text-xl font-semibold text-[1.1rem]"
-            : "md:text-2xl font-bold text-[1.4rem]"
-        }`}
-      >
-        {detail.stats}
+      <p className="md:text-2xl font-bold text-[1.4rem]">
+        {detail?.stats || 0}
       </p>
       <p className="text-sm text-gray-400 mt-2">Since last month</p>
 
