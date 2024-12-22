@@ -5,7 +5,7 @@ import PieChart from "../../components/shared/Pie";
 import BarGraph from "../../components/shared/BarGraph";
 import { useSelector } from "react-redux";
 import Error from "../../components/shared/Error";
-import Loader from "../../components/shared/Loader";
+import ComponentLoader from "../../components/shared/ComponentLoader";
 
 const Dashboard = () => {
   const { insights, loading, error } = useSelector((state) => state.insight);
@@ -31,11 +31,11 @@ const Dashboard = () => {
     },
   ];
 
+  if (loading) return <ComponentLoader />;
   if (!insights || error) return <Error />;
 
   return (
     <>
-      {loading && <Loader />}
       <section>
         <div className="w-full flex flex-wrap justify-between gap-2 lg:gap-0">
           {infoCardData.map((item) => (
