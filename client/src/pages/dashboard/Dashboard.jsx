@@ -6,6 +6,7 @@ import BarGraph from "../../components/shared/BarGraph";
 import { useSelector } from "react-redux";
 import Loader from "../../components/shared/Loader";
 import Error from "../../components/shared/Error";
+import ComponentLoader from "../../components/shared/ComponentLoader";
 
 const Dashboard = () => {
   const { insights, loading, error } = useSelector((state) => state.insight);
@@ -31,12 +32,11 @@ const Dashboard = () => {
     },
   ];
 
+  if (loading) return <ComponentLoader/>;
   if (!insights || error) return <Error />;
 
   return (
     <section>
-      {loading && <Loader />}
-
       <div className="w-full flex flex-wrap justify-between gap-2 lg:gap-0">
         {infoCardData.map((item) => (
           <InfoCard key={item.id} detail={item} />
@@ -54,8 +54,8 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="hidden sm:flex justify-between md:flex-row flex-col h-auto md:h-[400px] mb-3 md:mb-4">
-        <div className="md:w-[59%] h-full w-full mt-2 rounded-lg  bg-secondary border border-gray-600 p-4 overflow-auto">
+      <div className="sm:flex justify-between md:flex-row flex-col h-auto md:h-[400px] mb-2 md:mb-4">
+        <div className="md:w-[59%] hidden md:block h-full w-full mt-2 rounded-lg  bg-secondary border border-gray-600 p-4 overflow-auto">
           <h3 className="text-base font-bold text-gray-200 mb-4">
             Attendace Overview
           </h3>

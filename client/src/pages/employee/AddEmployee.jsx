@@ -11,11 +11,7 @@ const AddEmployee = () => {
   const departments = useSelector((state) => state.department.departments);
   const loading = useSelector((state) => state.employee.loading);
 
-  const {
-    control,
-    handleSubmit,
-    reset,
-  } = useForm();
+  const { control, handleSubmit, reset } = useForm();
 
   const onSubmit = (data) => {
     dispatch(addEmployee(data));

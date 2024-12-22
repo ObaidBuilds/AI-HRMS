@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Error from "../../components/shared/Error";
-import Loader from "../../components/shared/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { getEmployeeById } from "../../services/employee";
 import Heading from "../../components/shared/Heading";
 import { formatDate } from "../../utils";
+import ComponentLoader from "../../components/shared/ComponentLoader";
 
 const ViewEmployee = () => {
   const { employeeID } = useParams();
@@ -19,10 +19,10 @@ const ViewEmployee = () => {
   }, [employeeID, dispatch]);
 
   if (error || !employee) return <Error />;
+  if (loading) return <ComponentLoader/>;
 
   return (
     <div className="w-full rounded-lg text-white">
-      {loading && <Loader />}
 
       {/* Heading */}
       <Heading heading={"Employee Detail 👥"} />

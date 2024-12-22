@@ -24,7 +24,7 @@ const App = () => {
 
   return (
     <div>
-      <div className="min-h-screen max-h-auto bg-primary text-white flex relative">
+      <div className="min-h-screen max-h-auto bg-gray-900 text-white flex relative">
         <Sidebar />
         <Suspense fallback={<Loader />}>
           <main

@@ -2,11 +2,11 @@ import { formatDate } from "../../utils";
 import Error from "../../components/shared/Error";
 import { useNavigate, useParams } from "react-router-dom";
 import React, { useEffect } from "react";
-import Loader from "../../components/shared/Loader";
 import Heading from "../../components/shared/Heading";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import { editEmployee, getEmployeeById } from "../../services/employee";
+import ComponentLoader from "../../components/shared/ComponentLoader";
 
 const EditEmployee = () => {
   const { employeeID } = useParams();
@@ -75,11 +75,11 @@ const EditEmployee = () => {
   }, [employee, setValue]);
 
   if (!employee) return <Error />;
+  if (loading) return <ComponentLoader/>;
 
   return (
     <section>
-      {loading && <Loader />}
-
+ 
       <Heading heading={"Edit Employee"} />
       <div className="w-full min-h-screen mt-2 rounded-lg bg-secondary border border-gray-600 p-3 text-sm">
         <form

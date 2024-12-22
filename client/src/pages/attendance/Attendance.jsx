@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Heading from "../../components/shared/Heading";
-import Loader from "../../components/shared/Loader";
 import SheetModal from "../../components/shared/SheetModal";
 import Modal from "../../components/shared/Modal";
 import { getAttendanceList, markAttendance } from "../../services/attendance";
+import ComponentLoader from "../../components/shared/ComponentLoader";
 
 function Attendance() {
   const dispatch = useDispatch();
@@ -55,10 +55,10 @@ function Attendance() {
     setAttendaceRecord([]);
   }
 
+  if (loading) return <ComponentLoader />;
+
   return (
     <div className="w-full rounded-lg">
-      {loading && <Loader />}
-
       <Heading heading={"Attendance Management ⏰"} />
 
       <section className="bg-secondary mt-2 p-3 rounded-lg">

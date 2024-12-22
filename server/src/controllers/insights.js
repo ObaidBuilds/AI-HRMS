@@ -6,13 +6,13 @@ import { getDepartmentAttendancePercentage } from "./attendance.js";
 import { myCache } from "../utils/index.js";
 
 const getInsights = catchErrors(async (req, res) => {
-  const cacheKey = 'insights'; 
+  const cacheKey = "insights";
 
   const cachedInsights = myCache.get(cacheKey);
   if (cachedInsights) {
     return res.status(200).json({
       success: true,
-      message: 'Insights fetched successfully (from cache)',
+      message: "Insights fetched successfully (from cache)",
       insights: cachedInsights,
     });
   }
@@ -21,7 +21,7 @@ const getInsights = catchErrors(async (req, res) => {
   const totalDepartments = await Department.countDocuments();
   const totalRoles = await Role.countDocuments();
   const departmentAttandancePercent = await getDepartmentAttendancePercentage();
-  const totalMaleEmployees = await Employee.countDocuments({ gender: 'Male' });
+  const totalMaleEmployees = await Employee.countDocuments({ gender: "Male" });
 
   const insights = {
     totalEmployees,
@@ -36,10 +36,9 @@ const getInsights = catchErrors(async (req, res) => {
 
   return res.status(201).json({
     success: true,
-    message: 'Insights fetched successfully',
+    message: "Insights fetched successfully",
     insights,
   });
 });
-
 
 export { getInsights };

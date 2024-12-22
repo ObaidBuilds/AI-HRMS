@@ -3,12 +3,12 @@ import { downloadXls } from "../../utils";
 import { useEffect, useState } from "react";
 import Error from "../../components/shared/Error";
 import Modal from "../../components/shared/Modal";
-import Loader from "../../components/shared/Loader";
 import Heading from "../../components/shared/Heading";
 import { useDispatch, useSelector } from "react-redux";
 import FilterBar from "../../components/shared/FilterBar";
 import Pagination from "../../components/shared/Pagination";
 import { deleteEmployee, getAllEmployees } from "../../services/employee";
+import ComponentLoader from "../../components/shared/ComponentLoader";
 
 function Employee() {
   const dispatch = useDispatch();
@@ -83,10 +83,10 @@ function Employee() {
   };
 
   if (!employees) return <Error />;
+  if (loading) return <ComponentLoader/>;
 
   return (
-    <div className="w-full rounded-lg">
-      {loading && <Loader />}
+    <div className="w-full min-h-[100vh] rounded-lg">
 
       <Heading heading={"Employee Management 👥"} />
 
