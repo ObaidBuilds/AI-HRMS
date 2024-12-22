@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FilterBar from "../../components/shared/FilterBar";
 import Pagination from "../../components/shared/Pagination";
 import { deleteEmployee, getAllEmployees } from "../../services/employee";
-import ComponentLoader from "../../components/shared/ComponentLoader";
+import Loader from "../../components/shared/Loader";
 
 function Employee() {
   const dispatch = useDispatch();
@@ -83,7 +83,7 @@ function Employee() {
   };
 
   if (!employees) return <Error />;
-  if (loading) return <ComponentLoader/>;
+  if (loading) return <Loader/>;
 
   return (
     <div className="w-full min-h-[100vh] rounded-lg">

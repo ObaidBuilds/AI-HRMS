@@ -4,7 +4,7 @@ import Heading from "../../components/shared/Heading";
 import SheetModal from "../../components/shared/SheetModal";
 import Modal from "../../components/shared/Modal";
 import { getAttendanceList, markAttendance } from "../../services/attendance";
-import ComponentLoader from "../../components/shared/ComponentLoader";
+import Loader from "../../components/shared/Loader";
 
 function Attendance() {
   const dispatch = useDispatch();
@@ -55,7 +55,7 @@ function Attendance() {
     setAttendaceRecord([]);
   }
 
-  if (loading) return <ComponentLoader />;
+  if (loading) return <Loader />;
 
   return (
     <div className="w-full rounded-lg">

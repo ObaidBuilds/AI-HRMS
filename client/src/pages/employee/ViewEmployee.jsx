@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getEmployeeById } from "../../services/employee";
 import Heading from "../../components/shared/Heading";
 import { formatDate } from "../../utils";
-import ComponentLoader from "../../components/shared/ComponentLoader";
+import Loader from "../../components/shared/Loader";
 
 const ViewEmployee = () => {
   const { employeeID } = useParams();
@@ -19,7 +19,7 @@ const ViewEmployee = () => {
   }, [employeeID, dispatch]);
 
   if (error || !employee) return <Error />;
-  if (loading) return <ComponentLoader/>;
+  if (loading) return <Loader/>;
 
   return (
     <div className="w-full rounded-lg text-white">

@@ -6,7 +6,7 @@ import Heading from "../../components/shared/Heading";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import { editEmployee, getEmployeeById } from "../../services/employee";
-import ComponentLoader from "../../components/shared/ComponentLoader";
+import Loader from "../../components/shared/Loader";
 
 const EditEmployee = () => {
   const { employeeID } = useParams();
@@ -75,11 +75,10 @@ const EditEmployee = () => {
   }, [employee, setValue]);
 
   if (!employee) return <Error />;
-  if (loading) return <ComponentLoader/>;
+  if (loading) return <Loader />;
 
   return (
     <section>
- 
       <Heading heading={"Edit Employee"} />
       <div className="w-full min-h-screen mt-2 rounded-lg bg-secondary border border-gray-600 p-3 text-sm">
         <form
