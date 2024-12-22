@@ -83,10 +83,10 @@ function Employee() {
   };
 
   if (!employees) return <Error />;
-  if (loading) return <Loader/>;
 
   return (
     <div className="w-full min-h-[100vh] rounded-lg">
+      {loading && <Loader />}
 
       <Heading heading={"Employee Management 👥"} />
 
@@ -235,7 +235,7 @@ function Employee() {
                 ))}
             </tbody>
           </table>
-          {employees.length === 0 && (
+          {!loading && employees.length === 0 && (
             <div className="w-full h-[50vh] flex flex-col justify-center items-center">
               <i className="fas fa-ban text-4xl text-gray-400"></i>
               <p className="mt-2 text-xl text-gray-400">No Employees Found</p>

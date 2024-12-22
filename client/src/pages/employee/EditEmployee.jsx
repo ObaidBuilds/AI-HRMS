@@ -75,10 +75,10 @@ const EditEmployee = () => {
   }, [employee, setValue]);
 
   if (!employee) return <Error />;
-  if (loading) return <Loader />;
 
   return (
     <section>
+      {loading && <Loader/>}
       <Heading heading={"Edit Employee"} />
       <div className="w-full min-h-screen mt-2 rounded-lg bg-secondary border border-gray-600 p-3 text-sm">
         <form

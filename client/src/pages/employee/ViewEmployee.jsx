@@ -19,10 +19,10 @@ const ViewEmployee = () => {
   }, [employeeID, dispatch]);
 
   if (error || !employee) return <Error />;
-  if (loading) return <Loader/>;
 
   return (
     <div className="w-full rounded-lg text-white">
+      {loading && <Loader />}
 
       {/* Heading */}
       <Heading heading={"Employee Detail 👥"} />

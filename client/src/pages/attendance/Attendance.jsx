@@ -55,10 +55,10 @@ function Attendance() {
     setAttendaceRecord([]);
   }
 
-  if (loading) return <Loader />;
 
   return (
     <div className="w-full rounded-lg">
+      {loading && <Loader/>}
       <Heading heading={"Attendance Management ⏰"} />
 
       <section className="bg-secondary mt-2 p-3 rounded-lg">
