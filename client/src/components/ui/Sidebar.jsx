@@ -16,11 +16,11 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     dispatch(logoutAdmin())
-    .unwrap()
-    .then(() => navigate("/"))
-    .catch((error) => {
-      console.error("Error Logging out:", error);
-    });
+      .unwrap()
+      .then(() => navigate("/"))
+      .catch((error) => {
+        console.error("Error Logging out:", error);
+      });
   };
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const Sidebar = () => {
         <img
           className="w-[25px]"
           onClick={() => setShowSidebar(true)}
-          src="https://acdemicdashboard.netlify.app/menu.svg"
+          src="/menu.svg"
           alt="hamburger"
         />
         <img
@@ -58,17 +58,25 @@ const Sidebar = () => {
       {/* Sidebar */}
       <aside
         id="overflow"
-        className={`fixed top-0 h-screen bg-[#1F2937] transition-all duration-300 ease-in-out z-50 text-[0.82rem] overflow-y-auto ${
+        className={`fixed top-0 h-screen bg-navy transition-all duration-300 ease-in-out z-50 text-[0.82rem] overflow-y-auto ${
           showSidebar ? "left-0" : "-left-full"
         } lg:left-0 w-full lg:w-[250px]`}
       >
         {/* Logo and Close Button */}
-        <div className="p-4 flex justify-between lg:justify-center items-center space-x-2 px-7">
-          <img
-            className="w-[50px]"
-            src="https://buyfunoon.com/cdn/shop/files/FRAGRANCES_2_04d6b587-9fb1-4d9b-8a30-a406a1c54468.png?v=1717138062&width=90"
-            alt="logo"
-          />
+        <div className="p-4 mt-3 sm:mt-5 flex justify-between lg:justify-center items-center space-x-2 px-7">
+          <div className="flex flex-col sm:items-center">
+            <img
+              className="w-[50px]"
+              src="https://buyfunoon.com/cdn/shop/files/FRAGRANCES_2_04d6b587-9fb1-4d9b-8a30-a406a1c54468.png?v=1717138062&width=90"
+              alt="logo"
+            />
+            <h1
+              className="text-center mt-2 text-base sm:text-[1.1rem]"
+              style={{ fontFamily: "Bruno Ace, sans-serif" }}
+            >
+              Metro Cash & Carry
+            </h1>
+          </div>
           <div
             onClick={() => setShowSidebar(false)}
             className="lg:hidden w-[30px] h-[30px] bg-gray-600 hover:bg-gray-700 flex justify-center items-center rounded-full cursor-pointer transition-all ease-in-out"
@@ -112,7 +120,7 @@ const Sidebar = () => {
               {item.childrens &&
                 item.childrens.length > 0 &&
                 openSubMenuIndex === index && (
-                  <ul className="flex flex-col gap-2 pl-5 p-3 my-2 rounded-lg bg-gray-700">
+                  <ul className="flex flex-col gap-2 pl-5 p-3 my-2 rounded-lg bg-secondary">
                     {item.childrens.map((subLink, subIndex) => (
                       <li
                         key={subIndex}

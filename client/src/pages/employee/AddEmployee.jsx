@@ -14,7 +14,6 @@ const AddEmployee = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
     reset,
   } = useForm();
 
@@ -27,7 +26,7 @@ const AddEmployee = () => {
     <section>
       {loading && <Loader />}
       <Heading heading={"Add Employee"} />
-      <div className="w-full min-h-screen mt-2 rounded-lg bg-gray-700 border border-gray-600 p-3 text-sm">
+      <div className="w-full min-h-screen mt-2 rounded-lg bg-secondary border border-gray-600 p-3 text-sm">
         <form
           id="form"
           onSubmit={handleSubmit(onSubmit)}

@@ -7,7 +7,6 @@
 }
 
 body {
-  color: white;
   overflow-x: hidden;
 }
 
@@ -15,6 +14,8 @@ body::-webkit-scrollbar,
 #overflow::-webkit-scrollbar {
   display: none;
 }
+
+
 
 .no-scroll {
   overflow: hidden;

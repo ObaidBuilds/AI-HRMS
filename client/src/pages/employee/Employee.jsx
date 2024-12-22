@@ -85,12 +85,12 @@ function Employee() {
   if (!employees) return <Error />;
 
   return (
-    <div className="w-full rounded-lg bg-gray-900">
+    <div className="w-full rounded-lg">
       {loading && <Loader />}
 
       <Heading heading={"Employee Management 👥"} />
 
-      <section className="bg-gray-700 mt-2 p-3 sm:p-4 rounded-lg">
+      <section className="bg-secondary mt-2 p-3 sm:p-4 rounded-lg">
         {toggleFilterBar && (
           <FilterBar
             hideFilterBar={setToggleFilterBar}

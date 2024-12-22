@@ -3,9 +3,12 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      colors: {
-        "navy": "#1F2937",
+      backgroundColor: {
+        navy: "#1F2937",
+        primary: "#111827",
+        secondary: "#374151",
       },
+     
     },
   },
   plugins: [],

@@ -2,14 +2,22 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-navy text-white py-6 text-[0.83rem] mt-2  rounded-lg">
+    <footer className="bg-navy py-6 text-[0.83rem] mt-2  rounded-lg">
       <div className="w-full mx-auto px-6">
         <div className="flex justify-center">
-          <img
-            className="w-[60px] h-[60px]"
-            src="https://buyfunoon.com/cdn/shop/files/FRAGRANCES_2_04d6b587-9fb1-4d9b-8a30-a406a1c54468.png?v=1717138062&width=90"
-            alt="Logo"
-          />
+          <div className="sm:w-[150px] flex flex-col items-center justify-center">
+            <img
+              className="w-[50px]"
+              src="https://buyfunoon.com/cdn/shop/files/FRAGRANCES_2_04d6b587-9fb1-4d9b-8a30-a406a1c54468.png?v=1717138062&width=90"
+              alt="logo"
+            />
+            <h1
+              className="text-center mt-2 text-base sm:text-[1.1rem]"
+              style={{ fontFamily: "Bruno Ace, sans-serif" }}
+            >
+              Metro Cash & Carry
+            </h1>
+          </div>
         </div>
 
         <div className="flex flex-wrap justify-around gap-5 md:gap-8 my-5 border-b border-gray-700 pt-5 pb-10">
