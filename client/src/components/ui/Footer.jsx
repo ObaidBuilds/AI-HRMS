@@ -6,11 +6,7 @@ const Footer = () => {
       <div className="w-full mx-auto px-6">
         <div className="flex justify-center">
           <div className="sm:w-[150px] flex flex-col items-center justify-center">
-            <img
-              className="w-[50px]"
-              src="https://buyfunoon.com/cdn/shop/files/FRAGRANCES_2_04d6b587-9fb1-4d9b-8a30-a406a1c54468.png?v=1717138062&width=90"
-              alt="logo"
-            />
+            <img className="w-[55px]" src="/metro.png" alt="logo" />
             <h1
               className="text-center mt-2 text-base sm:text-[1.1rem]"
               style={{ fontFamily: "Bruno Ace, sans-serif" }}

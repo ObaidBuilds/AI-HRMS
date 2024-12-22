@@ -13,14 +13,13 @@ const useGetToken = () => {
   }
 };
 
-
-const token = useGetToken()
+const token = useGetToken();
 const configuration = {
   headers: {
     "Content-Type": "application/json",
-    "Authorization": token ? `Bearer ${token}` : "",
+    Authorization: `Bearer ${token}`,
   },
-}
+};
 
 const formatDate = (date) => {
   if (!date) return "";

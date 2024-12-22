@@ -45,9 +45,9 @@ const Login = () => {
           <div className="flex flex-col items-center py-8">
             <div className="sm:w-[140px] w-[120px] h-[120px] sm:h-[140px] bg-gray-600 rounded-full flex items-center justify-center">
               <img
-                src="https://designz.netlify.app/user.svg"
+                src="/metro.png"
                 alt="user"
-                className="w-[40px]"
+                className="w-[70px] sm:w-[80px]"
               />
             </div>
             <h1
@@ -68,7 +68,7 @@ const Login = () => {
               <select
                 id="select"
                 {...register("department")}
-                className="w-full bg-gray-700 text-center text-sm p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                className="w-full bg-gray-700 text-center text-[0.9rem] p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                 required
               >
                 <option value="">--- Select Depart ---</option>
@@ -90,7 +90,7 @@ const Login = () => {
                   {...register("employeeId")}
                   placeholder="Employee ID"
                   autoComplete="off"
-                  className="w-full bg-gray-700 text-sm sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                  className="w-full bg-gray-700 text-[0.9rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                   required
                 />
               </div>
@@ -109,7 +109,7 @@ const Login = () => {
                   type={active ? "text" : "password"}
                   {...register("password")}
                   placeholder="Password"
-                  className="w-full bg-gray-700 text-sm sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                  className="w-full bg-gray-700 text-[0.9rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                   required
                 />
                 <span
@@ -133,7 +133,7 @@ const Login = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-[85%] text-[0.85rem] sm:text-[0.95rem] p-[15px] bg-green-500 text-white rounded-full text-lg font-medium hover:bg-gray-500 transition duration-300"
+              className="w-[85%] text-sm sm:text-[0.95rem] p-[18px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
             >
               {loading ? (
                 <ClipLoader size={10} color="white" loading={loading} />
