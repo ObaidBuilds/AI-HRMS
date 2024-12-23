@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import NotFound from "../components/shared/NotFound";
 import { getRoles } from "../services/role";
 import { useDispatch } from "react-redux";
+import { getInsights } from "../services/insights";
 
 // Lazy loading the components
 const Dashboard = React.lazy(() => import("../pages/dashboard/Dashboard"));
@@ -14,11 +15,14 @@ const AddEmployee = React.lazy(() => import("../pages/employee/AddEmployee"));
 const EditEmployee = React.lazy(() => import("../pages/employee/EditEmployee"));
 const ViewEmployee = React.lazy(() => import("../pages/employee/ViewEmployee"));
 const Attendance = React.lazy(() => import("../pages/attendance/Attendance"));
+const LeaveRequest = React.lazy(() => import("../pages/leave/LeaveRequest"));
+const EmployeeOnLeave = React.lazy(() => import("../pages/leave/EmployeeOnLeave"));
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getInsights());
     dispatch(getRoles());
   }, []);
 
@@ -43,7 +47,10 @@ const App = () => {
               />
               {/* Attendance Modules */}
               <Route path="/mark-attendance" element={<Attendance />} />
+              <Route path="/leave-request" element={<LeaveRequest />} />
+              <Route path="/on-leave" element={<EmployeeOnLeave />} />
               <Route path="*" element={<NotFound />} />
+              
             </Routes>
             <Footer />
           </main>

@@ -3,12 +3,12 @@ import { downloadXls } from "../../utils";
 import { useEffect, useState } from "react";
 import Error from "../../components/shared/Error";
 import Modal from "../../components/shared/Modal";
+import Loader from "../../components/shared/Loader";
 import Heading from "../../components/shared/Heading";
 import { useDispatch, useSelector } from "react-redux";
 import FilterBar from "../../components/shared/FilterBar";
 import Pagination from "../../components/shared/Pagination";
 import { deleteEmployee, getAllEmployees } from "../../services/employee";
-import Loader from "../../components/shared/Loader";
 
 function Employee() {
   const dispatch = useDispatch();
@@ -22,16 +22,15 @@ function Employee() {
   const [deletedEmployee, setDeletedEmployee] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState({
-    department: null,
-    role: null,
-    status: null,
-    departmentName: null,
-    roleName: null,
+    department: "",
+    role: "",
+    status: "",
+    name: "",
+    departmentName: "",
+    roleName: "",
   });
 
   const goToPage = (page) => setCurrentPage(page);
-
-  const onApplyFilters = (newFilters) => setFilters(newFilters);
 
   const confirmation = () => {
     dispatch(deleteEmployee(deletedEmployee._id));
@@ -65,14 +64,10 @@ function Employee() {
     downloadXls(data);
   };
 
-  useEffect(() => {
-    dispatch(getAllEmployees({ currentPage, filters }));
-  }, [currentPage, filters]);
-
-  useEffect(() => {
-    if (toggleFilterBar) document.body.classList.add("no-scroll");
-    else document.body.classList.remove("no-scroll");
-  }, [toggleFilterBar]);
+  const handleApplyFilters = (filters) => {
+    setFilters(filters);
+    setToggleFilterBar(false);
+  };
 
   const clearFilter = (filterKey) => {
     setFilters((prevFilters) => ({
@@ -81,6 +76,15 @@ function Employee() {
       [`${filterKey}Name`]: null,
     }));
   };
+
+  useEffect(() => {
+    dispatch(getAllEmployees({ currentPage, filters }));
+  }, [currentPage, filters]);
+
+  useEffect(() => {
+    if (toggleFilterBar) document.body.classList.add("no-scroll");
+    else document.body.classList.remove("no-scroll");
+  }, [toggleFilterBar]);
 
   if (!employees) return <Error />;
 
@@ -94,8 +98,8 @@ function Employee() {
         <section className="bg-secondary mt-2 p-3 sm:p-4 rounded-lg">
           {toggleFilterBar && (
             <FilterBar
+              handleApplyFilters={handleApplyFilters}
               hideFilterBar={setToggleFilterBar}
-              onApplyFilters={onApplyFilters}
             />
           )}
 
@@ -107,9 +111,13 @@ function Employee() {
             />
           )}
 
-          {/* Three-dot icon for dropdown aligned to the right */}
           <div className="relative flex gap-1 items-center justify-between py-1 sm:px-3 mb-3">
-            {!(filters.status || filters.department || filters.role) && (
+            {!(
+              filters.status ||
+              filters.department ||
+              filters.role ||
+              filters.name
+            ) && (
               <button
                 onClick={() => setToggleFilterBar(true)}
                 className="flex sm:flex-grow-0 flex-grow justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold"
@@ -120,6 +128,15 @@ function Employee() {
             )}
 
             <div className="flex flex-wrap items-center gap-2">
+              {filters.name && (
+                <button className="flex flex-grow sm:flex-grow-0 justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
+                  {filters.name}
+                  <i
+                    onClick={() => clearFilter("name")}
+                    className="fa-solid fa-close text-xs cursor-pointer"
+                  ></i>
+                </button>
+              )}
               {filters.status && (
                 <button className="flex flex-grow sm:flex-grow-0 justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
                   {filters.status}
@@ -243,7 +260,9 @@ function Employee() {
             {!loading && employees.length === 0 && (
               <div className="w-full h-[50vh] flex flex-col justify-center items-center">
                 <i className="fas fa-ban text-4xl text-gray-400"></i>
-                <p className="mt-2 text-xl text-gray-400">No Employees Found</p>
+                <p className="mt-2 text-lg sm:text-xl text-gray-400">
+                  No Employees Found
+                </p>
               </div>
             )}
           </div>

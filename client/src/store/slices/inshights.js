@@ -10,9 +10,7 @@ const initialState = {
 const insightSlice = createSlice({
   name: "insight",
   initialState,
-  reducers: {
-    // Additional reducers can be added if needed
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       // Handling the getInsights action

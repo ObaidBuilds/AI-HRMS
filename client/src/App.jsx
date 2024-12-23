@@ -9,7 +9,6 @@ import { getDepartments } from "./services/department";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetToken } from "./utils";
 import NotFound from "./components/shared/NotFound";
-import { getInsights } from "./services/insights";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
@@ -44,7 +43,6 @@ const RootApp = () => {
 
   useEffect(() => {
     dispatch(getDepartments());
-    dispatch(getInsights());
   }, [dispatch]);
 
   return (

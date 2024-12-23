@@ -12,6 +12,7 @@ import departmentRoutes from "./routes/department.js";
 import authRoutes from "./routes/auth.js";
 import attendanceRoutes from "./routes/attendance.js";
 import inshightRoutes from "./routes/insights.js";
+import leaveRoutes from "./routes/leave.js";
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.use("/api/departments", departmentRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/attendance", attendanceRoutes);
 app.use("/api/insights", inshightRoutes);
+app.use("/api/leaves", leaveRoutes);
 
 app.get("/", (req, res) => {
   res.send("HRMS For Metro");

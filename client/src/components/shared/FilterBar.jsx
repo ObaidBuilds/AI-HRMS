@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { FaChevronDown, FaChevronUp, FaTimes } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
-const FilterBar = ({ hideFilterBar, onApplyFilters }) => {
+const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
   const [filters, setFilters] = useState({
     department: "",
     role: "",
     status: "",
+    name: "",
     departmentName: "",
     roleName: "",
   });
-
   const [toggleState, setToggleState] = useState({
     department: true,
     position: true,
@@ -35,11 +35,6 @@ const FilterBar = ({ hideFilterBar, onApplyFilters }) => {
     }));
   };
 
-  const handleApplyFilters = () => {
-    onApplyFilters(filters);
-    hideFilterBar(false);
-  };
-
   return (
     <section className="fixed bg-gray-900 bg-opacity-20 inset-0 z-50">
       <aside
@@ -55,8 +50,24 @@ const FilterBar = ({ hideFilterBar, onApplyFilters }) => {
           </div>
         </div>
         <div>
+          <div className="w-full border-b border-gray-500 pb-6">
+            <div className="w-full relative">
+              <i className="fa fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
+              <input
+                type="text"
+                placeholder="Search by name"
+                value={filters.name}
+                onChange={(e) =>
+                  setFilters({ ...filters, name: e.target.value })
+                }
+                autoComplete="off"
+                className="w-full bg-secondary text-sm sm:text-[0.9rem] sm:text-center p-4 sm:p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                required
+              />
+            </div>
+          </div>
           {/* Department Filter */}
-          <div className="h-auto border-b border-gray-500 pt-1">
+          <div className="h-auto border-b border-gray-500 pt-4">
             <div
               className="flex justify-between items-center mb-5 cursor-pointer"
               onClick={() => handleToggle("department")}
@@ -156,7 +167,7 @@ const FilterBar = ({ hideFilterBar, onApplyFilters }) => {
             )}
             <button
               className="w-full sm:mb-0 text-sm sm:text-base border border-gray-600 bg-gradient-to-r from-blue-700 via-blue-600 to-blue-800 hover:bg-gradient-to-r hover:from-blue-800 hover:via-blue-700 hover:to-blue-600 p-3 rounded-lg mt-3"
-              onClick={handleApplyFilters}
+              onClick={() => handleApplyFilters(filters)}
             >
               Apply Filters
             </button>

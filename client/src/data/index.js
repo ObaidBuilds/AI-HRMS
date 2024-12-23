@@ -14,7 +14,7 @@ const sidebarLinks = [
         link: "/employees",
       },
       {
-        name: "Add Employee",
+        name: "Create Employee",
         link: "/add-employee",
       },
     ],
@@ -33,7 +33,16 @@ const sidebarLinks = [
   {
     name: "Leave Management",
     iconClass: "fas fa-calendar-alt",
-    childrens: [],
+    childrens: [
+      {
+        name: "Leave Requests",
+        link: "/leave-request",
+      },
+      {
+        name: "Employees On Leave",
+        link: "/on-leave",
+      },
+    ],
   },
   {
     name: "Complaint Management",
@@ -55,4 +64,4 @@ const sidebarLinks = [
   },
 ];
 
-export { sidebarLinks }
+export { sidebarLinks };

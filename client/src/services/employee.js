@@ -8,11 +8,12 @@ export const getAllEmployees = createAsyncThunk(
   "employee/getAllEmployees",
   async ({ currentPage, filters }, { rejectWithValue }) => {
     const token = useGetToken();
-    const { department, role, status } = filters;
+    const { department, role, status, name } = filters;
 
     try {
       const queryParams = new URLSearchParams({
         page: currentPage,
+        name: name || "",
         department: department || "",
         role: role || "",
         status: status || "",
