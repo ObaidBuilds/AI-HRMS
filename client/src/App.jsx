@@ -1,5 +1,6 @@
 import App from "./app";
 import 'typeface-poppins';
+import 'animate.css';
 import Login from "./pages/auth/Login";
 import { Toaster } from "react-hot-toast";
 import { Route, Routes } from "react-router-dom";

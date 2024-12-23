@@ -54,16 +54,16 @@ const Sidebar = () => {
       {/* Sidebar */}
       <aside
         id="overflow"
-        className={`fixed top-0 h-screen bg-navy transition-all duration-300 ease-in-out z-50 text-[0.82rem] overflow-y-auto ${
+        className={`fixed top-0 h-screen bg-navy transition-all duration-300 ease-in-out z-50 overflow-y-auto ${
           showSidebar ? "left-0" : "-left-full"
         } lg:left-0 w-full lg:w-[250px]`}
       >
         {/* Logo and Close Button */}
-        <div className="p-4 mt-3 sm:mt-5 flex justify-between lg:justify-center items-center space-x-2 px-7">
-          <div className="flex flex-col sm:items-center">
+        <div className="p-3 mt-3 sm:mt-5 flex justify-between lg:justify-center items-center space-x-2 px-7">
+          <div className="flex flex-col sm:items-center animate__animated animate__bounce">
             <img className="w-[55px]" src="/metro.png" alt="logo" />
             <h1
-              className="text-center mt-2 text-base sm:text-[1.1rem]"
+              className="text-center mt-1 text-base"
               style={{ fontFamily: "Bruno Ace, sans-serif" }}
             >
               Metro Cash & Carry
@@ -82,6 +82,7 @@ const Sidebar = () => {
           {sidebarLinks.map((item, index) => (
             <li
               key={index}
+              onClick={() => toggleSubMenu(index)}
               className="cursor-pointer border-b border-gray-700 py-[6px]"
             >
               {/* Main Link */}
@@ -89,10 +90,10 @@ const Sidebar = () => {
                 <Link
                   to={item.link}
                   onClick={() => setShowSidebar(false)}
-                  className="flex items-center hover:text-gray-300"
+                  className="flex items-center hover:text-gray-200 font-medium"
                 >
                   <i
-                    className={`${item.iconClass} mr-3 text-sm text-gray-300`}
+                    className={`${item.iconClass} mr-3 text-sm text-gray-200`}
                   ></i>
                   <p>{item.name}</p>
                 </Link>
@@ -104,15 +105,15 @@ const Sidebar = () => {
                         ? "fa-chevron-up"
                         : "fa-chevron-down"
                     }`}
-                    onClick={() => toggleSubMenu(index)}
                   ></i>
                 )}
               </div>
+
               {/* Submenu */}
               {item.childrens &&
                 item.childrens.length > 0 &&
                 openSubMenuIndex === index && (
-                  <ul className="flex flex-col gap-2 pl-5 p-3 my-2 rounded-lg bg-secondary">
+                  <ul className="flex flex-col gap-2 pl-5 p-3 my-2 rounded-lg bg-secondary animate_animated animate__bounceIn">
                     {item.childrens.map((subLink, subIndex) => (
                       <li
                         key={subIndex}

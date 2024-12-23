@@ -1,10 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * {
   font-family: "Poppins";
+}
+
+aside{
+  font-size: 0.82rem;
 }
 
 body {
@@ -15,8 +19,6 @@ body::-webkit-scrollbar,
 #overflow::-webkit-scrollbar {
   display: none;
 }
-
-
 
 .no-scroll {
   overflow: hidden;
@@ -166,4 +168,27 @@ td {
   opacity: 0;
   transform: scale(0.8);
   animation: modal-appearance 0.3s ease-out forwards;
+}
+
+.handshake {
+  display: inline-block;
+  animation: handshake 2s infinite alternate ease-in-out;
+}
+
+@keyframes handshake {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }

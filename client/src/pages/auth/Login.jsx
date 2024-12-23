@@ -54,10 +54,10 @@ const Login = () => {
               />
             </div>
             <h1
-              className="text-2xl sm:text-3xl mt-3"
+              className="text-2xl sm:text-3xl mt-3 "
               style={{ fontFamily: "Bruno Ace, sans-serif" }}
             >
-              Welcome Back! 👋
+              Welcome Back! <span className="handshake">👋</span>
             </h1>
           </div>
 

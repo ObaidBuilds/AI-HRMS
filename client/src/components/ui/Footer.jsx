@@ -8,7 +8,7 @@ const Footer = () => {
           <div className="sm:w-[150px] flex flex-col items-center justify-center">
             <img className="w-[55px]" src="/metro.png" alt="logo" />
             <h1
-              className="text-center mt-2 text-base sm:text-[1.1rem]"
+              className="text-center mt-1 text-base"
               style={{ fontFamily: "Bruno Ace, sans-serif" }}
             >
               Metro Cash & Carry

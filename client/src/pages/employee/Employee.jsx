@@ -259,8 +259,8 @@ function Employee() {
             </table>
             {!loading && employees.length === 0 && (
               <div className="w-full h-[50vh] flex flex-col justify-center items-center">
-                <i className="fas fa-ban text-4xl text-gray-400"></i>
-                <p className="mt-2 text-lg sm:text-xl text-gray-400">
+                <i className="fas fa-ban text-3xl text-gray-400"></i>
+                <p className="mt-2 text-base  text-gray-400">
                   No Employees Found
                 </p>
               </div>
