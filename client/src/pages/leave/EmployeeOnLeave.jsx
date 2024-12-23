@@ -37,9 +37,9 @@ function EmployeeOnLeave() {
             onClick={() => setStatus("yesterday")}
             className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold ${
               status === "yesterday"
-                ? "border-green-500 ring-1 ring-green-500"
+                ? "border-blue-500 ring-1 ring-blue-500"
                 : "border-gray-300"
-            } focus:outline-none focus:ring-1 focus:ring-green-500`}
+            } focus:outline-none focus:ring-1 focus:ring-blue-500`}
           >
             Yesterday
           </button>
@@ -47,9 +47,9 @@ function EmployeeOnLeave() {
             onClick={() => setStatus("present")}
             className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold ${
               status === "present"
-                ? "border-green-500 ring-1 ring-green-500"
+                ? "border-blue-500 ring-1 ring-blue-500"
                 : "border-gray-300"
-            } focus:outline-none focus:ring-1 focus:ring-green-500`}
+            } focus:outline-none focus:ring-1 focus:ring-blue-500`}
           >
             Present day
           </button>
@@ -57,9 +57,9 @@ function EmployeeOnLeave() {
             onClick={() => setStatus("tommorow")}
             className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold ${
               status === "tommorow"
-                ? "border-green-500 ring-1 ring-green-500"
+                ? "border-blue-500 ring-1 ring-blue-500"
                 : "border-gray-300"
-            } focus:outline-none focus:ring-1 focus:ring-green-500`}
+            } focus:outline-none focus:ring-1 focus:ring-blue-500`}
           >
             Tommorow
           </button>

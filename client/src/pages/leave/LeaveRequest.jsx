@@ -52,9 +52,9 @@ function LeaveRequest() {
             onClick={() => setStatus("Pending")}
             className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold ${
               status === "Pending"
-                ? "border-green-500 ring-1 ring-green-500"
+                ? "border-blue-500 ring-1 ring-blue-500"
                 : "border-gray-300"
-            } focus:outline-none focus:ring-1 focus:ring-green-500`}
+            } focus:outline-none focus:ring-1 focus:ring-blue-500`}
           >
             Pending Leaves
           </button>
@@ -62,9 +62,9 @@ function LeaveRequest() {
             onClick={() => setStatus("Approved")}
             className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold ${
               status === "Approved"
-                ? "border-green-500 ring-1 ring-green-500"
+                ? "border-blue-500 ring-1 ring-blue-500"
                 : "border-gray-300"
-            } focus:outline-none focus:ring-1 focus:ring-green-500`}
+            } focus:outline-none focus:ring-1 focus:ring-blue-500`}
           >
             Approved Leaves
           </button>
@@ -72,9 +72,9 @@ function LeaveRequest() {
             onClick={() => setStatus("Rejected")}
             className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold ${
               status === "Rejected"
-                ? "border-green-500 ring-1 ring-green-500"
+                ? "border-blue-500 ring-1 ring-blue-500"
                 : "border-gray-300"
-            } focus:outline-none focus:ring-1 focus:ring-green-500`}
+            } focus:outline-none focus:ring-1 focus:ring-blue-500`}
           >
             Rejected Leaves
           </button>
@@ -156,7 +156,7 @@ function LeaveRequest() {
           {!loading && leaves.length === 0 && (
             <div className="w-full h-[50vh] flex flex-col justify-center items-center">
               <i className="fas fa-ban text-3xl text-gray-400"></i>
-              <p className="mt-2 text-base  text-gray-400">
+              <p className="mt-2 text-lg  text-gray-400">
                 No {status} Leave Found
               </p>
             </div>
