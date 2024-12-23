@@ -90,7 +90,7 @@ const Sidebar = () => {
                 <Link
                   to={item.link}
                   onClick={() => setShowSidebar(false)}
-                  className="flex items-center hover:text-gray-200 font-medium"
+                  className="flex items-center hover:text-gray-200"
                 >
                   <i
                     className={`${item.iconClass} mr-3 text-sm text-gray-200`}
