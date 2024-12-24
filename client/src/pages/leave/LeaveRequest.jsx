@@ -46,11 +46,11 @@ function LeaveRequest() {
       {loading && <Loader />}
       <Heading heading={`${status} Leave Requests 🏖️`} />
 
-      <section className="bg-gray-700 mt-2 p-3 sm:p-4 rounded-lg min-h-[90vh]">
+      <section className="bg-gray-700 mt-2 p-3 sm:p-4 rounded-lg min-h-[95vh]">
         <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
           <button
             onClick={() => setStatus("Pending")}
-            className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold ${
+            className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold ${
               status === "Pending"
                 ? "border-blue-500 ring-1 ring-blue-500"
                 : "border-gray-300"
@@ -61,7 +61,7 @@ function LeaveRequest() {
           </button>
           <button
             onClick={() => setStatus("Approved")}
-            className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold ${
+            className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold ${
               status === "Approved"
                 ? "border-blue-500 ring-1 ring-blue-500"
                 : "border-gray-300"
@@ -72,7 +72,7 @@ function LeaveRequest() {
           </button>
           <button
             onClick={() => setStatus("Rejected")}
-            className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold ${
+            className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold ${
               status === "Rejected"
                 ? "border-blue-500 ring-1 ring-blue-500"
                 : "border-gray-300"

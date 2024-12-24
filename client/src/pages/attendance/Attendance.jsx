@@ -63,12 +63,12 @@ function Attendance() {
 
         <section className="bg-secondary mt-2 p-3 rounded-lg">
           <div className="flex gap-2 flex-wrap justify-between items-center py-1 sm:px-3">
-            <button className="hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold">
+            <button className="hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold">
               Total Employees : {attendanceList.length}
             </button>
 
             {attendanceList.length >= 1 && (
-              <button className="hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold">
+              <button className="hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold">
                 Total Present : {attendaceRecord.length}
               </button>
             )}
@@ -76,7 +76,7 @@ function Attendance() {
             {!attendanceList.length && (
               <button
                 onClick={() => setShowModal(true)}
-                className="flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-2 px-5 rounded-3xl font-semibold"
+                className="flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold"
               >
                 Select Department
               </button>

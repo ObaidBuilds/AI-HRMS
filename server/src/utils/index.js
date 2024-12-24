@@ -1,6 +1,7 @@
 import NodeCache from "node-cache";
 import nodemailer from "nodemailer";
 import Employee from "../models/employee.js";
+import getPredictionFromGeminiAI from "../gemini/index.js";
 const myCache = new NodeCache();
 
 const catchErrors = (fn) => {
@@ -48,42 +49,43 @@ async function notifySubstituteEmployee(
     subject: "Metro Shift Alert",
     text: `Dear ${subsName}, your shift is scheduled on ${shift} as a substitute for ${name} in the ${department} department from ${fromDate} to ${toDate}. Please ensure your presence.`,
     html: `
-   <div
-    style="font-family: Poppins; max-width: 600px; margin: 30px auto; background-color: #1f1f1f; border: 1px solid #333; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);">
-    <!-- Header -->
-    <div style="color: #fff; padding: 20px; border-bottom: 1px solid gray; display: flex; gap: 10px;">
+  <div style="font-family: Poppins, Arial, sans-serif; max-width: 600px; margin: 30px auto; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); background-color: #ffffff;">
+    <div style="background-color: #333333; color: #fff; padding: 20px 30px; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center;">
         <img src="https://img.freepik.com/premium-vector/metro-logo-icon-design_470209-40.jpg?ga=GA1.1.1159554069.1729552283&semt=ais_hybrid"
-            alt="Metro Logo" style="max-width: 70px; border-radius: 8px;">
+            alt="Metro Logo" style="max-width: 70px; border-radius: 8px; margin-right: 20px;">
+        <h2 style="font-size: 22px; font-weight: 500; margin: 0;">Metro HRMS</h2>
     </div>
-    <div style="padding: 25px;">
-        <p style="font-size: 16px; color: #bdbdbd;">Dear <strong style="font-weight: bold;">${name}</strong>,</p>
-        <p style="font-size: 16px; color: #bdbdbd; margin-bottom: 15px;">
-            Your shift is scheduled on <strong style="color: gray;">${shift}</strong> as a substitute for <strong ">${subsName}</strong> 
-        in the <strong ">${department}</strong> department.
+
+    <div style="padding: 25px 30px;">
+        <p style="font-size: 16px; color: #555555; margin-bottom: 15px;">Dear <strong style="color: #000000;">${subsName}</strong>,</p>
+        <p style="font-size: 16px; color: #555555; margin-bottom: 15px;">
+            Your shift is scheduled on <strong style="color: #4CAF50;">${shift}</strong> as a substitute for <strong style="color: #000000;">${name}</strong>
+            in the <strong style="color: #000000;">${department}</strong> department.
         </p>
-        <p style="font-size: 16px; color: #bdbdbd; margin-bottom: 15px;">
-            The shift is from ${fromDate} to ${toDate}. of duration <strong>${duration}</strong> days
+        <p style="font-size: 16px; color: #555555; margin-bottom: 15px;">
+            The shift is from <strong>${fromDate}</strong> to <strong>${toDate}</strong>, with a total duration of <strong>${duration}</strong> days.
         </p>
-        <p style="font-size: 16px; color: #bdbdbd; margin-bottom: 15px;">
+        <p style="font-size: 16px; color: #555555; margin-bottom: 20px;">
             Please ensure your presence and cooperate with the team to maintain seamless operations.
         </p>
-        <div style="text-align: center; margin:20px 0px 0px 0px;">
+
+        <div style="text-align: center; margin-top: 20px;">
             <a href="https://metrohrms.netlify.app"
-                style="width: 85%; text-decoration: none; display: inline-block; border: none; background-color: rgb(31, 31, 98); color: #fff; padding: 15px 25px; font-size: 0.9rem; border-radius: 25px; font-weight: bold;">
+                style="width: 85%; text-decoration: none; display: inline-block; border: none; background-color: #1F1F62; color: #fff; padding: 15px 25px; font-size: 0.9rem; border-radius: 25px; font-weight: bold;">
                 Visit HRMS Portal
             </a>
         </div>
     </div>
-    <div
-        style="background-color: #212121; text-align: center; padding: 15px; border-top: 1px solid rgb(124, 124, 124);">
-        <p style="font-size: 14px; color: #9e9e9e; margin: 0;">
+
+    <div style="background-color: #212121; color: #9e9e9e; text-align: center; padding: 20px; border-top: 1px solid #333333;">
+        <p style="font-size: 14px; margin: 0;">
             If you have any questions, please contact HR at
-            <a href="mailto:hr@metrohrms.com"
-                style="color: rgb(66, 219, 66); text-decoration: none;">hr@metrohrms.com</a>.
+            <a href="mailto:hr@metrohrms.com" style="color: #4CAF50; text-decoration: none;">hr@metrohrms.com</a>.
         </p>
-        <p style="margin-top: 10px; font-size: 13px; color: grey;">Metro HRMS &copy; 2024. All Rights Reserved.</p>
+        <p style="margin-top: 10px; font-size: 13px;">Metro HRMS &copy; 2024. All Rights Reserved.</p>
     </div>
-    </div>
+</div>
+
     `,
   };
 
@@ -93,13 +95,9 @@ async function notifySubstituteEmployee(
 async function getSubstitute({ department, shift }) {
   let requiredShift;
 
-  if (shift === "Morning") {
-    requiredShift = ["Evening", "Night"];
-  } else if (shift === "Evening") {
-    requiredShift = ["Morning", "Night"];
-  } else {
-    requiredShift = ["Morning", "Evening"];
-  }
+  if (shift === "Morning") requiredShift = ["Evening", "Night"];
+  else if (shift === "Evening") requiredShift = ["Morning", "Night"];
+  else requiredShift = ["Morning", "Evening"];
 
   const employees = await Employee.find({
     status: "Active",
@@ -107,17 +105,62 @@ async function getSubstitute({ department, shift }) {
     shift: { $in: requiredShift },
   }).sort({ leaveBalance: -1 });
 
-  if (!employees.length) return { availability: false };
+  if (!employees.length) {
+    return { availability: false, message: "No suitable substitute found." };
+  }
 
-  const employee = employees[0];
+  const prompt = `
+You are an AI assistant helping to assign a substitute employee for a shift in the department "${department}".
+The following employees are available, and their details are as follows:
+${employees
+  .map(
+    (emp, index) =>
+      `${index + 1}. Name: ${emp.name}, Email: ${emp.email}, Current Shift: ${
+        emp.shift
+      }, Leave Balance: ${emp.leaveBalance}`
+  )
+  .join("\n")}
+
+The current shift requiring a substitute is "${shift}". 
+Your task is to suggest the most suitable substitute based on leave balance and shift compatibility. 
+If no perfect match is found, return the least possible match. 
+
+Please respond with **only** a valid JSON object in the following format:
+{
+  "name": "Employee Name",
+  "email": "employee@example.com"
+}`;
+
+  let suggestedEmployee;
+
+  try {
+    const aiResponse = await getPredictionFromGeminiAI(prompt);
+
+    const cleanedResponse = aiResponse.replace(/```json|```|\n/g, "").trim();
+
+    suggestedEmployee = JSON.parse(cleanedResponse);
+
+    if (!suggestedEmployee.name || !suggestedEmployee.email) {
+      throw new Error("Incomplete JSON data from AI response.");
+    }
+  } catch (error) {
+    console.error("Error with AI prediction or parsing:", error.message);
+
+    suggestedEmployee = {
+      name: employees[0].name,
+      email: employees[0].email,
+    };
+  }
 
   return {
     availability: true,
-    id: employee._id,
-    email: employee.email,
-    name: employee.name,
+    id: employees.find((e) => e.email === suggestedEmployee.email)?._id,
+    email: suggestedEmployee.email,
+    name: suggestedEmployee.name,
   };
 }
+
+export default getSubstitute;
 
 function getSentimentAnalysis(rating) {
   if (rating >= 4) {

@@ -1,33 +1,49 @@
 import getPredictionFromGeminiAI from "../gemini/index.js";
 import Feedback from "../models/feedback.js";
-import { catchErrors, getSentimentAnalysis } from "../utils/index.js";
+import { catchErrors, getSentimentAnalysis, myCache } from "../utils/index.js";
 
 const getFeedbacks = catchErrors(async (req, res) => {
-  const { review } = req.query;
+  const { review, page = 1, limit = 10 } = req.query;
 
   const query = {};
 
   if (review) query.review = { $regex: review, $options: "i" };
 
-  const feedback = await Feedback.find(query).populate({
-    path: "employee",
-    select: "name employeeId department role",
-    populate: [
-      {
-        path: "department",
-        select: "name",
-      },
-      {
-        path: "role",
-        select: "name",
-      },
-    ],
-  });
+  const pageNumber = Math.max(parseInt(page), 1);
+  const limitNumber = Math.max(parseInt(limit), 1);
+  const skip = (pageNumber - 1) * limitNumber;
+
+  const feedback = await Feedback.find(query)
+    .populate({
+      path: "employee",
+      select: "name employeeId department role",
+      populate: [
+        {
+          path: "department",
+          select: "name",
+        },
+        {
+          path: "role",
+          select: "name",
+        },
+      ],
+    })
+    .skip(skip)
+    .limit(limitNumber);
+
+  const totalFeedbacks = await Feedback.countDocuments(query);
+  const totalPages = Math.ceil(totalFeedbacks / limitNumber);
 
   return res.status(200).json({
     success: true,
     message: "Feedback fetched successfully",
     feedback,
+    pagination: {
+      currentPage: pageNumber,
+      totalPages,
+      totalFeedbacks,
+      limit: limitNumber,
+    },
   });
 });
 
@@ -48,7 +64,7 @@ const createFeedback = catchErrors(async (req, res) => {
   let review;
   review = await getPredictionFromGeminiAI(prompt);
 
-  if (!review) review = getSentimentAnalysis();
+  if (!review) review = getSentimentAnalysis(parseInt(rating));
 
   const feedback = await Feedback.create({
     employee,
@@ -56,6 +72,8 @@ const createFeedback = catchErrors(async (req, res) => {
     rating,
     review,
   });
+
+  myCache.del("insights");
 
   return res.status(200).json({
     success: true,

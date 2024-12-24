@@ -14,6 +14,7 @@ import employeeRoutes from "./routes/employee.js";
 import feedbackRoutes from "./routes/feedback.js";
 import attendanceRoutes from "./routes/attendance.js";
 import departmentRoutes from "./routes/department.js";
+import getPredictionFromGeminiAI from "./gemini/index.js";
 
 const app = express();
 

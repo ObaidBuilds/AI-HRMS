@@ -3,6 +3,7 @@ import { getFeedbacks } from "../../services/feedback";
 
 const initialState = {
   feedbacks: [],
+  pagination: null,
   loading: false,
   error: null,
 };
@@ -19,7 +20,8 @@ const feedbackSlice = createSlice({
         state.error = null;
       })
       .addCase(getFeedbacks.fulfilled, (state, action) => {
-        state.feedbacks = action.payload;
+        state.feedbacks = action.payload.feedback;
+        state.pagination = action.payload.pagination;
         state.loading = false;
       })
       .addCase(getFeedbacks.rejected, (state, action) => {
