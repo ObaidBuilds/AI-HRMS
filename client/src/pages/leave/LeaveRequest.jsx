@@ -1,19 +1,35 @@
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import { formatDate } from "../../utils";
 import Heading from "../../components/shared/Heading";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../../components/shared/Loader";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { getLeavesByStatus, respondToLeaveRequest } from "../../services/leave";
+import RemarksModal from "../../components/shared/RemarksModal";
+import Modal from "../../components/shared/Modal";
 
 function LeaveRequest() {
   const dispatch = useDispatch();
   const { leaves, loading } = useSelector((state) => state.leave);
   const [status, setStatus] = useState("Pending");
+  const [selectedLeave, setSelectedLeave] = useState(null);
+  const [toggleModal, setToggleModal] = useState(false);
+  const [toggleRemarkModal, setToggleRemarkModal] = useState(false);
 
-  const handleApprove = (leaveID) => {
-    dispatch(respondToLeaveRequest({ status: "approved", leaveID }))
+  const handleApprove = (id) => {
+    setSelectedLeave(id);
+    setToggleModal(true);
+  };
+
+  const handleReject = (id) => {
+    setSelectedLeave(id);
+    setToggleRemarkModal(true);
+  };
+
+  const isConfirm = () => {
+    dispatch(
+      respondToLeaveRequest({ status: "approved", leaveID: selectedLeave })
+    )
       .unwrap()
       .then(() => {
         if (leaves.length <= 1) {
@@ -22,19 +38,22 @@ function LeaveRequest() {
       });
   };
 
-  const handleReject = (leaveID) => {
-    const remarks = prompt("Please add remarks of rejecting leave");
-    if (!remarks) {
-      toast.error("Remarks should not be empty");
-      return;
+  const remarkConfirmation = (remarks) => {
+    if (selectedLeave) {
+      dispatch(
+        respondToLeaveRequest({
+          status: "rejected",
+          leaveID: selectedLeave,
+          remarks,
+        })
+      )
+        .unwrap()
+        .then(() => {
+          if (leaves.length <= 1) {
+            window.location.reload();
+          }
+        });
     }
-    dispatch(respondToLeaveRequest({ status: "rejected", leaveID, remarks }))
-      .unwrap()
-      .then(() => {
-        if (leaves.length <= 1) {
-          window.location.reload();
-        }
-      });
   };
 
   useEffect(() => {
@@ -159,13 +178,28 @@ function LeaveRequest() {
           {!loading && leaves.length === 0 && (
             <div className="w-full h-[50vh] flex flex-col justify-center items-center">
               <i className="fas fa-ban text-3xl text-gray-400"></i>
-              <p className="mt-2 text-lg  text-gray-400">
-                No {status} Leave Found
+              <p className="mt-2 text-base  text-gray-400">
+                No {status.toLowerCase()} leave found
               </p>
             </div>
           )}
         </div>
       </section>
+
+      {toggleModal && (
+        <Modal
+          action={"approve"}
+          onClose={() => setToggleModal(false)}
+          isConfirm={isConfirm}
+        />
+      )}
+
+      {toggleRemarkModal && (
+        <RemarksModal
+          onClose={() => setToggleRemarkModal(false)}
+          isConfirm={remarkConfirmation}
+        />
+      )}
     </div>
   );
 }

@@ -261,7 +261,7 @@ function Employee() {
               <div className="w-full h-[50vh] flex flex-col justify-center items-center">
                 <i className="fas fa-ban text-3xl text-gray-400"></i>
                 <p className="mt-2 text-base  text-gray-400">
-                  No Employees Found
+                  No employees found
                 </p>
               </div>
             )}

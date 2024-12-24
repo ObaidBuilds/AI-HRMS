@@ -136,7 +136,7 @@ function Attendance() {
             </table>
 
             {attendanceList && attendanceList.length === 0 && (
-              <div className="flex flex-col items-center justify-center h-[61vh] sm:h-[69vh]">
+              <div className="flex flex-col items-center justify-center h-[61vh] sm:h-[80vh]">
                 <button
                   onClick={() => setShowModal(true)}
                   className="p-4 rounded-md text-center text-[0.83rem] font-semibold text-gray-300"

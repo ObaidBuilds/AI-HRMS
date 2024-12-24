@@ -29,7 +29,8 @@ const getFeedbacks = catchErrors(async (req, res) => {
       ],
     })
     .skip(skip)
-    .limit(limitNumber);
+    .limit(limitNumber)
+    .sort({ createdAt: -1 });
 
   const totalFeedbacks = await Feedback.countDocuments(query);
   const totalPages = Math.ceil(totalFeedbacks / limitNumber);

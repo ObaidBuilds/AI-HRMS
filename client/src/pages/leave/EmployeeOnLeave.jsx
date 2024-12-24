@@ -131,7 +131,7 @@ function EmployeeOnLeave() {
             <div className="w-full h-[50vh] flex flex-col justify-center items-center">
               <i className="fas fa-ban text-3xl text-gray-400"></i>
               <p className="mt-2 text-base  text-gray-400">
-                No Leave Found on {status}
+                No leave found on {status.toLowerCase()}
               </p>
             </div>
           )}

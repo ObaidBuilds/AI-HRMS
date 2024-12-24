@@ -14,7 +14,7 @@ import employeeRoutes from "./routes/employee.js";
 import feedbackRoutes from "./routes/feedback.js";
 import attendanceRoutes from "./routes/attendance.js";
 import departmentRoutes from "./routes/department.js";
-import getPredictionFromGeminiAI from "./gemini/index.js";
+import complaintRoutes from "./routes/complaint.js";
 
 const app = express();
 
@@ -52,6 +52,7 @@ app.use("/api/attendance", attendanceRoutes);
 app.use("/api/insights", inshightRoutes);
 app.use("/api/leaves", leaveRoutes);
 app.use("/api/feedbacks", feedbackRoutes);
+app.use("/api/complaints", complaintRoutes);
 
 app.get("/", (req, res) => {
   res.send("HRMS For Metro");

@@ -56,7 +56,7 @@ const Sidebar = () => {
         id="overflow"
         className={`fixed top-0 h-screen bg-navy transition-all duration-300 ease-in-out z-50 overflow-y-auto ${
           showSidebar ? "left-0" : "-left-full"
-        } lg:left-0 w-full lg:w-[250px]`}
+        } lg:left-0 w-full lg:w-[255px]`}
       >
         {/* Logo and Close Button */}
         <div className="p-3 mt-3 sm:mt-5 flex justify-between lg:justify-center items-center space-x-2 px-7">

@@ -17,6 +17,7 @@ const ViewEmployee = React.lazy(() => import("../pages/employee/ViewEmployee"));
 const Attendance = React.lazy(() => import("../pages/attendance/Attendance"));
 const Feedback = React.lazy(() => import("../pages/feedback/Feedback"));
 const LeaveRequest = React.lazy(() => import("../pages/leave/LeaveRequest"));
+const Complaint = React.lazy(() => import("../pages/complaint/Complaint"));
 const EmployeeOnLeave = React.lazy(() =>
   import("../pages/leave/EmployeeOnLeave")
 );
@@ -36,7 +37,7 @@ const App = () => {
         <Suspense fallback={<Loader />}>
           <main
             id="overflow"
-            className="w-full max-h-auto min-h-screen lg:w-[81%] lg:ml-[250px] py-2 px-3 mt-[69px] lg:mt-0"
+            className="w-full max-h-auto min-h-screen lg:w-[82%] lg:ml-[255px] py-2 px-3 md:px-2 mt-[69px] lg:mt-0"
           >
             <Routes>
               <Route path="/" element={<Dashboard />} />
@@ -55,6 +56,8 @@ const App = () => {
               <Route path="/on-leave" element={<EmployeeOnLeave />} />
               {/* Feeback Module */}
               <Route path="/feedback-management" element={<Feedback />} />
+              {/* Complaint Module */}
+              <Route path="/complaint-management" element={<Complaint />} />
 
               <Route path="*" element={<NotFound />} />
             </Routes>

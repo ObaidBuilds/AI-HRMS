@@ -3,6 +3,7 @@ import Department from "../models/department.js";
 import Role from "../models/role.js";
 import Leave from "../models/leave.js";
 import Feedback from "../models/feedback.js";
+import Complaint from "../models/complaint.js";
 import { catchErrors } from "../utils/index.js";
 import { getDepartmentAttendancePercentage } from "./attendance.js";
 import { myCache, getSentimentAnalysis } from "../utils/index.js";
@@ -18,21 +19,23 @@ const getInsights = catchErrors(async (req, res) => {
       insights: cachedInsights,
     });
   }
+  const today = new Date();
 
   const totalEmployees = await Employee.countDocuments();
   const totalDepartments = await Department.countDocuments();
-  const totalRoles = await Role.countDocuments();
+  const totalComplaints = await Complaint.find({
+    createdAt: today,
+  }).countDocuments();
   const departmentAttandancePercent = await getDepartmentAttendancePercentage();
   const totalMaleEmployees = await Employee.countDocuments({ gender: "Male" });
   const pendingLeaves = await Leave.find({
     status: "Pending",
   }).countDocuments();
-  const formattedDate = new Date();
   const employeesOnLeave = await Leave.find({
     status: "Approved",
     $or: [
-      { fromDate: { $lte: formattedDate }, toDate: { $gte: formattedDate } },
-      { fromDate: { $lte: formattedDate }, toDate: null },
+      { fromDate: { $lte: today }, toDate: { $gte: today } },
+      { fromDate: { $lte: today }, toDate: null },
     ],
   }).countDocuments();
 
@@ -50,7 +53,7 @@ const getInsights = catchErrors(async (req, res) => {
   const insights = {
     totalEmployees,
     totalDepartments,
-    totalRoles,
+    totalComplaints,
     pendingLeaves,
     employeesOnLeave,
     sentimentAnalysis,

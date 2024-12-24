@@ -99,6 +99,8 @@ const applyLeave = catchErrors(async (req, res) => {
     status: "Pending",
   });
 
+  myCache.del("insights");
+
   return res.status(201).json({
     success: true,
     message: "Leave applied successfully",

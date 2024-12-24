@@ -65,6 +65,7 @@ export const respondToLeaveRequest = createAsyncThunk(
       toast.success(data.message);
       return data.leave;
     } catch (error) {
+      toast.success(error.response?.data.message);
       return rejectWithValue(
         error.response?.data.message || "Failed to respond to leave request"
       );

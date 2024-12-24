@@ -9,6 +9,7 @@ import insightReducer from "./slices/inshights";
 import attendanceReducer from "./slices/attendance";
 import leaveReducer from "./slices/leave";
 import feedbackReducer from "./slices/feedback";
+import complaintReducer from "./slices/complaint";
 
 const persistConfig = {
   key: "root",
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   attendance: attendanceReducer,
   leave: leaveReducer,
   feedback: feedbackReducer,
+  complaint: complaintReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

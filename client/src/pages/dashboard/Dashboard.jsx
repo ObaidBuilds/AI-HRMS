@@ -27,8 +27,8 @@ const Dashboard = () => {
     },
     {
       id: 3,
-      title: "Total Position",
-      stats: insights?.totalRoles,
+      title: "Complaints Today",
+      stats: insights?.totalComplaints,
       range: 50,
     },
     {

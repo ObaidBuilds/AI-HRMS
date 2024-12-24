@@ -4,7 +4,7 @@ import { verifyAdminToken, verifyEmployeeToken } from "../middlewares/index.js";
 
 const router = express.Router();
 
-router.get("/", getFeedbacks);
-router.post("/", createFeedback);
+router.get("/",verifyAdminToken, getFeedbacks);
+router.post("/",verifyEmployeeToken, createFeedback);
 
 export default router;
