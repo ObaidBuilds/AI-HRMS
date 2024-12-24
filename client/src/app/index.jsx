@@ -16,7 +16,9 @@ const EditEmployee = React.lazy(() => import("../pages/employee/EditEmployee"));
 const ViewEmployee = React.lazy(() => import("../pages/employee/ViewEmployee"));
 const Attendance = React.lazy(() => import("../pages/attendance/Attendance"));
 const LeaveRequest = React.lazy(() => import("../pages/leave/LeaveRequest"));
-const EmployeeOnLeave = React.lazy(() => import("../pages/leave/EmployeeOnLeave"));
+const EmployeeOnLeave = React.lazy(() =>
+  import("../pages/leave/EmployeeOnLeave")
+);
 
 const App = () => {
   const dispatch = useDispatch();
@@ -37,7 +39,7 @@ const App = () => {
           >
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              {/* Employee Modules */}
+              {/* Employee Module */}
               <Route path="/employees" element={<Employee />} />
               <Route path="/employee/:employeeID" element={<ViewEmployee />} />
               <Route path="/add-employee" element={<AddEmployee />} />
@@ -45,12 +47,14 @@ const App = () => {
                 path="/edit-employee/:employeeID"
                 element={<EditEmployee />}
               />
-              {/* Attendance Modules */}
+              {/* Attendance Module */}
               <Route path="/mark-attendance" element={<Attendance />} />
+              {/* Leave Module */}
               <Route path="/leave-request" element={<LeaveRequest />} />
               <Route path="/on-leave" element={<EmployeeOnLeave />} />
+              {/* Feeback Module */}
+
               <Route path="*" element={<NotFound />} />
-              
             </Routes>
             <Footer />
           </main>
