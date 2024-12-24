@@ -1,19 +1,19 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-
-import express from "express";
 import cors from "cors";
-import cookieParser from "cookie-parser";
+import express from "express";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import connectDB from "./config/index.js";
 import roleRoutes from "./routes/role.js";
-import employeeRoutes from "./routes/employee.js";
-import departmentRoutes from "./routes/department.js";
 import authRoutes from "./routes/auth.js";
-import attendanceRoutes from "./routes/attendance.js";
-import inshightRoutes from "./routes/insights.js";
 import leaveRoutes from "./routes/leave.js";
+import inshightRoutes from "./routes/insights.js";
+import employeeRoutes from "./routes/employee.js";
+import feedbackRoutes from "./routes/feedback.js";
+import attendanceRoutes from "./routes/attendance.js";
+import departmentRoutes from "./routes/department.js";
 
 const app = express();
 
@@ -50,6 +50,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/attendance", attendanceRoutes);
 app.use("/api/insights", inshightRoutes);
 app.use("/api/leaves", leaveRoutes);
+app.use("/api/feedbacks", feedbackRoutes);
 
 app.get("/", (req, res) => {
   res.send("HRMS For Metro");

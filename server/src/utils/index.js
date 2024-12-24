@@ -1,5 +1,5 @@
 import NodeCache from "node-cache";
-import nodemailer from "nodemailer"
+import nodemailer from "nodemailer";
 import Employee from "../models/employee.js";
 const myCache = new NodeCache();
 
@@ -91,7 +91,6 @@ async function notifySubstituteEmployee(
 }
 
 async function getSubstitute({ department, shift }) {
-
   let requiredShift;
 
   if (shift === "Morning") {
@@ -120,5 +119,21 @@ async function getSubstitute({ department, shift }) {
   };
 }
 
-export { catchErrors, myCache, sendMail, notifySubstituteEmployee, getSubstitute };
+function getSentimentAnalysis(rating) {
+  if (rating >= 4) {
+    return "Positive";
+  } else if (rating === 3) {
+    return "Neutral";
+  } else {
+    return "Negative";
+  }
+}
 
+export {
+  catchErrors,
+  myCache,
+  sendMail,
+  notifySubstituteEmployee,
+  getSubstitute,
+  getSentimentAnalysis,
+};

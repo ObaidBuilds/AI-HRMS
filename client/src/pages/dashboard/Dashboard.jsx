@@ -46,7 +46,7 @@ const Dashboard = () => {
     {
       id: 3,
       title: "AI Sentiment Analysis",
-      stats: "``😊``",
+      stats: insights?.sentimentAnalysis === "Positive" ? "``🙂``" : "``😐``",
       range: 50,
     },
   ];

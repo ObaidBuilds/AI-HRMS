@@ -56,6 +56,7 @@ function LeaveRequest() {
                 : "border-gray-300"
             } focus:outline-none focus:ring-1 focus:ring-blue-500`}
           >
+            <i class="text-xs fas fa-hourglass-half"></i>
             Pending Leaves
           </button>
           <button
@@ -66,6 +67,7 @@ function LeaveRequest() {
                 : "border-gray-300"
             } focus:outline-none focus:ring-1 focus:ring-blue-500`}
           >
+            <i class="text-xs fas fa-check-circle"></i>
             Approved Leaves
           </button>
           <button
@@ -76,6 +78,7 @@ function LeaveRequest() {
                 : "border-gray-300"
             } focus:outline-none focus:ring-1 focus:ring-blue-500`}
           >
+            <i class="text-xs fas fa-times-circle"></i>
             Rejected Leaves
           </button>
         </div>

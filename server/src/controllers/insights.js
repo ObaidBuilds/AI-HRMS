@@ -2,9 +2,10 @@ import Employee from "../models/employee.js";
 import Department from "../models/department.js";
 import Role from "../models/role.js";
 import Leave from "../models/leave.js";
+import Feedback from "../models/feedback.js";
 import { catchErrors } from "../utils/index.js";
 import { getDepartmentAttendancePercentage } from "./attendance.js";
-import { myCache } from "../utils/index.js";
+import { myCache, getSentimentAnalysis } from "../utils/index.js";
 
 const getInsights = catchErrors(async (req, res) => {
   const cacheKey = "insights";
@@ -35,12 +36,24 @@ const getInsights = catchErrors(async (req, res) => {
     ],
   }).countDocuments();
 
+  const feedbacks = await Feedback.aggregate([
+    {
+      $group: {
+        _id: null,
+        avgRating: { $avg: "$rating" },
+      },
+    },
+  ]);
+
+  const sentimentAnalysis = getSentimentAnalysis(feedbacks[0].avgRating);
+
   const insights = {
     totalEmployees,
     totalDepartments,
     totalRoles,
     pendingLeaves,
     employeesOnLeave,
+    sentimentAnalysis,
     totalMaleEmployees,
     totalFemaleEmployees: totalEmployees - totalMaleEmployees,
     departmentAttandancePercent,

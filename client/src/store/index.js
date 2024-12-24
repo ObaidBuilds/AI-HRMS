@@ -8,6 +8,7 @@ import departmentReducer from "./slices/department";
 import insightReducer from "./slices/inshights";
 import attendanceReducer from "./slices/attendance";
 import leaveReducer from "./slices/leave";
+import feedbackReducer from "./slices/feedback";
 
 const persistConfig = {
   key: "root",
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   department: departmentReducer,
   attendance: attendanceReducer,
   leave: leaveReducer,
+  feedback: feedbackReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

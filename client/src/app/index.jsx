@@ -15,6 +15,7 @@ const AddEmployee = React.lazy(() => import("../pages/employee/AddEmployee"));
 const EditEmployee = React.lazy(() => import("../pages/employee/EditEmployee"));
 const ViewEmployee = React.lazy(() => import("../pages/employee/ViewEmployee"));
 const Attendance = React.lazy(() => import("../pages/attendance/Attendance"));
+const Feedback = React.lazy(() => import("../pages/feedback/Feedback"));
 const LeaveRequest = React.lazy(() => import("../pages/leave/LeaveRequest"));
 const EmployeeOnLeave = React.lazy(() =>
   import("../pages/leave/EmployeeOnLeave")
@@ -53,6 +54,7 @@ const App = () => {
               <Route path="/leave-request" element={<LeaveRequest />} />
               <Route path="/on-leave" element={<EmployeeOnLeave />} />
               {/* Feeback Module */}
+              <Route path="/feedback-management" element={<Feedback />} />
 
               <Route path="*" element={<NotFound />} />
             </Routes>

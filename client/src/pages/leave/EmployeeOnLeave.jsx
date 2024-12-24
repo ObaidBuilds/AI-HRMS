@@ -41,6 +41,7 @@ function EmployeeOnLeave() {
                 : "border-gray-300"
             } focus:outline-none focus:ring-1 focus:ring-blue-500`}
           >
+            <i class="text-xs fas fa-arrow-left"></i>
             Yesterday
           </button>
           <button
@@ -51,6 +52,7 @@ function EmployeeOnLeave() {
                 : "border-gray-300"
             } focus:outline-none focus:ring-1 focus:ring-blue-500`}
           >
+            <i class="text-xs fas fa-calendar-check"></i>
             Present day
           </button>
           <button
@@ -61,6 +63,7 @@ function EmployeeOnLeave() {
                 : "border-gray-300"
             } focus:outline-none focus:ring-1 focus:ring-blue-500`}
           >
+            <i class="text-xs fas fa-arrow-right"></i>
             Tommorow
           </button>
         </div>

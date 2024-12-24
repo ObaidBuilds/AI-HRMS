@@ -53,7 +53,7 @@ const sidebarLinks = [
   {
     name: "Feedback Management",
     iconClass: "fas fa-brain",
-    link: "/ai-sentiment-analysis",
+    link: "/feedback-management",
     childrens: [],
   },
   {
