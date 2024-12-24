@@ -4,6 +4,6 @@ import { verifyAdminToken } from "../middlewares/index.js";
 
 const router = express.Router();
 
-router.get("/", verifyAdminToken, getInsights);
+router.get("/", getInsights);
 
 export default router;
