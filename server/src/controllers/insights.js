@@ -48,7 +48,7 @@ const getInsights = catchErrors(async (req, res) => {
     },
   ]);
 
-  const sentimentAnalysis = getSentimentAnalysis(feedbacks[0].avgRating);
+  const sentimentAnalysis = getSentimentAnalysis(feedbacks[0]?.avgRating || 0);
 
   const insights = {
     totalEmployees,
