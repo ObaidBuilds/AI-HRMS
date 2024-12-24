@@ -35,7 +35,7 @@ const App = () => {
         <Suspense fallback={<Loader />}>
           <main
             id="overflow"
-            className="w-full max-h-auto min-h-screen lg:w-[81%] lg:ml-[250px] py-2 px-2 mt-[69px] lg:mt-0"
+            className="w-full max-h-auto min-h-screen lg:w-[81%] lg:ml-[250px] py-2 px-3 mt-[69px] lg:mt-0"
           >
             <Routes>
               <Route path="/" element={<Dashboard />} />
