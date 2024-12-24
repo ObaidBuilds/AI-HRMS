@@ -3,12 +3,14 @@ import InfoCard from "../../components/shared/InfoCard";
 import LineChart from "../../components/shared/LineChart";
 import PieChart from "../../components/shared/Pie";
 import BarGraph from "../../components/shared/BarGraph";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Error from "../../components/shared/Error";
 import ComponentLoader from "../../components/shared/ComponentLoader";
 
 const Dashboard = () => {
   const { insights, loading, error } = useSelector((state) => state.insight);
+
+  const dispatch = useDispatch();
 
   const infoCardData = [
     {
@@ -29,6 +31,24 @@ const Dashboard = () => {
       stats: insights?.totalRoles,
       range: 50,
     },
+    {
+      id: 2,
+      title: "Pending Leaves",
+      stats: insights?.pendingLeaves,
+      range: 30,
+    },
+    {
+      id: 1,
+      title: "Employees on Leave",
+      stats: insights?.employeesOnLeave,
+      range: 70,
+    },
+    {
+      id: 3,
+      title: "AI Sentiment Analysis",
+      stats: "``😊``",
+      range: 50,
+    },
   ];
 
   if (loading) return <ComponentLoader />;
@@ -37,7 +57,7 @@ const Dashboard = () => {
   return (
     <>
       <section>
-        <div className="w-full flex flex-wrap justify-between gap-2 lg:gap-0">
+        <div className="w-full flex flex-wrap justify-between gap-2">
           {infoCardData.map((item) => (
             <InfoCard key={item.id} detail={item} />
           ))}

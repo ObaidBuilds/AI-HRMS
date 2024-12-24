@@ -3,6 +3,7 @@ import Leave from "../models/leave.js";
 import {
   catchErrors,
   getSubstitute,
+  myCache,
   notifySubstituteEmployee,
 } from "../utils/index.js";
 
@@ -80,7 +81,6 @@ const getEmployeesOnLeave = catchErrors(async (req, res) => {
     leaves,
   });
 });
-
 
 const applyLeave = catchErrors(async (req, res) => {
   const { employee, leaveType, application, duration, fromDate, toDate } =
@@ -173,6 +173,8 @@ const respondLeave = catchErrors(async (req, res) => {
 
     await leave.save();
     await employee.save();
+
+    myCache.del("insights");
 
     return res.status(200).json({
       success: true,
