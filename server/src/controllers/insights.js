@@ -64,7 +64,7 @@ const getInsights = catchErrors(async (req, res) => {
 
   myCache.set(cacheKey, insights);
 
-  return res.status(201).json({
+  return res.status(200).json({
     success: true,
     message: "Insights fetched successfully",
     insights,

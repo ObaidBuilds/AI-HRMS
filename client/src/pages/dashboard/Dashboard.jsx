@@ -51,8 +51,7 @@ const Dashboard = () => {
     },
   ];
 
-  if (loading) return <ComponentLoader />;
-  if (!insights || error) return <Error />;
+  if (loading || !insights || error) return <ComponentLoader />;
 
   return (
     <>
