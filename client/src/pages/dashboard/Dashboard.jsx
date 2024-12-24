@@ -39,7 +39,7 @@ const Dashboard = () => {
     },
     {
       id: 1,
-      title: "Employees on Leave",
+      title: "Leaves Today",
       stats: insights?.employeesOnLeave,
       range: 70,
     },
