@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginAdmin, logoutAdmin } from "../services/auth";
+import { login, logout } from "../services/auth";
 
 const initialState = {
   user: null,
@@ -10,43 +10,38 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    logout: (state) => {
-      state.user = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       // Handling login
-      .addCase(loginAdmin.pending, (state) => {
+      .addCase(login.pending, (state) => {
         state.loading = true;
       })
-      .addCase(loginAdmin.fulfilled, (state, action) => {
+      .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
       })
-      .addCase(loginAdmin.rejected, (state, action) => {
+      .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.user = null;
         state.error = action.payload;
       })
 
       // Handling logout
-      .addCase(logoutAdmin.pending, (state) => {
+      .addCase(logout.pending, (state) => {
         state.loading = true;
       })
-      .addCase(logoutAdmin.fulfilled, (state, action) => {
+      .addCase(logout.fulfilled, (state, action) => {
         state.loading = false;
         state.user = null;
         sessionStorage.removeItem("session");
       })
-      .addCase(logoutAdmin.rejected, (state, action) => {
+      .addCase(logout.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
   },
 });
 
-export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;

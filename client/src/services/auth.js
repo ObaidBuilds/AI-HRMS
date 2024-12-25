@@ -3,8 +3,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { URL, useGetToken } from "../utils";
 
-// Admin login
-export const loginAdmin = createAsyncThunk(
+//  Login
+export const login = createAsyncThunk(
   "auth/loginAdmin",
   async (credentials, { rejectWithValue }) => {
     try {
@@ -25,9 +25,9 @@ export const loginAdmin = createAsyncThunk(
   }
 );
 
-// Admin logout
-export const logoutAdmin = createAsyncThunk(
-  "auth/logoutAdmin",
+// Logout
+export const logout = createAsyncThunk(
+  "auth/logout",
   async (_, { rejectWithValue }) => {
     const token = useGetToken();
     try {

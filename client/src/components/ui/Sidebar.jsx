@@ -1,5 +1,5 @@
 import { sidebarLinks } from "../../data";
-import { logoutAdmin } from "../../services/auth";
+import { logout } from "../../services/auth";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +15,7 @@ const Sidebar = () => {
     setOpenSubMenuIndex(openSubMenuIndex === index ? null : index);
 
   const handleLogout = () => {
-    dispatch(logoutAdmin())
+    dispatch(logout())
       .unwrap()
       .then(() => navigate("/"))
       .catch((error) => {

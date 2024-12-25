@@ -64,4 +64,38 @@ const sidebarLinks = [
   },
 ];
 
-export { sidebarLinks };
+const navbarLinks = [
+  {
+    name: "Home Page",
+    iconClass: "fa fa-home",
+    link: "/",
+  },
+  {
+    name: "Attendance Tracking",
+    iconClass: "fa fa-calendar-check",
+    link: "/attendance",
+  },
+  {
+    name: "Make a Complaint",
+    iconClass: "fa fa-exclamation-circle",
+    link: "/complaint",
+  },
+  {
+    name: "Submit Feedback",
+    iconClass: "fa fa-comment",
+    link: "/feedback",
+  },
+  {
+    name: "User Profile",
+    iconClass: "fa fa-user-circle",
+    link: "/profile",
+  },
+  {
+    name: "Account Security",
+    iconClass: "fa fa-shield-alt",
+    link: "/security",
+  },
+];
+
+
+export { sidebarLinks, navbarLinks };

@@ -1,11 +1,11 @@
+import { z } from "zod";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import ClipLoader from "react-spinners/ClipLoader";
-import { loginAdmin } from "../../services/auth";
+import { login } from "../services/auth";
 
 const schema = z.object({
   authority: z.string().nonempty("Authority is required"),
@@ -32,7 +32,7 @@ const Login = () => {
   const handleShowPass = () => setActive(!active);
 
   const onSubmit = (credentials) => {
-    dispatch(loginAdmin(credentials));
+    dispatch(login(credentials));
   };
 
   return (

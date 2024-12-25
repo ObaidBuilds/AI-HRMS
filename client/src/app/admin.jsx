@@ -10,20 +10,20 @@ import { getInsights } from "../services/insights";
 import { getDepartments } from "../services/department";
 
 // Lazy loading the components
-const Dashboard = React.lazy(() => import("../pages/dashboard/Dashboard"));
-const Employee = React.lazy(() => import("../pages/employee/Employee"));
-const AddEmployee = React.lazy(() => import("../pages/employee/AddEmployee"));
-const EditEmployee = React.lazy(() => import("../pages/employee/EditEmployee"));
-const ViewEmployee = React.lazy(() => import("../pages/employee/ViewEmployee"));
-const Attendance = React.lazy(() => import("../pages/attendance/Attendance"));
-const Feedback = React.lazy(() => import("../pages/feedback/Feedback"));
-const LeaveRequest = React.lazy(() => import("../pages/leave/LeaveRequest"));
-const Complaint = React.lazy(() => import("../pages/complaint/Complaint"));
+const Dashboard = React.lazy(() => import("../admin/dashboard/Dashboard"));
+const Employee = React.lazy(() => import("../admin/employee/Employee"));
+const AddEmployee = React.lazy(() => import("../admin/employee/AddEmployee"));
+const EditEmployee = React.lazy(() => import("../admin/employee/EditEmployee"));
+const ViewEmployee = React.lazy(() => import("../admin/employee/ViewEmployee"));
+const Attendance = React.lazy(() => import("../admin/attendance/Attendance"));
+const Feedback = React.lazy(() => import("../admin/feedback/Feedback"));
+const LeaveRequest = React.lazy(() => import("../admin/leave/LeaveRequest"));
+const Complaint = React.lazy(() => import("../admin/complaint/Complaint"));
 const EmployeeOnLeave = React.lazy(() =>
-  import("../pages/leave/EmployeeOnLeave")
+  import("../admin/leave/EmployeeOnLeave")
 );
 
-const App = () => {
+const AdminApp = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -65,4 +65,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default AdminApp;

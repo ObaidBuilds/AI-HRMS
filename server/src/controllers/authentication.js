@@ -3,7 +3,7 @@ import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { catchErrors } from "../utils/index.js";
 
-const adminLogin = catchErrors(async (req, res) => {
+const login = catchErrors(async (req, res) => {
   const { employeeId, password, authority } = req.body;
 
   if (!employeeId || !password || !authority)
@@ -35,11 +35,11 @@ const adminLogin = catchErrors(async (req, res) => {
   });
 });
 
-const adminLogout = catchErrors(async (req, res) => {
+const logout = catchErrors(async (req, res) => {
   return res.status(200).json({
     success: true,
     message: "Logged out successfully",
   });
 });
 
-export { adminLogin, adminLogout };
+export { login, logout };
