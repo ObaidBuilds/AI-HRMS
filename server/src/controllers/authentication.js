@@ -4,15 +4,17 @@ import jwt from "jsonwebtoken";
 import { catchErrors } from "../utils/index.js";
 
 const adminLogin = catchErrors(async (req, res) => {
-  const { employeeId, password, department } = req.body;
+  const { employeeId, password, authority } = req.body;
 
-  if (!employeeId || !password || !department)
+  if (!employeeId || !password || !authority)
     throw new Error("Please provide all fields");
 
   const employee = await Employee.findOne({ employeeId });
 
-  if (!employee || !employee.admin || !(employee.department == department))
-    throw new Error("Invalid credentials");
+  if (!employee) throw new Error("Invalid credentials");
+
+  if (authority.toLowerCase() === "admin" && !employee.admin)
+    throw new Error("Unauthorize access");
 
   const comparePassword = await bcrypt.compare(password, employee.password);
 
@@ -24,10 +26,11 @@ const adminLogin = catchErrors(async (req, res) => {
     success: true,
     message: "Logged in successfuly 🔑",
     token,
-    admin: {
+    user: {
       name: employee.name,
       email: employee.email,
       profilePicture: employee.profilePicture,
+      authority: authority.toLowerCase(),
     },
   });
 });

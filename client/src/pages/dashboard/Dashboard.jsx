@@ -29,19 +29,19 @@ const Dashboard = () => {
       range: 50,
     },
     {
-      id: 2,
+      id: 4,
       title: "Pending Leaves",
       stats: insights?.pendingLeaves,
       range: 30,
     },
     {
-      id: 1,
+      id: 5,
       title: "Leaves Today",
       stats: insights?.employeesOnLeave,
       range: 70,
     },
     {
-      id: 3,
+      id: 6,
       title: "AI Sentiment Analysis",
       stats: insights?.sentimentAnalysis === "Positive" ? "``🙂``" : "``😐``",
       range: 50,

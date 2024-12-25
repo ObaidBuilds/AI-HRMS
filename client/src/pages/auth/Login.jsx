@@ -8,7 +8,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { loginAdmin } from "../../services/auth";
 
 const schema = z.object({
-  department: z.string().nonempty("Department is required"),
+  authority: z.string().nonempty("Authority is required"),
   employeeId: z
     .string()
     .regex(/^\d{3}$/, "* Employee ID must be exactly 3 digits"),
@@ -17,7 +17,6 @@ const schema = z.object({
 
 const Login = () => {
   const dispatch = useDispatch();
-  const departments = useSelector((state) => state.department.departments);
   const loading = useSelector((state) => state.authentication.loading);
 
   const [active, setActive] = useState(false);
@@ -68,17 +67,13 @@ const Login = () => {
               <i className="fa fa-building-columns text-sm icon absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
               <select
                 id="select"
-                {...register("department")}
+                {...register("authority")}
                 className="w-full bg-secondary text-center text-[0.9rem] p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                 required
               >
-                <option value="">--- Select Depart ---</option>
-                {departments &&
-                  departments.map((department) => (
-                    <option key={department._id} value={department._id}>
-                      {department.name}
-                    </option>
-                  ))}
+                <option value="">--- Select Authority ---</option>
+                <option value="admin">Admin</option>
+                <option value="employee">Employee</option>
               </select>
             </div>
 

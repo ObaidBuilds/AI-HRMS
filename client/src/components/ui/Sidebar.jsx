@@ -9,7 +9,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const [showSidebar, setShowSidebar] = useState(false);
   const [openSubMenuIndex, setOpenSubMenuIndex] = useState(null);
-  const admin = useSelector((state) => state.authentication.admin);
+  const user = useSelector((state) => state.authentication.user);
 
   const toggleSubMenu = (index) =>
     setOpenSubMenuIndex(openSubMenuIndex === index ? null : index);
@@ -45,8 +45,8 @@ const Sidebar = () => {
         <div className="w-[35px] h-[35px] border-[2px] border-gray-700 rounded-full overflow-hidden cursor-pointer">
           <img
             className="w-full"
-            src={admin.profilePicture || "https://via.placeholder.com/40"}
-            alt={admin?.name}
+            src={user.profilePicture || "https://via.placeholder.com/40"}
+            alt={user?.name}
           />
         </div>
       </nav>
@@ -140,13 +140,13 @@ const Sidebar = () => {
               <div className="w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer">
                 <img
                   className="w-full"
-                  src={admin.profilePicture || "https://via.placeholder.com/40"}
+                  src={user.profilePicture || "https://via.placeholder.com/40"}
                   alt="obaid"
                 />
               </div>
               <div>
-                <p className="text-sm">{admin?.name}</p>
-                <p className="text-xs">{admin?.email}</p>
+                <p className="text-sm">{user?.name}</p>
+                <p className="text-xs">{user?.email}</p>
               </div>
             </div>
           </div>

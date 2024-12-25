@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { loginAdmin, logoutAdmin } from "../services/auth";
 
 const initialState = {
-  admin: null,
+  user: null,
   loading: false,
   error: null,
 };
@@ -12,7 +12,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      state.admin = null;
+      state.user = null;
     },
   },
   extraReducers: (builder) => {
@@ -23,11 +23,11 @@ const authSlice = createSlice({
       })
       .addCase(loginAdmin.fulfilled, (state, action) => {
         state.loading = false;
-        state.admin = action.payload;
+        state.user = action.payload;
       })
       .addCase(loginAdmin.rejected, (state, action) => {
         state.loading = false;
-        state.admin = null;
+        state.user = null;
         state.error = action.payload;
       })
 
@@ -37,7 +37,7 @@ const authSlice = createSlice({
       })
       .addCase(logoutAdmin.fulfilled, (state, action) => {
         state.loading = false;
-        state.admin = null;
+        state.user = null;
         sessionStorage.removeItem("session");
       })
       .addCase(logoutAdmin.rejected, (state, action) => {

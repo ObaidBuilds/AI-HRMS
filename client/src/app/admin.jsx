@@ -7,6 +7,7 @@ import NotFound from "../components/shared/error/NotFound";
 import { getRoles } from "../services/role";
 import { useDispatch } from "react-redux";
 import { getInsights } from "../services/insights";
+import { getDepartments } from "../services/department";
 
 // Lazy loading the components
 const Dashboard = React.lazy(() => import("../pages/dashboard/Dashboard"));
@@ -28,6 +29,7 @@ const App = () => {
   useEffect(() => {
     dispatch(getInsights());
     dispatch(getRoles());
+    dispatch(getDepartments());
   }, []);
 
   return (

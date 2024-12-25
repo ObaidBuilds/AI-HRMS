@@ -15,7 +15,7 @@ export const loginAdmin = createAsyncThunk(
       });
       sessionStorage.setItem("session", data.token);
       toast.success(data.message);
-      return data.admin;
+      return data.user;
     } catch (error) {
       toast.error(error.response?.data.message || "Client : " + error.message);
       return rejectWithValue(
