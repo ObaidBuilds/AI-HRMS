@@ -1,26 +1,28 @@
 import { Link } from "react-router-dom";
 import { downloadXls } from "../../utils";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Error from "../../components/shared/Error";
 import Modal from "../../components/shared/Modal";
 import Loader from "../../components/shared/Loader";
 import Heading from "../../components/shared/Heading";
-import { useDispatch, useSelector } from "react-redux";
 import FilterBar from "../../components/shared/FilterBar";
 import Pagination from "../../components/shared/Pagination";
 import { deleteEmployee, getAllEmployees } from "../../services/employee";
 
 function Employee() {
   const dispatch = useDispatch();
-
   const { employees, pagination, loading } = useSelector(
     (state) => state.employee
   );
 
-  const [toggleFilterBar, setToggleFilterBar] = useState(false);
-  const [toggleModal, setToggleModal] = useState(false);
-  const [deletedEmployee, setDeletedEmployee] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [uiState, setUiState] = useState({
+    toggleFilterBar: false,
+    toggleModal: false,
+    deletedEmployee: null,
+    currentPage: 1,
+  });
+
   const [filters, setFilters] = useState({
     department: "",
     role: "",
@@ -30,15 +32,19 @@ function Employee() {
     roleName: "",
   });
 
-  const goToPage = (page) => setCurrentPage(page);
+  const goToPage = (page) =>
+    setUiState((prev) => ({ ...prev, currentPage: page }));
 
-  const confirmation = () => {
-    dispatch(deleteEmployee(deletedEmployee._id));
-    setDeletedEmployee(null);
-    setToggleModal(false);
-  };
+  const confirmation = useCallback(() => {
+    dispatch(deleteEmployee(uiState.deletedEmployee._id));
+    setUiState((prev) => ({
+      ...prev,
+      deletedEmployee: null,
+      toggleModal: false,
+    }));
+  }, [dispatch, uiState.deletedEmployee]);
 
-  const handleExportToExcel = () => {
+  const handleExportToExcel = useCallback(() => {
     const data = employees.map((employee) => ({
       EmployeeID: `EMP ${employee.employeeId}`,
       Name: employee.name,
@@ -48,7 +54,7 @@ function Employee() {
       Address: `${employee.address.street}, ${employee.address.city}, ${employee.address.state}, ${employee.address.postalCode}, ${employee.address.country}`,
       DateOfJoining: employee.dateOfJoining,
       Gender: employee.gender,
-      MaritalStatus: employee.martialStatus,
+      MaritalStatus: employee.maritalStatus,
       Department: employee.department.name,
       Position: employee.role.name,
       EmploymentType: employee.employmentType,
@@ -60,33 +66,48 @@ function Employee() {
       LeaveBalance: employee.leaveBalance,
       Admin: employee.admin ? "Yes" : "No",
     }));
-
     downloadXls(data);
-  };
+  }, [employees]);
 
-  const handleApplyFilters = (filters) => {
-    setFilters(filters);
-    setToggleFilterBar(false);
+  const handleApplyFilters = (newFilters) => {
+    setFilters(newFilters);
+    setUiState((prev) => ({ ...prev, toggleFilterBar: false }));
   };
 
   const clearFilter = (filterKey) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
-      [filterKey]: null,
-      [`${filterKey}Name`]: null,
+      [filterKey]: "",
+      [`${filterKey}Name`]: "",
     }));
   };
 
   useEffect(() => {
-    dispatch(getAllEmployees({ currentPage, filters }));
-  }, [currentPage, filters]);
+    dispatch(getAllEmployees({ currentPage: uiState.currentPage, filters }));
+  }, [dispatch, uiState.currentPage, filters]);
 
   useEffect(() => {
-    if (toggleFilterBar) document.body.classList.add("no-scroll");
-    else document.body.classList.remove("no-scroll");
-  }, [toggleFilterBar]);
+    document.body.classList.toggle("no-scroll", uiState.toggleFilterBar);
+  }, [uiState.toggleFilterBar]);
 
   if (!employees) return <Error />;
+
+  const renderFilters = Object.keys(filters)
+    .filter(
+      (key) => filters[key] && key !== "departmentName" && key !== "roleName"
+    )
+    .map((key) => (
+      <button
+        key={key}
+        className="flex justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl"
+      >
+        {filters[key + "Name"] || filters[key]}
+        <i
+          onClick={() => clearFilter(key)}
+          className="fa-solid fa-close text-xs cursor-pointer"
+        ></i>
+      </button>
+    ));
 
   return (
     <>
@@ -96,16 +117,20 @@ function Employee() {
         <Heading heading={"Employee Management 👥"} />
 
         <section className="bg-secondary mt-2 p-3 sm:p-4 rounded-lg">
-          {toggleFilterBar && (
+          {uiState.toggleFilterBar && (
             <FilterBar
               handleApplyFilters={handleApplyFilters}
-              hideFilterBar={setToggleFilterBar}
+              hideFilterBar={() =>
+                setUiState((prev) => ({ ...prev, toggleFilterBar: false }))
+              }
             />
           )}
 
-          {toggleModal && (
+          {uiState.toggleModal && (
             <Modal
-              onClose={() => setToggleModal(false)}
+              onClose={() =>
+                setUiState((prev) => ({ ...prev, toggleModal: false }))
+              }
               action={"delete"}
               isConfirm={confirmation}
             />
@@ -119,8 +144,10 @@ function Employee() {
               filters.name
             ) && (
               <button
-                onClick={() => setToggleFilterBar(true)}
-                className="flex sm:flex-grow-0 flex-grow justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold"
+                onClick={() =>
+                  setUiState((prev) => ({ ...prev, toggleFilterBar: true }))
+                }
+                className="flex justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold"
               >
                 <i className="fa-solid fa-filter text-[0.7rem] sm:text-xs"></i>{" "}
                 Apply Filters
@@ -128,50 +155,15 @@ function Employee() {
             )}
 
             <div className="flex flex-wrap items-center gap-2">
-              {filters.name && (
-                <button className="flex flex-grow sm:flex-grow-0 justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
-                  {filters.name}
-                  <i
-                    onClick={() => clearFilter("name")}
-                    className="fa-solid fa-close text-xs cursor-pointer"
-                  ></i>
-                </button>
-              )}
-              {filters.status && (
-                <button className="flex flex-grow sm:flex-grow-0 justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
-                  {filters.status}
-                  <i
-                    onClick={() => clearFilter("status")}
-                    className="fa-solid fa-close text-xs cursor-pointer"
-                  ></i>
-                </button>
-              )}
-              {filters.department && (
-                <button className="flex flex-grow sm:flex-grow-0 justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
-                  {filters.departmentName}
-                  <i
-                    onClick={() => clearFilter("department")}
-                    className="fa-solid fa-close text-xs cursor-pointer"
-                  ></i>
-                </button>
-              )}
-              {filters.role && (
-                <button className="flex flex-grow sm:flex-grow-0 justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl">
-                  {filters.roleName}
-                  <i
-                    onClick={() => clearFilter("role")}
-                    className="fa-solid fa-close text-xs cursor-pointer"
-                  ></i>
-                </button>
-              )}
+              {renderFilters}
             </div>
 
             <button
               onClick={handleExportToExcel}
-              className="hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold"
+              className="hidden sm:flex justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold"
             >
-              <i className="fas fa-file-excel text-[0.7rem] text-xs"></i>
-              Export to Excel
+              <i className="fas fa-file-excel text-[0.7rem] text-xs"></i> Export
+              to Excel
             </button>
           </div>
 
@@ -179,37 +171,36 @@ function Employee() {
             <table className="min-w-full text-left table-auto border-collapse text-[0.83rem] whitespace-nowrap">
               <thead>
                 <tr className="bg-gray-600 text-gray-200">
-                  <th className="py-3 px-4 border-b border-gray-500">
-                    Employee ID
-                  </th>
-                  <th className="py-3 px-4 border-b border-gray-500">Name</th>
-                  <th className="py-3 px-4 border-b border-gray-500">
-                    Department
-                  </th>
-                  <th className="py-3 px-4 border-b border-gray-500">
-                    Position
-                  </th>
-                  <th className="py-3 px-4 border-b border-gray-500">Status</th>
-                  <th className="py-3 px-4 border-b border-gray-500">
-                    Contact Info
-                  </th>
-                  <th className="py-3 px-4 border-b border-gray-500">
-                    Actions
-                  </th>
+                  {[
+                    "Employee ID",
+                    "Name",
+                    "Department",
+                    "Position",
+                    "Status",
+                    "Contact Info",
+                    "Actions",
+                  ].map((header) => (
+                    <th
+                      key={header}
+                      className="py-3 px-4 border-b border-gray-500"
+                    >
+                      {header}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
-                {employees.length >= 1 &&
-                  employees.map((employee, index) => (
+                {employees.length >= 1 ? (
+                  employees.map((employee) => (
                     <tr
-                      key={index}
+                      key={employee._id}
                       className="even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600"
                     >
                       <td className="py-3 px-4 border-b border-gray-500">
                         EMP {employee.employeeId}
                       </td>
                       <td className="py-3 px-4 border-b border-gray-500">
-                        {employee?.name}
+                        {employee.name}
                       </td>
                       <td className="py-3 px-4 border-b border-gray-500">
                         {employee.department.name}
@@ -243,10 +234,13 @@ function Employee() {
                         </Link>
 
                         <button
-                          onClick={() => {
-                            setDeletedEmployee(employee);
-                            setToggleModal(!toggleModal);
-                          }}
+                          onClick={() =>
+                            setUiState((prev) => ({
+                              ...prev,
+                              deletedEmployee: employee,
+                              toggleModal: true,
+                            }))
+                          }
                           className="text-red-500 hover:text-red-400"
                           title="Delete"
                         >
@@ -254,24 +248,23 @@ function Employee() {
                         </button>
                       </td>
                     </tr>
-                  ))}
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="7" className="w-full h-[50vh] text-center">
+                      <div className="flex flex-col justify-center items-center">
+                        <i className="fas fa-ban text-3xl text-gray-400"></i>
+                        <p className="mt-2 text-base text-gray-400">
+                          No employees found
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
-            {!loading && employees.length === 0 && (
-              <div className="w-full h-[50vh] flex flex-col justify-center items-center">
-                <i className="fas fa-ban text-3xl text-gray-400"></i>
-                <p className="mt-2 text-base  text-gray-400">
-                  No employees found
-                </p>
-              </div>
-            )}
           </div>
-
-          <Pagination
-            currentPage={currentPage}
-            totalPages={pagination?.totalPages}
-            onPageChange={goToPage}
-          />
+          <Pagination {...pagination} onPageChange={goToPage} />
         </section>
       </div>
     </>

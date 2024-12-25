@@ -60,6 +60,12 @@ function LeaveRequest() {
     dispatch(getLeavesByStatus(status));
   }, [status]);
 
+  const buttons = [
+    { value: "Pending", icon: "fas fa-hourglass-half" },
+    { value: "Approved", icon: "fas fa-check-circle" },
+    { value: "Rejected", icon: "fas fa-times-circle" },
+  ];
+
   return (
     <div className="w-full rounded-lg bg-gray-900">
       {loading && <Loader />}
@@ -67,61 +73,43 @@ function LeaveRequest() {
 
       <section className="bg-gray-700 mt-2 p-3 sm:p-4 rounded-lg min-h-[95vh]">
         <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
-          <button
-            onClick={() => setStatus("Pending")}
-            className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold ${
-              status === "Pending"
-                ? "border-blue-500 ring-1 ring-blue-500"
-                : "border-gray-300"
-            } focus:outline-none focus:ring-1 focus:ring-blue-500`}
-          >
-            <i class="text-xs fas fa-hourglass-half"></i>
-            Pending Leaves
-          </button>
-          <button
-            onClick={() => setStatus("Approved")}
-            className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold ${
-              status === "Approved"
-                ? "border-blue-500 ring-1 ring-blue-500"
-                : "border-gray-300"
-            } focus:outline-none focus:ring-1 focus:ring-blue-500`}
-          >
-            <i class="text-xs fas fa-check-circle"></i>
-            Approved Leaves
-          </button>
-          <button
-            onClick={() => setStatus("Rejected")}
-            className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold ${
-              status === "Rejected"
-                ? "border-blue-500 ring-1 ring-blue-500"
-                : "border-gray-300"
-            } focus:outline-none focus:ring-1 focus:ring-blue-500`}
-          >
-            <i class="text-xs fas fa-times-circle"></i>
-            Rejected Leaves
-          </button>
+          {buttons.map((filter, i) => (
+            <button
+              key={i}
+              onClick={() => setStatus(filter.value)}
+              className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold ${
+                status === filter.value
+                  ? "border-blue-500 ring-1 ring-blue-500"
+                  : "border-gray-300"
+              } focus:outline-none focus:ring-1 focus:ring-blue-500`}
+            >
+              <i className={`text-xs ${filter.icon}`}></i>
+              {filter.value} Leaves
+            </button>
+          ))}
         </div>
         <div id="overflow" className="overflow-x-auto">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-gray-600 text-gray-200">
-                <th className="py-3 px-4 border-b border-gray-500">Emp ID</th>
-                <th className="py-3 px-4 border-b border-gray-500">Name</th>
-                <th className="py-3 px-4 border-b border-gray-500">
-                  Department
-                </th>
-                <th className="py-3 px-4 border-b border-gray-500">Position</th>
-                <th className="py-3 px-4 border-b border-gray-500">
-                  Leave Type
-                </th>
-                <th className="py-3 px-4 border-b border-gray-500">From</th>
-                <th className="py-3 px-4 border-b border-gray-500">To</th>
-                <th className="py-3 px-4 border-b border-gray-500">Duration</th>
-                {status === "Pending" && (
-                  <th className="py-3 px-4 border-b border-gray-500 text-center">
-                    Actions
-                  </th>
-                )}
+                {[
+                  "Emp ID",
+                  "Name",
+                  "Department",
+                  "Position",
+                  "Leave Type",
+                  "From",
+                  "To",
+                  "Duration",
+                  "Actions",
+                ].map((header, i) => {
+                  if (header === "Actions" && status !== "Pending") return null;
+                  return (
+                    <th key={i} className="py-3 px-4 border-b border-gray-500">
+                      {header}
+                    </th>
+                  );
+                })}
               </tr>
             </thead>
             <tbody className="text-[0.83rem]">
