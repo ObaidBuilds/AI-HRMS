@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getLeavesByStatus, getEmployeesOnLeave } from "../../services/leave";
-import { respondToLeaveRequest } from "../../services/leave";
+import {
+  getLeavesByStatus,
+  getEmployeesOnLeave,
+  respondToLeaveRequest,
+} from "../services/leave";
 
 const initialState = {
   leaves: [],

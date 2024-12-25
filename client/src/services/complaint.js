@@ -37,6 +37,7 @@ export const respondToComplaintRequest = createAsyncThunk(
         { remarks },
         {
           headers: {
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         }
@@ -45,7 +46,6 @@ export const respondToComplaintRequest = createAsyncThunk(
       return data.leave;
     } catch (error) {
       toast.error(error.response?.data.message);
-      console.log(error.message, "dd");
       return rejectWithValue(
         error.response?.data.message || "Failed to respond to complaint request"
       );

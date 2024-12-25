@@ -1,12 +1,12 @@
 import Employee from "../models/employee.js";
 import Department from "../models/department.js";
-import Role from "../models/role.js";
 import Leave from "../models/leave.js";
 import Feedback from "../models/feedback.js";
 import Complaint from "../models/complaint.js";
 import { catchErrors } from "../utils/index.js";
 import { getDepartmentAttendancePercentage } from "./attendance.js";
-import { myCache, getSentimentAnalysis } from "../utils/index.js";
+import { myCache } from "../utils/index.js";
+import { getSentimentAnalysis } from "../predictions/index.js";
 
 const getInsights = catchErrors(async (req, res) => {
   const cacheKey = "insights";

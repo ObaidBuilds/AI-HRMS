@@ -1,9 +1,9 @@
 import React from "react";
-import Loader from "../../components/shared/Loader";
-import Heading from "../../components/shared/Heading";
-import { addEmployee } from "../../services/employee";
 import { useDispatch, useSelector } from "react-redux";
+import { addEmployee } from "../../services/employee";
 import { useForm, Controller } from "react-hook-form";
+import Loader from "../../components/shared/loaders/Loader";
+import Heading from "../../components/shared/others/Heading";
 
 const AddEmployee = () => {
   const dispatch = useDispatch();

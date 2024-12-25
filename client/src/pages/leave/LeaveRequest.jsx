@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { formatDate } from "../../utils";
-import Heading from "../../components/shared/Heading";
+import Heading from "../../components/shared/others/Heading";
 import { useSelector, useDispatch } from "react-redux";
-import Loader from "../../components/shared/Loader";
+import Loader from "../../components/shared/loaders/Loader";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { getLeavesByStatus, respondToLeaveRequest } from "../../services/leave";
-import RemarksModal from "../../components/shared/RemarksModal";
-import Modal from "../../components/shared/Modal";
+import RemarksModal from "../../components/shared/modals/RemarksModal";
+import Modal from "../../components/shared/modals/Modal";
 
 function LeaveRequest() {
   const dispatch = useDispatch();

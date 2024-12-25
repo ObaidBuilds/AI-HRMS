@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getFeedbacks } from "../../services/feedback";
+import { getFeedbacks } from "../services/feedback";
 
 const initialState = {
   feedbacks: [],

@@ -1,16 +1,13 @@
-import React, { useEffect } from "react";
-import InfoCard from "../../components/shared/InfoCard";
-import LineChart from "../../components/shared/LineChart";
-import PieChart from "../../components/shared/Pie";
-import BarGraph from "../../components/shared/BarGraph";
-import { useDispatch, useSelector } from "react-redux";
-import Error from "../../components/shared/Error";
-import ComponentLoader from "../../components/shared/ComponentLoader";
+import React from "react";
+import { useSelector } from "react-redux";
+import InfoCard from "../../components/shared/others/InfoCard";
+import LineChart from "../../components/shared/charts/LineChart";
+import PieChart from "../../components/shared/charts/Pie";
+import BarGraph from "../../components/shared/charts/BarGraph";
+import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
 
 const Dashboard = () => {
   const { insights, loading, error } = useSelector((state) => state.insight);
-
-  const dispatch = useDispatch();
 
   const infoCardData = [
     {

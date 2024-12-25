@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
-import Heading from "../../components/shared/Heading";
+import Heading from "../../components/shared/others/Heading";
 import { useSelector, useDispatch } from "react-redux";
-import Pagination from "../../components/shared/Pagination";
+import Pagination from "../../components/shared/others/Pagination";
 import {
   getComplaints,
   respondToComplaintRequest,
 } from "../../services/complaint";
-import Loader from "../../components/shared/Loader";
+import Loader from "../../components/shared/loaders/Loader";
 import { formatDate } from "../../utils";
-import Modal from "../../components/shared/Modal";
-import RemarksModal from "../../components/shared/RemarksModal";
+import Modal from "../../components/shared/modals/Modal";
+import RemarksModal from "../../components/shared/modals/RemarksModal";
 
 function Complaint() {
   const dispatch = useDispatch();

@@ -4,12 +4,12 @@ import 'animate.css';
 import Login from "./pages/auth/Login";
 import { Toaster } from "react-hot-toast";
 import { Route, Routes } from "react-router-dom";
-import Loader from "./components/shared/Loader";
+import Loader from "./components/shared/loaders/Loader";
 import React, { Suspense, useEffect } from "react";
 import { getDepartments } from "./services/department";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetToken } from "./utils";
-import NotFound from "./components/shared/NotFound";
+import NotFound from "./components/shared/error/NotFound";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 

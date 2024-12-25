@@ -1,9 +1,9 @@
 import React, { Suspense, useEffect } from "react";
 import Footer from "../components/ui/Footer";
 import Sidebar from "../components/ui/Sidebar";
-import Loader from "../components/shared/Loader";
+import Loader from "../components/shared/loaders/Loader";
 import { Route, Routes } from "react-router-dom";
-import NotFound from "../components/shared/NotFound";
+import NotFound from "../components/shared/error/NotFound";
 import { getRoles } from "../services/role";
 import { useDispatch } from "react-redux";
 import { getInsights } from "../services/insights";
@@ -41,7 +41,6 @@ const App = () => {
           >
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              {/* Employee Module */}
               <Route path="/employees" element={<Employee />} />
               <Route path="/employee/:employeeID" element={<ViewEmployee />} />
               <Route path="/add-employee" element={<AddEmployee />} />
@@ -49,16 +48,11 @@ const App = () => {
                 path="/edit-employee/:employeeID"
                 element={<EditEmployee />}
               />
-              {/* Attendance Module */}
               <Route path="/mark-attendance" element={<Attendance />} />
-              {/* Leave Module */}
               <Route path="/leave-request" element={<LeaveRequest />} />
               <Route path="/on-leave" element={<EmployeeOnLeave />} />
-              {/* Feeback Module */}
               <Route path="/feedback-management" element={<Feedback />} />
-              {/* Complaint Module */}
               <Route path="/complaint-management" element={<Complaint />} />
-
               <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />

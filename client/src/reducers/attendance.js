@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAttendanceList, markAttendance } from "../../services/attendance";
+import { getAttendanceList, markAttendance } from "../services/attendance";
 
 const initialState = {
   attendanceList: [],

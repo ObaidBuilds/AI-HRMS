@@ -21,7 +21,7 @@ export const getInsights = createAsyncThunk(
       );
       return rejectWithValue(
         error.response?.data.message || "Client : " + error.message
-      ); // Handle error
+      ); 
     }
   }
 );

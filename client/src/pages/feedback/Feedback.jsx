@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { FaStar } from "react-icons/fa";
-import Heading from "../../components/shared/Heading";
-import { useDispatch, useSelector } from "react-redux";
-import Loader from "../../components/shared/Loader";
-import { getFeedbacks } from "../../services/feedback";
-import Pagination from "../../components/shared/Pagination";
 import { formatDate } from "../../utils";
+import { FaStar } from "react-icons/fa";
+import { getFeedbacks } from "../../services/feedback";
+import { useDispatch, useSelector } from "react-redux";
+import Loader from "../../components/shared/loaders/Loader";
+import Heading from "../../components/shared/others/Heading";
+import Pagination from "../../components/shared/others/Pagination";
 
 function Feedback() {
+
   const dispatch = useDispatch();
   const { feedbacks, loading, pagination } = useSelector(
     (state) => state.feedback
@@ -32,13 +33,14 @@ function Feedback() {
       {loading && <Loader />}
 
       <div className="w-full rounded-lg min-h-screen">
+        
         <Heading heading="Feedback Management 💬" />
 
         <section className="bg-secondary mt-2 p-3 sm:p-4 rounded-lg">
           <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
-            {filters.map((filter) => (
+            {filters.map((filter, i) => (
               <button
-                key={filter.value}
+                key={i}
                 onClick={() => setReviewFilter(filter.value)}
                 className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem]  border py-1 px-5 rounded-3xl font-semibold ${
                   reviewFilter === filter.value

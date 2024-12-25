@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import { downloadXls } from "../../utils";
 import { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Error from "../../components/shared/Error";
-import Modal from "../../components/shared/Modal";
-import Loader from "../../components/shared/Loader";
-import Heading from "../../components/shared/Heading";
-import FilterBar from "../../components/shared/FilterBar";
-import Pagination from "../../components/shared/Pagination";
+import Error from "../../components/shared/error/Error";
+import Modal from "../../components/shared/modals/Modal";
+import Loader from "../../components/shared/loaders/Loader";
+import Heading from "../../components/shared/others/Heading";
+import FilterBar from "../../components/shared/others/FilterBar";
+import Pagination from "../../components/shared/others/Pagination";
 import { deleteEmployee, getAllEmployees } from "../../services/employee";
 
 function Employee() {

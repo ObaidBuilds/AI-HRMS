@@ -1,11 +1,8 @@
 import Employee from "../models/employee.js";
 import Leave from "../models/leave.js";
-import {
-  catchErrors,
-  getSubstitute,
-  myCache,
-  notifySubstituteEmployee,
-} from "../utils/index.js";
+import { catchErrors, myCache } from "../utils/index.js";
+import { getSubstitute } from "../predictions/index.js";
+import { notifySubstituteEmployee } from "../templates/index.js";
 
 const getLeaves = catchErrors(async (req, res) => {
   const { status = "Pending" } = req.query;

@@ -1,15 +1,15 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
-import authReducer from "./slices/auth";
-import roleReducer from "./slices/role";
-import employeeReducer from "./slices/employee";
-import departmentReducer from "./slices/department";
-import insightReducer from "./slices/inshights";
-import attendanceReducer from "./slices/attendance";
-import leaveReducer from "./slices/leave";
-import feedbackReducer from "./slices/feedback";
-import complaintReducer from "./slices/complaint";
+import authReducer from "../reducers/auth";
+import roleReducer from "../reducers/role";
+import employeeReducer from "../reducers/employee";
+import departmentReducer from "../reducers/department";
+import insightReducer from "../reducers/inshights";
+import attendanceReducer from "../reducers/attendance";
+import leaveReducer from "../reducers/leave";
+import feedbackReducer from "../reducers/feedback";
+import complaintReducer from "../reducers/complaint";
 
 const persistConfig = {
   key: "root",

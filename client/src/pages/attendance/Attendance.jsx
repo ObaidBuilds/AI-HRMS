@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Heading from "../../components/shared/Heading";
-import SheetModal from "../../components/shared/SheetModal";
-import Modal from "../../components/shared/Modal";
-import Loader from "../../components/shared/Loader";
+import Heading from "../../components/shared/others/Heading";
+import SheetModal from "../../components/shared/modals/SheetModal";
+import Modal from "../../components/shared/modals/Modal";
+import Loader from "../../components/shared/loaders/Loader";
 import { getAttendanceList, markAttendance } from "../../services/attendance";
 
 function Attendance() {

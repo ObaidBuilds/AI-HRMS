@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   getComplaints,
   respondToComplaintRequest,
-} from "../../services/complaint";
+} from "../services/complaint";
 
 const initialState = {
   complaints: [],

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import Heading from "../../components/shared/Heading";
+import Heading from "../../components/shared/others/Heading";
 import { getEmployeesOnLeave } from "../../services/leave";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDate } from "../../utils";
-import Loader from "../../components/shared/Loader";
+import Loader from "../../components/shared/loaders/Loader";
 
 function EmployeeOnLeave() {
   const dispatch = useDispatch();
@@ -11,30 +11,28 @@ function EmployeeOnLeave() {
   const { employeesOnLeaveToday, loading } = useSelector(
     (state) => state.leave
   );
-  const [status, setStatus] = useState("present");
+  const [status, setStatus] = useState("Present");
 
   useEffect(() => {
-    const today = new Date();
-    let selectedDate = new Date(today);
+    const dateMapping = {
+      yesterday: new Date(new Date().setDate(new Date().getDate() - 1)),
+      present: new Date(),
+      tomorrow: new Date(new Date().setDate(new Date().getDate() + 1)),
+    };
 
-    if (status === "yesterday") {
-      selectedDate.setDate(today.getDate() - 1);
-    } else if (status === "tomorrow") {
-      selectedDate.setDate(today.getDate() + 1);
-    }
-
-    dispatch(getEmployeesOnLeave(formatDate(selectedDate)));
-  }, [status]);
+    dispatch(getEmployeesOnLeave(formatDate(dateMapping[status])));
+  }, [status, dispatch]);
 
   const buttons = [
     { value: "Yesterday", icon: "fa-arrow-left" },
-    { value: "Presentday", icon: "fa-calendar-check" },
+    { value: "Present", icon: "fa-calendar-check" },
     { value: "Tomorrow", icon: "fa-arrow-right" },
   ];
 
   return (
     <div className="w-full rounded-lg bg-gray-900">
       {loading && <Loader />}
+
       <Heading heading={"Employees on Leave 🏖️"} />
 
       <section className="bg-gray-700 mt-2 p-3 sm:p-4 rounded-lg min-h-[95vh]">
@@ -68,9 +66,9 @@ function EmployeeOnLeave() {
                   "From",
                   "To",
                   "Duration",
-                ].map((header) => (
+                ].map((header, i) => (
                   <th
-                    key={header}
+                    key={i}
                     className="py-3 px-4 border-b border-gray-500"
                     scope="col"
                   >
@@ -117,15 +115,14 @@ function EmployeeOnLeave() {
                 ))}
             </tbody>
           </table>
-          {!loading &&
-            (!employeesOnLeaveToday || employeesOnLeaveToday.length === 0) && (
-              <div className="w-full h-[50vh] flex flex-col justify-center items-center">
-                <i className="fas fa-ban text-3xl text-gray-400"></i>
-                <p className="mt-2 text-base text-gray-400">
-                  No employees on leave for {status}.
-                </p>
-              </div>
-            )}
+          {!loading && employeesOnLeaveToday.length === 0 && (
+            <div className="w-full h-[50vh] flex flex-col justify-center items-center">
+              <i className="fas fa-ban text-3xl text-gray-400"></i>
+              <p className="mt-2 text-base text-gray-400">
+                No employees on leave for {status}.
+              </p>
+            </div>
+          )}
         </div>
       </section>
     </div>

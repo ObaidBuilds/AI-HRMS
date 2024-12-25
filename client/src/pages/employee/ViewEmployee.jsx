@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Error from "../../components/shared/Error";
+import Error from "../../components/shared/error/Error";
 import { useDispatch, useSelector } from "react-redux";
 import { getEmployeeById } from "../../services/employee";
-import Heading from "../../components/shared/Heading";
+import Heading from "../../components/shared/others/Heading";
 import { formatDate } from "../../utils";
-import ComponentLoader from "../../components/shared/ComponentLoader";
+import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
 
 const ViewEmployee = () => {
   const { employeeID } = useParams();
@@ -18,7 +18,7 @@ const ViewEmployee = () => {
     }
   }, [employeeID, dispatch]);
 
-  if (loading) return <ComponentLoader/>;
+  if (loading) return <ComponentLoader />;
   if (error || !employee) return <Error />;
 
   return (

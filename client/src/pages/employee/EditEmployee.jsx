@@ -1,12 +1,12 @@
-import { formatDate } from "../../utils";
-import Error from "../../components/shared/Error";
-import { useNavigate, useParams } from "react-router-dom";
 import React, { useEffect } from "react";
-import Heading from "../../components/shared/Heading";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
+import { formatDate } from "../../utils";
 import { editEmployee, getEmployeeById } from "../../services/employee";
-import ComponentLoader from "../../components/shared/ComponentLoader";
+import Error from "../../components/shared/error/Error";
+import Heading from "../../components/shared/others/Heading";
+import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
 
 const EditEmployee = () => {
   const { employeeID } = useParams();

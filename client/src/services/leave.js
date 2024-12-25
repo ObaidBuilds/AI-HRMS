@@ -58,6 +58,7 @@ export const respondToLeaveRequest = createAsyncThunk(
         { remarks },
         {
           headers: {
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         }

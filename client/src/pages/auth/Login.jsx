@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,7 +16,6 @@ const schema = z.object({
 });
 
 const Login = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const departments = useSelector((state) => state.department.departments);
   const loading = useSelector((state) => state.authentication.loading);
