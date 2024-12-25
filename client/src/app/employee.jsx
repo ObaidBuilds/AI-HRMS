@@ -7,14 +7,16 @@ import Navbar from "../components/ui/Navbar";
 
 // Lazy loading the components
 const Home = React.lazy(() => import("../pages/home/Home"));
+const Complaint = React.lazy(() => import("../pages/complaint/Complaint"));
 
 const EmployeeApp = () => {
   return (
-    <div>
+    <div className="text-white bg-navy">
       <Suspense fallback={<Loader />}>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/complaint" element={<Complaint />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

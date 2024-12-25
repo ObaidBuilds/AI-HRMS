@@ -76,6 +76,11 @@ const navbarLinks = [
     link: "/attendance",
   },
   {
+    name: "Apply for Leave",
+    iconClass: "fa fa-calendar-check",
+    link: "/attendance",
+  },
+  {
     name: "Make a Complaint",
     iconClass: "fa fa-exclamation-circle",
     link: "/complaint",

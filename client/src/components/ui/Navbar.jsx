@@ -59,6 +59,11 @@ const Navbar = () => {
               Attendance
             </li>
           </Link>
+          <Link to={"/leave"}>
+            <li className="text-[0.9rem] flex-col md:flex-row flex items-center md:gap-2">
+              Leave
+            </li>
+          </Link>
           <Link to={"/complaint"}>
             <li className="text-[0.9rem] flex-col md:flex-row flex items-center md:gap-2">
               Complaint
