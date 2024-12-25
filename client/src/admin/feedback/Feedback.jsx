@@ -72,7 +72,7 @@ function Feedback() {
                       key={index}
                       className="py-3 px-4 border-b border-gray-500"
                     >
-                      {header.label}
+                      {header}
                     </th>
                   ))}
                 </tr>

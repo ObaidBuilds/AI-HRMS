@@ -22,7 +22,7 @@ const Navbar = () => {
   };
   return (
     <>
-      <nav className="bg-navy w-full h-[85px] flex items-center px-8 md:px-0 justify-between md:justify-around relative top-0 left-0 border-b border-gray-700 text-white">
+      <nav className="bg-navy w-full h-[70px] md:h-[85px] flex items-center px-8 md:px-0 justify-between md:justify-around relative top-0 left-0 border-b border-gray-700 text-white">
         <div
           onClick={() => setShowSidebar(!showSidebar)}
           className="block md:hidden"

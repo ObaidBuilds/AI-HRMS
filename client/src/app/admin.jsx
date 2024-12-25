@@ -41,22 +41,27 @@ const AdminApp = () => {
             id="overflow"
             className="w-full max-h-auto min-h-screen lg:w-[82%] lg:ml-[255px] py-2 px-3 md:px-2 mt-[69px] lg:mt-0"
           >
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/employees" element={<Employee />} />
-              <Route path="/employee/:employeeID" element={<ViewEmployee />} />
-              <Route path="/add-employee" element={<AddEmployee />} />
-              <Route
-                path="/edit-employee/:employeeID"
-                element={<EditEmployee />}
-              />
-              <Route path="/mark-attendance" element={<Attendance />} />
-              <Route path="/leave-request" element={<LeaveRequest />} />
-              <Route path="/on-leave" element={<EmployeeOnLeave />} />
-              <Route path="/feedback-management" element={<Feedback />} />
-              <Route path="/complaint-management" element={<Complaint />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <div className="mb-2">
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/employees" element={<Employee />} />
+                <Route
+                  path="/employee/:employeeID"
+                  element={<ViewEmployee />}
+                />
+                <Route path="/add-employee" element={<AddEmployee />} />
+                <Route
+                  path="/edit-employee/:employeeID"
+                  element={<EditEmployee />}
+                />
+                <Route path="/mark-attendance" element={<Attendance />} />
+                <Route path="/leave-request" element={<LeaveRequest />} />
+                <Route path="/on-leave" element={<EmployeeOnLeave />} />
+                <Route path="/feedback-management" element={<Feedback />} />
+                <Route path="/complaint-management" element={<Complaint />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </div>
             <Footer />
           </main>
         </Suspense>
