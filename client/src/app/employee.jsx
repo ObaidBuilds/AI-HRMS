@@ -16,7 +16,7 @@ const Feedback = React.lazy(() => import("../pages/feedback/Feedback"));
 
 const EmployeeApp = () => {
   return (
-    <div className="text-gray-600 bg-gray-100">
+    <div className="text-gray-100 bg-navy">
       <Suspense fallback={<Loader />}>
         <Navbar />
         <Routes>

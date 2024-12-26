@@ -48,7 +48,7 @@ const Security = () => {
               placeholder="Old Password"
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
-              className="w-full bg-gray-700 text-sm p-3 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-700 text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -61,7 +61,7 @@ const Security = () => {
               placeholder="New Password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full bg-gray-700 text-sm p-3 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-700 text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -74,16 +74,10 @@ const Security = () => {
               placeholder="Confirm New Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full bg-gray-700 text-sm p-3 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-700 text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
-
-          {/* Error Message */}
-          {error && <p className="text-red-500 text-center">{error}</p>}
-
-          {/* Success Message */}
-          {success && <p className="text-green-500 text-center">{success}</p>}
 
           {/* Submit Button */}
           <button
