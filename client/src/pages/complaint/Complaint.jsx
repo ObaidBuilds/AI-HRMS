@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { createComplaint } from "../../services/complaint";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Complaint = () => {
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.complaint);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setTimeout(() => {
-      alert("Complaint Submitted!");
-      setLoading(false);
-    }, 1500);
+  const { register, handleSubmit, reset } = useForm();
+
+  const onSubmit = (data) => {
+    dispatch(createComplaint(data))
+      .unwrap()
+      .then(() => reset())
+      .catch((error) => {
+        console.error("Error create compaint:", error);
+      });
   };
 
   return (
@@ -19,18 +26,21 @@ const Complaint = () => {
           <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
             Submit Your Complaint
           </h1>
-
-       
         </div>
 
-        <form className="space-y-3 sm:space-y-4 text-sm" onSubmit={handleSubmit}>
+        <form
+          className="space-y-3 sm:space-y-4 text-sm"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           {/* Complaint Type */}
           <div className="relative">
             <i className="fa fa-list-alt absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
             <select
               id="select"
-              className="w-full bg-gray-700 text-center text-sm p-3 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
-              required
+              className="w-full bg-gray-700 text-center text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
+              {...register("complainType", {
+                required: "Complaint type is required",
+              })}
             >
               <option value="">--- Select Complaint Type ---</option>
               <option value="workplace">Workplace Issue</option>
@@ -47,8 +57,10 @@ const Complaint = () => {
               type="text"
               placeholder="Complaint Subject"
               autoComplete="off"
-              className="w-full bg-gray-700 text-sm p-3 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
-              required
+              className="w-full bg-gray-700 text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
+              {...register("complainSubject", {
+                required: "Complaint subject is required",
+              })}
             />
           </div>
 
@@ -57,8 +69,10 @@ const Complaint = () => {
             <textarea
               placeholder="Complaint Details"
               rows="4"
-              className="w-full bg-gray-700 text-sm p-3 rounded-xl border border-gray-600 focus:ring-2 focus:ring-blue-500"
-              required
+              className="w-full bg-gray-700 text-sm p-4 rounded-xl border border-gray-600 focus:ring-2 focus:ring-blue-500"
+              {...register("complaintDetails", {
+                required: "Complaint details are required",
+              })}
             ></textarea>
           </div>
 
@@ -68,7 +82,11 @@ const Complaint = () => {
             disabled={loading}
             className="w-full bg-blue-500 text-sm p-4 rounded-full font-medium hover:bg-blue-600 transition duration-300"
           >
-            {loading ? "Submitting..." : "Submit Complaint"}
+            {loading ? (
+              <ClipLoader size={10} color="white" loading={loading} />
+            ) : (
+              "Submit Complaint"
+            )}
           </button>
         </form>
       </div>

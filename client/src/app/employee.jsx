@@ -21,9 +21,10 @@ const EmployeeApp = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/complaint" element={<Complaint />} />
-          <Route path="/feedback" element={<Feedback />} />
+          <Route path="/complaint" element={<Complaint />} />
           <Route path="/leave" element={<Leave />} />
+          <Route path="/feedback" element={<Feedback />} />
+          {/* 
           <Route path="/attendance" element={<Attendance />} />
           <Route path="/profile" element={<Profile />} /> */}
           <Route path="/security" element={<Security />} />

@@ -1,12 +1,38 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { createFeedback } from "../../services/feedback";
+import ClipLoader from "react-spinners/ClipLoader";
+import { useDispatch, useSelector } from "react-redux";
 
 const Feedback = () => {
+  const dispatch = useDispatch();
   const [rating, setRating] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const { loading } = useSelector((state) => state.feedback);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
- 
+  const onSubmit = (data) => {
+    if (rating === 0) {
+      toast.error("Please select a rating.");
+      return;
+    }
+
+    const feedbackData = { ...data, rating };
+
+    dispatch(createFeedback(feedbackData))
+      .unwrap()
+      .then(() => {
+        reset();
+        setRating(0);
+      })
+      .catch((error) => {
+        console.error("Error create compaint:", error);
+      });
   };
 
   return (
@@ -18,7 +44,10 @@ const Feedback = () => {
           </h1>
         </div>
 
-        <form className="space-y-3 sm:space-y-4 text-sm" onSubmit={handleSubmit}>
+        <form
+          className="space-y-3 sm:space-y-5 text-sm"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           {/* Rating Section */}
           <div className="text-center">
             <div className="flex justify-center gap-2">
@@ -40,12 +69,20 @@ const Feedback = () => {
           {/* Feedback Description */}
           <div className="relative">
             <textarea
-              id="description"
-              name="description"
+              {...register("description", {
+                required: "Feedback description is required",
+                maxLength: {
+                  value: 300,
+                  message: "Description cannot exceed 300 characters",
+                },
+              })}
               placeholder="Write your feedback..."
               rows="4"
-              className="w-full bg-gray-700 text-sm p-3 rounded-xl border border-gray-600 focus:ring-2 focus:ring-blue-500"
-              required
+              className={`w-full bg-gray-700 text-sm p-3 rounded-xl border ${
+                errors.description
+                  ? "border-red-500 focus:ring-red-500"
+                  : "border-gray-600 focus:ring-blue-500"
+              }`}
             ></textarea>
           </div>
 
@@ -55,7 +92,11 @@ const Feedback = () => {
             disabled={loading || rating === 0}
             className="w-full bg-blue-500 text-sm p-4 rounded-full font-medium hover:bg-blue-600 transition duration-300"
           >
-            {loading ? "Submitting..." : "Submit Feedback"}
+            {loading ? (
+              <ClipLoader size={10} color="white" loading={loading} />
+            ) : (
+              "Submit Feedback"
+            )}
           </button>
         </form>
       </div>

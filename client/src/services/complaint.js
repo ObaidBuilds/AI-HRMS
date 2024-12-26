@@ -26,6 +26,29 @@ export const getComplaints = createAsyncThunk(
   }
 );
 
+// Create  Compaints
+export const createComplaint = createAsyncThunk(
+  "complaints/createComplaint",
+  async (complaint, { rejectWithValue }) => {
+    const token = useGetToken();
+    try {
+      const { data } = await axios.post(`${URL}/complaints`, complaint, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success(data.message);
+      return data.leave;
+    } catch (error) {
+      toast.error(error.response?.data.message);
+      return rejectWithValue(
+        error.response?.data.message || "Failed to respond to complaint request"
+      );
+    }
+  }
+);
+
 // Respond to Compaints's  (approve or reject)
 export const respondToComplaintRequest = createAsyncThunk(
   "complaints/respondToComplaintRequest",
@@ -43,7 +66,7 @@ export const respondToComplaintRequest = createAsyncThunk(
         }
       );
       toast.success(data.message);
-      return data.leave;
+      return data.complaint;
     } catch (error) {
       toast.error(error.response?.data.message);
       return rejectWithValue(

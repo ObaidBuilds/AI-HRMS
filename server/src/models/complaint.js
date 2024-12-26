@@ -8,7 +8,10 @@ const complaintSchema = new mongoose.Schema(
     },
     complainType: {
       type: String,
-      enum: ["Harassment", "Discrimination", "Workplace Conflict", "Other"],
+      required: true,
+    },
+    complainSubject: {
+      type: String,
       required: true,
     },
     complaintDetails: {

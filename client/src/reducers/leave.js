@@ -3,6 +3,7 @@ import {
   getLeavesByStatus,
   getEmployeesOnLeave,
   respondToLeaveRequest,
+  createLeave,
 } from "../services/leave";
 
 const initialState = {
@@ -54,15 +55,31 @@ const leavesSlice = createSlice({
       })
       .addCase(respondToLeaveRequest.fulfilled, (state, action) => {
         const updatedLeave = action.payload;
-        const updatedLeaves = state.leaves.map((leave) =>
-          leave._id === updatedLeave._id ? updatedLeave : leave
+
+        state.leaves = state.leaves.filter(
+          (leave) => leave._id !== updatedLeave._id
         );
-        state.leaves = updatedLeaves;
+
         state.loading = false;
       })
+
       .addCase(respondToLeaveRequest.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Failed to respond to leave request";
+      })
+
+      // Handling createLeave action
+      .addCase(createLeave.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createLeave.fulfilled, (state, action) => {
+        state.leaves.push(action.payload);
+        state.loading = false;
+      })
+      .addCase(createLeave.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to create leave";
       });
   },
 });

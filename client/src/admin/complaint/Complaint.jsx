@@ -15,9 +15,9 @@ import RemarksModal from "../../components/shared/modals/RemarksModal";
 function Complaint() {
   const dispatch = useDispatch();
   const { complaints, loading, pagination } = useSelector(
-    ({ complaint }) => complaint
+    (state) => state.complaint
   );
-
+  console.log(loading);
   const [currentPage, setCurrentPage] = useState(1);
   const [status, setStatus] = useState("Pending");
   const [selectedComplaint, setSelectedComplaint] = useState(null);
@@ -44,7 +44,9 @@ function Complaint() {
           status: "Resolved",
           remarks: "Approved",
         })
-      );
+      )
+        .unwrap()
+        // .then(() => window.location.reload());
       setToggleModal(false);
     }
   };
@@ -57,14 +59,16 @@ function Complaint() {
           status: "Closed",
           remarks,
         })
-      );
+      )
+        .unwrap()
+        // .then(() => window.location.reload());
       setToggleRemarkModal(false);
     }
   };
 
   useEffect(() => {
     dispatch(getComplaints({ status, currentPage }));
-  }, [status, currentPage, dispatch]);
+  }, [status, currentPage]);
 
   return (
     <>

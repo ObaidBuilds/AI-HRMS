@@ -80,9 +80,9 @@ const getEmployeesOnLeave = catchErrors(async (req, res) => {
 });
 
 const applyLeave = catchErrors(async (req, res) => {
-  const { employee, leaveType, application, duration, fromDate, toDate } =
-    req.body;
-
+  const { leaveType, application, duration, fromDate, toDate } = req.body;
+  const employee = req.user;
+  
   if (!employee || !leaveType || !fromDate || !toDate)
     throw new Error("All fields are required");
 

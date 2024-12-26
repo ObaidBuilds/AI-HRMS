@@ -48,14 +48,16 @@ const getComplaints = catchErrors(async (req, res) => {
 });
 
 const createComplaint = catchErrors(async (req, res) => {
-  const { employee, complainType, complaintDetails } = req.body;
+  const { complainType, complaintDetails, complainSubject } = req.body;
+  const employee = req.user;
 
-  if (!employee || !complainType || !complaintDetails)
+  if (!employee || !complainType || !complaintDetails || !complainSubject)
     throw new Error("All fields are required");
 
   const complaint = await Complaint.create({
     employee,
     complainType,
+    complainSubject,
     complaintDetails,
   });
 

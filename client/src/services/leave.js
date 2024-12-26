@@ -47,6 +47,29 @@ export const getEmployeesOnLeave = createAsyncThunk(
   }
 );
 
+// Appy for Leave
+export const createLeave = createAsyncThunk(
+  "leaves/createLeave",
+  async (leave, { rejectWithValue }) => {
+    const token = useGetToken();
+    try {
+      const { data } = await axios.post(`${URL}/leaves`, leave, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success(data.message);
+      return data.leave;
+    } catch (error) {
+      toast.error(error.response?.data.message);
+      return rejectWithValue(
+        error.response?.data.message || "Failed to respond to leave request"
+      );
+    }
+  }
+);
+
 // Respond to Employee's Leave Request (approve or reject)
 export const respondToLeaveRequest = createAsyncThunk(
   "leaves/respondToLeaveRequest",

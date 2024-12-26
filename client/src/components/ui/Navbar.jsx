@@ -10,7 +10,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const [showSidebar, setShowSidebar] = useState(false);
-  const { loading } = useSelector((state) => state.authentication);
+  const { loading, user } = useSelector((state) => state.authentication);
 
   const handleLogout = () => {
     dispatch(logout())
@@ -30,13 +30,13 @@ const Navbar = () => {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <p className="text-[0.81rem]">Obaid Ali Siddiuqi</p>
+          <p className="text-[0.81rem]">{user.name}</p>
           <span className="text-gray-400">|</span>
           <div className="w-[35px] h-[35px] rounded-full overflow-hidden border border-gray-600 cursor-pointer">
             <img
-              className="w-full"
-              src="https://obaidbroimages.netlify.app/obaid.png"
-              alt="Profile"
+              className="w-full text-sm"
+              src={user.profilePicture}
+              alt={user.name}
             />
           </div>
         </div>

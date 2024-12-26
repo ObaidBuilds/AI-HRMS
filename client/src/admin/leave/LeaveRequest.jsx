@@ -32,9 +32,7 @@ function LeaveRequest() {
     )
       .unwrap()
       .then(() => {
-        if (leaves.length <= 1) {
-          window.location.reload();
-        }
+        setToggleRemarkModal(false);
       });
   };
 
@@ -49,9 +47,7 @@ function LeaveRequest() {
       )
         .unwrap()
         .then(() => {
-          if (leaves.length <= 1) {
-            window.location.reload();
-          }
+          setToggleRemarkModal(false);
         });
     }
   };

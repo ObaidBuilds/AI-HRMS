@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getFeedbacks } from "../services/feedback";
+import { createFeedback, getFeedbacks } from "../services/feedback";
 
 const initialState = {
   feedbacks: [],
@@ -26,7 +26,21 @@ const feedbackSlice = createSlice({
       })
       .addCase(getFeedbacks.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch leaves";
+        state.error = action.payload || "Failed to fetch feedbacks";
+      })
+
+      // Handling createFeedback action
+      .addCase(createFeedback.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createFeedback.fulfilled, (state, action) => {
+        state.feedbacks = [action.payload.feedback, ...state.feedbacks]; 
+        state.loading = false; 
+      })
+      .addCase(createFeedback.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to create feedback";
       });
   },
 });

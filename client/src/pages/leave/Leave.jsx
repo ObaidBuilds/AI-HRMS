@@ -1,17 +1,21 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import ClipLoader from "react-spinners/ClipLoader";
+import { createLeave } from "../../services/leave";
 
 const Leave = () => {
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.leave);
+  const { register, handleSubmit, reset } = useForm();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setTimeout(() => {
-      alert(
-        `Leave Application Submitted!\nLeave Type: ${e.target.leaveType.value}\nDuration: ${e.target.duration.value}\nFrom: ${e.target.fromDate.value}\nTo: ${e.target.toDate.value}`
-      );
-      setLoading(false);
-    }, 1500);
+  const onSubmit = (data) => {
+    dispatch(createLeave(data))
+      .unwrap()
+      .then(() => reset())
+      .catch((error) => {
+        console.error("Error create leave:", error);
+      });
   };
 
   return (
@@ -23,15 +27,17 @@ const Leave = () => {
           </h1>
         </div>
 
-        <form className="space-y-3 sm:space-y-4 text-sm" onSubmit={handleSubmit}>
+        <form
+          className="space-y-3 sm:space-y-4 text-sm"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           {/* Leave Type Select */}
           <div className="relative">
             <i className="fa fa-calendar-check text-sm absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
             <select
+              {...register("leaveType", { required: "Leave type is required" })}
+              className="w-full bg-gray-700 text-center text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
               id="select"
-              name="leaveType"
-              className="w-full bg-gray-700 text-center text-sm p-3 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
-              required
             >
               <option value="">--- Select Leave Type ---</option>
               <option value="sick">Sick Leave</option>
@@ -45,12 +51,13 @@ const Leave = () => {
           <div className="relative">
             <i className="fa fa-clock text-sm absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
             <input
-              type="text"
-              name="duration"
+              type="number"
               placeholder="Duration (in days)"
-              autoComplete="off"
-              className="w-full bg-gray-700 text-sm p-3 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
-              required
+              {...register("duration", {
+                required: "Duration is required",
+                min: { value: 1, message: "Duration must be at least 1 day" },
+              })}
+              className="w-full bg-gray-700 text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -59,9 +66,8 @@ const Leave = () => {
             <i className="fa fa-calendar text-sm absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
             <input
               type="date"
-              name="fromDate"
-              className="w-full bg-gray-700 text-sm p-3 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
-              required
+              {...register("fromDate", { required: "From date is required" })}
+              className="w-full bg-gray-700 text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -70,9 +76,8 @@ const Leave = () => {
             <i className="fa fa-calendar text-sm absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
             <input
               type="date"
-              name="toDate"
-              className="w-full bg-gray-700 text-sm p-3 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
-              required
+              {...register("toDate", { required: "To date is required" })}
+              className="w-full bg-gray-700 text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -82,7 +87,11 @@ const Leave = () => {
             disabled={loading}
             className="w-full bg-blue-500 text-sm p-4 rounded-full font-medium hover:bg-blue-600 transition duration-300"
           >
-            {loading ? "Submitting..." : "Submit Leave Application"}
+            {loading ? (
+              <ClipLoader size={20} color="white" loading={loading} />
+            ) : (
+              "Submit Leave Application"
+            )}
           </button>
         </form>
       </div>

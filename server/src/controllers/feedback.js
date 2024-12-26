@@ -50,8 +50,9 @@ const getFeedbacks = catchErrors(async (req, res) => {
 });
 
 const createFeedback = catchErrors(async (req, res) => {
-  const { employee, description, rating } = req.body;
-
+  const { description, rating } = req.body;
+  const employee = req.user;
+  
   if (!employee || !description || !rating)
     throw new Error("All fields are required");
 
