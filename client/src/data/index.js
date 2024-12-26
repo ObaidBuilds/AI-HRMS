@@ -25,12 +25,6 @@ const sidebarLinks = [
     link: "/mark-attendance",
   },
   {
-    name: "Payroll Management",
-    iconClass: "fas fa-wallet",
-    link: "/payroll-management",
-    childrens: [],
-  },
-  {
     name: "Leave Management",
     iconClass: "fas fa-calendar-alt",
     childrens: [

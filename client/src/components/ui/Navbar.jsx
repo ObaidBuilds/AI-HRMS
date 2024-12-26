@@ -22,6 +22,25 @@ const Navbar = () => {
   };
   return (
     <>
+      <header className="hidden bg-navy text-white h-[50px] border-b md:flex justify-around items-center border-gray-700">
+        <div className="text-sm">
+          <p className="flex items-center gap-2">
+            <i className="fa fa-bullhorn text-xs"></i>
+            Notices
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <p className="text-[0.81rem]">Obaid Ali Siddiuqi</p>
+          <span className="text-gray-400">|</span>
+          <div className="w-[35px] h-[35px] rounded-full overflow-hidden border border-gray-600 cursor-pointer">
+            <img
+              className="w-full"
+              src="https://obaidbroimages.netlify.app/obaid.png"
+              alt="Profile"
+            />
+          </div>
+        </div>
+      </header>
       <nav className="bg-navy w-full h-[70px] md:h-[85px] flex items-center px-8 md:px-0 justify-between md:justify-around relative top-0 left-0 border-b border-gray-700 text-white">
         <div
           onClick={() => setShowSidebar(!showSidebar)}
@@ -44,12 +63,12 @@ const Navbar = () => {
               Home
             </li>
           </Link>
-          <Link to={"/"}>
+          <Link to={"/profile"}>
             <li className="text-[0.9rem] flex-col md:flex-row flex items-center md:gap-2">
               Profile
             </li>
           </Link>
-          <Link to={"/"}>
+          <Link to={"/security"}>
             <li className="text-[0.9rem] flex-col md:flex-row flex items-center md:gap-2">
               Security
             </li>
