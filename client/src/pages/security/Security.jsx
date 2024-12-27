@@ -1,32 +1,16 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const Security = () => {
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setError("");
-    setSuccess("");
-    
-    // Validate that the new password and confirm password match
-    if (newPassword !== confirmPassword) {
-      setError("New password and confirmation password do not match.");
-      return;
-    }
+  const { register, handleSubmit, reset } = useForm();
 
+  const onSubmit = (data) => {
     setLoading(true);
     setTimeout(() => {
-      // Simulate a successful password change
-      setSuccess("Password changed successfully!");
       setLoading(false);
-      setOldPassword("");
-      setNewPassword("");
-      setConfirmPassword("");
+      reset();
     }, 1500);
   };
 
@@ -39,17 +23,17 @@ const Security = () => {
           </h1>
         </div>
 
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
           {/* Old Password */}
           <div className="relative">
             <i className="fa fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
             <input
               type="password"
               placeholder="Old Password"
-              value={oldPassword}
-              onChange={(e) => setOldPassword(e.target.value)}
+              {...register("oldPassword", {
+                required: "Old password is required",
+              })}
               className="w-full bg-gray-700 text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
-              required
             />
           </div>
 
@@ -59,10 +43,14 @@ const Security = () => {
             <input
               type="password"
               placeholder="New Password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
+              {...register("newPassword", {
+                required: "New password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters long",
+                },
+              })}
               className="w-full bg-gray-700 text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
-              required
             />
           </div>
 
@@ -72,10 +60,7 @@ const Security = () => {
             <input
               type="password"
               placeholder="Confirm New Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full bg-gray-700 text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
-              required
             />
           </div>
 

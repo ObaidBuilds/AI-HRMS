@@ -16,9 +16,7 @@ const Navbar = () => {
     dispatch(logout())
       .unwrap()
       .then(() => navigate("/"))
-      .catch((error) => {
-        console.error("Error Logging out:", error);
-      });
+      
   };
   return (
     <>
@@ -61,11 +59,6 @@ const Navbar = () => {
           <Link to={"/"}>
             <li className="text-[0.9rem] flex-col md:flex-row flex items-center md:gap-2">
               Home
-            </li>
-          </Link>
-          <Link to={"/profile"}>
-            <li className="text-[0.9rem] flex-col md:flex-row flex items-center md:gap-2">
-              Profile
             </li>
           </Link>
           <Link to={"/security"}>

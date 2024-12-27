@@ -10,7 +10,7 @@ import { verifyAdminToken, verifyEmployeeToken } from "../middlewares/index.js";
 const router = express.Router();
 
 router.post("/mark", verifyAdminToken, markAttendance);
-router.get("/:employeeId", verifyEmployeeToken, getEmployeeAttendance);
+router.get("/employee", verifyEmployeeToken, getEmployeeAttendance);
 router.get("/", getAttendanceList);
 router.get(
   "/percentage",

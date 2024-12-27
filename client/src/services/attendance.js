@@ -3,7 +3,7 @@ import { URL, useGetToken } from "../utils";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
-// Get attendance lis
+// Get attendance list
 export const getAttendanceList = createAsyncThunk(
   "attendance/getAttendanceList",
   async (department, { rejectWithValue }) => {
@@ -27,7 +27,7 @@ export const getAttendanceList = createAsyncThunk(
   }
 );
 
-// Fetch all employees
+// Mark Attendance
 export const markAttendance = createAsyncThunk(
   "attendance/markAttendance",
   async (attendanceRecords, { rejectWithValue }) => {
@@ -46,6 +46,28 @@ export const markAttendance = createAsyncThunk(
       toast.success(data.message);
     } catch (error) {
       toast.error(error.response?.data.message || "An error occurred.");
+      return rejectWithValue(
+        error.response?.data.message || "Client : " + error.message
+      );
+    }
+  }
+);
+
+// Get all employees attendance
+export const getEmployeeAttendance = createAsyncThunk(
+  "attendance/getEmployeeAttendance",
+  async (_, { rejectWithValue }) => {
+    const token = useGetToken();
+    try {
+      const { data } = await axios.get(`${URL}/attendance/employee`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(data.attendance);
+      return data.attendance;
+    } catch (error) {
+      console.log(error.response?.data.message || "An error occurred.");
       return rejectWithValue(
         error.response?.data.message || "Client : " + error.message
       );

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAttendanceList, markAttendance } from "../services/attendance";
+import { getAttendanceList, getEmployeeAttendance, markAttendance } from "../services/attendance";
 
 const initialState = {
   attendanceList: [],
@@ -37,6 +37,20 @@ const attendanceSlice = createSlice({
         state.attendanceList = [];
       })
       .addCase(markAttendance.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Handling getEmployeeAttendance
+      .addCase(getEmployeeAttendance.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getEmployeeAttendance.fulfilled, (state, action) => {
+        state.loading = false;
+        state.attendanceList = action.payload;
+      })
+      .addCase(getEmployeeAttendance.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

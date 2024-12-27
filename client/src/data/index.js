@@ -85,11 +85,6 @@ const navbarLinks = [
     link: "/feedback",
   },
   {
-    name: "User Profile",
-    iconClass: "fa fa-user-circle",
-    link: "/profile",
-  },
-  {
     name: "Account Security",
     iconClass: "fa fa-shield-alt",
     link: "/security",

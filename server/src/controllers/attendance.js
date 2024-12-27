@@ -23,29 +23,57 @@ const getAttendanceList = catchErrors(async (req, res) => {
 const markAttendance = catchErrors(async (req, res) => {
   const { attendanceRecords } = req.body;
 
-  if (!attendanceRecords || attendanceRecords.length === 0)
+  if (!attendanceRecords || attendanceRecords.length === 0) {
     throw new Error("Please provide valid attendance records");
+  }
 
-  const attendance = attendanceRecords.map(({ employee, date, status }) => {
-    return { employee, date, status };
+  const attendance = attendanceRecords.map(({ employee, date, status }) => ({
+    employee,
+    date: new Date(date).toISOString(), 
+    status,
+  }));
+
+  const existingRecords = await Attendance.find({
+    $or: attendance.map(({ employee, date }) => ({
+      employee,
+      date: new Date(date), 
+    })),
   });
 
-  await Attendance.insertMany(attendance);
+  const existingMap = new Set(
+    existingRecords.map(
+      (record) => `${record.employee}-${record.date.toISOString()}`
+    )
+  );
+
+  const newAttendance = attendance.filter(
+    ({ employee, date }) => !existingMap.has(`${employee}-${date}`)
+  );
+
+  if (newAttendance.length === 0) {
+    throw new Error("Attendance already marked");
+  }
+
+  await Attendance.insertMany(newAttendance);
 
   myCache.del("insights");
 
   return res.status(201).json({
     success: true,
     message: "Attendance marked successfully",
+    addedRecords: newAttendance.length,
   });
 });
 
+
 const getEmployeeAttendance = catchErrors(async (req, res) => {
-  const { employeeID } = req.params;
+  const employeeID = req.user;
 
   if (!employeeID) throw new Error("Please provide employee id ");
 
-  const attendanceRecord = await Attendance.find({ employee: employeeID });
+  const attendanceRecord = await Attendance.find({ employee: employeeID }).sort(
+    { date: -1 }
+  );
 
   if (!attendanceRecord || attendanceRecord.length === 0)
     throw new Error("No attendance records found");
@@ -59,8 +87,10 @@ const getEmployeeAttendance = catchErrors(async (req, res) => {
   return res.status(201).json({
     success: true,
     message: "Attendance fetched successfully",
-    attendancePercentage: attendancePercentage.toFixed(2),
-    attendanceRecord,
+    attendance: {
+      attendancePercentage: attendancePercentage.toFixed(2),
+      attendanceRecord,
+    },
   });
 });
 

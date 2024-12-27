@@ -19,6 +19,7 @@ function Attendance() {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [attendanceRecord, setAttendanceRecord] = useState([]);
 
+  // Handle modal submission to fetch attendance list
   const handleModalSubmit = (e) => {
     e.preventDefault();
     if (selectedDepartment) {
@@ -27,6 +28,7 @@ function Attendance() {
     setShowModal(false);
   };
 
+  // Handle toggling attendance for an employee
   const handleMarkAttendance = ({ employee, date, status }) => {
     setAttendanceRecord((prev) => {
       const updatedRecords = prev.filter((rec) => rec.employee !== employee);
@@ -36,12 +38,29 @@ function Attendance() {
     });
   };
 
+  const prepareAttendanceRecords = () => {
+    const updatedRecords = attendanceList.map((employee) => {
+      const existingRecord = attendanceRecord.find(
+        (rec) => rec.employee === employee._id
+      );
+      return (
+        existingRecord || {
+          employee: employee._id,
+          date: selectedDate,
+          status: "Absent", 
+        }
+      );
+    });
+    return updatedRecords;
+  };
+
   const handleAttendanceSubmit = () => {
-    if (attendanceRecord.length === 0) {
+    const finalRecords = prepareAttendanceRecords();
+    if (finalRecords.length === 0) {
       toast("No attendance records to submit!");
       return;
     }
-    dispatch(markAttendance(attendanceRecord));
+    dispatch(markAttendance(finalRecords));
     setAttendanceRecord([]);
   };
 
