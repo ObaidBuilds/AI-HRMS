@@ -22,7 +22,7 @@ const Attendance = () => {
             View Your Attendance
           </h1>
         </div>
-        <div id="overflow" className="overflow-auto min-h-[60vh]">
+        <div id="overflow" className="overflow-auto h-auto">
           <table className="w-full table-auto bg-gray-700 rounded-lg text-sm text-white ">
             <thead>
               <tr className="border-b border-gray-600">
