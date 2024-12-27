@@ -64,7 +64,6 @@ export const getEmployeeAttendance = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(data.attendance);
       return data.attendance;
     } catch (error) {
       console.log(error.response?.data.message || "An error occurred.");

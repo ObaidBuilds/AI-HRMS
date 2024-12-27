@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getEmployeeAttendance } from "../../services/attendance";
 import { formatDate } from "../../utils";
@@ -15,7 +15,7 @@ const Attendance = () => {
   if (attendance.loading) return <Loader />;
 
   return (
-    <section className="h-[130vh] flex justify-center items-center text-white">
+    <section className="h-[110vh] sm:h-[125vh] flex justify-center items-center text-white">
       <div className="w-full sm:w-[95%] rounded-2xl p-8">
         <div className="flex flex-col items-center mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
