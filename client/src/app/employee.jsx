@@ -8,6 +8,7 @@ import Leave from "../pages/leave/Leave";
 import Attendance from "../pages/attendance/Attendance";
 import Security from "../pages/security/Security";
 import Profile from "../pages/profile/Profile";
+import Update from "../pages/updates/Update";
 
 // Lazy loading the components
 const Home = React.lazy(() => import("../pages/home/Home"));
@@ -22,6 +23,7 @@ const EmployeeApp = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/complaint" element={<Complaint />} />
+          <Route path="/update" element={<Update />} />
           <Route path="/leave" element={<Leave />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/attendance" element={<Attendance />} />

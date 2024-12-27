@@ -22,10 +22,12 @@ const Navbar = () => {
     <>
       <header className="hidden bg-navy text-white h-[50px] border-b md:flex justify-around items-center border-gray-700">
         <div className="text-sm">
-          <p className="flex items-center gap-2">
+         <Link to={"/update"}>
+         <p className="flex items-center gap-2">
             <i className="fa fa-bullhorn text-xs"></i>
-            Notices
+            Updates
           </p>
+         </Link>
         </div>
         <div className="flex items-center gap-3">
           <p className="text-[0.81rem]">{user.name}</p>

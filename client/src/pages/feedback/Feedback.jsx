@@ -17,14 +17,8 @@ const Feedback = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    if (rating === 0) {
-      toast.error("Please select a rating.");
-      return;
-    }
 
-    const feedbackData = { ...data, rating };
-
-    dispatch(createFeedback(feedbackData))
+    dispatch(createFeedback(data))
       .unwrap()
       .then(() => {
         reset();
@@ -36,7 +30,7 @@ const Feedback = () => {
   };
 
   return (
-    <section className="h-[90vh] flex justify-center items-center text-white">
+    <section className="h-[80vh] flex justify-center items-center text-white">
       <div className="w-full sm:w-[95%] rounded-2xl p-8">
         <div className="flex flex-col items-center">
           <h1 className="text-2xl sm:text-3xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
@@ -44,26 +38,32 @@ const Feedback = () => {
           </h1>
         </div>
 
-        <form
-          className="space-y-3 sm:space-y-5 text-sm"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          {/* Rating Section */}
-          <div className="text-center">
-            <div className="flex justify-center gap-2">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <button
-                  key={star}
-                  type="button"
-                  onClick={() => setRating(star)}
-                  className={`text-4xl sm:text-5xl ${
-                    rating >= star ? "text-yellow-400" : "text-gray-500"
-                  }`}
-                >
-                  ★
-                </button>
-              ))}
-            </div>
+        <form className="space-y-3  text-sm" onSubmit={handleSubmit(onSubmit)}>
+          <div className="relative">
+            <i className="fa fa-calendar-check text-sm absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <select
+              {...register("rating", { required: "Rating  is required" })}
+              className="w-full bg-gray-700 text-center text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
+              id="select"
+            >
+              <option value="">--- Select Rating ---</option>
+              <option value="5">5 stars</option>
+              <option value="4">4 stars</option>
+              <option value="3">3 stars</option>
+              <option value="2">2 stars</option>
+              <option value="1">1 star</option>
+            </select>
+          </div>
+          <div className="relative">
+            <i className="fa fa-calendar-check text-sm absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <input
+              {...register("suggestion", {
+                required: "Leave type is required",
+              })}
+              type="text"
+              placeholder="Anu Suggestion"
+              className="w-full bg-gray-700 text-center text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
+            />
           </div>
 
           {/* Feedback Description */}
@@ -89,7 +89,7 @@ const Feedback = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            disabled={loading || rating === 0}
+            disabled={loading}
             className="w-full bg-blue-500 text-sm p-4 rounded-full font-medium hover:bg-blue-600 transition duration-300"
           >
             {loading ? (

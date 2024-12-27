@@ -26,6 +26,8 @@ const insightSlice = createSlice({
         state.loading = false;
         state.error = action.payload || "Failed to fetch insights";
       });
+
+      
   },
 });
 

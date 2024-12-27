@@ -10,6 +10,7 @@ import attendanceReducer from "../reducers/attendance";
 import leaveReducer from "../reducers/leave";
 import feedbackReducer from "../reducers/feedback";
 import complaintReducer from "../reducers/complaint";
+import updateReducer from "../reducers/update";
 
 const persistConfig = {
   key: "root",
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   leave: leaveReducer,
   feedback: feedbackReducer,
   complaint: complaintReducer,
+  update: updateReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

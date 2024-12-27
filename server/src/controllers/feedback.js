@@ -50,9 +50,9 @@ const getFeedbacks = catchErrors(async (req, res) => {
 });
 
 const createFeedback = catchErrors(async (req, res) => {
-  const { description, rating } = req.body;
+  const { description, rating, suggestion } = req.body;
   const employee = req.user;
-  
+
   if (!employee || !description || !rating)
     throw new Error("All fields are required");
 
@@ -60,7 +60,7 @@ const createFeedback = catchErrors(async (req, res) => {
   Given the user's feedback description and rating, determine if the sentiment is positive or negative. 
   The rating should be considered as an additional indicator. 
   Feedback Description: "${description}" 
-  Rating: ${rating} 
+  Rating: ${parseInt(rating)} 
   Please respond with only one word which is "Positive" , "Negative" or "Neutral".
 `;
 
@@ -72,8 +72,9 @@ const createFeedback = catchErrors(async (req, res) => {
   const feedback = await Feedback.create({
     employee,
     description,
-    rating,
+    rating: parseInt(rating),
     review,
+    suggestion,
   });
 
   myCache.del("insights");

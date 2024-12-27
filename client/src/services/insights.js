@@ -25,3 +25,28 @@ export const getInsights = createAsyncThunk(
     }
   }
 );
+
+
+// Fetch updates using createAsyncThunk
+export const getUpdates = createAsyncThunk(
+  "insight/getUpdates",
+  async (_, { rejectWithValue }) => {
+    const token = useGetToken();
+
+    try {
+      const { data } = await axios.get(`${URL}/insights/updates`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return data.updates;
+    } catch (error) {
+      console.error(
+        error.response?.data.message || "Client : " + error.message
+      );
+      return rejectWithValue(
+        error.response?.data.message || "Client : " + error.message
+      ); 
+    }
+  }
+);
