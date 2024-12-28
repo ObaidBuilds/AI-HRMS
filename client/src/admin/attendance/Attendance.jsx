@@ -47,7 +47,7 @@ function Attendance() {
         existingRecord || {
           employee: employee._id,
           date: selectedDate,
-          status: "Absent", 
+          status: "Absent",
         }
       );
     });
@@ -102,45 +102,50 @@ function Attendance() {
               <thead>
                 <tr className="bg-gray-600 text-gray-200">
                   <th className="py-3 px-4 border-b border-gray-500">Emp ID</th>
-                  <th className="py-3 px-4 border-b border-gray-500 text-center">Name</th>
-                  <th className="py-3 px-4 border-b border-gray-500 text-right">Actions</th>
+                  <th className="py-3 px-4 border-b border-gray-500 text-center">
+                    Name
+                  </th>
+                  <th className="py-3 px-4 border-b border-gray-500 text-right">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {attendanceList.map((employee) => (
-                  <tr
-                    key={employee._id}
-                    className="even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600"
-                  >
-                    <td className="py-3 px-4 border-b border-gray-500">
-                      EMP {employee.employeeId}
-                    </td>
-                    <td className="py-3 px-4 border-b border-gray-500 text-center">
-                      {employee.name}
-                    </td>
-                    <td className="py-3 px-4 border-b border-gray-500 text-right">
-                      <label className="switch">
-                        <input
-                          type="checkbox"
-                          onChange={(e) =>
-                            handleMarkAttendance({
-                              employee: employee._id,
-                              date: selectedDate,
-                              status: e.target.checked ? "Present" : "Absent",
-                            })
-                          }
-                          checked={attendanceRecord.some(
-                            (rec) =>
-                              rec.employee === employee._id &&
-                              rec.date === selectedDate &&
-                              rec.status === "Present"
-                          )}
-                        />
-                        <span className="slider round"></span>
-                      </label>
-                    </td>
-                  </tr>
-                ))}
+                {attendanceList &&
+                  attendanceList.map((employee) => (
+                    <tr
+                      key={employee._id}
+                      className="even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600"
+                    >
+                      <td className="py-3 px-4 border-b border-gray-500">
+                        EMP {employee.employeeId}
+                      </td>
+                      <td className="py-3 px-4 border-b border-gray-500 text-center">
+                        {employee.name}
+                      </td>
+                      <td className="py-3 px-4 border-b border-gray-500 text-right">
+                        <label className="switch">
+                          <input
+                            type="checkbox"
+                            onChange={(e) =>
+                              handleMarkAttendance({
+                                employee: employee._id,
+                                date: selectedDate,
+                                status: e.target.checked ? "Present" : "Absent",
+                              })
+                            }
+                            checked={attendanceRecord.some(
+                              (rec) =>
+                                rec.employee === employee._id &&
+                                rec.date === selectedDate &&
+                                rec.status === "Present"
+                            )}
+                          />
+                          <span className="slider round"></span>
+                        </label>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
 

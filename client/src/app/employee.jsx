@@ -17,22 +17,25 @@ const Feedback = React.lazy(() => import("../pages/feedback/Feedback"));
 
 const EmployeeApp = () => {
   return (
-    <div className="min-h-[50vh] text-gray-200 bg-navy">
+    <div className="max-h-auto min-h-[50vh] text-gray-200 bg-navy">
       <Navbar />
-      <Suspense fallback={<Loader />}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/complaint" element={<Complaint />} />
-          <Route path="/update" element={<Update />} />
-          <Route path="/leave" element={<Leave />} />
-          <Route path="/feedback" element={<Feedback />} />
-          <Route path="/attendance" element={<Attendance />} />
-          {/* 
+      <div className="max-h-auto min-h-[50vh]">
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/complaint" element={<Complaint />} />
+            <Route path="/update" element={<Update />} />
+            <Route path="/leave" element={<Leave />} />
+            <Route path="/feedback" element={<Feedback />} />
+            <Route path="/attendance" element={<Attendance />} />
+            {/* 
           <Route path="/profile" element={<Profile />} /> */}
-          <Route path="/security" element={<Security />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Suspense>
+            <Route path="/security" element={<Security />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </div>
+
       <Footer />
     </div>
   );

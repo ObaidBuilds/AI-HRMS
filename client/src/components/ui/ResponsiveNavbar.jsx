@@ -54,7 +54,6 @@ function ResponsiveNavbar({ showSidebar, setShowSidebar }) {
         {navbarLinks.map((item, index) => (
           <li
             key={index}
-            onClick={() => toggleSubMenu(index)}
             className="cursor-pointer border-b border-gray-700 py-[6px]"
           >
             <div className="flex justify-between items-center">

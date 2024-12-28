@@ -20,10 +20,13 @@ function Update() {
         </div>
 
         <section className="mt-2 sm:p-4 flex flex-col items-center justify-center rounded-lg">
-          <div id="overflow" className="overflow-x-auto w-[90%] min-h-[40vh]">
-            <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
+          <div
+            id="overflow"
+            className="overflow-x-auto w-[90%] min-h-[40vh] bg-gray-600 "
+          >
+            <table className="min-w-full text-left table-auto border-collapse  bg-gray-600 text-sm whitespace-nowrap">
               <thead>
-                <tr className="bg-gray-600 text-gray-200">
+                <tr className="text-gray-200">
                   {[
                     "Type",
                     "Subject",
