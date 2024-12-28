@@ -25,6 +25,26 @@ export const login = createAsyncThunk(
   }
 );
 
+// Update Profile
+export const updateProfie = async (setProfileLoading) => {
+  const token = useGetToken();
+  try {
+    setProfileLoading(true);
+    const { data } = await axios.patch(`${URL}/auth/profile`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    toast.success(data.message);
+    return data.updatedProfilePicture;
+  } catch (error) {
+    toast.error(error.response?.data.message || "Client : " + error.message);
+  } finally {
+    setProfileLoading(false);
+  }
+};
+
 // Logout
 export const logout = createAsyncThunk(
   "auth/logout",

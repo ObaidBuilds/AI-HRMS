@@ -42,7 +42,7 @@ function Update() {
                 </tr>
               </thead>
               <tbody>
-                {updates && updates.length > 0 ? (
+                {updates &&
                   updates.map((update, index) => (
                     <tr
                       key={index}
@@ -87,24 +87,14 @@ function Update() {
                         {update.leaveType ? update.remarks : update.remarks}
                       </td>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td
-                      colSpan="6"
-                      className="py-4 px-4 text-center text-gray-400"
-                    >
-                      No updates found
-                    </td>
-                  </tr>
-                )}
+                  ))}
               </tbody>
             </table>
 
             {updates && updates.length === 0 && (
-              <div className="w-full h-[40vh] flex flex-col justify-center items-center">
-                <i className="fas fa-ban text-3xl text-gray-400"></i>
-                <p className="mt-2 text-lg text-gray-400">
+              <div className="w-full h-[40vh] bg-gray-700 flex flex-col justify-center items-center">
+                <i className="fas fa-ban text-2xl text-gray-400"></i>
+                <p className="mt-2 text-base text-gray-400">
                   No updates available
                 </p>
               </div>

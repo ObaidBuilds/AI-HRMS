@@ -11,10 +11,6 @@ const Attendance = () => {
   const [sortOrder, setSortOrder] = useState("");
   const [filteredAttendance, setFilteredAttendance] = useState([]);
 
-  const department = "Marketing";
-  const role = "Supervisor";
-  const name = "Obaid Ali";
-
   useEffect(() => {
     dispatch(getEmployeeAttendance());
   }, [dispatch]);
@@ -49,7 +45,7 @@ const Attendance = () => {
   };
 
   return (
-    <section className="py-5 flex justify-center items-center text-white">
+    <section className="py-3 flex justify-center items-center text-white">
       <div className="w-full sm:w-[95%] rounded-2xl p-3 sm:p-8">
         <div className="flex flex-col items-center mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
@@ -72,9 +68,9 @@ const Attendance = () => {
         </div>
         <div
           id="overflow"
-          className="overflow-auto bg-secondary rounded-lg shadow-lg"
+          className="overflow-auto bg-secondary rounded-lg shadow-lg max-h-auto  min-h-[60vh]"
         >
-          <table className="min-w-full table-auto text-sm text-white whitespace-nowrap">
+          <table className="min-w-full h-full table-auto text-sm text-white whitespace-nowrap">
             <thead>
               <tr className="bg-gray-600 text-gray-200 text-left">
                 {[
@@ -95,65 +91,54 @@ const Attendance = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredAttendance.length > 0 ? (
-                filteredAttendance.map((item, index) => (
-                  <tr
-                    key={item._id}
-                    className={`${
-                      index % 2 === 0
-                        ? "even:bg-gray-800 odd:bg-gray-700"
-                        : "even:bg-gray-800 odd:bg-gray-700"
-                    } hover:bg-gray-600`}
-                  >
-                    <td className="py-3 px-4 border-b border-gray-500">
-                      EMP 101
-                    </td>
-                    <td className="py-3 px-4 border-b border-gray-500">
-                      {name}
-                    </td>
-                    <td className="py-3 px-4 border-b border-gray-500">
-                      {department}
-                    </td>
-                    <td className="py-3 px-4 border-b border-gray-500">
-                      {role}
-                    </td>
-                    <td className="py-3 px-4 border-b border-gray-500">
-                      {formatDate(item.date)}
-                    </td>
-                    <td
-                      className={`py-3 px-4 border-b border-gray-500 font-semibold flex items-center gap-2 ${
-                        item.status === "Present"
-                          ? "text-green-400"
-                          : item.status === "Absent"
-                          ? "text-red-400"
-                          : "text-yellow-400"
-                      }`}
-                    >
-                      {item.status === "Present" ? (
-                        <i className="fas fa-check-circle text-green-500"></i>
-                      ) : (
-                        <i className="fas fa-times-circle text-red-500"></i>
-                      )}
-                      {item.status}
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
+              {filteredAttendance.map((item, index) => (
+                <tr
+                  key={item._id}
+                  className={`${
+                    index % 2 === 0
+                      ? "even:bg-gray-800 odd:bg-gray-700"
+                      : "even:bg-gray-800 odd:bg-gray-700"
+                  } hover:bg-gray-600`}
+                >
+                  <td className="py-3 px-4 border-b border-gray-500">
+                    EMP {item.employee.employeeId}
+                  </td>
+                  <td className="py-3 px-4 border-b border-gray-500">
+                    {item.employee.name}
+                  </td>
+                  <td className="py-3 px-4 border-b border-gray-500">
+                    {item.employee.department.name}
+                  </td>
+                  <td className="py-3 px-4 border-b border-gray-500">
+                    {item.employee.role.name}
+                  </td>
+                  <td className="py-3 px-4 border-b border-gray-500">
+                    {formatDate(item.date)}
+                  </td>
                   <td
-                    colSpan="6"
-                    className="py-4 px-4 text-center text-gray-400"
+                    className={`py-3 px-4 border-b border-gray-500 font-semibold flex items-center gap-2 ${
+                      item.status === "Present"
+                        ? "text-green-400"
+                        : item.status === "Absent"
+                        ? "text-red-400"
+                        : "text-yellow-400"
+                    }`}
                   >
-                    No records found
+                    {item.status === "Present" ? (
+                      <i className="fas fa-check-circle text-green-500"></i>
+                    ) : (
+                      <i className="fas fa-times-circle text-red-500"></i>
+                    )}
+                    {item.status}
                   </td>
                 </tr>
-              )}
+              ))}
             </tbody>
           </table>
           {filteredAttendance && filteredAttendance.length === 0 && (
             <div className="w-full h-[60vh] flex flex-col justify-center items-center">
-              <i className="fas fa-ban text-3xl text-gray-400"></i>
-              <p className="mt-2 text-lg text-gray-400">No record available</p>
+              <i className="fas fa-ban text-2xl text-gray-400"></i>
+              <p className="mt-2 text-sm text-gray-400">No record available</p>
             </div>
           )}
         </div>

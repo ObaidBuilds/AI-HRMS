@@ -21,22 +21,22 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="hover:text-gray-400">
+                <a href="#" className="hover:text-gray-300">
                   Dashboard
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-400">
+                <a href="#" className="hover:text-gray-300">
                   Daily Attendance
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-400">
+                <a href="#" className="hover:text-gray-300">
                   Onboarding
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-400">
+                <a href="#" className="hover:text-gray-300">
                   Application
                 </a>
               </li>
@@ -47,22 +47,22 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Explore</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="hover:text-gray-400">
+                <a href="#" className="hover:text-gray-300">
                   Payroll management
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-400">
+                <a href="#" className="hover:text-gray-300">
                   Reports & Analytics
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-400">
+                <a href="#" className="hover:text-gray-300">
                   Software Settings
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-400">
+                <a href="#" className="hover:text-gray-300">
                   My Account
                 </a>
               </li>
@@ -73,22 +73,22 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Support</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="hover:text-gray-400">
+                <a href="#" className="hover:text-gray-300">
                   Help Center
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-400">
+                <a href="#" className="hover:text-gray-300">
                   Community
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-400">
+                <a href="#" className="hover:text-gray-300">
                   Terms & Conditions
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-400">
+                <a href="#" className="hover:text-gray-300">
                   Privacy Policy
                 </a>
               </li>
@@ -99,17 +99,17 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Legal</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="hover:text-gray-400">
+                <a href="#" className="hover:text-gray-300">
                   Terms of Use
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-400">
+                <a href="#" className="hover:text-gray-300">
                   Privacy Policy
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-400">
+                <a href="#" className="hover:text-gray-300">
                   Cookie Policy
                 </a>
               </li>

@@ -29,14 +29,14 @@ const markAttendance = catchErrors(async (req, res) => {
 
   const attendance = attendanceRecords.map(({ employee, date, status }) => ({
     employee,
-    date: new Date(date).toISOString(), 
+    date: new Date(date).toISOString(),
     status,
   }));
 
   const existingRecords = await Attendance.find({
     $or: attendance.map(({ employee, date }) => ({
       employee,
-      date: new Date(date), 
+      date: new Date(date),
     })),
   });
 
@@ -65,15 +65,27 @@ const markAttendance = catchErrors(async (req, res) => {
   });
 });
 
-
 const getEmployeeAttendance = catchErrors(async (req, res) => {
   const employeeID = req.user;
 
   if (!employeeID) throw new Error("Please provide employee id ");
 
-  const attendanceRecord = await Attendance.find({ employee: employeeID }).sort(
-    { date: -1 }
-  );
+  const attendanceRecord = await Attendance.find({ employee: employeeID })
+    .populate({
+      path: "employee",
+      select: "name employeeId department role",
+      populate: [
+        {
+          path: "department",
+          select: "name",
+        },
+        {
+          path: "role",
+          select: "name",
+        },
+      ],
+    })
+    .sort({ date: -1 });
 
   if (!attendanceRecord || attendanceRecord.length === 0)
     throw new Error("No attendance records found");
@@ -93,7 +105,6 @@ const getEmployeeAttendance = catchErrors(async (req, res) => {
     },
   });
 });
-
 
 const getDepartmentAttendancePercentage = async () => {
   try {

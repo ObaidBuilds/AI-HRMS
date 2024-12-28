@@ -9,7 +9,9 @@ const login = catchErrors(async (req, res) => {
   if (!employeeId || !password || !authority)
     throw new Error("Please provide all fields");
 
-  const employee = await Employee.findOne({ employeeId });
+  const employee = await Employee.findOne({ employeeId })
+    .populate("department", "name")
+    .populate("role", "name");
 
   if (!employee) throw new Error("Invalid credentials");
 
@@ -29,6 +31,11 @@ const login = catchErrors(async (req, res) => {
     user: {
       name: employee.name,
       email: employee.email,
+      department: employee.department,
+      position: employee.role,
+      shift: employee.shift,
+      leaveBalance: employee.leaveBalance,
+      employmentType: employee.employmentType,
       profilePicture: employee.profilePicture,
       authority: authority.toLowerCase(),
     },
@@ -42,4 +49,21 @@ const logout = catchErrors(async (req, res) => {
   });
 });
 
-export { login, logout };
+const updateProfilePicture = catchErrors(async (req, res) => {
+  const { profilePicture } = req.body;
+  const id = req.user;
+
+  const updateProfilePicture = await Employee.findByIdAndUpdate(
+    id,
+    { profilePicture },
+    { new: true }
+  );
+
+  return res.status(200).json({
+    success: true,
+    message: "Profile picture updated",
+    updateProfilePicture,
+  });
+});
+
+export { login, logout, updateProfilePicture };

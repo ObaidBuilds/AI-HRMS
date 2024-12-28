@@ -3,39 +3,67 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 import ResponsiveNavbar from "./ResponsiveNavbar";
-import { logout } from "../../services/auth";
+import { logout, updateProfie } from "../../services/auth";
+import ProfileModal from "../shared/modals/ProfileModal";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [showSidebar, setShowSidebar] = useState(false);
   const { loading, user } = useSelector((state) => state.authentication);
+  const [imagePreview, setImagePreview] = useState(user.profilePicture);
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [profileLoading, setProfileLoading] = useState(false);
+  const [showButton, setShowButton] = useState(false);
+  const [toggleModal, setToggleModal] = useState(false);
 
   const handleLogout = () => {
     dispatch(logout())
       .unwrap()
-      .then(() => navigate("/"))
-      
+      .then(() => navigate("/"));
   };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImagePreview(reader.result);
+        setShowButton(true);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleClick = async () => {
+    const updatedProfilePicture = await updateProfie(setProfileLoading);
+    if (updatedProfilePicture) {
+      setImagePreview(updatedProfilePicture);
+    }
+    setToggleModal(false);
+  };
+
   return (
     <>
       <header className="hidden bg-navy text-white h-[50px] border-b md:flex justify-around items-center border-gray-700">
         <div className="text-sm">
-         <Link to={"/update"}>
-         <p className="flex items-center gap-2">
-            <i className="fa fa-bullhorn text-xs"></i>
-            Updates
-          </p>
-         </Link>
+          <Link to={"/update"}>
+            <p className="flex items-center gap-2">
+              <i className="fa fa-bullhorn text-xs"></i>
+              Updates
+            </p>
+          </Link>
         </div>
         <div className="flex items-center gap-3">
           <p className="text-[0.81rem]">{user.name}</p>
           <span className="text-gray-400">|</span>
-          <div className="w-[35px] h-[35px] rounded-full overflow-hidden border border-gray-600 cursor-pointer">
+          <div
+            onClick={() => setToggleModal(true)}
+            className="w-[35px] h-[35px] rounded-full overflow-hidden border border-gray-600 cursor-pointer"
+          >
             <img
               className="w-full text-sm"
-              src={user.profilePicture}
+              src={imagePreview}
               alt={user.name}
             />
           </div>
@@ -90,12 +118,11 @@ const Navbar = () => {
           </Link>
         </ul>
         <div>
-          <div className="block md:hidden w-[40px] h-[40px] rounded-full overflow-hidden border border-gray-600 cursor-pointer">
-            <img
-              className="w-full"
-              src="https://obaidbroimages.netlify.app/obaid.png"
-              alt="Profile"
-            />
+          <div
+            onClick={() => setToggleModal(true)}
+            className="block md:hidden w-[40px] h-[40px] rounded-full overflow-hidden border border-gray-600 cursor-pointer"
+          >
+            <img className="w-full" src={imagePreview} alt={user.name} />
           </div>
           <div className="hidden md:block">
             <button
@@ -119,6 +146,17 @@ const Navbar = () => {
         showSidebar={showSidebar}
         setShowSidebar={setShowSidebar}
       />
+      {toggleModal && (
+        <ProfileModal
+          name={user.name}
+          showButton={showButton}
+          loading={profileLoading}
+          handleClick={handleClick}
+          imagePreview={imagePreview}
+          close={() => setToggleModal(false)}
+          handleFileChange={handleFileChange}
+        />
+      )}
     </>
   );
 };

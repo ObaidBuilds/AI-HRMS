@@ -17,9 +17,9 @@ const Feedback = React.lazy(() => import("../pages/feedback/Feedback"));
 
 const EmployeeApp = () => {
   return (
-    <div className="text-gray-100 bg-navy">
+    <div className="min-h-[50vh] text-gray-200 bg-navy">
+      <Navbar />
       <Suspense fallback={<Loader />}>
-        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/complaint" element={<Complaint />} />
@@ -32,8 +32,8 @@ const EmployeeApp = () => {
           <Route path="/security" element={<Security />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <Footer />
       </Suspense>
+      <Footer />
     </div>
   );
 };
