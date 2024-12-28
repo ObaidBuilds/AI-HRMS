@@ -49,21 +49,6 @@ const logout = catchErrors(async (req, res) => {
   });
 });
 
-const updateProfilePicture = catchErrors(async (req, res) => {
-  const { profilePicture } = req.body;
-  const id = req.user;
 
-  const updateProfilePicture = await Employee.findByIdAndUpdate(
-    id,
-    { profilePicture },
-    { new: true }
-  );
 
-  return res.status(200).json({
-    success: true,
-    message: "Profile picture updated",
-    updateProfilePicture,
-  });
-});
-
-export { login, logout, updateProfilePicture };
+export { login, logout };

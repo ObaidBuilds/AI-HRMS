@@ -215,10 +215,29 @@ const updateEmployee = catchErrors(async (req, res) => {
   });
 });
 
+const updateProfilePicture = catchErrors(async (req, res) => {
+  const { profilePicture } = req.body;
+  const id = req.user;
+
+  if (!profilePicture) throw new Error("Please provide profile pic");
+
+  const employee = await Employee.findById(id);
+
+  employee.profilePicture = profilePicture;
+  await employee.save();
+
+  return res.status(200).json({
+    success: true,
+    message: "Profile picture updated",
+    updateProfilePicture: profilePicture,
+  });
+});
+
 export {
   createEmployee,
   getAllEmployees,
   getEmployeeById,
   deleteEmployee,
   updateEmployee,
+  updateProfilePicture,
 };

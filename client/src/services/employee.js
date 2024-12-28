@@ -120,3 +120,28 @@ export const deleteEmployee = createAsyncThunk(
     }
   }
 );
+
+// Update Profile
+export const updateProfile = async (setProfileLoading, imagePreview) => {
+  const token = useGetToken();
+  console.log(imagePreview);
+  try {
+    setProfileLoading(true);
+    const { data } = await axios.patch(
+      `${URL}/employees/profile`,
+      { profilePicture: imagePreview },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    toast.success(data.message);
+    return data.updatedProfilePicture;
+  } catch (error) {
+    toast.error(error.response?.data.message || "Client : " + error.message);
+  } finally {
+    setProfileLoading(false);
+  }
+};

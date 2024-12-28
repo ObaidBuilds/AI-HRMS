@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 import ResponsiveNavbar from "./ResponsiveNavbar";
-import { logout, updateProfie } from "../../services/auth";
+import { logout } from "../../services/auth";
+import { updateProfile } from "../../services/employee";
 import ProfileModal from "../shared/modals/ProfileModal";
 
 const Navbar = () => {
@@ -36,12 +37,8 @@ const Navbar = () => {
   };
 
   const handleClick = async () => {
-    const updatedProfilePicture = await updateProfie(setProfileLoading);
-    if (updatedProfilePicture) {
-      setImagePreview(updatedProfilePicture);
-    }
+    await updateProfile(setProfileLoading, imagePreview);
     setShowButton(false);
-    setImagePreview(user.profilePicture);
     setToggleModal(false);
   };
 
