@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { updatePassword } from "../../services/auth";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Security = () => {
   const [loading, setLoading] = useState(false);
 
   const { register, handleSubmit, reset } = useForm();
 
-  const onSubmit = (data) => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      reset();
-    }, 1500);
+  const onSubmit = async (data) => {
+    const success = await updatePassword(setLoading, data);
+    if (success) reset();
   };
 
   return (
@@ -45,10 +44,6 @@ const Security = () => {
               placeholder="New Password"
               {...register("newPassword", {
                 required: "New password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters long",
-                },
               })}
               className="w-full bg-gray-700 text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
             />
@@ -58,6 +53,9 @@ const Security = () => {
           <div className="relative">
             <i className="fa fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
             <input
+              {...register("confirmPassword", {
+                required: "New password is required",
+              })}
               type="password"
               placeholder="Confirm New Password"
               className="w-full bg-gray-700 text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
@@ -70,7 +68,11 @@ const Security = () => {
             disabled={loading}
             className="w-full bg-blue-500 text-sm p-4 rounded-full font-medium hover:bg-blue-600 transition duration-300"
           >
-            {loading ? "Changing Password..." : "Change Password"}
+            {loading ? (
+              <ClipLoader size={10} color="white" loading={loading} />
+            ) : (
+              "Change Password"
+            )}
           </button>
         </form>
       </div>

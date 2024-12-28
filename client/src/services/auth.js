@@ -25,6 +25,30 @@ export const login = createAsyncThunk(
   }
 );
 
+//  Update Password
+export const updatePassword = async (setLoading, credentials) => {
+  const token = useGetToken();
+  setLoading(true);
+  try {
+    const { data } = await axios.patch(
+      `${URL}/auth/password`,
+      { credentials },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    toast.success(data.message);
+    return data.success;
+  } catch (error) {
+    toast.error(error.response?.data.message || "Client : " + error.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
 // Logout
 export const logout = createAsyncThunk(
   "auth/logout",

@@ -42,6 +42,42 @@ const login = catchErrors(async (req, res) => {
   });
 });
 
+const updatePassword = catchErrors(async (req, res) => {
+  const { credentials } = req.body;
+  const id = req.user;
+
+  if (!credentials) throw new Error("All fields are required");
+
+  const { newPassword, oldPassword, confirmPassword } = credentials;
+
+  if (newPassword !== confirmPassword) throw new Error("Passwords don't match");
+
+  const employee = await Employee.findById(id);
+
+  const isOldPasswordValid = await bcrypt.compare(
+    oldPassword,
+    employee.password
+  );
+  if (!isOldPasswordValid) throw new Error("Invalid credentials");
+
+  const isNewPasswordSameAsOld = await bcrypt.compare(
+    newPassword,
+    employee.password
+  );
+  if (isNewPasswordSameAsOld)
+    throw new Error("New password cannot be the same as the old password");
+
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+  employee.password = hashedPassword;
+  await employee.save();
+
+  return res.status(200).json({
+    success: true,
+    message: "Password updated successfully",
+  });
+});
+
 const logout = catchErrors(async (req, res) => {
   return res.status(200).json({
     success: true,
@@ -49,6 +85,4 @@ const logout = catchErrors(async (req, res) => {
   });
 });
 
-
-
-export { login, logout };
+export { login, logout, updatePassword };
