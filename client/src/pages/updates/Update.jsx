@@ -11,7 +11,7 @@ function Update() {
   }, [dispatch]);
 
   return (
-    <div className="w-full rounded-2xl h-[70vh] sm:h-[80vh] flex flex-col justify-center items-center">
+    <div className="w-full rounded-2xl h-[70vh] sm:h-[95vh]  py-10 flex flex-col justify-center items-center">
       <div className="w-full">
         <div className="text-center my-6">
           <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
@@ -19,7 +19,7 @@ function Update() {
           </h1>
         </div>
 
-        <section className="mt-2 sm:p-4 flex justify-center rounded-lg">
+        <section className="mt-2 sm:p-4 flex flex-col items-center justify-center rounded-lg">
           <div id="overflow" className="overflow-x-auto w-[90%] min-h-[40vh]">
             <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
               <thead>
@@ -102,13 +102,17 @@ function Update() {
             </table>
 
             {updates && updates.length === 0 && (
-              <div className="w-full h-[50vh] flex flex-col justify-center items-center">
+              <div className="w-full h-[40vh] flex flex-col justify-center items-center">
                 <i className="fas fa-ban text-3xl text-gray-400"></i>
                 <p className="mt-2 text-lg text-gray-400">
                   No updates available
                 </p>
               </div>
             )}
+          </div>
+          <div className="w-[90%] mt-3 bg-gray-700 p-7 rounded-lg text-center">
+            <h2 className="text-lg font-semibold text-white">Total Updates</h2>
+            <p className="text-2xl font-bold mt-3">{updates.length}</p>
           </div>
         </section>
       </div>

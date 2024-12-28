@@ -49,7 +49,7 @@ const Attendance = () => {
   };
 
   return (
-    <section className="min-h-[130vh] flex justify-center items-center text-white">
+    <section className="py-5 flex justify-center items-center text-white">
       <div className="w-full sm:w-[95%] rounded-2xl p-3 sm:p-8">
         <div className="flex flex-col items-center mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
@@ -150,6 +150,12 @@ const Attendance = () => {
               )}
             </tbody>
           </table>
+          {filteredAttendance && filteredAttendance.length === 0 && (
+            <div className="w-full h-[60vh] flex flex-col justify-center items-center">
+              <i className="fas fa-ban text-3xl text-gray-400"></i>
+              <p className="mt-2 text-lg text-gray-400">No record available</p>
+            </div>
+          )}
         </div>
 
         <div className="mt-3 bg-gray-700 p-7 rounded-lg text-center">
