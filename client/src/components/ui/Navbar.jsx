@@ -40,6 +40,8 @@ const Navbar = () => {
     if (updatedProfilePicture) {
       setImagePreview(updatedProfilePicture);
     }
+    setShowButton(false);
+    setImagePreview(user.profilePicture);
     setToggleModal(false);
   };
 
