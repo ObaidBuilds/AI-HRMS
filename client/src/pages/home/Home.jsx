@@ -3,7 +3,7 @@ import LineChart from "../../components/shared/charts/LineChart";
 
 const Home = () => {
   return (
-    <section className="h-auto w-full flex flex-col gap-[60px]">
+    <section className="h-[80vh] sm:h-auto w-full flex flex-col gap-0 sm:gap-[60px]">
       <div className="w-full flex justify-center">
         <div className="w-[70%] h-[50px] border-b border-gray-700 flex justify-center items-center">
           <ul className="flex items-center gap-4">
@@ -26,13 +26,12 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="w-full flex gap-3 flex-col justify-center items-center mb-12">
+      <div className="w-full hidden sm:flex gap-3 flex-col justify-center items-center mb-12">
         <h1 className="text-base font-semibold mb-1">Attendance Percentage</h1>
         <div className="w-full sm:w-[80%] h-[90px] flex items-center">
           <div className="w-1/2 h-full border-y border-r border-gray-700"></div>
           <div className="w-1/2 h-full border-y  border-gray-700"></div>
         </div>
-
       </div>
     </section>
   );
