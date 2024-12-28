@@ -19,7 +19,6 @@ function Attendance() {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [attendanceRecord, setAttendanceRecord] = useState([]);
 
-  // Handle modal submission to fetch attendance list
   const handleModalSubmit = (e) => {
     e.preventDefault();
     if (selectedDepartment) {
@@ -28,7 +27,6 @@ function Attendance() {
     setShowModal(false);
   };
 
-  // Handle toggling attendance for an employee
   const handleMarkAttendance = ({ employee, date, status }) => {
     setAttendanceRecord((prev) => {
       const updatedRecords = prev.filter((rec) => rec.employee !== employee);
@@ -111,7 +109,7 @@ function Attendance() {
                 </tr>
               </thead>
               <tbody>
-                {attendanceList &&
+                {attendanceList.length >= 1 &&
                   attendanceList.map((employee) => (
                     <tr
                       key={employee._id}
