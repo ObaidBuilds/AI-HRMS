@@ -16,7 +16,7 @@ function Update() {
       {loading && <Loader />}
       <div className="w-full rounded-2xl sm:h-auto py-8 flex flex-col justify-center items-center">
         <div className="w-full">
-          <div className="text-center mb-6">
+          <div className="text-center mb-4">
             <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
               Notice Board
             </h1>
@@ -25,7 +25,7 @@ function Update() {
           <section className="mt-2 sm:p-4 flex flex-col items-center justify-center rounded-lg">
             <div
               id="overflow"
-              className="overflow-x-auto w-[96%] sm:w-[90%] min-h-[50vh] bg-secondary "
+              className="overflow-auto rounded-lg w-[96%] sm:w-[90%] h-[55vh] bg-secondary "
             >
               <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
                 <thead>
