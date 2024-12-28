@@ -34,8 +34,6 @@ const Attendance = () => {
     }
   }, [attendance, sortOrder]);
 
-  if (attendance.loading) return <Loader />;
-
   const calculateAttendancePercentage = () => {
     const total = filteredAttendance.length;
     const present = filteredAttendance.filter(
@@ -45,114 +43,120 @@ const Attendance = () => {
   };
 
   return (
-    <section className="py-3 flex justify-center items-center text-white">
-      <div className="w-full sm:w-[95%] rounded-2xl p-3 sm:p-8">
-        <div className="flex flex-col items-center mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
-            View Your Attendance
-          </h1>
-        </div>
-        <div>
-          <div className="relative mb-2">
-            <select
-              id="select"
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value)}
-              className="w-full bg-gray-700 text-center text-sm p-3 sm:p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="">--- Sort Attendance ---</option>
-              <option value="asc">Ascending</option>
-              <option value="desc">Descending</option>
-            </select>
+    <>
+    {attendance.loading && <Loader/>}
+      <section className="py-3 flex justify-center items-center text-white">
+        <div className="w-full sm:w-[95%] rounded-2xl p-3 sm:p-8">
+          <div className="flex flex-col items-center mb-8">
+            <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
+              View Your Attendance
+            </h1>
+          </div>
+          <div>
+            <div className="relative mb-2">
+              <select
+                id="select"
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value)}
+                className="w-full bg-gray-700 text-center text-sm p-3 sm:p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">--- Sort Attendance ---</option>
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+              </select>
+            </div>
+          </div>
+          <div
+            id="overflow"
+            className="overflow-auto bg-secondary rounded-lg shadow-lg max-h-auto min-h-[60vh]"
+          >
+            <table className="min-w-full h-full table-auto text-sm text-white whitespace-nowrap">
+              <thead>
+                <tr className="bg-gray-600 text-gray-200 text-left">
+                  {[
+                    "Emp ID",
+                    "Name",
+                    "Department",
+                    "Position",
+                    "Date",
+                    "Status",
+                  ].map((header, index) => (
+                    <th
+                      key={index}
+                      className="py-3 px-4 border-b border-gray-500"
+                    >
+                      {header}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {filteredAttendance &&
+                  filteredAttendance.map((item, index) => (
+                    <tr
+                      key={item._id}
+                      className={`${
+                        index % 2 === 0
+                          ? "even:bg-gray-800 odd:bg-gray-700"
+                          : "even:bg-gray-800 odd:bg-gray-700"
+                      } hover:bg-gray-600`}
+                    >
+                      <td className="py-3 px-4 border-b border-gray-500">
+                        EMP {item.employee.employeeId}
+                      </td>
+                      <td className="py-3 px-4 border-b border-gray-500">
+                        {item.employee.name}
+                      </td>
+                      <td className="py-3 px-4 border-b border-gray-500">
+                        {item.employee.department.name}
+                      </td>
+                      <td className="py-3 px-4 border-b border-gray-500">
+                        {item.employee.role.name}
+                      </td>
+                      <td className="py-3 px-4 border-b border-gray-500">
+                        {formatDate(item.date)}
+                      </td>
+                      <td
+                        className={`py-3 px-4 border-b border-gray-500 font-semibold flex items-center gap-2 ${
+                          item.status === "Present"
+                            ? "text-green-400"
+                            : item.status === "Absent"
+                            ? "text-red-400"
+                            : "text-yellow-400"
+                        }`}
+                      >
+                        {item.status === "Present" ? (
+                          <i className="fas fa-check-circle text-green-500"></i>
+                        ) : (
+                          <i className="fas fa-times-circle text-red-500"></i>
+                        )}
+                        {item.status}
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+            {filteredAttendance && filteredAttendance.length === 0 && (
+              <div className="w-full h-[60vh] flex flex-col justify-center items-center">
+                <i className="fas fa-ban text-2xl text-gray-400"></i>
+                <p className="mt-2 text-sm text-gray-400">
+                  No record available
+                </p>
+              </div>
+            )}
+          </div>
+
+          <div className="mt-2 bg-gray-700 p-7 rounded-lg text-center">
+            <h2 className="text-lg font-semibold text-white">
+              Average Percentage
+            </h2>
+            <p className="text-2xl font-bold mt-3">
+              {calculateAttendancePercentage()} %
+            </p>
           </div>
         </div>
-        <div
-          id="overflow"
-          className="overflow-auto bg-secondary rounded-lg shadow-lg max-h-auto  min-h-[60vh]"
-        >
-          <table className="min-w-full h-full table-auto text-sm text-white whitespace-nowrap">
-            <thead>
-              <tr className="bg-gray-600 text-gray-200 text-left">
-                {[
-                  "Emp ID",
-                  "Name",
-                  "Department",
-                  "Position",
-                  "Date",
-                  "Status",
-                ].map((header, index) => (
-                  <th
-                    key={index}
-                    className="py-3 px-4 border-b border-gray-500"
-                  >
-                    {header}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {filteredAttendance.map((item, index) => (
-                <tr
-                  key={item._id}
-                  className={`${
-                    index % 2 === 0
-                      ? "even:bg-gray-800 odd:bg-gray-700"
-                      : "even:bg-gray-800 odd:bg-gray-700"
-                  } hover:bg-gray-600`}
-                >
-                  <td className="py-3 px-4 border-b border-gray-500">
-                    EMP {item.employee.employeeId}
-                  </td>
-                  <td className="py-3 px-4 border-b border-gray-500">
-                    {item.employee.name}
-                  </td>
-                  <td className="py-3 px-4 border-b border-gray-500">
-                    {item.employee.department.name}
-                  </td>
-                  <td className="py-3 px-4 border-b border-gray-500">
-                    {item.employee.role.name}
-                  </td>
-                  <td className="py-3 px-4 border-b border-gray-500">
-                    {formatDate(item.date)}
-                  </td>
-                  <td
-                    className={`py-3 px-4 border-b border-gray-500 font-semibold flex items-center gap-2 ${
-                      item.status === "Present"
-                        ? "text-green-400"
-                        : item.status === "Absent"
-                        ? "text-red-400"
-                        : "text-yellow-400"
-                    }`}
-                  >
-                    {item.status === "Present" ? (
-                      <i className="fas fa-check-circle text-green-500"></i>
-                    ) : (
-                      <i className="fas fa-times-circle text-red-500"></i>
-                    )}
-                    {item.status}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {filteredAttendance && filteredAttendance.length === 0 && (
-            <div className="w-full h-[60vh] flex flex-col justify-center items-center">
-              <i className="fas fa-ban text-2xl text-gray-400"></i>
-              <p className="mt-2 text-sm text-gray-400">No record available</p>
-            </div>
-          )}
-        </div>
-
-        <div className="mt-3 bg-gray-700 p-7 rounded-lg text-center">
-          <h2 className="text-lg font-semibold text-white">
-            Average Percentage
-          </h2>
-          <p className="text-2xl font-bold mt-3">
-            {calculateAttendancePercentage()} %
-          </p>
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
