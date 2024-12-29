@@ -1,0 +1,39 @@
+# Node.js dependencies
+client/node_modules
+server/node_modules
+
+
+# Ignore all .env files
+.env
+client/.env
+
+# Ignore client-specific files
+client/format.json
+
+
+# Logs
+client/*.log
+server/*.log
+client/npm-debug.log*
+server/npm-debug.log*
+client/yarn-debug.log*
+server/yarn-debug.log*
+client/yarn-error.log*
+server/yarn-error.log*
+
+# Build outputs
+client/build
+client/dist
+
+# Cache and system files
+.DS_Store
+Thumbs.db
+
+# IDE and editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker-specific files (optional)
+docker-compose.yml
