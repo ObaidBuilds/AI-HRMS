@@ -21,7 +21,7 @@ const AddEmployee = () => {
     <>
       {loading && <Loader />}
       <section>
-        <div className="w-full min-h-screen  rounded-lg bg-secondary border border-gray-600 p-3 text-sm">
+        <div id="change_refill" className="w-full min-h-screen  rounded-lg bg-secondary border border-gray-600 p-3 text-sm">
           <form
             id="form"
             onSubmit={handleSubmit(onSubmit)}

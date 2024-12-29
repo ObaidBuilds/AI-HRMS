@@ -24,7 +24,16 @@ body::-webkit-scrollbar,
   -webkit-box-shadow: 0 0 0px 1000px #374151 inset;
   -webkit-text-fill-color: #ffffff;
   transition: background-color 5000s ease-in-out 0s;
+  font-family: "Poppins";
 }
+
+#change_refill input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #4b5563 inset;
+  -webkit-text-fill-color: #ffffff;
+  transition: background-color 5000s ease-in-out 0s;
+  font-family: "Poppins";
+}
+
 
 .no-scroll {
   overflow: hidden;
