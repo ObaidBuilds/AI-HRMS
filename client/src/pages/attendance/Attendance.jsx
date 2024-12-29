@@ -44,7 +44,7 @@ const Attendance = () => {
 
   return (
     <>
-    {attendance.loading && <Loader/>}
+      {attendance.loading && <Loader />}
       <section className="py-3 flex justify-center items-center text-white">
         <div className="w-full sm:w-[95%] rounded-2xl p-3 sm:p-8">
           <div className="flex flex-col items-center mb-8">
@@ -70,7 +70,7 @@ const Attendance = () => {
             id="overflow"
             className="overflow-auto bg-secondary rounded-lg shadow-lg sm:h-[65vh]"
           >
-            <table className="min-w-full h-full table-auto text-sm text-white whitespace-nowrap">
+            <table className="min-w-full table-auto text-sm text-white whitespace-nowrap">
               <thead>
                 <tr className="bg-gray-600 text-gray-200 text-left">
                   {[
