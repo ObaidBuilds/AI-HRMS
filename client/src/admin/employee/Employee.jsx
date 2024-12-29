@@ -163,7 +163,7 @@ function Employee() {
           </button>
         </div>
 
-        <div id="overflow" className="overflow-x-auto min-h-[70vh]">
+        <div id="overflow" className="overflow-x-auto min-h-[75vh]">
           <table className="min-w-full text-left table-auto border-collapse text-[0.83rem] whitespace-nowrap">
             <thead>
               <tr className="bg-gray-600 text-gray-200">
