@@ -8,7 +8,7 @@
 }
 
 aside {
-  font-size: 0.82rem;
+  font-size: 0.825rem;
 }
 
 body {
@@ -138,9 +138,9 @@ td {
 #background {
   background: linear-gradient(
       to top,
-      rgba(0, 0, 0, 0.9) 0,
-      rgba(0, 0, 0, 0.9) 60%,
-      rgba(0, 0, 0, 0.9) 100%
+      rgba(31, 41, 55, 0.7) 0%,
+      rgba(31, 41, 55, 0.7) 60%,
+      rgba(31, 41, 55, 0.7) 100%
     ),
     url("https://media.istockphoto.com/id/1219813015/photo/food-stocking-east-end-montreal-during-pandemic.jpg?s=612x612&w=0&k=20&c=wBGAVhRvfLm6Y6h_PfMbfD4w8HDnA2pecEJ53OwW6Gc=");
   background-position: center;
