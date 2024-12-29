@@ -174,7 +174,7 @@ function Attendance() {
             <button
               onClick={() => setShowConfirmModal(true)}
               disabled={loading}
-              className="bg-blue-600 mb-4 text-gray-200 p-3 mt-5 rounded-3xl hover:bg-blue-700 w-full"
+              className="bg-blue-600 mb-4 text-gray-200 p-3 font-semibold mt-5 rounded-3xl hover:bg-blue-700 w-full"
             >
               Submit
             </button>
