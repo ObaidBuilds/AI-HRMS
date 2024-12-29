@@ -166,9 +166,55 @@ const getDepartmentAttendancePercentage = async () => {
   }
 };
 
+const getMonthlyAttendancePercentage = async () => {
+  const year = new Date().getFullYear();
+
+  const attendanceData = await Attendance.aggregate([
+    {
+      $match: {
+        date: {
+          $gte: new Date(`${year}-01-01`),
+          $lte: new Date(`${year}-12-31`),
+        },
+      },
+    },
+    {
+      $group: {
+        _id: { $month: "$date" },
+        totalRecords: { $sum: 1 },
+        totalPresent: {
+          $sum: { $cond: [{ $eq: ["$status", "Present"] }, 1, 0] },
+        },
+      },
+    },
+    {
+      $project: {
+        month: "$_id",
+        _id: 0,
+        attendancePercentage: {
+          $multiply: [{ $divide: ["$totalPresent", "$totalRecords"] }, 100],
+        },
+      },
+    },
+    { $sort: { month: 1 } },
+  ]);
+
+  const formattedData = Array.from({ length: 12 }, (_, i) => {
+    const monthData = attendanceData.find((data) => data.month === i + 1);
+    return {
+      month: new Date(0, i).toLocaleString("default", { month: "long" }),
+      attendancePercentage:
+        parseInt(monthData?.attendancePercentage.toFixed(2)) || 0,
+    };
+  });
+
+  return formattedData;
+};
+
 export {
   getAttendanceList,
   markAttendance,
   getEmployeeAttendance,
   getDepartmentAttendancePercentage,
+  getMonthlyAttendancePercentage,
 };

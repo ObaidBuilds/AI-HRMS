@@ -1,36 +1,89 @@
-import React from 'react';
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import React from "react";
+import { Line } from "react-chartjs-2";
+import { useSelector } from "react-redux";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const LineChart = () => {
+  const {
+    insights: { overallAttendancePercentage },
+  } = useSelector((state) => state.insight);
+
+  const attendancePercentage = overallAttendancePercentage.map(
+    (item) => item.attendancePercentage
+  );
+
   const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+    labels: [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ],
     datasets: [
       {
-        label: 'Employees',
-        data: [65, 59, 80, 81, 56, 55, 65, 59, 80, 81, 56, 55],
+        label: "Attendance Percentage",
+        data: attendancePercentage,
         fill: false,
-        borderColor: 'rgba(75,192,192,1)',
-        tension: 0.1, 
+        borderColor: "rgba(75,192,192,1)",
+        tension: 0.1,
       },
     ],
   };
 
   const options = {
-    responsive: true, 
-    maintainAspectRatio: false, 
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       title: {
         display: true,
-        text: 'Employee Performance',
+        text: "Monthly Attendance Percentage",
+      },
+    },
+    scales: {
+      x: {
+        position: "bottom",
+      },
+      y: {
+        position: "left",
+        min: 0,
+        max: 100,
+        ticks: {
+          stepSize: 20,
+          callback: (value) => `${value}%`,
+        },
       },
     },
   };
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '290px' }}>
+    <div style={{ position: "relative", width: "100%", height: "290px" }}>
       <Line data={data} options={options} />
     </div>
   );

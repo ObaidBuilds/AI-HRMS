@@ -36,7 +36,7 @@ const Dashboard = () => {
     },
     {
       id: 5,
-      title: "Leaves Today",
+      title: "Emp on Leaves Today",
       stats: insights?.employeesOnLeave,
       range: 70,
     },
@@ -62,7 +62,7 @@ const Dashboard = () => {
         <div className="flex justify-between md:flex-row flex-col h-auto md:h-[400px] md:mb-2">
           <div className="w-full h-full mt-2 rounded-lg bg-secondary border border-gray-600 py-4 px-1">
             <h3 className="text-base font-bold mb-7 sm:mb-10 pl-4">
-              Employee Performance Overview
+              Overall Attendance Overview
             </h3>
             <div className="w-full flex justify-center">
               <LineChart />
@@ -73,7 +73,7 @@ const Dashboard = () => {
         <div className="sm:flex justify-between md:flex-row flex-col h-auto md:h-[400px] mb-2 md:mb-4">
           <div className="md:w-[59%] hidden md:block h-full w-full mt-2 rounded-lg  bg-secondary border border-gray-600 p-4 overflow-auto">
             <h3 className="text-base font-bold text-gray-200 mb-4">
-              Attendace Overview
+              Attendace Overview By Department
             </h3>
 
             <div className="w-full pt-9 pr-6">

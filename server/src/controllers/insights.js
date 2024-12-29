@@ -4,7 +4,10 @@ import Leave from "../models/leave.js";
 import Feedback from "../models/feedback.js";
 import Complaint from "../models/complaint.js";
 import { catchErrors } from "../utils/index.js";
-import { getDepartmentAttendancePercentage } from "./attendance.js";
+import {
+  getDepartmentAttendancePercentage,
+  getMonthlyAttendancePercentage,
+} from "./attendance.js";
 import { myCache } from "../utils/index.js";
 import { getSentimentAnalysis } from "../predictions/index.js";
 
@@ -30,6 +33,7 @@ const getInsights = catchErrors(async (req, res) => {
     createdAt: { $gte: startOfDay, $lte: endOfDay },
   }).countDocuments();
   const departmentAttandancePercent = await getDepartmentAttendancePercentage();
+  const overallAttendancePercentage = await getMonthlyAttendancePercentage();
   const totalMaleEmployees = await Employee.countDocuments({ gender: "Male" });
   const pendingLeaves = await Leave.find({
     status: "Pending",
@@ -63,6 +67,7 @@ const getInsights = catchErrors(async (req, res) => {
     totalMaleEmployees,
     totalFemaleEmployees: totalEmployees - totalMaleEmployees,
     departmentAttandancePercent,
+    overallAttendancePercentage,
   };
 
   myCache.set(cacheKey, insights);
