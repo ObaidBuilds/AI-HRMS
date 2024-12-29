@@ -257,7 +257,9 @@ function Employee() {
             </div>
           )}
         </div>
-        <Pagination {...pagination} onPageChange={goToPage} />
+        {!loading && employees.length > 0 && (
+          <Pagination {...pagination} onPageChange={goToPage} />
+        )}
       </section>
     </>
   );

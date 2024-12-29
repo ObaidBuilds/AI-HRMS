@@ -116,12 +116,13 @@ function Feedback() {
             </div>
           )}
         </div>
-
-        <Pagination
-          currentPage={currentPage}
-          totalPages={pagination?.totalPages}
-          onPageChange={setCurrentPage}
-        />
+        {!loading && feedbacks.length > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={pagination?.totalPages}
+            onPageChange={setCurrentPage}
+          />
+        )}
       </section>
     </>
   );
