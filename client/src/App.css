@@ -20,6 +20,12 @@ body::-webkit-scrollbar,
   display: none;
 }
 
+#refill input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #374151 inset;
+  -webkit-text-fill-color: #ffffff;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 .no-scroll {
   overflow: hidden;
   height: auto;
