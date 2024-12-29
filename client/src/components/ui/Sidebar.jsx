@@ -135,7 +135,9 @@ const Sidebar = () => {
             <p>Logout</p>
           </button>
 
-          <div className="w-full sm:bottom-2 left-2 pt-2 hidden sm:block">
+         
+        </ul>
+        <div className="w-full absolute sm:bottom-4 left-2 pt-2 hidden sm:block">
             <div className="flex items-center gap-4">
               <div className="w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer">
                 <img
@@ -150,7 +152,6 @@ const Sidebar = () => {
               </div>
             </div>
           </div>
-        </ul>
       </aside>
     </div>
   );

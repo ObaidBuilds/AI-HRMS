@@ -31,9 +31,7 @@ function Feedback() {
     <>
       {loading && <Loader />}
 
-      <div className="w-full rounded-lg min-h-screen">
-        
-        <section className="bg-secondary p-3 sm:p-4 rounded-lg">
+        <section className="bg-secondary min-h-auto p-3 sm:p-4 rounded-lg">
           <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
             {filters.map((filter, i) => (
               <button
@@ -51,7 +49,7 @@ function Feedback() {
             ))}
           </div>
 
-          <div id="overflow" className="overflow-x-auto min-h-[75vh]">
+          <div id="overflow" className="overflow-x-auto">
             <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
               <thead>
                 <tr className="bg-gray-600 text-gray-200">
@@ -123,7 +121,6 @@ function Feedback() {
             onPageChange={setCurrentPage}
           />
         </section>
-      </div>
     </>
   );
 }

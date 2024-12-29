@@ -112,7 +112,7 @@ function Employee() {
     <>
       {loading && <Loader />}
 
-      <section className="bg-secondary p-3 sm:p-4 rounded-lg w-full sm:min-h-[100vh]">
+      <section className="bg-secondary p-3 sm:p-4 rounded-lg w-full h-auto">
         {uiState.toggleFilterBar && (
           <FilterBar
             handleApplyFilters={handleApplyFilters}
@@ -163,7 +163,7 @@ function Employee() {
           </button>
         </div>
 
-        <div id="overflow" className="overflow-x-auto min-h-[75vh]">
+        <div id="overflow" className="overflow-x-auto">
           <table className="min-w-full text-left table-auto border-collapse text-[0.83rem] whitespace-nowrap">
             <thead>
               <tr className="bg-gray-600 text-gray-200">
