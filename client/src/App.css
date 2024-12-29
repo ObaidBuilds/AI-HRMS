@@ -7,7 +7,7 @@
   font-family: "Poppins";
 }
 
-aside{
+aside {
   font-size: 0.82rem;
 }
 
@@ -26,6 +26,7 @@ body::-webkit-scrollbar,
 }
 
 /* Style for the toggle switch */
+
 .switch {
   position: relative;
   display: inline-block;
@@ -99,8 +100,8 @@ td {
 }
 
 .loading-circle {
-  width: 17px;
-  height: 17px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background-color: #3498db;
   animation: wave 1s infinite ease-in-out;
