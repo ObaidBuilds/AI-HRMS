@@ -35,5 +35,3 @@ Thumbs.db
 *.swp
 *.swo
 
-# Docker-specific files (optional)
-docker-compose.yml
