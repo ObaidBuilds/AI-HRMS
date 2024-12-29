@@ -189,7 +189,7 @@ function Employee() {
               </tr>
             </thead>
             <tbody>
-              {employees.length >= 1 ? (
+              {employees.length > 0 &&
                 employees.map((employee) => (
                   <tr
                     key={employee._id}
@@ -247,21 +247,15 @@ function Employee() {
                       </button>
                     </td>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="7" className="w-full h-[50vh] text-center">
-                    <div className="flex flex-col justify-center items-center">
-                      <i className="fas fa-ban text-2xl text-gray-400"></i>
-                      <p className="mt-2 text-base text-gray-400">
-                        No employees found
-                      </p>
-                    </div>
-                  </td>
-                </tr>
-              )}
+                ))}
             </tbody>
           </table>
+          {!loading && employees.length === 0 && (
+            <div className="w-full h-[50vh] flex flex-col justify-center items-center">
+              <i className="fas fa-ban text-2xl text-gray-400"></i>
+              <p className="mt-2 text-base text-gray-400">No employee found</p>
+            </div>
+          )}
         </div>
         <Pagination {...pagination} onPageChange={goToPage} />
       </section>
