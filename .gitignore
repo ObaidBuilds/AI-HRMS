@@ -4,7 +4,7 @@ server/node_modules
 
 
 # Ignore all .env files
-.env
+server/.env
 client/.env
 
 # Ignore client-specific files
