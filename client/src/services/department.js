@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { URL } from "../utils";
+import axiosInstance from "../axios/axiosInstance";
+
 
 // Fetch Departments
 export const getDepartments = createAsyncThunk(
   "department/getDepartments",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${URL}/departments`);
+      const { data } = await axiosInstance.get(`/departments`);
       return data.department;
     } catch (error) {
       console.error(

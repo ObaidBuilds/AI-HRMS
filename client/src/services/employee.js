@@ -1,5 +1,4 @@
-import axios from "axios";
-import { URL, useGetToken } from "../utils";
+import axiosInstance from "../axios/axiosInstance";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
@@ -7,7 +6,6 @@ import toast from "react-hot-toast";
 export const getAllEmployees = createAsyncThunk(
   "employee/getAllEmployees",
   async ({ currentPage, filters }, { rejectWithValue }) => {
-    const token = useGetToken();
     const { department, role, status, name } = filters;
 
     try {
@@ -19,11 +17,7 @@ export const getAllEmployees = createAsyncThunk(
         status: status || "",
       }).toString();
 
-      const { data } = await axios.get(`${URL}/employees?${queryParams}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await axiosInstance.get(`/employees?${queryParams}`);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -37,13 +31,8 @@ export const getAllEmployees = createAsyncThunk(
 export const getEmployeeById = createAsyncThunk(
   "employee/getEmployeeById",
   async (id, { rejectWithValue }) => {
-    const token = useGetToken();
     try {
-      const { data } = await axios.get(`${URL}/employees/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await axiosInstance.get(`/employees/${id}`);
       return data.employee;
     } catch (error) {
       return rejectWithValue(
@@ -57,14 +46,8 @@ export const getEmployeeById = createAsyncThunk(
 export const addEmployee = createAsyncThunk(
   "employee/addEmployee",
   async (employee, { rejectWithValue }) => {
-    const token = useGetToken();
     try {
-      const { data } = await axios.post(`${URL}/employees`, employee, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await axiosInstance.post("/employees", employee);
       toast.success(data.message);
       return data.employee;
     } catch (error) {
@@ -80,14 +63,8 @@ export const addEmployee = createAsyncThunk(
 export const editEmployee = createAsyncThunk(
   "employee/editEmployee",
   async ({ id, employee }, { rejectWithValue }) => {
-    const token = useGetToken();
     try {
-      const { data } = await axios.patch(`${URL}/employees/${id}`, employee, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await axiosInstance.patch(`/employees/${id}`, employee);
       toast.success(data.message);
       return data.employee;
     } catch (error) {
@@ -103,13 +80,8 @@ export const editEmployee = createAsyncThunk(
 export const deleteEmployee = createAsyncThunk(
   "employee/deleteEmployee",
   async (id, { rejectWithValue }) => {
-    const token = useGetToken();
     try {
-      const { data } = await axios.delete(`${URL}/employees/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await axiosInstance.delete(`/employees/${id}`);
       toast.success(data.message);
       return id;
     } catch (error) {
@@ -123,20 +95,11 @@ export const deleteEmployee = createAsyncThunk(
 
 // Update Profile
 export const updateProfile = async (setProfileLoading, imagePreview) => {
-  const token = useGetToken();
-  console.log(imagePreview);
   try {
     setProfileLoading(true);
-    const { data } = await axios.patch(
-      `${URL}/employees/profile`,
-      { profilePicture: imagePreview },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const { data } = await axiosInstance.patch(`/employees/profile`, {
+      profilePicture: imagePreview,
+    });
     toast.success(data.message);
     return data.updatedProfilePicture;
   } catch (error) {

@@ -1,19 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { URL, useGetToken } from "../utils";
 import toast from "react-hot-toast";
 
 // Fetch Leaves by Status
 export const getLeavesByStatus = createAsyncThunk(
   "leaves/getLeavesByStatus",
   async (status, { rejectWithValue }) => {
-    const token = useGetToken();
     try {
-      const { data } = await axios.get(`${URL}/leaves?status=${status}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await axios.get(`/leaves?status=${status}`);
       return data.leaves;
     } catch (error) {
       return rejectWithValue(
@@ -27,16 +21,8 @@ export const getLeavesByStatus = createAsyncThunk(
 export const getEmployeesOnLeave = createAsyncThunk(
   "leaves/getEmployeesOnLeaveToday",
   async (status, { rejectWithValue }) => {
-    const token = useGetToken();
     try {
-      const { data } = await axios.get(
-        `${URL}/leaves/employee?date=${status}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const { data } = await axios.get(`/leaves/employee?date=${status}`);
       return data.leaves;
     } catch (error) {
       return rejectWithValue(
@@ -51,14 +37,8 @@ export const getEmployeesOnLeave = createAsyncThunk(
 export const createLeave = createAsyncThunk(
   "leaves/createLeave",
   async (leave, { rejectWithValue }) => {
-    const token = useGetToken();
     try {
-      const { data } = await axios.post(`${URL}/leaves`, leave, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await axios.post(`/leaves`, leave);
       toast.success(data.message);
       return data.leave;
     } catch (error) {
@@ -74,17 +54,10 @@ export const createLeave = createAsyncThunk(
 export const respondToLeaveRequest = createAsyncThunk(
   "leaves/respondToLeaveRequest",
   async ({ leaveID, status, remarks }, { rejectWithValue }) => {
-    const token = useGetToken();
     try {
       const { data } = await axios.patch(
-        `${URL}/leaves/${leaveID}?status=${status}`,
-        { remarks },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        `/leaves/${leaveID}?status=${status}`,
+        { remarks }
       );
       toast.success(data.message);
       return data.leave;

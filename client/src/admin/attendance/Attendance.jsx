@@ -67,6 +67,7 @@ function Attendance() {
 
     dispatch(markAttendance(finalRecords));
     setAttendanceRecord([]);
+    setSelectedDepartment("");
   };
 
   const confirmAttendanceSubmit = () => {

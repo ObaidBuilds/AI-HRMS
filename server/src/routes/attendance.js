@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post("/mark", verifyAdminToken, markAttendance);
 router.get("/employee", verifyEmployeeToken, getEmployeeAttendance);
-router.get("/", getAttendanceList);
-router.get("/month", getMonthlyAttendancePercentage);
+router.get("/", verifyAdminToken, getAttendanceList);
+router.get("/month", verifyAdminToken, getMonthlyAttendancePercentage);
 
 export default router;

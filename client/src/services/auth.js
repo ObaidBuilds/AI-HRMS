@@ -1,25 +1,20 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import toast from "react-hot-toast";
-import { URL, useGetToken } from "../utils";
+import axiosInstance from "../axios/axiosInstance";
 
 //  Login
 export const login = createAsyncThunk(
   "auth/loginAdmin",
   async (credentials, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(`${URL}/auth/login`, credentials, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const { data } = await axiosInstance.post("/auth/login", credentials);
       sessionStorage.setItem("session", data.token);
       toast.success(data.message);
       return data.user;
     } catch (error) {
-      toast.error(error.response?.data.message || "Client : " + error.message);
+      toast.error(error.response?.data.message || "client : " + error.message);
       return rejectWithValue(
-        error.response?.data.message || "Client : " + error.message
+        error.response?.data.message || "client : " + error.message
       );
     }
   }
@@ -27,23 +22,13 @@ export const login = createAsyncThunk(
 
 //  Update Password
 export const updatePassword = async (setLoading, credentials) => {
-  const token = useGetToken();
   setLoading(true);
   try {
-    const { data } = await axios.patch(
-      `${URL}/auth/password`,
-      { credentials },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const { data } = await axiosInstance.patch("/auth/password", credentials);
     toast.success(data.message);
     return data.success;
   } catch (error) {
-    toast.error(error.response?.data.message || "Client : " + error.message);
+    toast.error(error.response?.data.message || "client : " + error.message);
   } finally {
     setLoading(false);
   }
@@ -53,19 +38,14 @@ export const updatePassword = async (setLoading, credentials) => {
 export const logout = createAsyncThunk(
   "auth/logout",
   async (_, { rejectWithValue }) => {
-    const token = useGetToken();
     try {
-      const { data } = await axios.get(`${URL}/auth/logout`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await axiosInstance.get("/auth/logout");
       toast.success(data.message);
       return data.success;
     } catch (error) {
-      toast.error(error.response?.data.message || "Client : " + error.message);
+      toast.error(error.response?.data.message || "client : " + error.message);
       return rejectWithValue(
-        error.response?.data.message || "Client : " + error.message
+        error.response?.data.message || "client : " + error.message
       );
     }
   }

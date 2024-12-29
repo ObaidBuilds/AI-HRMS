@@ -1,22 +1,19 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { URL, useGetToken } from "../utils";
+import axiosInstance from "../axios/axiosInstance";
 import toast from "react-hot-toast";
 
 // Fetch Complaints
 export const getComplaints = createAsyncThunk(
   "complaints/getComplaints",
   async ({ status, currentPage, limit = 10 }, { rejectWithValue }) => {
-    const token = useGetToken();
     try {
-      const { data } = await axios.get(
-        `${URL}/complaints?status=${status}&page=${currentPage}&limit=${limit}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const queryParams = new URLSearchParams({
+        page: currentPage,
+        status: status || "",
+        limit: limit || "",
+      }).toString();
+
+      const { data } = await axiosInstance.get(`/complaints?${queryParams}`);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -30,14 +27,8 @@ export const getComplaints = createAsyncThunk(
 export const createComplaint = createAsyncThunk(
   "complaints/createComplaint",
   async (complaint, { rejectWithValue }) => {
-    const token = useGetToken();
     try {
-      const { data } = await axios.post(`${URL}/complaints`, complaint, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await axiosInstance.post("/complaints", complaint);
       toast.success(data.message);
       return data.leave;
     } catch (error) {
@@ -53,17 +44,10 @@ export const createComplaint = createAsyncThunk(
 export const respondToComplaintRequest = createAsyncThunk(
   "complaints/respondToComplaintRequest",
   async ({ complaintID, status, remarks }, { rejectWithValue }) => {
-    const token = useGetToken();
     try {
-      const { data } = await axios.patch(
-        `${URL}/complaints/${complaintID}?status=${status}`,
-        { remarks },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      const { data } = await axiosInstance.patch(
+        `/complaints/${complaintID}?status=${status}`,
+        { remarks }
       );
       toast.success(data.message);
       return data.complaint;

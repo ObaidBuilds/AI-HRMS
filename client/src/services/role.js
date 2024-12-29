@@ -1,19 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { URL, useGetToken } from "../utils";
+import axiosInstance from "../axios/axiosInstance";
 
 // Fetch Roles
 export const getRoles = createAsyncThunk(
   "role/getRoles",
   async (_, { rejectWithValue }) => {
-    const token = useGetToken();
-
     try {
-      const { data } = await axios.get(`${URL}/roles`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await axiosInstance.get("/roles");
       return data.role;
     } catch (error) {
       console.error(error.response?.data.message || "Failed to fetch roles");

@@ -9,7 +9,7 @@ import Modal from "../../components/shared/modals/Modal";
 
 function LeaveRequest() {
   const dispatch = useDispatch();
-  const { leaves, loading } = useSelector((state) => state.leave);
+  const { leaves = [], loading } = useSelector((state) => state.leave);
   const [status, setStatus] = useState("Pending");
   const [selectedLeave, setSelectedLeave] = useState(null);
   const [toggleModal, setToggleModal] = useState(false);
@@ -107,7 +107,7 @@ function LeaveRequest() {
               </tr>
             </thead>
             <tbody className="text-[0.83rem]">
-              {leaves.length >= 1 &&
+              {leaves &&
                 leaves.map((leave, index) => (
                   <tr
                     key={index}

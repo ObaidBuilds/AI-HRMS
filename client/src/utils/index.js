@@ -1,6 +1,5 @@
 import * as XLSX from "xlsx";
 
-const URL = import.meta.env.VITE_URL;
 
 const useGetToken = () => {
   try {
@@ -32,4 +31,4 @@ function downloadXls(data) {
   XLSX.writeFile(wb, "employees.xlsx");
 }
 
-export { useGetToken, URL, formatDate, downloadXls };
+export { useGetToken, formatDate, downloadXls };

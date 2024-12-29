@@ -1,5 +1,4 @@
-import axios from "axios";
-import { URL, useGetToken } from "../utils";
+import axiosInstance from "../axios/axiosInstance";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
@@ -7,21 +6,16 @@ import toast from "react-hot-toast";
 export const getAttendanceList = createAsyncThunk(
   "attendance/getAttendanceList",
   async (department, { rejectWithValue }) => {
-    const token = useGetToken();
     try {
       const queryParams = new URLSearchParams({
         department: department || "",
       }).toString();
 
-      const { data } = await axios.get(`${URL}/attendance/?${queryParams}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await axiosInstance.get(`/attendance/?${queryParams}`);
       return data.employees;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data.message || "Client : " + error.message
+        error.response?.data.message || "client : " + error.message
       );
     }
   }
@@ -31,23 +25,15 @@ export const getAttendanceList = createAsyncThunk(
 export const markAttendance = createAsyncThunk(
   "attendance/markAttendance",
   async (attendanceRecords, { rejectWithValue }) => {
-    const token = useGetToken();
     try {
-      const { data } = await axios.post(
-        `${URL}/attendance/mark`,
-        { attendanceRecords },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const { data } = await axiosInstance.post("/attendance/mark", {
+        attendanceRecords,
+      });
       toast.success(data.message);
     } catch (error) {
       toast.error(error.response?.data.message || "An error occurred.");
       return rejectWithValue(
-        error.response?.data.message || "Client : " + error.message
+        error.response?.data.message || "client : " + error.message
       );
     }
   }
@@ -57,18 +43,13 @@ export const markAttendance = createAsyncThunk(
 export const getEmployeeAttendance = createAsyncThunk(
   "attendance/getEmployeeAttendance",
   async (_, { rejectWithValue }) => {
-    const token = useGetToken();
     try {
-      const { data } = await axios.get(`${URL}/attendance/employee`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await axiosInstance.get("/attendance/employee");
       return data.attendance;
     } catch (error) {
       console.log(error.response?.data.message || "An error occurred.");
       return rejectWithValue(
-        error.response?.data.message || "Client : " + error.message
+        error.response?.data.message || "client : " + error.message
       );
     }
   }

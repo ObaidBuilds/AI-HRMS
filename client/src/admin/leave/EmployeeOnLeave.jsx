@@ -7,7 +7,7 @@ import Loader from "../../components/shared/loaders/Loader";
 function EmployeeOnLeave() {
   const dispatch = useDispatch();
 
-  const { employeesOnLeaveToday, loading } = useSelector(
+  const { employeesOnLeaveToday = [], loading } = useSelector(
     (state) => state.leave
   );
   const [status, setStatus] = useState("Present");
