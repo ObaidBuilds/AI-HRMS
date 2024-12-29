@@ -24,7 +24,7 @@ const RemarksModal = ({ onClose, isConfirm }) => {
               value={remarks}
               onChange={(e) => setRemarks(e.target.value)}
               placeholder="Write you remarks"
-              className="w-full bg-[#EFEFEF] text-sm sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+              className="w-full bg-[#EFEFEF] text-sm sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
               required
             />
           </div>
@@ -39,7 +39,7 @@ const RemarksModal = ({ onClose, isConfirm }) => {
           </button>
           <button
             id="modal-cancel"
-            className="bg-gray-500 text-sm text-white px-4 py-2 rounded"
+            className="bg-gray-500 text-sm font-semibold text-white px-4 py-2 rounded"
             onClick={onClose}
           >
             Cancel

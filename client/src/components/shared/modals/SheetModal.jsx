@@ -35,7 +35,7 @@ const SheetModal = ({
             value={selectedDepartment}
             onChange={(e) => setSelectedDepartment(e.target.value)}
             id="select"
-            className="w-full text-center text-sm p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+            className="w-full text-center text-sm p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
             required
           >
             <option value="">--- Select Depart ---</option>
@@ -66,7 +66,7 @@ const SheetModal = ({
         <div className="w-full flex justify-end">
           <button
             type="submit"
-            className="bg-blue-500 w-full text-white text-sm font-medium p-4 rounded-3xl shadow-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400"
+            className="bg-blue-500 w-full text-white text-sm p-4 font-semibold rounded-3xl shadow-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400"
           >
             Get Sheet
           </button>
