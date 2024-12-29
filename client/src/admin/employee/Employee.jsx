@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Error from "../../components/shared/error/Error";
 import Modal from "../../components/shared/modals/Modal";
 import Loader from "../../components/shared/loaders/Loader";
-import Heading from "../../components/shared/others/Heading";
 import FilterBar from "../../components/shared/others/FilterBar";
 import Pagination from "../../components/shared/others/Pagination";
 import { deleteEmployee, getAllEmployees } from "../../services/employee";
@@ -90,8 +89,6 @@ function Employee() {
     document.body.classList.toggle("no-scroll", uiState.toggleFilterBar);
   }, [uiState.toggleFilterBar]);
 
-  if (!employees) return <Error />;
-
   const renderFilters = Object.keys(filters)
     .filter(
       (key) => filters[key] && key !== "departmentName" && key !== "roleName"
@@ -109,164 +106,162 @@ function Employee() {
       </button>
     ));
 
+  if (!employees) return <Error />;
+
   return (
     <>
       {loading && <Loader />}
 
-      <div className="w-full min-h-[100vh] rounded-lg">
-        <Heading heading={"Employee Management 👥"} />
+      <section className="bg-secondary p-3 sm:p-4 rounded-lg w-full sm:min-h-[100vh]">
+        {uiState.toggleFilterBar && (
+          <FilterBar
+            handleApplyFilters={handleApplyFilters}
+            hideFilterBar={() =>
+              setUiState((prev) => ({ ...prev, toggleFilterBar: false }))
+            }
+          />
+        )}
 
-        <section className="bg-secondary mt-2 p-3 sm:p-4 rounded-lg">
-          {uiState.toggleFilterBar && (
-            <FilterBar
-              handleApplyFilters={handleApplyFilters}
-              hideFilterBar={() =>
-                setUiState((prev) => ({ ...prev, toggleFilterBar: false }))
-              }
-            />
-          )}
+        {uiState.toggleModal && (
+          <Modal
+            onClose={() =>
+              setUiState((prev) => ({ ...prev, toggleModal: false }))
+            }
+            action={"delete"}
+            isConfirm={confirmation}
+          />
+        )}
 
-          {uiState.toggleModal && (
-            <Modal
-              onClose={() =>
-                setUiState((prev) => ({ ...prev, toggleModal: false }))
-              }
-              action={"delete"}
-              isConfirm={confirmation}
-            />
-          )}
-
-          <div className="relative flex gap-1 items-center justify-between py-1 sm:px-3 mb-3">
-            {!(
-              filters.status ||
-              filters.department ||
-              filters.role ||
-              filters.name
-            ) && (
-              <button
-                onClick={() =>
-                  setUiState((prev) => ({ ...prev, toggleFilterBar: true }))
-                }
-                className="flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold"
-              >
-                <i className="fa-solid fa-filter text-[0.7rem] sm:text-xs"></i>{" "}
-                Apply Filters
-              </button>
-            )}
-
-            <div className="flex flex-wrap items-center gap-2">
-              {renderFilters}
-            </div>
-
+        <div className="relative flex gap-1 items-center justify-between py-1 sm:px-3 mb-3">
+          {!(
+            filters.status ||
+            filters.department ||
+            filters.role ||
+            filters.name
+          ) && (
             <button
-              onClick={handleExportToExcel}
-              className="hidden sm:flex justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold"
+              onClick={() =>
+                setUiState((prev) => ({ ...prev, toggleFilterBar: true }))
+              }
+              className="flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold"
             >
-              <i className="fas fa-file-excel text-[0.7rem] text-xs"></i> Export
-              to Excel
+              <i className="fa-solid fa-filter text-[0.7rem] sm:text-xs"></i>{" "}
+              Apply Filters
             </button>
+          )}
+
+          <div className="flex flex-wrap items-center gap-2">
+            {renderFilters}
           </div>
 
-          <div id="overflow" className="overflow-x-auto min-h-[75vh]">
-            <table className="min-w-full text-left table-auto border-collapse text-[0.83rem] whitespace-nowrap">
-              <thead>
-                <tr className="bg-gray-600 text-gray-200">
-                  {[
-                    "Employee ID",
-                    "Name",
-                    "Department",
-                    "Position",
-                    "Status",
-                    "Contact Info",
-                    "Actions",
-                  ].map((header) => (
-                    <th
-                      key={header}
-                      className="py-3 px-4 border-b border-gray-500"
-                    >
-                      {header}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {employees.length >= 1 ? (
-                  employees.map((employee) => (
-                    <tr
-                      key={employee._id}
-                      className="even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600"
-                    >
-                      <td className="py-3 px-4 border-b border-gray-500">
-                        EMP {employee.employeeId}
-                      </td>
-                      <td className="py-3 px-4 border-b border-gray-500">
-                        {employee.name}
-                      </td>
-                      <td className="py-3 px-4 border-b border-gray-500">
-                        {employee.department.name}
-                      </td>
-                      <td className="py-3 px-4 border-b border-gray-500">
-                        {employee.role.name}
-                      </td>
-                      <td className="py-3 px-4 border-b border-gray-500">
-                        {employee.status}
-                      </td>
-                      <td className="py-3 px-4 border-b border-gray-500">
-                        {employee.phoneNumber}
-                      </td>
-                      <td className="py-3 px-4 border-b border-gray-500 flex items-center space-x-2">
-                        <Link to={`/employee/${employee._id}`}>
-                          <button
-                            className="text-blue-500 hover:text-blue-400"
-                            title="View"
-                          >
-                            <i className="fa-solid fa-eye"></i>
-                          </button>
-                        </Link>
+          <button
+            onClick={handleExportToExcel}
+            className="hidden sm:flex justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold"
+          >
+            <i className="fas fa-file-excel text-[0.7rem] text-xs"></i> Export
+            to Excel
+          </button>
+        </div>
 
-                        <Link to={`/edit-employee/${employee._id}`}>
-                          <button
-                            className="text-green-500 hover:text-green-400"
-                            title="Edit"
-                          >
-                            <i className="fa-solid fa-edit"></i>
-                          </button>
-                        </Link>
-
+        <div id="overflow" className="overflow-x-auto min-h-[75vh]">
+          <table className="min-w-full text-left table-auto border-collapse text-[0.83rem] whitespace-nowrap">
+            <thead>
+              <tr className="bg-gray-600 text-gray-200">
+                {[
+                  "Employee ID",
+                  "Name",
+                  "Department",
+                  "Position",
+                  "Status",
+                  "Contact Info",
+                  "Actions",
+                ].map((header) => (
+                  <th
+                    key={header}
+                    className="py-3 px-4 border-b border-gray-500"
+                  >
+                    {header}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {employees.length >= 1 ? (
+                employees.map((employee) => (
+                  <tr
+                    key={employee._id}
+                    className="even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600"
+                  >
+                    <td className="py-3 px-4 border-b border-gray-500">
+                      EMP {employee.employeeId}
+                    </td>
+                    <td className="py-3 px-4 border-b border-gray-500">
+                      {employee.name}
+                    </td>
+                    <td className="py-3 px-4 border-b border-gray-500">
+                      {employee.department.name}
+                    </td>
+                    <td className="py-3 px-4 border-b border-gray-500">
+                      {employee.role.name}
+                    </td>
+                    <td className="py-3 px-4 border-b border-gray-500">
+                      {employee.status}
+                    </td>
+                    <td className="py-3 px-4 border-b border-gray-500">
+                      {employee.phoneNumber}
+                    </td>
+                    <td className="py-3 px-4 border-b border-gray-500 flex items-center space-x-2">
+                      <Link to={`/employee/${employee._id}`}>
                         <button
-                          onClick={() =>
-                            setUiState((prev) => ({
-                              ...prev,
-                              deletedEmployee: employee,
-                              toggleModal: true,
-                            }))
-                          }
-                          className="text-red-500 hover:text-red-400"
-                          title="Delete"
+                          className="text-blue-500 hover:text-blue-400"
+                          title="View"
                         >
-                          <i className="fa-solid fa-trash"></i>
+                          <i className="fa-solid fa-eye"></i>
                         </button>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="7" className="w-full h-[50vh] text-center">
-                      <div className="flex flex-col justify-center items-center">
-                        <i className="fas fa-ban text-3xl text-gray-400"></i>
-                        <p className="mt-2 text-base text-gray-400">
-                          No employees found
-                        </p>
-                      </div>
+                      </Link>
+
+                      <Link to={`/edit-employee/${employee._id}`}>
+                        <button
+                          className="text-green-500 hover:text-green-400"
+                          title="Edit"
+                        >
+                          <i className="fa-solid fa-edit"></i>
+                        </button>
+                      </Link>
+
+                      <button
+                        onClick={() =>
+                          setUiState((prev) => ({
+                            ...prev,
+                            deletedEmployee: employee,
+                            toggleModal: true,
+                          }))
+                        }
+                        className="text-red-500 hover:text-red-400"
+                        title="Delete"
+                      >
+                        <i className="fa-solid fa-trash"></i>
+                      </button>
                     </td>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-          <Pagination {...pagination} onPageChange={goToPage} />
-        </section>
-      </div>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="7" className="w-full h-[50vh] text-center">
+                    <div className="flex flex-col justify-center items-center">
+                      <i className="fas fa-ban text-2xl text-gray-400"></i>
+                      <p className="mt-2 text-base text-gray-400">
+                        No employees found
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+        <Pagination {...pagination} onPageChange={goToPage} />
+      </section>
     </>
   );
 }

@@ -1,9 +1,8 @@
 import React from "react";
-import Heading from "../../components/shared/others/Heading";
 import { formatDate } from "../../utils";
 
 const Profile = () => {
-  // Static employee data
+
   const employee = {
     profilePicture: "https://via.placeholder.com/150",
     name: "John Doe",

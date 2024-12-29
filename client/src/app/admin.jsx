@@ -39,7 +39,7 @@ const AdminApp = () => {
         <Suspense fallback={<Loader />}>
           <main
             id="overflow"
-            className="w-full max-h-auto min-h-screen lg:w-[82%] lg:ml-[255px] py-2 px-3 md:px-2 mt-[69px] lg:mt-0"
+            className="w-full max-h-auto min-h-screen lg:w-[82%] lg:ml-[255px] py-2 px-2 mt-[69px] lg:mt-0"
           >
             <div className="mb-2">
               <Routes>

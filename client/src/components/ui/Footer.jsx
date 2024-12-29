@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className="bg-navy border-t border-gray-700 py-6 text-[0.83rem] rounded-lg text-white">
       <div className="w-full mx-auto px-6">
-        <div className="flex justify-center sm:pb-4">
+        <div className="flex justify-center sm:pb-4 animate-float">
           <div className="sm:w-[150px] flex flex-col items-center justify-center">
             <img className="w-[55px]" src="/metro.png" alt="logo" />
             <h1

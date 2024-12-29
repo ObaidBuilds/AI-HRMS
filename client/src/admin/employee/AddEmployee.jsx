@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addEmployee } from "../../services/employee";
 import { useForm, Controller } from "react-hook-form";
 import Loader from "../../components/shared/loaders/Loader";
-import Heading from "../../components/shared/others/Heading";
 
 const AddEmployee = () => {
   const dispatch = useDispatch();
@@ -22,8 +21,7 @@ const AddEmployee = () => {
     <>
       {loading && <Loader />}
       <section>
-        <Heading heading={"Add Employee"} />
-        <div className="w-full min-h-screen mt-2 rounded-lg bg-secondary border border-gray-600 p-3 text-sm">
+        <div className="w-full min-h-screen  rounded-lg bg-secondary border border-gray-600 p-3 text-sm">
           <form
             id="form"
             onSubmit={handleSubmit(onSubmit)}

@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import Error from "../../components/shared/error/Error";
 import { useDispatch, useSelector } from "react-redux";
 import { getEmployeeById } from "../../services/employee";
-import Heading from "../../components/shared/others/Heading";
 import { formatDate } from "../../utils";
 import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
 
@@ -23,12 +22,9 @@ const ViewEmployee = () => {
 
   return (
     <>
-      <div className="w-full rounded-lg text-white">
-        {/* Heading */}
-        <Heading heading={"Employee Detail 👥"} />
-
+      <section className="w-full rounded-lg text-white">
         {/* Profile Section */}
-        <div className="flex flex-col items-center bg-gray-800 p-5 rounded-lg my-2">
+        <div className="flex flex-col items-center bg-navy p-5 rounded-lg mb-2">
           <img
             src={employee?.profilePicture || "https://via.placeholder.com/150"}
             alt={employee?.name}
@@ -38,7 +34,7 @@ const ViewEmployee = () => {
           <p className="text-gray-400">{employee?.role.name}</p>
         </div>
 
-        <section className="bg-secondary p-4 sm:p-6 rounded-lg space-y-6 text-[0.88rem]">
+        <main className="bg-secondary p-4 sm:p-6 rounded-lg space-y-6 text-[0.88rem]">
           {/* Personal Details */}
           <div>
             <h2 className="text-base font-semibold border-b border-gray-600 pb-2 mb-4">
@@ -137,8 +133,8 @@ const ViewEmployee = () => {
               </p>
             </div>
           </div>
-        </section>
-      </div>
+        </main>
+      </section>
     </>
   );
 };

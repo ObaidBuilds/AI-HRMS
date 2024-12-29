@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
-import Heading from "../../components/shared/others/Heading";
 import { useSelector, useDispatch } from "react-redux";
 import Pagination from "../../components/shared/others/Pagination";
 import {
@@ -17,11 +16,11 @@ function Complaint() {
   const { complaints, loading, pagination } = useSelector(
     (state) => state.complaint
   );
-  console.log(loading);
-  const [currentPage, setCurrentPage] = useState(1);
+
   const [status, setStatus] = useState("Pending");
-  const [selectedComplaint, setSelectedComplaint] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const [toggleModal, setToggleModal] = useState(false);
+  const [selectedComplaint, setSelectedComplaint] = useState(null);
   const [toggleRemarkModal, setToggleRemarkModal] = useState(false);
 
   const goToPage = (page) => setCurrentPage(page);
@@ -44,9 +43,7 @@ function Complaint() {
           status: "Resolved",
           remarks: "Approved",
         })
-      )
-        .unwrap()
-        // .then(() => window.location.reload());
+      );
       setToggleModal(false);
     }
   };
@@ -59,9 +56,7 @@ function Complaint() {
           status: "Closed",
           remarks,
         })
-      )
-        .unwrap()
-        // .then(() => window.location.reload());
+      );
       setToggleRemarkModal(false);
     }
   };
@@ -74,9 +69,7 @@ function Complaint() {
     <>
       {loading && <Loader />}
       <div className="w-full rounded-lg">
-        <Heading heading={`${status} Complaint 👥`} />
-
-        <section className="bg-gray-700 mt-2 p-3 sm:p-4 rounded-lg min-h-screen">
+        <section className="bg-gray-700 p-3 sm:p-4 rounded-lg min-h-screen">
           {/* Filter Buttons */}
           <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
             {["Pending", "Resolved", "Closed"].map((filter) => (
@@ -185,7 +178,7 @@ function Complaint() {
 
             {!loading && complaints.length === 0 && (
               <div className="w-full h-[50vh] flex flex-col justify-center items-center">
-                <i className="fas fa-ban text-3xl text-gray-400"></i>
+                <i className="fas fa-ban text-2xl text-gray-400"></i>
                 <p className="mt-2 text-base text-gray-400">
                   No {status.toLowerCase()} complaints found.
                 </p>

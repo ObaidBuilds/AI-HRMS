@@ -5,7 +5,6 @@ import { useForm, Controller } from "react-hook-form";
 import { formatDate } from "../../utils";
 import { editEmployee, getEmployeeById } from "../../services/employee";
 import Error from "../../components/shared/error/Error";
-import Heading from "../../components/shared/others/Heading";
 import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
 
 const EditEmployee = () => {
@@ -33,7 +32,6 @@ const EditEmployee = () => {
       dispatch(getEmployeeById(employeeID));
     }
   }, [employeeID]);
-
 
   useEffect(() => {
     if (employee) {
@@ -80,308 +78,289 @@ const EditEmployee = () => {
 
   return (
     <>
-      <section>
-        <Heading heading={"Edit Employee"} />
-        <div className="w-full min-h-screen mt-2 rounded-lg bg-secondary border border-gray-600 p-3 text-sm">
-          <form
-            id="form"
-            onSubmit={handleSubmit(onSubmit)}
-            className="space-y-2 sm:space-y-4"
+      <section className="w-full max-h-auto sm:min-h-screen rounded-lg bg-secondary border border-gray-600 p-3 text-sm">
+        <form
+          id="form"
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-2 sm:space-y-4"
+        >
+          {/* Basic Details */}
+          <div className="bg-gray-800 p-4 rounded-lg">
+            <h4 className="text-gray-200 font-semibold mb-3">Basic Details</h4>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Controller
+                name="employeeId"
+                control={control}
+                render={({ field }) => (
+                  <input
+                    type="text"
+                    placeholder="Employee ID"
+                    {...field}
+                    required
+                  />
+                )}
+              />
+              <Controller
+                name="name"
+                control={control}
+                render={({ field }) => (
+                  <input
+                    type="text"
+                    placeholder="Full Name"
+                    {...field}
+                    required
+                  />
+                )}
+              />
+              <Controller
+                name="email"
+                control={control}
+                render={({ field }) => (
+                  <input type="email" placeholder="Email" {...field} required />
+                )}
+              />
+              <Controller
+                name="dob"
+                control={control}
+                render={({ field }) => (
+                  <input
+                    type="date"
+                    placeholder="Date of Birth"
+                    {...field}
+                    required
+                  />
+                )}
+              />
+              <Controller
+                name="phoneNumber"
+                control={control}
+                render={({ field }) => (
+                  <input
+                    type="text"
+                    placeholder="Phone Number"
+                    {...field}
+                    required
+                  />
+                )}
+              />
+              <Controller
+                name="gender"
+                control={control}
+                render={({ field }) => (
+                  <select {...field} required>
+                    <option value="">--Gender--</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                )}
+              />
+              <Controller
+                name="martialStatus"
+                control={control}
+                render={({ field }) => (
+                  <select {...field} required>
+                    <option value="">--Marital Status--</option>
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                  </select>
+                )}
+              />
+            </div>
+          </div>
+
+          {/* Address Details */}
+          <div className="bg-gray-800 p-4 rounded-lg">
+            <h4 className="text-gray-200 font-semibold mb-3">Address</h4>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Controller
+                name="address.street"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="Street" {...field} />
+                )}
+              />
+              <Controller
+                name="address.city"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="City" {...field} />
+                )}
+              />
+              <Controller
+                name="address.state"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="State" {...field} />
+                )}
+              />
+              <Controller
+                name="address.postalCode"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="Postal Code" {...field} />
+                )}
+              />
+              <Controller
+                name="address.country"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="Country" {...field} />
+                )}
+              />
+            </div>
+          </div>
+
+          {/* Department & Role */}
+          <div className="bg-gray-800 p-4 rounded-lg">
+            <h4 className="text-gray-200 font-semibold mb-3">
+              Department & Role
+            </h4>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Controller
+                name="department"
+                control={control}
+                render={({ field }) => (
+                  <select {...field} required>
+                    <option value="">--Department--</option>
+                    {departments.map((department) => (
+                      <option key={department._id} value={department._id}>
+                        {department.name}
+                      </option>
+                    ))}
+                  </select>
+                )}
+              />
+              <Controller
+                name="role"
+                control={control}
+                render={({ field }) => (
+                  <select {...field} required>
+                    <option value="">--Role--</option>
+                    {roles.map((role) => (
+                      <option key={role._id} value={role._id}>
+                        {role.name}
+                      </option>
+                    ))}
+                  </select>
+                )}
+              />
+              <Controller
+                name="salary"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="Salary" {...field} required />
+                )}
+              />
+              <Controller
+                name="shift"
+                control={control}
+                render={({ field }) => (
+                  <select {...field} required>
+                    <option value="">--Shift--</option>
+                    <option value="Morning">Morning</option>
+                    <option value="Evening">Evening</option>
+                    <option value="Night">Night</option>
+                  </select>
+                )}
+              />
+              <Controller
+                name="status"
+                control={control}
+                render={({ field }) => (
+                  <select {...field}>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                    <option value="Leave">Leave</option>
+                  </select>
+                )}
+              />
+              <Controller
+                name="dateOfJoining"
+                control={control}
+                render={({ field }) => (
+                  <input
+                    type="date"
+                    placeholder="Date of Joining"
+                    {...field}
+                    required
+                  />
+                )}
+              />
+              <Controller
+                name="employmentType"
+                control={control}
+                render={({ field }) => (
+                  <select {...field} required>
+                    <option value="">--Employment Type--</option>
+                    <option value="Full-Time">Full-Time</option>
+                    <option value="Part-Time">Part-Time</option>
+                    <option value="Contract">Contract</option>
+                  </select>
+                )}
+              />
+            </div>
+          </div>
+
+          {/* Bank Details */}
+          <div className="bg-gray-800 p-4 rounded-lg">
+            <h4 className="text-gray-200 font-semibold mb-3">Bank Details</h4>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Controller
+                name="bankDetails.accountNumber"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="Account Number" {...field} />
+                )}
+              />
+              <Controller
+                name="bankDetails.bankName"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="Bank Name" {...field} />
+                )}
+              />
+            </div>
+          </div>
+
+          {/* Emergency Contact */}
+          <div className="bg-gray-800 p-4 rounded-lg">
+            <h4 className="text-gray-200 font-semibold mb-3">
+              Emergency Contact
+            </h4>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Controller
+                name="emergencyContact.name"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="Name" {...field} />
+                )}
+              />
+              <Controller
+                name="emergencyContact.relationship"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="Relationship" {...field} />
+                )}
+              />
+              <Controller
+                name="emergencyContact.phoneNumber"
+                control={control}
+                render={({ field }) => (
+                  <input type="text" placeholder="Phone Number" {...field} />
+                )}
+              />
+            </div>
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="p-3 bg-blue-600 font-semibold hover:bg-blue-700 text-white w-full rounded-3xl"
           >
-            {/* Basic Details */}
-            <div className="bg-gray-800 p-4 rounded-lg">
-              <h4 className="text-gray-200 font-semibold mb-3">
-                Basic Details
-              </h4>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Controller
-                  name="employeeId"
-                  control={control}
-                  render={({ field }) => (
-                    <input
-                      type="text"
-                      placeholder="Employee ID"
-                      {...field}
-                      required
-                    />
-                  )}
-                />
-                <Controller
-                  name="name"
-                  control={control}
-                  render={({ field }) => (
-                    <input
-                      type="text"
-                      placeholder="Full Name"
-                      {...field}
-                      required
-                    />
-                  )}
-                />
-                <Controller
-                  name="email"
-                  control={control}
-                  render={({ field }) => (
-                    <input
-                      type="email"
-                      placeholder="Email"
-                      {...field}
-                      required
-                    />
-                  )}
-                />
-                <Controller
-                  name="dob"
-                  control={control}
-                  render={({ field }) => (
-                    <input
-                      type="date"
-                      placeholder="Date of Birth"
-                      {...field}
-                      required
-                    />
-                  )}
-                />
-                <Controller
-                  name="phoneNumber"
-                  control={control}
-                  render={({ field }) => (
-                    <input
-                      type="text"
-                      placeholder="Phone Number"
-                      {...field}
-                      required
-                    />
-                  )}
-                />
-                <Controller
-                  name="gender"
-                  control={control}
-                  render={({ field }) => (
-                    <select {...field} required>
-                      <option value="">--Gender--</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                    </select>
-                  )}
-                />
-                <Controller
-                  name="martialStatus"
-                  control={control}
-                  render={({ field }) => (
-                    <select {...field} required>
-                      <option value="">--Marital Status--</option>
-                      <option value="Single">Single</option>
-                      <option value="Married">Married</option>
-                    </select>
-                  )}
-                />
-              </div>
-            </div>
-
-            {/* Address Details */}
-            <div className="bg-gray-800 p-4 rounded-lg">
-              <h4 className="text-gray-200 font-semibold mb-3">Address</h4>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Controller
-                  name="address.street"
-                  control={control}
-                  render={({ field }) => (
-                    <input type="text" placeholder="Street" {...field} />
-                  )}
-                />
-                <Controller
-                  name="address.city"
-                  control={control}
-                  render={({ field }) => (
-                    <input type="text" placeholder="City" {...field} />
-                  )}
-                />
-                <Controller
-                  name="address.state"
-                  control={control}
-                  render={({ field }) => (
-                    <input type="text" placeholder="State" {...field} />
-                  )}
-                />
-                <Controller
-                  name="address.postalCode"
-                  control={control}
-                  render={({ field }) => (
-                    <input type="text" placeholder="Postal Code" {...field} />
-                  )}
-                />
-                <Controller
-                  name="address.country"
-                  control={control}
-                  render={({ field }) => (
-                    <input type="text" placeholder="Country" {...field} />
-                  )}
-                />
-              </div>
-            </div>
-
-            {/* Department & Role */}
-            <div className="bg-gray-800 p-4 rounded-lg">
-              <h4 className="text-gray-200 font-semibold mb-3">
-                Department & Role
-              </h4>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Controller
-                  name="department"
-                  control={control}
-                  render={({ field }) => (
-                    <select {...field} required>
-                      <option value="">--Department--</option>
-                      {departments.map((department) => (
-                        <option key={department._id} value={department._id}>
-                          {department.name}
-                        </option>
-                      ))}
-                    </select>
-                  )}
-                />
-                <Controller
-                  name="role"
-                  control={control}
-                  render={({ field }) => (
-                    <select {...field} required>
-                      <option value="">--Role--</option>
-                      {roles.map((role) => (
-                        <option key={role._id} value={role._id}>
-                          {role.name}
-                        </option>
-                      ))}
-                    </select>
-                  )}
-                />
-                <Controller
-                  name="salary"
-                  control={control}
-                  render={({ field }) => (
-                    <input
-                      type="text"
-                      placeholder="Salary"
-                      {...field}
-                      required
-                    />
-                  )}
-                />
-                <Controller
-                  name="shift"
-                  control={control}
-                  render={({ field }) => (
-                    <select {...field} required>
-                      <option value="">--Shift--</option>
-                      <option value="Morning">Morning</option>
-                      <option value="Evening">Evening</option>
-                      <option value="Night">Night</option>
-                    </select>
-                  )}
-                />
-                <Controller
-                  name="status"
-                  control={control}
-                  render={({ field }) => (
-                    <select {...field}>
-                      <option value="Active">Active</option>
-                      <option value="Inactive">Inactive</option>
-                      <option value="Leave">Leave</option>
-                    </select>
-                  )}
-                />
-                <Controller
-                  name="dateOfJoining"
-                  control={control}
-                  render={({ field }) => (
-                    <input
-                      type="date"
-                      placeholder="Date of Joining"
-                      {...field}
-                      required
-                    />
-                  )}
-                />
-                <Controller
-                  name="employmentType"
-                  control={control}
-                  render={({ field }) => (
-                    <select {...field} required>
-                      <option value="">--Employment Type--</option>
-                      <option value="Full-Time">Full-Time</option>
-                      <option value="Part-Time">Part-Time</option>
-                      <option value="Contract">Contract</option>
-                    </select>
-                  )}
-                />
-              </div>
-            </div>
-
-            {/* Bank Details */}
-            <div className="bg-gray-800 p-4 rounded-lg">
-              <h4 className="text-gray-200 font-semibold mb-3">Bank Details</h4>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Controller
-                  name="bankDetails.accountNumber"
-                  control={control}
-                  render={({ field }) => (
-                    <input
-                      type="text"
-                      placeholder="Account Number"
-                      {...field}
-                    />
-                  )}
-                />
-                <Controller
-                  name="bankDetails.bankName"
-                  control={control}
-                  render={({ field }) => (
-                    <input type="text" placeholder="Bank Name" {...field} />
-                  )}
-                />
-              </div>
-            </div>
-
-            {/* Emergency Contact */}
-            <div className="bg-gray-800 p-4 rounded-lg">
-              <h4 className="text-gray-200 font-semibold mb-3">
-                Emergency Contact
-              </h4>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Controller
-                  name="emergencyContact.name"
-                  control={control}
-                  render={({ field }) => (
-                    <input type="text" placeholder="Name" {...field} />
-                  )}
-                />
-                <Controller
-                  name="emergencyContact.relationship"
-                  control={control}
-                  render={({ field }) => (
-                    <input type="text" placeholder="Relationship" {...field} />
-                  )}
-                />
-                <Controller
-                  name="emergencyContact.phoneNumber"
-                  control={control}
-                  render={({ field }) => (
-                    <input type="text" placeholder="Phone Number" {...field} />
-                  )}
-                />
-              </div>
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="p-4 bg-blue-600 hover:bg-blue-700 text-white mt-4 w-full rounded-3xl mb-3"
-            >
-              Update Employee
-            </button>
-          </form>
-        </div>
+            Update Employee
+          </button>
+        </form>
       </section>
     </>
   );

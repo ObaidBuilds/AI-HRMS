@@ -4,7 +4,6 @@ import { FaStar } from "react-icons/fa";
 import { getFeedbacks } from "../../services/feedback";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/shared/loaders/Loader";
-import Heading from "../../components/shared/others/Heading";
 import Pagination from "../../components/shared/others/Pagination";
 
 function Feedback() {
@@ -34,9 +33,7 @@ function Feedback() {
 
       <div className="w-full rounded-lg min-h-screen">
         
-        <Heading heading="Feedback Management 💬" />
-
-        <section className="bg-secondary mt-2 p-3 sm:p-4 rounded-lg">
+        <section className="bg-secondary p-3 sm:p-4 rounded-lg">
           <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
             {filters.map((filter, i) => (
               <button
@@ -114,8 +111,8 @@ function Feedback() {
 
             {!loading && feedbacks.length === 0 && (
               <div className="w-full h-[50vh] flex flex-col justify-center items-center">
-                <i className="fas fa-ban text-3xl text-gray-400"></i>
-                <p className="mt-2 text-lg text-gray-400">No feedback found</p>
+                <i className="fas fa-ban text-2xl text-gray-400"></i>
+                <p className="mt-2 text-base text-gray-400">No feedback found</p>
               </div>
             )}
           </div>
