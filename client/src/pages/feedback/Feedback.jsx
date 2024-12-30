@@ -60,7 +60,7 @@ const Feedback = () => {
                 required: "Leave type is required",
               })}
               type="text"
-              placeholder="Anu Suggestion"
+              placeholder="Any Suggestion"
               className="w-full bg-gray-700 text-center text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
             />
           </div>

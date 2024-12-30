@@ -136,7 +136,7 @@ const Attendance = () => {
                   ))}
               </tbody>
             </table>
-            {filteredAttendance && filteredAttendance.length === 0 && (
+            {!attendance.loading && filteredAttendance.length === 0 && (
               <div className="w-full h-[60vh] flex flex-col justify-center items-center">
                 <i className="fas fa-ban text-2xl text-gray-400"></i>
                 <p className="mt-2 text-sm text-gray-400">

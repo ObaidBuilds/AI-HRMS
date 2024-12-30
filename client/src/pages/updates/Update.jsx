@@ -97,7 +97,7 @@ function Update() {
                 </tbody>
               </table>
 
-              {updates && updates.length === 0 && (
+              {!loading && updates.length === 0 && (
                 <div className="w-full h-[40vh] bg-gray-700 flex flex-col justify-center items-center">
                   <i className="fas fa-ban text-2xl text-gray-400"></i>
                   <p className="mt-2 text-base text-gray-400">
