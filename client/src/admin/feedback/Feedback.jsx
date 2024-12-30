@@ -16,7 +16,7 @@ function Feedback() {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    dispatch(getFeedbacks({ review: reviewFilter, currentPage }));
+    dispatch(getFeedbacks({ review: reviewFilter.toLowerCase(), currentPage }));
   }, [reviewFilter, currentPage]);
 
   const filters = [

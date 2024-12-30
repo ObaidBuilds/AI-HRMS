@@ -80,7 +80,7 @@ const respondComplaint = catchErrors(async (req, res) => {
   const complaint = await Complaint.findById(complaintID);
 
   if (!complaint) throw new Error("Complaint not found");
-  if (complaint.status === "Resolved")
+  if (complaint.status.toLowerCase() === "resolved")
     throw new Error("Complaint already resolved");
 
   complaint.status = status;

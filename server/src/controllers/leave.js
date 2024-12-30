@@ -5,9 +5,9 @@ import { getSubstitute } from "../predictions/index.js";
 import { notifySubstituteEmployee } from "../templates/index.js";
 
 const getLeaves = catchErrors(async (req, res) => {
-  const { status = "Pending" } = req.query;
+  const { status = "pending" } = req.query;
 
-  const leaves = await Leave.find({ status })
+  const leaves = await Leave.find({ $regex: status, $options: "i" })
     .populate({
       path: "employee",
       select: "name employeeId department role",
@@ -82,7 +82,7 @@ const getEmployeesOnLeave = catchErrors(async (req, res) => {
 const applyLeave = catchErrors(async (req, res) => {
   const { leaveType, application, duration, fromDate, toDate } = req.body;
   const employee = req.user;
-  
+
   if (!employee || !leaveType || !fromDate || !toDate)
     throw new Error("All fields are required");
 
@@ -141,7 +141,7 @@ const respondLeave = catchErrors(async (req, res) => {
       employee.leaveBalance -= leave.duration;
       leave.remarks = `${leave.duration} days deducted from leave balance.`;
     } else {
-      leave.remarks = `Insufficient leave balance, pay will be deducted for ${leave.duration} days.`;
+      leave.remarks = `Pay deducted for ${leave.duration} days.`;
     }
 
     const substituteData = await getSubstitute({

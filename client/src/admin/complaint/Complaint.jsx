@@ -40,7 +40,7 @@ function Complaint() {
       dispatch(
         respondToComplaintRequest({
           complaintID: selectedComplaint,
-          status: "Resolved",
+          status: "resolved",
           remarks: "Approved",
         })
       );
@@ -53,7 +53,7 @@ function Complaint() {
       dispatch(
         respondToComplaintRequest({
           complaintID: selectedComplaint,
-          status: "Closed",
+          status: "closed",
           remarks,
         })
       );
@@ -62,7 +62,7 @@ function Complaint() {
   };
 
   useEffect(() => {
-    dispatch(getComplaints({ status, currentPage }));
+    dispatch(getComplaints({ status: status.toLowerCase(), currentPage }));
   }, [status, currentPage]);
 
   return (
