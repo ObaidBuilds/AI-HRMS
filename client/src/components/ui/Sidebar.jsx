@@ -134,10 +134,7 @@ const Sidebar = () => {
             <i className="fas fa-sign-out-alt mr-3 text-sm text-gray-300"></i>
             <p>Logout</p>
           </button>
-
-         
-        </ul>
-        <div className="w-full absolute sm:bottom-4 left-2 pt-2 hidden sm:block">
+          <div className="w-full absolute sm:bottom-4 left-2 pt-2 hidden sm:block">
             <div className="flex items-center gap-4">
               <div className="w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer">
                 <img
@@ -152,6 +149,7 @@ const Sidebar = () => {
               </div>
             </div>
           </div>
+        </ul>
       </aside>
     </div>
   );
