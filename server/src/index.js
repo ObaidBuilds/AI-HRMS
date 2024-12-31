@@ -5,7 +5,7 @@ import cors from "cors";
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import connectDB from "./config/index.js";
+import { connectDB } from "./config/index.js";
 import roleRoutes from "./routes/role.js";
 import authRoutes from "./routes/auth.js";
 import leaveRoutes from "./routes/leave.js";
@@ -15,12 +15,19 @@ import feedbackRoutes from "./routes/feedback.js";
 import attendanceRoutes from "./routes/attendance.js";
 import departmentRoutes from "./routes/department.js";
 import complaintRoutes from "./routes/complaint.js";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
 const app = express();
 
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+app.use("/uploads", express.static(__dirname + "/uploads"));
 
 const allowedOrigins = [
   "http://localhost:8000",
@@ -58,7 +65,7 @@ app.get("/", (req, res) => {
   res.send("HRMS For Metro");
 });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 connectDB()
   .then(() => {

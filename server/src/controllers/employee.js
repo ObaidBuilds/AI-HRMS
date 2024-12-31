@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import mongoose from "mongoose";
 import Employee from "../models/employee.js";
 import { catchErrors } from "../utils/index.js";
@@ -216,12 +219,13 @@ const updateEmployee = catchErrors(async (req, res) => {
 });
 
 const updateProfilePicture = catchErrors(async (req, res) => {
-  const { profilePicture } = req.body;
   const id = req.user;
 
-  if (!profilePicture) throw new Error("Please provide profile pic");
+  if (!req.file) throw new Error("Please provide profile pic");
 
   const employee = await Employee.findById(id);
+
+  const profilePicture = `${process.env.SERVER_URL}/${req.file.filename}`;
 
   employee.profilePicture = profilePicture;
   await employee.save();

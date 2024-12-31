@@ -1,6 +1,8 @@
 import axiosInstance from "../axios/axiosInstance";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
+import { useGetToken } from "../utils";
+import axios from "axios";
 
 // Fetch all employees
 export const getAllEmployees = createAsyncThunk(
@@ -94,12 +96,22 @@ export const deleteEmployee = createAsyncThunk(
 );
 
 // Update Profile
-export const updateProfile = async (setProfileLoading, imagePreview) => {
+export const updateProfile = async (setProfileLoading, formData) => {
   try {
+
+    const token = useGetToken();
     setProfileLoading(true);
-    const { data } = await axiosInstance.patch(`/employees/profile`, {
-      profilePicture: imagePreview,
-    });
+
+    const { data } = await axios.patch(
+      `${import.meta.env.VITE_URL}/employees/profile`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     toast.success(data.message);
     return data.updatedProfilePicture;
   } catch (error) {

@@ -12,6 +12,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const { loading, user } = useSelector((state) => state.authentication);
+  const [file, setFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(user.profilePicture);
   const [showSidebar, setShowSidebar] = useState(false);
   const [profileLoading, setProfileLoading] = useState(false);
@@ -27,17 +28,17 @@ const Navbar = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImagePreview(reader.result);
-        setShowButton(true);
-      };
-      reader.readAsDataURL(file);
+      setFile(file);
+      setImagePreview(URL.createObjectURL(file));
+      setShowButton(true);
     }
   };
 
   const handleClick = async () => {
-    await updateProfile(setProfileLoading, imagePreview);
+    const formData = new FormData();
+    formData.append("profilePicture", file);
+
+    await updateProfile(setProfileLoading, formData);
     setShowButton(false);
     setToggleModal(false);
   };
