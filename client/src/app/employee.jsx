@@ -1,19 +1,19 @@
-import React, { Suspense, useEffect } from "react";
+import React, { lazy, Suspense } from "react";
 import Footer from "../components/ui/Footer";
 import Loader from "../components/shared/loaders/Loader";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "../components/shared/error/NotFound";
 import Navbar from "../components/ui/Navbar";
-import Leave from "../pages/leave/Leave";
-import Attendance from "../pages/attendance/Attendance";
-import Security from "../pages/security/Security";
 // import Profile from "../pages/profile/Profile";
-import Update from "../pages/updates/Update";
 
 // Lazy loading the components
-const Home = React.lazy(() => import("../pages/home/Home"));
-const Complaint = React.lazy(() => import("../pages/complaint/Complaint"));
-const Feedback = React.lazy(() => import("../pages/feedback/Feedback"));
+const Home = lazy(() => import("../pages/home/Home"));
+const Complaint = lazy(() => import("../pages/complaint/Complaint"));
+const Feedback = lazy(() => import("../pages/feedback/Feedback"));
+const Leave = lazy(() => import("../pages/leave/Leave"));
+const Attendance = lazy(() => import("../pages/attendance/Attendance"));
+const Security = lazy(() => import("../pages/security/Security"));
+const Update = lazy(() => import("../pages/updates/Update"));
 
 const EmployeeApp = () => {
   return (

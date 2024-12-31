@@ -25,6 +25,27 @@ const sidebarLinks = [
     link: "/mark-attendance",
   },
   {
+    name: "Recruitment Management",
+    iconClass: "fas fa-users-cog",
+    link: "/",
+    childrens: [
+      {
+        name: "View Applications",
+        link: "/",
+      },
+      {
+        name: "Post Applications",
+        link: "/",
+      },
+    ],
+  },
+  {
+    name: "Payroll Management",
+    iconClass: "fas fa-money-bill-wave",
+    link: "/",
+    childrens: [],
+  },
+  {
     name: "Leave Management",
     iconClass: "fas fa-calendar-alt",
     childrens: [
@@ -90,6 +111,5 @@ const navbarLinks = [
     link: "/security",
   },
 ];
-
 
 export { sidebarLinks, navbarLinks };
