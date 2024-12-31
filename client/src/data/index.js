@@ -27,7 +27,6 @@ const sidebarLinks = [
   {
     name: "Recruitment Management",
     iconClass: "fas fa-users-cog",
-    link: "/",
     childrens: [
       {
         name: "View Applications",

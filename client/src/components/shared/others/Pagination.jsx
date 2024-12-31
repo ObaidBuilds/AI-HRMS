@@ -14,7 +14,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
   };
 
   return (
-    <div className="flex justify-end items-center mt-4 text-[0.82rem] text-gray-200 py-2 pr-3">
+    <div className="flex justify-end items-center mt-4 text-[0.82rem] font-medium text-gray-200 py-2 pr-3">
       <div className="flex items-center space-x-2">
         <span>
           Page {currentPage} of {totalPages}

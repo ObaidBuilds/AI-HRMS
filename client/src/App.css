@@ -7,9 +7,7 @@
   font-family: "Poppins";
 }
 
-aside {
-  font-size: 0.8rem;
-}
+
 
 body {
   overflow-x: hidden;
@@ -33,7 +31,6 @@ body::-webkit-scrollbar,
   transition: background-color 5000s ease-in-out 0s;
   font-family: "Poppins";
 }
-
 
 .no-scroll {
   overflow: hidden;

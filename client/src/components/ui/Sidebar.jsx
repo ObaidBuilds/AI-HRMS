@@ -32,7 +32,7 @@ const Sidebar = () => {
   }, [showSidebar]);
 
   return (
-    <div>
+    <div className="text-white">
       {/* Navigation Bar */}
       <nav className="w-full fixed top-0 left-0 lg:hidden h-[70px] bg-navy flex justify-between items-center px-7 z-50">
         <img
@@ -54,7 +54,7 @@ const Sidebar = () => {
       {/* Sidebar */}
       <aside
         id="overflow"
-        className={`fixed top-0 h-screen bg-navy transition-all duration-300 ease-in-out z-50 overflow-y-auto ${
+        className={`fixed top-0 h-screen bg-navy transition-all duration-300 ease-in-out z-50 overflow-y-auto text-[0.82rem] ${
           showSidebar ? "left-0" : "-left-full"
         } lg:left-0 w-full lg:w-[255px]`}
       >
@@ -83,7 +83,7 @@ const Sidebar = () => {
             <li
               key={index}
               onClick={() => toggleSubMenu(index)}
-              className="cursor-pointer border-b border-gray-700 py-[6px]"
+              className="cursor-pointer border-b border-gray-700 py-[5px]"
             >
               {/* Main Link */}
               <div className="flex justify-between items-center">
@@ -118,9 +118,11 @@ const Sidebar = () => {
                       <li
                         key={subIndex}
                         onClick={() => setShowSidebar(false)}
-                        className="hover:text-gray-300 cursor-pointer flex items-center py-[5px]"
+                        className="hover:text-gray-300 cursor-pointer flex items-center py-[3px]" // Reduced padding
                       >
-                        <Link to={subLink.link}>{subLink.name}</Link>
+                        <Link to={subLink.link} className="text-[0.82rem]">
+                          {subLink.name}
+                        </Link>{" "}
                       </li>
                     ))}
                   </ul>
@@ -129,27 +131,27 @@ const Sidebar = () => {
           ))}
           <button
             onClick={handleLogout}
-            className="flex items-center border-b py-[6px] border-[#4d4d4d] hover:text-gray-300"
+            className="flex items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
           >
             <i className="fas fa-sign-out-alt mr-3 text-sm text-gray-300"></i>
-            <p>Logout</p>
+            <p className=" text-[0.82rem]">Logout</p>
           </button>
         </ul>
         <div className="w-full pl-2 py-2 hidden sm:block">
-            <div className="flex items-center gap-4">
-              <div className="w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer">
-                <img
-                  className="w-full"
-                  src={user.profilePicture || "https://via.placeholder.com/40"}
-                  alt="obaid"
-                />
-              </div>
-              <div>
-                <p className="text-sm">{user?.name}</p>
-                <p className="text-xs">{user?.email}</p>
-              </div>
+          <div className="flex items-center gap-4">
+            <div className="w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer">
+              <img
+                className="w-full"
+                src={user.profilePicture || "https://via.placeholder.com/40"}
+                alt="obaid"
+              />
+            </div>
+            <div>
+              <p className="text-sm">{user?.name}</p>
+              <p className="text-xs">{user?.email}</p>
             </div>
           </div>
+        </div>
       </aside>
     </div>
   );
