@@ -1,4 +1,4 @@
-import fs from "fs";
+// import fs from "fs";
 import path from "path";
 import multer from "multer";
 import mongoose from "mongoose";
@@ -20,9 +20,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const uploads = join(__dirname, "..", "uploads");
 
-if (!fs.existsSync(uploads)) {
-  fs.mkdirSync(uploads, { recursive: true });
-}
+// if (!fs.existsSync(uploads)) {
+//   fs.mkdirSync(uploads, { recursive: true });
+// }
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {

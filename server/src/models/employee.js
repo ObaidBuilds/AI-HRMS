@@ -28,6 +28,9 @@ const employeeSchema = new mongoose.Schema(
       type: String,
       default: "https://via.placeholder.com/45",
     },
+    qrCode: {
+      type: String,
+    },
     phoneNumber: {
       type: String,
       required: true,
