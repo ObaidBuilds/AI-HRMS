@@ -108,57 +108,65 @@ const getEmployeeAttendance = catchErrors(async (req, res) => {
 
 const getDepartmentAttendancePercentage = async () => {
   try {
-    const departments = await Department.find();
-    if (departments.length === 0) {
-      throw new Error("No departments found.");
-    }
-
-    const departmentAttendance = [];
-
-    for (const department of departments) {
-      const departmentId = department._id;
-
-      const employees = await Employee.find({ department: departmentId });
-
-      if (employees.length === 0) {
-        departmentAttendance.push({
-          department: department.name,
-          totalEmployees: 0,
-          presentCount: 0,
-          attendancePercentage: "N/A",
-        });
-        continue;
-      }
-
-      const attendanceRecords = await Attendance.aggregate([
-        {
-          $match: {
-            employee: { $in: employees.map((e) => e._id) },
-            status: "Present",
+    const departmentAttendance = await Attendance.aggregate([
+      {
+        $lookup: {
+          from: "employees",
+          localField: "employee",
+          foreignField: "_id",
+          as: "employeeDetails",
+        },
+      },
+      {
+        $unwind: {
+          path: "$employeeDetails",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "departments",
+          localField: "employeeDetails.department",
+          foreignField: "_id",
+          as: "departmentDetails",
+        },
+      },
+      {
+        $unwind: {
+          path: "$departmentDetails",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $group: {
+          _id: "$departmentDetails.name",
+          totalPresent: {
+            $sum: {
+              $cond: [{ $eq: ["$status", "Present"] }, 1, 0],
+            },
+          },
+          totalRecords: { $sum: 1 },
+        },
+      },
+      {
+        $addFields: {
+          attendancePercentage: {
+            $multiply: [{ $divide: ["$totalPresent", "$totalRecords"] }, 100],
           },
         },
-        {
-          $group: {
-            _id: "$employee",
-            count: { $sum: 1 },
-          },
+      },
+      {
+        $project: {
+          _id: 1,
+          attendancePercentage: 1,
         },
-      ]);
-
-      const presentCount = attendanceRecords.length;
-      const totalEmployees = employees.length;
-      const attendancePercentage = (
-        (presentCount / totalEmployees) *
-        100
-      ).toFixed(2);
-
-      departmentAttendance.push({
-        department: department.name,
-        totalEmployees,
-        presentCount,
-        attendancePercentage: `${attendancePercentage}%`,
-      });
-    }
+      },
+      {
+        $sort: {
+          attendancePercentage: -1,
+        },
+      },
+    ]);
 
     return departmentAttendance;
   } catch (error) {
