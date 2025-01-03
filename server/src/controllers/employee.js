@@ -225,7 +225,7 @@ const updateProfilePicture = catchErrors(async (req, res) => {
 
   const employee = await Employee.findById(id);
 
-  const profilePicture = `${process.env.SERVER_URL}/${req.file.filename}`;
+  const profilePicture = `${process.env.SERVER_URL}/uploads/${req.file.filename}`;
 
   employee.profilePicture = profilePicture;
   await employee.save();

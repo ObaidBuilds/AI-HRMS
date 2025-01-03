@@ -18,17 +18,22 @@ import complaintRoutes from "./routes/complaint.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 
+/* ___________Intance____________ */
 const app = express();
 
+/* _____________Middlewares_____________ */
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+/* _______________Static Serving________________ */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 app.use("/uploads", express.static(__dirname + "/uploads"));
+app.use("/qrcodes", express.static(__dirname + "/qrcodes"));
 
+/*_______________CORS Configuration__________ */
 const allowedOrigins = [
   "http://localhost:8000",
   "http://192.168.10.10:8000",
@@ -51,6 +56,7 @@ app.use(
   })
 );
 
+/* ______________API Routes______________ */
 app.use("/api/roles", roleRoutes);
 app.use("/api/employees", employeeRoutes);
 app.use("/api/departments", departmentRoutes);
@@ -65,8 +71,8 @@ app.get("/", (req, res) => {
   res.send("HRMS For Metro");
 });
 
+/* _____________Express Server________________ */
 const port = process.env.PORT || 4000;
-
 connectDB()
   .then(() => {
     app.listen(port, () => {
@@ -77,6 +83,7 @@ connectDB()
     console.error(err.message);
   });
 
+/* ______________Error Middleware_______________ */
 app.use((err, req, res, next) => {
   const message = err || "Internal server error";
   res.status(500).json({

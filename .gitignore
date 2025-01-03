@@ -6,11 +6,13 @@ server/node_modules
 # Ignore all .env files
 server/.env
 client/.env
-server/src/uploads
 
 # Ignore client-specific files
 client/format.json
 
+# Ignore server-specific files
+server/src/uploads
+server/src/qrcodes
 
 # Logs
 client/*.log

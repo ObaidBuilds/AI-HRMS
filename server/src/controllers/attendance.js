@@ -1,8 +1,10 @@
 import Attendance from "../models/attendance.js";
-import Department from "../models/department.js";
+import Employee from "../models/employee.js";
+import { generateQrCode } from "./utils/index.js";
 import Employee from "../models/employee.js";
 import { catchErrors } from "../utils/index.js";
 import { myCache } from "../utils/index.js";
+import geolib from "geolib";
 
 const getAttendanceList = catchErrors(async (req, res) => {
   const { department } = req.query;
@@ -62,6 +64,61 @@ const markAttendance = catchErrors(async (req, res) => {
     success: true,
     message: "Attendance marked successfully",
     addedRecords: newAttendance.length,
+  });
+});
+
+const workplaceLocation = {
+  latitude: process.env.LATITUDE,
+  longitude: process.env.LONGITUDE,
+};
+
+const markAttendanceByQrCode = catchErrors(async (req, res) => {
+  const { id } = req.user;
+  const { latitude, longitude } = req.body;
+  const today = new Date().toISOString().split("T")[0];
+
+  const employee = await Employee.findById(id);
+
+  if (!employee) throw new Error("Employee not found");
+
+  const distance = geolib.getDistance(workplaceLocation, {
+    latitude,
+    longitude,
+  });
+
+  if (distance <= 100) {
+    await Attendance.create({
+      employee: id,
+      status: "Present",
+      date: today,
+    });
+  } else {
+    throw new Error(
+      "You are not within the allowed location radius to mark attendance."
+    );
+  }
+
+  return res.status(201).json({
+    success: true,
+    message: "Attendance marked successfully",
+  });
+});
+
+const genrateQrCodeForAttendance = catchErrors(async (req, res) => {
+  const { id } = req.user;
+
+  const today = new Date().toISOString().split("T")[0];
+
+  const isPresent = await Attendance.find({ _id: id, date: today });
+
+  if (isPresent) throw new Error("Attendance already marked");
+
+  const qrcode = generateQrCode(id);
+
+  return res.status(201).json({
+    success: true,
+    message: "Qrcode genearated successfully",
+    qrcode,
   });
 });
 
@@ -223,6 +280,8 @@ export {
   getAttendanceList,
   markAttendance,
   getEmployeeAttendance,
+  markAttendanceByQrCode,
   getDepartmentAttendancePercentage,
   getMonthlyAttendancePercentage,
+  genrateQrCodeForAttendance,
 };
