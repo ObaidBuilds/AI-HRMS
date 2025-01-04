@@ -1,10 +1,9 @@
+import geolib from "geolib";
 import Attendance from "../models/attendance.js";
 import Employee from "../models/employee.js";
-import { generateQrCode } from "./utils/index.js";
-import Employee from "../models/employee.js";
+import { generateQrCode } from "../utils/index.js"
 import { catchErrors } from "../utils/index.js";
 import { myCache } from "../utils/index.js";
-import geolib from "geolib";
 
 const getAttendanceList = catchErrors(async (req, res) => {
   const { department } = req.query;
