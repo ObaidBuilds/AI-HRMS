@@ -8,10 +8,10 @@ import { dirname, join } from "path";
 const myCache = new NodeCache();
 
 // ________________QR Code Generation______________
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const qrCodesDir = join(__dirname, "..", "qrcodes");
 function generateQrCode(employeeId) {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = dirname(__filename);
-  const qrCodesDir = join(__dirname, "..", "qrcodes");
 
   const qrData = JSON.stringify({
     employeeId,

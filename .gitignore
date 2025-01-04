@@ -11,8 +11,8 @@ client/.env
 client/format.json
 
 # Ignore server-specific files
-server/src/uploads
-server/src/qrcodes
+# server/src/uploads
+# server/src/qrcodes
 
 # Logs
 client/*.log
