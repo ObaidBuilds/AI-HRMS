@@ -104,7 +104,7 @@ const markAttendanceByQrCode = catchErrors(async (req, res) => {
 });
 
 const genrateQrCodeForAttendance = catchErrors(async (req, res) => {
-  const { id } = req.user;
+  const  id  = req.user;
 
   const today = new Date().toISOString().split("T")[0];
 

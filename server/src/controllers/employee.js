@@ -3,9 +3,10 @@ dotenv.config();
 
 import mongoose from "mongoose";
 import Employee from "../models/employee.js";
-import { catchErrors } from "../utils/index.js";
+import { catchErrors, getPublicIdFromUrl } from "../utils/index.js";
 import bcrypt from "bcrypt";
 import { myCache } from "../utils/index.js";
+import cloudinary from "cloudinary";
 
 const createEmployee = catchErrors(async (req, res) => {
   const {
@@ -225,15 +226,20 @@ const updateProfilePicture = catchErrors(async (req, res) => {
 
   const employee = await Employee.findById(id);
 
-  const profilePicture = `${process.env.SERVER_URL}/uploads/${req.file.filename}`;
+  if (employee.profilePicture) {
+    const publicId = getPublicIdFromUrl(employee.profilePicture);
 
-  employee.profilePicture = profilePicture;
+    if (publicId) await cloudinary.v2.uploader.destroy(publicId);
+    else throw new Error("Invalid Cloudinary id");
+  }
+
+  employee.profilePicture = req.file.path;
   await employee.save();
 
   return res.status(200).json({
     success: true,
     message: "Profile picture updated",
-    updateProfilePicture: profilePicture,
+    updatedProfilePicture: profilePicture,
   });
 });
 

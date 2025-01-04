@@ -2,8 +2,8 @@
 import path from "path";
 import multer from "multer";
 import mongoose from "mongoose";
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
+import cloudinary from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 
 //  ___________________Mongoose Configuration_________________________
 const connectDB = async () => {
@@ -18,21 +18,14 @@ const connectDB = async () => {
 };
 
 // ___________________Multer Configuration_________________________
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const uploads = join(__dirname, "..", "uploads");
-
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, uploads);
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary.v2,
+  params: {
+    folder: "uploads",
+    allowed_formats: ["jpg", "png", "jpeg", "svg"],
   },
 });
 
-const upload = multer({ storage: storage });
-
+const upload = multer({ storage });
 
 export { connectDB, upload };

@@ -5,6 +5,7 @@ import cors from "cors";
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import cloudinary from "cloudinary";
 import { connectDB } from "./config/index.js";
 import roleRoutes from "./routes/role.js";
 import authRoutes from "./routes/auth.js";
@@ -27,13 +28,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /* _______________Static Serving________________ */
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-app.use("/uploads", express.static(__dirname + "/uploads"));
 app.use("/qrcodes", express.static(__dirname + "/qrcodes"));
 
 /*_______________CORS Configuration__________ */
+
 const allowedOrigins = [
   "http://localhost:8000",
   "http://192.168.10.10:8000",
@@ -56,7 +58,16 @@ app.use(
   })
 );
 
+/* ______________cloudinary Config______________ */
+
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 /* ______________API Routes______________ */
+
 app.use("/api/roles", roleRoutes);
 app.use("/api/employees", employeeRoutes);
 app.use("/api/departments", departmentRoutes);
@@ -72,6 +83,7 @@ app.get("/", (req, res) => {
 });
 
 /* _____________Express Server________________ */
+
 const port = process.env.PORT || 4000;
 connectDB()
   .then(() => {
@@ -84,6 +96,7 @@ connectDB()
   });
 
 /* ______________Error Middleware_______________ */
+
 app.use((err, req, res, next) => {
   const message = err || "Internal server error";
   res.status(500).json({
