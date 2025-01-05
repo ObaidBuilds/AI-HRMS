@@ -1,16 +1,16 @@
-import AdminApp from "./app/admin";
-import "typeface-poppins";
 import "animate.css";
+import "typeface-poppins";
 import Login from "./auth/Login";
-import { Toaster } from "react-hot-toast";
-import { Route, Routes } from "react-router-dom";
-import Loader from "./components/shared/loaders/Loader";
+import AdminApp from "./app/admin";
+import useGetToken from "./hooks";
 import React, { Suspense } from "react";
-import NotFound from "./components/shared/error/NotFound";
-import { useSelector } from "react-redux";
-import { useGetToken } from "./utils";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 import EmployeeApp from "./app/employee";
+import { Toaster } from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { Route, Routes } from "react-router-dom";
+import NotFound from "./components/shared/error/NotFound";
+import Loader from "./components/shared/loaders/Loader";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function HrmsForMetroCashAndCarry() {
   const { user } = useSelector((state) => state.authentication);
