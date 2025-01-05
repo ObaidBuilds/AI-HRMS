@@ -65,11 +65,12 @@ const sendMail = async (option) => {
 
 // ________ Cloudinary Public Url_____________
 
-function getPublicIdFromUrl(url) {
-  const regex = /\/(?:v\d+\/)?(uploads\/[^/]+)/;
+function getPublicIdFromUrl(url){
+  const regex = /\/(?:v\d+\/)?([^/]+)\.\w+$/;
   const match = url.match(regex);
-
+  
   return match ? match[1] : null;
 }
+
 
 export { catchErrors, myCache, sendMail, generateQrCode, getPublicIdFromUrl };
