@@ -31,7 +31,7 @@ const MarkAttendance = () => {
             className="text-sm py-3 px-7 bg-green-600 rounded-3xl font-bold hover:bg-green-700 text-gray-300"
           >
             <i className="fas fa-qrcode mr-2"></i>
-            Generate QR code & mark attendance for {formatDate(new Date())}
+            Generate QR code for {formatDate(new Date())}
           </button>
         )}
       </main>
