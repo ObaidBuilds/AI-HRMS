@@ -13,7 +13,7 @@
     "@google/generative-ai": "^0.21.0",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
-    "cloudinary": "^2.5.1",
+    "cloudinary": "^1.41.3",
     "cookie-parser": "^1.4.7",
     "cors": "2.8.5",
     "dotenv": "16.4.5",
