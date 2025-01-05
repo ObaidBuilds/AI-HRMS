@@ -228,9 +228,12 @@ const updateProfilePicture = catchErrors(async (req, res) => {
 
   if (employee.profilePicture) {
     const publicId = getPublicIdFromUrl(employee.profilePicture);
+
     if (publicId) {
       const res = await cloudinary.v2.uploader.destroy(`uploads/${publicId}`);
+
       if (res.result !== "ok") throw new Error("Id" + res.result);
+      
     } else throw new Error("Invalid Cloudinary id");
   }
 

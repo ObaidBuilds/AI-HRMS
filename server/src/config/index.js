@@ -1,11 +1,10 @@
-// import fs from "fs";
-import path from "path";
 import multer from "multer";
 import mongoose from "mongoose";
 import cloudinary from "cloudinary";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 
 //  ___________________Mongoose Configuration_________________________
+
 const connectDB = async () => {
   try {
     const connection = await mongoose.connect(process.env.MONGO_URI);
@@ -18,6 +17,7 @@ const connectDB = async () => {
 };
 
 // ___________________Multer Configuration_________________________
+
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary.v2,
   params: {

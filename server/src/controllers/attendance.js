@@ -1,9 +1,16 @@
+import cron from "node-cron";
 import geolib from "geolib";
 import Attendance from "../models/attendance.js";
 import Employee from "../models/employee.js";
-import { generateQrCode } from "../utils/index.js"
+import { generateQrCode } from "../utils/index.js";
 import { catchErrors } from "../utils/index.js";
 import { myCache } from "../utils/index.js";
+
+const today = new Date().toISOString().split("T")[0];
+cron.schedule("0 23 * * *", async () => {
+  // This will run every day at 11:00 PM
+  await markAbsentAtEndOfDay();
+});
 
 const getAttendanceList = catchErrors(async (req, res) => {
   const { department } = req.query;
@@ -73,8 +80,7 @@ const workplaceLocation = {
 
 const markAttendanceByQrCode = catchErrors(async (req, res) => {
   const { id } = req.user;
-  const { latitude, longitude } = req.body;
-  const today = new Date().toISOString().split("T")[0];
+  const { latitude, longitude, qrcode } = req.body;
 
   const employee = await Employee.findById(id);
 
@@ -97,6 +103,16 @@ const markAttendanceByQrCode = catchErrors(async (req, res) => {
     );
   }
 
+  if (qrcode) {
+    const publicId = getPublicIdFromUrl(qrcode);
+
+    if (publicId) {
+      const res = await cloudinary.v2.uploader.destroy(`qrcodes/${publicId}`);
+
+      if (res.result !== "ok") throw new Error("Id" + res.result);
+    } else throw new Error("Invalid Cloudinary id");
+  }
+
   return res.status(201).json({
     success: true,
     message: "Attendance marked successfully",
@@ -104,15 +120,13 @@ const markAttendanceByQrCode = catchErrors(async (req, res) => {
 });
 
 const genrateQrCodeForAttendance = catchErrors(async (req, res) => {
-  const  id  = req.user;
+  const id = req.user;
 
-  const today = new Date().toISOString().split("T")[0];
-
-  const isPresent = await Attendance.find({ _id: id, date: today });
+  const isPresent = await Attendance.findOne({ _id: id, date: today });
 
   if (isPresent) throw new Error("Attendance already marked");
 
-  const qrcode = generateQrCode(id);
+  const qrcode = await generateQrCode(id);
 
   return res.status(201).json({
     success: true,
@@ -120,6 +134,27 @@ const genrateQrCodeForAttendance = catchErrors(async (req, res) => {
     qrcode,
   });
 });
+
+const markAbsentAtEndOfDay = async () => {
+  const employees = await Employee.find();
+
+  for (const employee of employees) {
+    const attendance = await Attendance.findOne({
+      employee: employee._id,
+      date: today,
+    });
+
+    if (!attendance) {
+      await Attendance.create({
+        employee: employee._id,
+        status: "Absent",
+        date: today,
+      });
+    }
+  }
+
+  console.log("Absent employees have been marked for today.");
+};
 
 const getEmployeeAttendance = catchErrors(async (req, res) => {
   const employeeID = req.user;

@@ -1,32 +1,54 @@
 import QRCode from "qrcode";
 import NodeCache from "node-cache";
 import nodemailer from "nodemailer";
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
+import cloudinary from "cloudinary";
+import streamifier from "streamifier";
 
 // __________Node Cache_______________
+
 const myCache = new NodeCache();
 
 // ________________QR Code Generation______________
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const qrCodesDir = join(__dirname, "..", "qrcodes");
+const uploadToCloudinary = (buffer) => {
+  return new Promise((resolve, reject) => {
+    const uploadStream = cloudinary.v2.uploader.upload_stream(
+      {
+        folder: "qrcodes",
+        resource_type: "image",
+      },
+      (error, result) => {
+        if (error) {
+          return reject(
+            new Error(`Cloudinary upload failed: ${error.message}`)
+          );
+        }
+        resolve(result);
+      }
+    );
+    streamifier.createReadStream(buffer).pipe(uploadStream);
+  });
+};
 
-function generateQrCode(employeeId) {
-  if (!employeeId) console.error("Id not provided for qrcode generation");
+async function generateQrCode(employeeId) {
+  if (!employeeId) {
+    console.error("Id not provided for QR code generation");
+    return;
+  }
 
   const qrData = JSON.stringify({
     employeeId,
   });
 
-  QRCode.toFile(`${qrCodesDir}/${employeeId}.png`, qrData, (err) => {
-    if (err) {
-      console.error("Error generating QR code:", err);
-    }
-  });
+  try {
+    const qrCodeBuffer = await QRCode.toBuffer(qrData);
 
-  return `${process.env.SERVER_URL}/qrcodes/${employeeId}.png`;
+    const uploadResult = await uploadToCloudinary(qrCodeBuffer);
+
+    return uploadResult.secure_url;
+  } catch (err) {
+    console.error("Error generating or uploading QR code:", err);
+  }
 }
 
 // _________Catch Asyn Errors Utility______________
@@ -65,12 +87,11 @@ const sendMail = async (option) => {
 
 // ________ Cloudinary Public Url_____________
 
-function getPublicIdFromUrl(url){
+function getPublicIdFromUrl(url) {
   const regex = /\/(?:v\d+\/)?([^/]+)\.\w+$/;
   const match = url.match(regex);
-  
+
   return match ? match[1] : null;
 }
-
 
 export { catchErrors, myCache, sendMail, generateQrCode, getPublicIdFromUrl };
