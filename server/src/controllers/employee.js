@@ -239,7 +239,7 @@ const updateProfilePicture = catchErrors(async (req, res) => {
   return res.status(200).json({
     success: true,
     message: "Profile picture updated",
-    updatedProfilePicture: profilePicture,
+    updatedProfilePicture: employee.profilePicture,
   });
 });
 

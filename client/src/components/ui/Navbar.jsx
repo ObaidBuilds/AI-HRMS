@@ -38,7 +38,13 @@ const Navbar = () => {
     const formData = new FormData();
     formData.append("profilePicture", file);
 
-    await updateProfile(setProfileLoading, formData);
+    const updatedProfilePicture = await updateProfile(
+      setProfileLoading,
+      formData
+    );
+    if (updatedProfilePicture) {
+      setImagePreview(updatedProfilePicture);
+    }
     setShowButton(false);
     setToggleModal(false);
   };
