@@ -4,7 +4,6 @@ import Loader from "../components/shared/loaders/Loader";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "../components/shared/error/NotFound";
 import Navbar from "../components/ui/Navbar";
-// import Profile from "../pages/profile/Profile";
 
 // Lazy loading the components
 const Home = lazy(() => import("../pages/home/Home"));
@@ -14,6 +13,7 @@ const Leave = lazy(() => import("../pages/leave/Leave"));
 const Attendance = lazy(() => import("../pages/attendance/Attendance"));
 const Security = lazy(() => import("../pages/security/Security"));
 const Update = lazy(() => import("../pages/updates/Update"));
+const MarkAttendance = lazy(() => import("../pages/attendance/MarkAttendance"));
 
 const EmployeeApp = () => {
   return (
@@ -28,8 +28,7 @@ const EmployeeApp = () => {
             <Route path="/leave" element={<Leave />} />
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/attendance" element={<Attendance />} />
-            {/* 
-          <Route path="/profile" element={<Profile />} /> */}
+            <Route path="/mark-attendance" element={<MarkAttendance />} />
             <Route path="/security" element={<Security />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

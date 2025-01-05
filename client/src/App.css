@@ -7,8 +7,6 @@
   font-family: "Poppins";
 }
 
-
-
 body {
   overflow-x: hidden;
 }
@@ -203,5 +201,51 @@ td {
   }
   100% {
     transform: rotate(0deg);
+  }
+}
+
+.scan-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.scan-line {
+  width: 230px;
+  height: 5px;
+  border-radius: 100%;
+  background-color: rgba(0, 255, 0, 0.7);
+  position: absolute;
+  animation: scanAnimation 3s ease-in-out infinite,
+    glowEffect 1.5s ease-out infinite;
+}
+
+@keyframes scanAnimation {
+  0% {
+    top: 35%;
+  }
+  50% {
+    top: 50%;
+  }
+  100% {
+    top: 70%;
+  }
+}
+
+@keyframes glowEffect {
+  0% {
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(0, 255, 0, 0.9);
+  }
+  100% {
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.8);
   }
 }

@@ -85,6 +85,11 @@ const navbarLinks = [
     link: "/",
   },
   {
+    name: "Mark Attendance",
+    iconClass: "fa fa-calendar-check",
+    link: "/mark-attendance",
+  },
+  {
     name: "Attendance Tracking",
     iconClass: "fa fa-calendar-check",
     link: "/attendance",

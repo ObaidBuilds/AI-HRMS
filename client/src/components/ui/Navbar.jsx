@@ -6,6 +6,7 @@ import ResponsiveNavbar from "./ResponsiveNavbar";
 import { logout } from "../../services/auth";
 import { updateProfile } from "../../services/employee";
 import ProfileModal from "../shared/modals/ProfileModal";
+import { formatDate } from "../../utils";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -95,6 +96,11 @@ const Navbar = () => {
           <Link to={"/"}>
             <li className="text-[0.9rem] flex-col md:flex-row flex items-center md:gap-2">
               Home
+            </li>
+          </Link>
+          <Link to={"/mark-attendance"}>
+            <li className="text-[0.9rem] flex-col md:flex-row flex items-center md:gap-2">
+              Mark Attendance <br />
             </li>
           </Link>
           <Link to={"/security"}>
