@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useGetToken } from "../utils";
+import useGetToken from "../hooks";
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_URL || "http://localhost:3000",

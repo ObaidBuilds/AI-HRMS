@@ -1,7 +1,7 @@
 import axiosInstance from "../axios/axiosInstance";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
-import { useGetToken } from "../utils";
+import useGetToken from "../hooks";
 import axios from "axios";
 
 // Fetch all employees
@@ -98,7 +98,6 @@ export const deleteEmployee = createAsyncThunk(
 // Update Profile
 export const updateProfile = async (setProfileLoading, formData) => {
   try {
-
     const token = useGetToken();
     setProfileLoading(true);
 
