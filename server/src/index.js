@@ -20,9 +20,11 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 
 /* ___________Intance____________ */
+
 const app = express();
 
 /* _____________Middlewares_____________ */
+
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -58,7 +60,7 @@ app.use(
   })
 );
 
-/* ______________cloudinary Config______________ */
+/* ______________Cloudinary config______________ */
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
