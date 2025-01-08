@@ -36,9 +36,7 @@ function EmployeeRouter() {
         console.error("Error during logout:", error);
       }
     };
-
     window.addEventListener("beforeunload", handleBeforeUnload);
-
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
@@ -62,13 +60,12 @@ function AdminRouter() {
         console.error("Error during logout:", error);
       }
     };
-
     window.addEventListener("beforeunload", handleBeforeUnload);
-
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, [dispatch]);
+
   return (
     <Routes>
       <Route path="/*" element={<AdminApp />} />
