@@ -2,13 +2,14 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import QRCode from "qrcode";
+import jsQR from "jsqr";
 import geolib from "geolib";
+import { Jimp } from "jimp";
+import axios from "axios";
 import NodeCache from "node-cache";
 import nodemailer from "nodemailer";
 import cloudinary from "cloudinary";
 import streamifier from "streamifier";
-
-// __________Node Cache_______________
 
 const myCache = new NodeCache();
 
@@ -17,7 +18,6 @@ const workplaceLocation = {
   longitude: process.env.LONGITUDE,
 };
 
-
 function getLocation(latitude, longitude) {
   const distance = geolib.getDistance(workplaceLocation, {
     latitude,
@@ -25,8 +25,6 @@ function getLocation(latitude, longitude) {
   });
   return distance;
 }
-
-// ________________QR Code Generation______________
 
 const uploadToCloudinary = (buffer) => {
   return new Promise((resolve, reject) => {
@@ -69,8 +67,6 @@ async function generateQrCode(employeeId) {
   }
 }
 
-// _________Catch Asyn Errors Utility______________
-
 const catchErrors = (fn) => {
   return (req, res, next) => {
     fn(req, res, next).catch((err) => {
@@ -78,8 +74,6 @@ const catchErrors = (fn) => {
     });
   };
 };
-
-// _____________Nodemailer__________________
 
 const sendMail = async (option) => {
   let transporter = nodemailer.createTransport({
@@ -103,14 +97,38 @@ const sendMail = async (option) => {
   return info;
 };
 
-// ________ Cloudinary Public Url_____________
-
 function getPublicIdFromUrl(url) {
   const regex = /\/(?:v\d+\/)?([^/]+)\.\w+$/;
   const match = url.match(regex);
 
   return match ? match[1] : null;
 }
+
+const decodeQR = async (URL) => {
+  try {
+    const response = await axios({
+      url: URL,
+      responseType: "arraybuffer",
+    });
+
+    const image = await Jimp.read(Buffer.from(response.data));
+
+    const imageData = {
+      data: new Uint8ClampedArray(image.bitmap.data),
+      width: image.bitmap.width,
+      height: image.bitmap.height,
+    };
+
+    const decodedQR = jsQR(imageData.data, imageData.width, imageData.height);
+
+    if (!decodedQR) {
+      throw new Error("QR code not found in the image.");
+    }
+    return JSON.parse(decodedQR.data).employeeId;
+  } catch (error) {
+    console.error("Error decoding QR code:", error);
+  }
+};
 
 export {
   catchErrors,
@@ -119,4 +137,5 @@ export {
   generateQrCode,
   getPublicIdFromUrl,
   getLocation,
+  decodeQR,
 };

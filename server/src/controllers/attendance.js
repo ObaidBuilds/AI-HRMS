@@ -2,7 +2,7 @@ import cron from "node-cron";
 import cloudinary from "cloudinary";
 import Attendance from "../models/attendance.js";
 import Employee from "../models/employee.js";
-import { generateQrCode, getLocation } from "../utils/index.js";
+import { decodeQR, generateQrCode, getLocation } from "../utils/index.js";
 import { catchErrors } from "../utils/index.js";
 import { myCache, getPublicIdFromUrl } from "../utils/index.js";
 
@@ -87,8 +87,12 @@ const markAttendanceByQrCode = catchErrors(async (req, res) => {
 
   if (isPresent) throw new Error("Attendance already marked");
 
+  const employeeId = decodeQR(qrcode);
+
+  if (!(employeeId == id)) throw new Error("Proxy na lga sale!");
+
   await Attendance.create({
-    employee: id,
+    employee: employeeId,
     status: "Present",
     date: today,
   });
