@@ -15,6 +15,8 @@ const login = catchErrors(async (req, res) => {
 
   if (!employee) throw new Error("Invalid credentials");
 
+  if (employee?.loggedIn) throw new Error("Account already loggedIn");
+
   if (authority.toLowerCase() === "admin" && !employee.admin)
     throw new Error("Unauthorize access");
 
@@ -23,6 +25,10 @@ const login = catchErrors(async (req, res) => {
   if (!comparePassword) throw new Error("Invalid credentials");
 
   const token = jwt.sign({ employeeId: employee._id }, process.env.JWTSECRET);
+
+  employee.loggedIn = true;
+
+  await employee.save();
 
   return res.status(201).json({
     success: true,
@@ -79,6 +85,14 @@ const updatePassword = catchErrors(async (req, res) => {
 });
 
 const logout = catchErrors(async (req, res) => {
+  const id = req.user;
+
+  const employee = await Employee.findById(id);
+
+  employee.loggedIn = false;
+
+  await employee.save();
+
   return res.status(200).json({
     success: true,
     message: "Logged out successfully",
