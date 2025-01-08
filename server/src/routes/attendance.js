@@ -15,7 +15,7 @@ router.post("/mark", verifyAdminToken, markAttendance);
 router.get("/employee", verifyEmployeeToken, getEmployeeAttendance);
 router.get("/", verifyAdminToken, getAttendanceList);
 router.get("/month", verifyAdminToken, getMonthlyAttendancePercentage);
-router.get("/mark/qr", verifyEmployeeToken, markAttendanceByQrCode);
-router.get("/generate", verifyEmployeeToken, genrateQrCodeForAttendance);
+router.post("/mark/qr", verifyEmployeeToken, markAttendanceByQrCode);
+router.post("/generate", verifyEmployeeToken, genrateQrCodeForAttendance);
 
 export default router;

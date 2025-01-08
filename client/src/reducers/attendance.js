@@ -1,16 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAttendanceList, getEmployeeAttendance, markAttendance } from "../services/attendance";
+import {
+  generateQRCodeForAttendance,
+  getAttendanceList,
+  getEmployeeAttendance,
+  markAttendance,
+  markAttendanceUsingQrCode,
+} from "../services/attendance";
 
 const initialState = {
   attendanceList: [],
   loading: false,
   error: null,
+  qrcode: null,
 };
 
 const attendanceSlice = createSlice({
   name: "attendance",
   initialState,
-  reducers: {},
+  reducers: {
+    removeQr: (state) => {
+      console.log("Ruuned");
+      state.qrcode = null;
+      console.log(state.qrcode);
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Handling get attendance list
@@ -53,8 +66,37 @@ const attendanceSlice = createSlice({
       .addCase(getEmployeeAttendance.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+
+      // Handling generateQRCodeForAttendance
+      .addCase(generateQRCodeForAttendance.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(generateQRCodeForAttendance.fulfilled, (state, action) => {
+        state.loading = false;
+        state.qrcode = action.payload;
+      })
+      .addCase(generateQRCodeForAttendance.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Handling markAttendanceUsingQrCode
+      .addCase(markAttendanceUsingQrCode.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(markAttendanceUsingQrCode.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(markAttendanceUsingQrCode.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });
+
+export const { removeQr } = attendanceSlice.actions;
 
 export default attendanceSlice.reducer;

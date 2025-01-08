@@ -21,40 +21,34 @@ function Attendance() {
 
   const handleModalSubmit = (e) => {
     e.preventDefault();
-    if (selectedDepartment) {
-      dispatch(getAttendanceList(selectedDepartment));
+    if (selectedDepartment && selectedDate) {
+      dispatch(getAttendanceList({ selectedDepartment, selectedDate }));
     }
     setShowModal(false);
   };
 
   const handleMarkAttendance = ({ employee, date, status }) => {
-    setAttendanceRecord((prev) => {
-      const updatedRecords = prev.filter((rec) => rec.employee !== employee);
-      return status === "Present"
-        ? [...updatedRecords, { employee, date, status }]
-        : updatedRecords;
-    });
-  };
+    const existingRecord = attendanceRecord.find(
+      (rec) => rec.employee === employee && rec.date === date
+    );
 
-  const prepareAttendanceRecords = () => {
-    const updatedRecords = attendanceList.map((employee) => {
-      const existingRecord = attendanceRecord.find(
-        (rec) => rec.employee === employee._id
-      );
-      return (
-        existingRecord || {
-          employee: employee._id,
-          date: selectedDate,
-          status: "Absent",
-        }
-      );
-    });
-    return updatedRecords;
+    if (existingRecord) {
+      if (status === "Absent") {
+        setAttendanceRecord((prev) =>
+          prev.filter(
+            (rec) => !(rec.employee === employee && rec.date === date)
+          )
+        );
+      }
+    } else {
+      if (status === "Present") {
+        setAttendanceRecord((prev) => [...prev, { employee, date, status }]);
+      }
+    }
   };
 
   const handleAttendanceSubmit = () => {
-    const finalRecords = prepareAttendanceRecords();
-    if (finalRecords.length === 0) {
+    if (attendanceRecord.length === 0) {
       toast("No attendance records to submit!");
       return;
     }
@@ -65,7 +59,7 @@ function Attendance() {
       return;
     }
 
-    dispatch(markAttendance(finalRecords));
+    dispatch(markAttendance(attendanceRecord));
     setAttendanceRecord([]);
     setSelectedDepartment("");
   };

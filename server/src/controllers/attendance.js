@@ -1,29 +1,48 @@
 import cron from "node-cron";
-import geolib from "geolib";
+import cloudinary from "cloudinary";
 import Attendance from "../models/attendance.js";
 import Employee from "../models/employee.js";
-import { generateQrCode } from "../utils/index.js";
+import { generateQrCode, getLocation } from "../utils/index.js";
 import { catchErrors } from "../utils/index.js";
-import { myCache } from "../utils/index.js";
+import { myCache, getPublicIdFromUrl } from "../utils/index.js";
 
-const today = new Date().toISOString().split("T")[0];
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+const tomorrow = new Date(today);
+tomorrow.setDate(today.getDate() + 1);
+
 cron.schedule("0 23 * * *", async () => {
   // This will run every day at 11:00 PM
   await markAbsentAtEndOfDay();
 });
 
 const getAttendanceList = catchErrors(async (req, res) => {
-  const { department } = req.query;
+  const { department, date } = req.query;
 
-  if (!department) throw new Error("Please provide department to get sheet");
+  console.log(department, date);
 
-  const employees = await Employee.find({ department }).select(
+  if (!department)
+    throw new Error("Please provide a department to get the sheet");
+
+  if (!date) throw new Error("Please provide a date to get the sheet");
+
+  const queryDate = new Date(date);
+
+  const alreadyMarked = await Attendance.find({ date: queryDate });
+
+  const allEmployees = await Employee.find({ department }).select(
     "name employeeId"
   );
 
-  return res.status(201).json({
+  const employees = allEmployees.filter((employee) => {
+    return !alreadyMarked.some(
+      (attendance) => attendance.employee.toString() === employee._id.toString()
+    );
+  });
+
+  res.status(200).json({
     success: true,
-    message: "Attendance list fetched successfully",
+    message: "Attendance list fetched",
     employees,
   });
 });
@@ -41,77 +60,46 @@ const markAttendance = catchErrors(async (req, res) => {
     status,
   }));
 
-  const existingRecords = await Attendance.find({
-    $or: attendance.map(({ employee, date }) => ({
-      employee,
-      date: new Date(date),
-    })),
-  });
-
-  const existingMap = new Set(
-    existingRecords.map(
-      (record) => `${record.employee}-${record.date.toISOString()}`
-    )
-  );
-
-  const newAttendance = attendance.filter(
-    ({ employee, date }) => !existingMap.has(`${employee}-${date}`)
-  );
-
-  if (newAttendance.length === 0) {
-    throw new Error("Attendance already marked");
-  }
-
-  await Attendance.insertMany(newAttendance);
+  await Attendance.insertMany(attendance);
 
   myCache.del("insights");
 
   return res.status(201).json({
     success: true,
     message: "Attendance marked successfully",
-    addedRecords: newAttendance.length,
+    addedRecords: attendance.length,
   });
 });
 
-const workplaceLocation = {
-  latitude: process.env.LATITUDE,
-  longitude: process.env.LONGITUDE,
-};
-
 const markAttendanceByQrCode = catchErrors(async (req, res) => {
-  const { id } = req.user;
-  const { latitude, longitude, qrcode } = req.body;
+  const id = req.user;
+  const { qrcode } = req.body;
 
-  const employee = await Employee.findById(id);
+  if (!qrcode) throw new Error("All fields are required");
 
-  if (!employee) throw new Error("Employee not found");
-
-  const distance = geolib.getDistance(workplaceLocation, {
-    latitude,
-    longitude,
+  const isPresent = await Attendance.findOne({
+    employee: id,
+    date: {
+      $gte: today,
+      $lt: tomorrow,
+    },
   });
 
-  if (distance <= 100) {
-    await Attendance.create({
-      employee: id,
-      status: "Present",
-      date: today,
-    });
-  } else {
-    throw new Error(
-      "You are not within the allowed location radius to mark attendance."
-    );
-  }
+  if (isPresent) throw new Error("Attendance already marked");
 
-  if (qrcode) {
-    const publicId = getPublicIdFromUrl(qrcode);
+  await Attendance.create({
+    employee: id,
+    status: "Present",
+    date: today,
+  });
 
-    if (publicId) {
-      const res = await cloudinary.v2.uploader.destroy(`qrcodes/${publicId}`);
+  const publicId = getPublicIdFromUrl(qrcode);
 
-      if (res.result !== "ok") throw new Error("Id" + res.result);
-    } else throw new Error("Invalid Cloudinary id");
-  }
+  if (publicId) {
+    const res = await cloudinary.v2.uploader.destroy(`qrcodes/${publicId}`);
+
+    if (res.result !== "ok") throw new Error("Id" + res.result);
+  } else throw new Error("Invalid Cloudinary id");
 
   return res.status(201).json({
     success: true,
@@ -121,10 +109,28 @@ const markAttendanceByQrCode = catchErrors(async (req, res) => {
 
 const genrateQrCodeForAttendance = catchErrors(async (req, res) => {
   const id = req.user;
+  const { latitude, longitude } = req.body;
 
-  const isPresent = await Attendance.findOne({ _id: id, date: today });
+  console.log(latitude, longitude);
 
+  const isPresent = await Attendance.findOne({
+    employee: id,
+    date: {
+      $gte: today,
+      $lt: tomorrow,
+    },
+  });
+
+  console.log(isPresent);
   if (isPresent) throw new Error("Attendance already marked");
+
+  const distance = getLocation(latitude, longitude);
+
+  if (!(distance <= 500)) {
+    throw new Error(
+      "You are not within the allowed location radius to mark attendance."
+    );
+  }
 
   const qrcode = await generateQrCode(id);
 

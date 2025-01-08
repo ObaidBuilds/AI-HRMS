@@ -1,4 +1,8 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import QRCode from "qrcode";
+import geolib from "geolib";
 import NodeCache from "node-cache";
 import nodemailer from "nodemailer";
 import cloudinary from "cloudinary";
@@ -7,6 +11,20 @@ import streamifier from "streamifier";
 // __________Node Cache_______________
 
 const myCache = new NodeCache();
+
+const workplaceLocation = {
+  latitude: process.env.LATITUDE,
+  longitude: process.env.LONGITUDE,
+};
+
+
+function getLocation(latitude, longitude) {
+  const distance = geolib.getDistance(workplaceLocation, {
+    latitude,
+    longitude,
+  });
+  return distance;
+}
 
 // ________________QR Code Generation______________
 
@@ -94,4 +112,11 @@ function getPublicIdFromUrl(url) {
   return match ? match[1] : null;
 }
 
-export { catchErrors, myCache, sendMail, generateQrCode, getPublicIdFromUrl };
+export {
+  catchErrors,
+  myCache,
+  sendMail,
+  generateQrCode,
+  getPublicIdFromUrl,
+  getLocation,
+};
