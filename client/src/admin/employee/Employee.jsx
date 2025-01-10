@@ -169,7 +169,7 @@ function Employee() {
         >
           <table className="min-w-full text-left table-auto border-collapse text-[0.83rem] whitespace-nowrap">
             <thead>
-              <tr className="bg-gray-600 text-gray-200">
+              <tr className="bg-head text-primary">
                 {[
                   "Employee ID",
                   "Name",
@@ -181,7 +181,7 @@ function Employee() {
                 ].map((header) => (
                   <th
                     key={header}
-                    className="py-3 px-4 border-b border-gray-500"
+                    className="py-3 px-4 border-b border-secondary"
                   >
                     {header}
                   </th>
@@ -195,25 +195,25 @@ function Employee() {
                     key={employee._id}
                     className="even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600"
                   >
-                    <td className="py-3 px-4 border-b border-gray-500">
+                    <td className="py-3 px-4 border-b border-secondary">
                       EMP {employee.employeeId}
                     </td>
-                    <td className="py-3 px-4 border-b border-gray-500">
+                    <td className="py-3 px-4 border-b border-secondary">
                       {employee.name}
                     </td>
-                    <td className="py-3 px-4 border-b border-gray-500">
+                    <td className="py-3 px-4 border-b border-secondary">
                       {employee.department.name}
                     </td>
-                    <td className="py-3 px-4 border-b border-gray-500">
+                    <td className="py-3 px-4 border-b border-secondary">
                       {employee.role.name}
                     </td>
-                    <td className="py-3 px-4 border-b border-gray-500">
+                    <td className="py-3 px-4 border-b border-secondary">
                       {employee.status}
                     </td>
-                    <td className="py-3 px-4 border-b border-gray-500">
+                    <td className="py-3 px-4 border-b border-secondary">
                       {employee.phoneNumber}
                     </td>
-                    <td className="py-3 px-4 border-b border-gray-500 flex items-center space-x-2">
+                    <td className="py-3 px-4 border-b border-secondary flex items-center space-x-2">
                       <Link to={`/employee/${employee._id}`}>
                         <button
                           className="text-blue-500 hover:text-blue-400"

@@ -36,7 +36,7 @@ const Login = () => {
   };
 
   return (
-    <section className="h-screen overflow-hidden bg-primary">
+    <section className="h-screen overflow-hidden gradient">
       <main className="flex justify-center items-center w-full h-screen text-white">
         <div className="w-[88%] sm:w-[490px] sm:h-[94%] lg:h-[580px]  rounded-2xl shadow-md border border-gray-700 bg-gray-800">
           <div className="flex flex-col items-center py-8">

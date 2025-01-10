@@ -25,7 +25,6 @@ const MarkAttendance = () => {
     );
   }
 
-
   function handleMarkAttendanceUsingQr() {
     dispatch(
       markAttendanceUsingQrCode({

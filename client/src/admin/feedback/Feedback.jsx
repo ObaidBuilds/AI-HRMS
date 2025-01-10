@@ -54,7 +54,7 @@ function Feedback() {
         >
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
-              <tr className="bg-gray-600 text-gray-200">
+              <tr className="bg-head text-primary">
                 {[
                   "Emp ID",
                   "Name",
@@ -67,7 +67,7 @@ function Feedback() {
                 ].map((header, index) => (
                   <th
                     key={index}
-                    className="py-3 px-4 border-b border-gray-500"
+                    className="py-3 px-4 border-b border-secondary"
                   >
                     {header}
                   </th>
@@ -80,28 +80,28 @@ function Feedback() {
                   key={index}
                   className="even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600"
                 >
-                  <td className="py-3 px-4 border-b border-gray-500">
+                  <td className="py-3 px-4 border-b border-secondary">
                     {feedback.employee.employeeId}
                   </td>
-                  <td className="py-3 px-4 border-b border-gray-500">
+                  <td className="py-3 px-4 border-b border-secondary">
                     {feedback.employee.name}
                   </td>
-                  <td className="py-3 px-4 border-b border-gray-500">
+                  <td className="py-3 px-4 border-b border-secondary">
                     {feedback.employee.department.name}
                   </td>
-                  <td className="py-3 px-4 border-b border-gray-500">
+                  <td className="py-3 px-4 border-b border-secondary">
                     {feedback.employee.role.name}
                   </td>
-                  <td className="py-3 px-4 border-b border-gray-500">
+                  <td className="py-3 px-4 border-b border-secondary">
                     {feedback.review}
                   </td>
-                  <td className="py-3 px-4 border-b border-gray-500">
+                  <td className="py-3 px-4 border-b border-secondary">
                     {feedback.description.slice(0, 10) + "..."}
                   </td>
-                  <td className="py-3 px-4 border-b border-gray-500">
+                  <td className="py-3 px-4 border-b border-secondary">
                     {formatDate(feedback.createdAt)}
                   </td>
-                  <td className="py-3 px-4 border-b border-gray-500 flex items-center gap-2">
+                  <td className="py-3 px-4 border-b border-secondary flex items-center gap-2">
                     {feedback.rating} <FaStar color="gold" />
                   </td>
                 </tr>

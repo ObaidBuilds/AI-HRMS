@@ -22,7 +22,7 @@ const ViewEmployee = () => {
 
   return (
     <>
-      <section className="w-full rounded-lg text-white">
+      <section className="w-full rounded-lg text-primary">
         {/* Profile Section */}
         <div className="flex flex-col items-center bg-navy p-5 rounded-lg mb-2">
           <img

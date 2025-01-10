@@ -97,7 +97,7 @@ function Attendance() {
         <div className="overflow-x-auto mt-3">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
-              <tr className="bg-gray-600 text-gray-200">
+              <tr className="bg-head text-primary">
                 <th className="py-3 px-4 border-b border-gray-500">Emp ID</th>
                 <th className="py-3 px-4 border-b border-gray-500 text-center">
                   Name
@@ -169,7 +169,7 @@ function Attendance() {
             <button
               onClick={() => setShowConfirmModal(true)}
               disabled={loading}
-              className="bg-blue-600 mb-4 text-gray-200 p-3 font-semibold mt-5 rounded-3xl hover:bg-blue-700 w-full"
+              className="bg-blue-600 mb-4 text-primary p-3 font-semibold mt-5 rounded-3xl hover:bg-blue-700 w-full"
             >
               Submit
             </button>

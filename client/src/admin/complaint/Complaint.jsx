@@ -96,7 +96,7 @@ function Complaint() {
           <div id="overflow" className="overflow-x-auto min-h-[77vh]">
             <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
               <thead>
-                <tr className="bg-gray-600 text-gray-200">
+                <tr className="bg-head text-primary">
                   {[
                     "Emp ID",
                     "Name",
@@ -112,7 +112,7 @@ function Complaint() {
                     return (
                       <th
                         key={i}
-                        className="py-3 px-4 border-b border-gray-500"
+                        className="py-3 px-4 border-b border-secondary"
                       >
                         {header}
                       </th>
@@ -133,29 +133,29 @@ function Complaint() {
                       key={_id}
                       className="even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600"
                     >
-                      <td className="py-3 px-4 border-b border-gray-500">
+                      <td className="py-3 px-4 border-b border-secondary">
                         {employee.employeeId}
                       </td>
-                      <td className="py-3 px-4 border-b border-gray-500">
+                      <td className="py-3 px-4 border-b border-secondary">
                         {employee.name}
                       </td>
-                      <td className="py-3 px-4 border-b border-gray-500">
+                      <td className="py-3 px-4 border-b border-secondary">
                         {employee.department.name}
                       </td>
-                      <td className="py-3 px-4 border-b border-gray-500">
+                      <td className="py-3 px-4 border-b border-secondary">
                         {employee.role.name}
                       </td>
-                      <td className="py-3 px-4 border-b border-gray-500">
+                      <td className="py-3 px-4 border-b border-secondary">
                         {complainType}
                       </td>
-                      <td className="py-3 px-4 border-b border-gray-500">
+                      <td className="py-3 px-4 border-b border-secondary">
                         {complaintDetails.slice(0, 20)}
                       </td>
-                      <td className="py-3 px-4 border-b border-gray-500">
+                      <td className="py-3 px-4 border-b border-secondary">
                         {formatDate(createdAt)}
                       </td>
                       {status === "Pending" && (
-                        <td className="py-3 px-4 border-b border-gray-500 flex justify-center space-x-2 items-center">
+                        <td className="py-3 px-4 border-b border-secondary flex justify-center space-x-2 items-center">
                           <FaCheckCircle
                             className="text-green-500 cursor-pointer hover:text-green-600"
                             size={20}

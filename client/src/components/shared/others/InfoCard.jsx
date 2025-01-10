@@ -1,6 +1,6 @@
 const InfoCard = ({ detail }) => {
   return (
-    <div className="w-full flex-grow relative md:w-[32.8%] h-[158px] rounded-lg bg-secondary border border-gray-600 p-4">
+    <div className="w-full flex-grow relative md:w-[32.8%] h-[158px] rounded-lg bg-secondary border border-primary p-4">
       <h3 className="text-[1.13rem] font-extrabold mb-3 flex items-center gap-3">
         {detail.title}
       </h3>

@@ -87,7 +87,7 @@ const markAttendanceByQrCode = catchErrors(async (req, res) => {
 
   if (isPresent) throw new Error("Attendance already marked");
 
-  const employeeId = decodeQR(qrcode);
+  const employeeId = await decodeQR(qrcode);
 
   if (!(employeeId == id)) throw new Error("Proxy na lga sale!");
 
@@ -125,7 +125,6 @@ const genrateQrCodeForAttendance = catchErrors(async (req, res) => {
     },
   });
 
-  console.log(isPresent);
   if (isPresent) throw new Error("Attendance already marked");
 
   const distance = getLocation(latitude, longitude);
@@ -169,7 +168,7 @@ const markAbsentAtEndOfDay = async () => {
 const getEmployeeAttendance = catchErrors(async (req, res) => {
   const employeeID = req.user;
 
-  if (!employeeID) throw new Error("Please provide employee id ");
+  if (!employeeID) throw new Error("Please provide employee id");
 
   const attendanceRecord = await Attendance.find({ employee: employeeID })
     .populate({

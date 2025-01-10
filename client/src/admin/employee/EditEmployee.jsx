@@ -86,7 +86,7 @@ const EditEmployee = () => {
         >
           {/* Basic Details */}
           <div className="bg-gray-800 p-4 rounded-lg">
-            <h4 className="text-gray-200 font-semibold mb-3">Basic Details</h4>
+            <h4 className="text-primary font-semibold mb-3">Basic Details</h4>
             <div className="grid gap-4 sm:grid-cols-2">
               <Controller
                 name="employeeId"
@@ -170,7 +170,7 @@ const EditEmployee = () => {
 
           {/* Address Details */}
           <div className="bg-gray-800 p-4 rounded-lg">
-            <h4 className="text-gray-200 font-semibold mb-3">Address</h4>
+            <h4 className="text-primary font-semibold mb-3">Address</h4>
             <div className="grid gap-4 sm:grid-cols-2">
               <Controller
                 name="address.street"
@@ -212,7 +212,7 @@ const EditEmployee = () => {
 
           {/* Department & Role */}
           <div className="bg-gray-800 p-4 rounded-lg">
-            <h4 className="text-gray-200 font-semibold mb-3">
+            <h4 className="text-primary font-semibold mb-3">
               Department & Role
             </h4>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -303,7 +303,7 @@ const EditEmployee = () => {
 
           {/* Bank Details */}
           <div className="bg-gray-800 p-4 rounded-lg">
-            <h4 className="text-gray-200 font-semibold mb-3">Bank Details</h4>
+            <h4 className="text-primary font-semibold mb-3">Bank Details</h4>
             <div className="grid gap-4 sm:grid-cols-2">
               <Controller
                 name="bankDetails.accountNumber"
@@ -324,7 +324,7 @@ const EditEmployee = () => {
 
           {/* Emergency Contact */}
           <div className="bg-gray-800 p-4 rounded-lg">
-            <h4 className="text-gray-200 font-semibold mb-3">
+            <h4 className="text-primary font-semibold mb-3">
               Emergency Contact
             </h4>
             <div className="grid gap-4 sm:grid-cols-2">

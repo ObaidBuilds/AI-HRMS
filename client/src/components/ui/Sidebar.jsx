@@ -90,7 +90,7 @@ const Sidebar = () => {
                 <Link
                   to={item.link}
                   onClick={() => setShowSidebar(false)}
-                  className="flex items-center hover:text-gray-200"
+                  className="flex items-center hover:text-primary"
                 >
                   <i
                     className={`${item.iconClass} mr-3 text-sm text-gray-200`}
@@ -118,7 +118,7 @@ const Sidebar = () => {
                       <li
                         key={subIndex}
                         onClick={() => setShowSidebar(false)}
-                        className="hover:text-gray-300 cursor-pointer flex items-center py-[3px]" // Reduced padding
+                        className="hover:text-gray-300 cursor-pointer flex items-center py-[3px]"
                       >
                         <Link to={subLink.link} className="text-[0.82rem]">
                           {subLink.name}

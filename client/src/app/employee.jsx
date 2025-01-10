@@ -17,7 +17,7 @@ const MarkAttendance = lazy(() => import("../pages/attendance/MarkAttendance"));
 
 const EmployeeApp = () => {
   return (
-    <div className="max-h-auto min-h-[50vh] text-gray-200 bg-navy">
+    <div className="max-h-auto min-h-[50vh] text-gray-200 gradient">
       <Navbar />
       <div className="max-h-auto min-h-[50vh]">
         <Suspense fallback={<Loader />}>

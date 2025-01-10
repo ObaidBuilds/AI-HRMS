@@ -52,7 +52,7 @@ function EmployeeOnLeave() {
         <div id="overflow" className="overflow-x-auto">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
-              <tr className="bg-gray-600 text-gray-200">
+              <tr className="bg-head text-primary">
                 {[
                   "Emp ID",
                   "Name",
