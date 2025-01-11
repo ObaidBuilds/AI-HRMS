@@ -36,7 +36,7 @@ const Login = () => {
   };
 
   return (
-    <section className="h-screen overflow-hidden gradient">
+    <section className="h-screen overflow-hidden">
       <main className="flex justify-center items-center w-full h-screen text-white">
         <div className="w-[88%] sm:w-[490px] sm:h-[94%] lg:h-[580px]  rounded-2xl shadow-md border border-gray-700 bg-gray-800">
           <div className="flex flex-col items-center py-8">
@@ -69,7 +69,7 @@ const Login = () => {
               <select
                 id="select"
                 {...register("authority")}
-                className="w-full bg-gray-700 text-center text-[0.9rem] p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                className="w-full bg-gray-700 text-center text-[0.93rem] p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                 required
               >
                 <option value="">--- Select Authority ---</option>
@@ -87,7 +87,7 @@ const Login = () => {
                   {...register("employeeId")}
                   placeholder="Employee ID"
                   autoComplete="off"
-                  className="w-full bg-secondary text-[0.9rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                  className="w-full bg-secondary text-[0.93rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                   required
                 />
               </div>
@@ -106,7 +106,7 @@ const Login = () => {
                   type={active ? "text" : "password"}
                   {...register("password")}
                   placeholder="Password"
-                  className="w-full bg-secondary text-[0.9rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                  className="w-full bg-secondary text-[0.93rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                   required
                 />
                 <span

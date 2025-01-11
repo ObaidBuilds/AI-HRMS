@@ -146,24 +146,17 @@ td {
 
 #form input,
 #form select {
-  padding: 0.7rem;
-  border-radius: 0.5rem;
+  padding: 0.6rem;
+  border-radius: 0.4rem;
   background-color: #4b5563;
   color: #e5e7eb;
   width: 100%;
 }
 
 #background {
-  background: linear-gradient(
-      to top,
-      rgba(31, 41, 55, 0.7) 0%,
-      rgba(31, 41, 55, 0.7) 60%,
-      rgba(31, 41, 55, 0.7) 100%
-    ),
-    url("https://media.istockphoto.com/id/1219813015/photo/food-stocking-east-end-montreal-during-pandemic.jpg?s=612x612&w=0&k=20&c=wBGAVhRvfLm6Y6h_PfMbfD4w8HDnA2pecEJ53OwW6Gc=");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+background-image: url("");
+background-repeat: no-repeat;
+background-size: cover;
 }
 
 #select {

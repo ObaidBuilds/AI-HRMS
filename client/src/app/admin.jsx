@@ -41,7 +41,7 @@ const AdminApp = () => {
             id="overflow"
             className="w-full max-h-auto min-h-screen lg:w-[85%] lg:ml-[255px] py-2 px-2 mt-[69px] lg:mt-0"
           >
-            <div className="mb-2">
+            <div>
               <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/employees" element={<Employee />} />

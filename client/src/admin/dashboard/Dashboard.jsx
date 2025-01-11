@@ -70,8 +70,8 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="sm:flex justify-between md:flex-row flex-col h-auto md:h-[400px] mb-2 md:mb-4">
-          <div className="md:w-[59%] hidden md:block h-full w-full mt-2 rounded-lg  bg-secondary border border-primary p-4 overflow-auto">
+        <div className="sm:flex justify-between md:flex-row flex-col h-auto md:h-[400px] mb-2">
+          <div className="md:w-[59%] block h-full w-full mt-2 rounded-lg  bg-secondary border border-primary p-4 overflow-auto">
             <h3 className="text-base font-bold mb-4">
               Attendace Overview By Department
             </h3>
