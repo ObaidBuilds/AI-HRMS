@@ -26,8 +26,6 @@ const login = catchErrors(async (req, res) => {
 
   const token = jwt.sign({ employeeId: employee._id }, process.env.JWTSECRET);
 
-  employee.loggedIn = true;
-
   await employee.save();
 
   return res.status(201).json({
@@ -85,14 +83,6 @@ const updatePassword = catchErrors(async (req, res) => {
 });
 
 const logout = catchErrors(async (req, res) => {
-  const id = req.user;
-
-  const employee = await Employee.findById(id);
-
-  employee.loggedIn = false;
-
-  await employee.save();
-
   return res.status(200).json({
     success: true,
     message: "Logged out successfully",
