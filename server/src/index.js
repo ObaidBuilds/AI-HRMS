@@ -18,7 +18,6 @@ import departmentRoutes from "./routes/department.js";
 import complaintRoutes from "./routes/complaint.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import { decodeQR } from "./utils/index.js";
 
 const app = express();
 
