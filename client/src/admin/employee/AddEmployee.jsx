@@ -23,7 +23,7 @@ const AddEmployee = () => {
       <section>
         <div
           id="change_refill"
-          className="w-full min-h-screen rounded-lg bg-secondary border border-gray-600 p-3 text-sm"
+          className="w-full min-h-screen rounded-lg bg-secondary border border-gray-600  p-3 text-sm"
         >
           <form
             id="form"
@@ -31,7 +31,7 @@ const AddEmployee = () => {
             className="space-y-2 sm:space-y-4"
           >
             {/* Basic Details */}
-            <div className="bg-gray-800 p-4 rounded-lg">
+            <div className="bg-gray-800 p-6 rounded-lg">
               <h4 className="text-primaryfont-semibold mb-3">Basic Details</h4>
               <div className="grid gap-4 sm:grid-cols-2">
                 <Controller

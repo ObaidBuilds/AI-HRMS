@@ -62,7 +62,7 @@ const AdminApp = () => {
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </div>
-            <Footer />
+            {/* <Footer /> */}
           </main>
         </Suspense>
       </div>

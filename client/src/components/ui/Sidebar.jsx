@@ -54,7 +54,7 @@ const Sidebar = () => {
       {/* Sidebar */}
       <aside
         id="overflow"
-        className={`fixed top-0 h-screen bg-navy transition-all duration-300 ease-in-out z-50 overflow-y-auto text-[0.82rem] ${
+        className={`fixed top-0 h-screen bg-navy transition-all duration-300 ease-in-out z-50 overflow-y-auto text-[0.72rem] font-medium ${
           showSidebar ? "left-0" : "-left-full"
         } lg:left-0 w-full lg:w-[255px]`}
       >
@@ -95,7 +95,7 @@ const Sidebar = () => {
                   <i
                     className={`${item.iconClass} mr-3 text-sm text-gray-200`}
                   ></i>
-                  <p>{item.name}</p>
+                  <p>{item.name.toUpperCase()}</p>
                 </Link>
                 {/* Arrow Icon for Submenu */}
                 {item.childrens && item.childrens.length > 0 && (
@@ -136,22 +136,22 @@ const Sidebar = () => {
             <i className="fas fa-sign-out-alt mr-3 text-sm text-gray-300"></i>
             <p className=" text-[0.82rem]">Logout</p>
           </button>
-        </ul>
-        <div className="w-full pl-2 py-2 hidden sm:block">
-          <div className="flex items-center gap-4">
-            <div className="w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer">
-              <img
-                className="w-full"
-                src={user.profilePicture || "https://via.placeholder.com/40"}
-                alt="obaid"
-              />
-            </div>
-            <div>
-              <p className="text-sm">{user?.name}</p>
-              <p className="text-xs">{user?.email}</p>
+          <div className="w-full py-2 hidden lg:block  bottom-0">
+            <div className="flex items-center gap-4">
+              <div className="w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer">
+                <img
+                  className="w-full"
+                  src={user.profilePicture || "https://via.placeholder.com/40"}
+                  alt="obaid"
+                />
+              </div>
+              <div>
+                <p className="text-sm">{user?.name}</p>
+                <p className="text-xs">{user?.email}</p>
+              </div>
             </div>
           </div>
-        </div>
+        </ul>
       </aside>
     </div>
   );
