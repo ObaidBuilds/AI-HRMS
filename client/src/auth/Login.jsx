@@ -69,7 +69,7 @@ const Login = () => {
               <select
                 id="select"
                 {...register("authority")}
-                className="w-full bg-secondary text-center text-[0.9rem] p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                className="w-full bg-gray-700 text-center text-[0.9rem] p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                 required
               >
                 <option value="">--- Select Authority ---</option>

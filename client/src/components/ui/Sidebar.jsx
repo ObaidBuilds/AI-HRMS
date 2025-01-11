@@ -100,7 +100,7 @@ const Sidebar = () => {
                 {/* Arrow Icon for Submenu */}
                 {item.childrens && item.childrens.length > 0 && (
                   <i
-                    className={`fas text-xs text-gray-400 transition-transform ${
+                    className={`fas text-[0.6rem] text-gray-400 transition-transform ${
                       openSubMenuIndex === index
                         ? "fa-chevron-up"
                         : "fa-chevron-down"
