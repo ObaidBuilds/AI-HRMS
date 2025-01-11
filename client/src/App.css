@@ -146,8 +146,8 @@ td {
 
 #form input,
 #form select {
-  padding: 0.5rem;
-  border-radius: 0.25rem;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
   background-color: #4b5563;
   color: #e5e7eb;
   width: 100%;
