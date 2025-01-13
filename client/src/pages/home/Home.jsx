@@ -19,14 +19,14 @@ const Home = () => {
           </ul>
         </div>
       </div>
-      <div className="w-full h-[300px] sm:h-[380px] flex justify-center items-center">
+      {/* <div className="w-full h-[300px] sm:h-[380px] flex justify-center items-center">
         <div className="border border-gray-700 w-[270px] h-[130px] sm:w-[300px] sm:h-[150px] bg-gray-700 rounded-xl ">
           <h1 className="text-sm font-semibold border-b border-gray-600 py-2 text-center text-white">
             Employee Details
           </h1>
           <div className="text-center"></div>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };
