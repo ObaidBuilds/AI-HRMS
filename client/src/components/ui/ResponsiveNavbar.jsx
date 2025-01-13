@@ -28,7 +28,7 @@ function ResponsiveNavbar({ showSidebar, setShowSidebar }) {
   return (
     <aside
       id="overflow"
-      className={`text-white fixed md:hidden top-0 h-screen bg-navy transition-all duration-300 ease-in-out z-50 overflow-y-auto ${
+      className={`text-white fixed md:hidden text-[0.72rem] top-0 h-screen bg-navy transition-all duration-300 ease-in-out z-50 overflow-y-auto ${
         showSidebar ? "left-0" : "-left-full"
       } lg:left-0 w-full lg:w-[255px]`}
     >
@@ -65,7 +65,7 @@ function ResponsiveNavbar({ showSidebar, setShowSidebar }) {
                 <i
                   className={`${item.iconClass} mr-3 text-sm text-gray-200`}
                 ></i>
-                <p>{item.name}</p>
+                <p>{item.name.toUpperCase()}</p>
               </Link>
             </div>
           </li>
