@@ -112,7 +112,7 @@ function Employee() {
     <>
       {loading && <Loader />}
 
-      <section className="bg-secondary p-3 sm:p-4 rounded-lg w-full h-auto">
+      <section className="bg-secondary p-3 sm:p-4 rounded-lg w-full  min-h-screen">
         {uiState.toggleFilterBar && (
           <FilterBar
             handleApplyFilters={handleApplyFilters}
@@ -165,7 +165,7 @@ function Employee() {
 
         <div
           id="overflow"
-          className="overflow-x-auto  min-h-[72vh] sm:min-h-[80vh]"
+          className="overflow-x-auto min-h-[72vh] sm:min-h-[80vh]"
         >
           <table className="min-w-full text-left table-auto border-collapse text-[0.83rem] whitespace-nowrap">
             <thead>
@@ -251,9 +251,9 @@ function Employee() {
             </tbody>
           </table>
           {!loading && employees.length === 0 && (
-            <div className="w-full h-[50vh] flex flex-col justify-center items-center">
+            <div className="w-full h-[78vh] flex flex-col justify-center items-center">
               <i className="fas fa-ban text-2xl text-gray-400"></i>
-              <p className="mt-2 text-base text-gray-400">No employee found</p>
+              <p className="mt-2 text-sm text-gray-400">No employee found</p>
             </div>
           )}
         </div>

@@ -38,7 +38,7 @@ function EmployeeOnLeave() {
             <button
               key={button.value}
               onClick={() => setStatus(button.value)}
-              className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold ${
+              className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.8rem] border py-1 px-5 rounded-3xl font-semibold ${
                 status === button.value
                   ? "border-blue-500 ring-1 ring-blue-500"
                   : "border-gray-300"
@@ -113,9 +113,9 @@ function EmployeeOnLeave() {
             </tbody>
           </table>
           {!loading && employeesOnLeaveToday.length === 0 && (
-            <div className="w-full h-[50vh] flex flex-col justify-center items-center">
+            <div className="w-full h-[78vh] flex flex-col justify-center items-center">
               <i className="fas fa-ban text-2xl text-gray-400"></i>
-              <p className="mt-2 text-base text-gray-400">
+              <p className="mt-2 text-sm text-gray-400">
                 No employees on leave for {status}.
               </p>
             </div>
