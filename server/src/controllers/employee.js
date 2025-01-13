@@ -87,7 +87,7 @@ const createEmployee = catchErrors(async (req, res) => {
 });
 
 const getAllEmployees = catchErrors(async (req, res) => {
-  const { role, name, department, status, page = 1, limit = 10 } = req.query;
+  const { role, name, department, status, page = 1, limit = 13 } = req.query;
 
   const query = {};
 
@@ -233,7 +233,6 @@ const updateProfilePicture = catchErrors(async (req, res) => {
       const res = await cloudinary.v2.uploader.destroy(`uploads/${publicId}`);
 
       if (res.result !== "ok") throw new Error("Id" + res.result);
-      
     } else throw new Error("Invalid Cloudinary id");
   }
 

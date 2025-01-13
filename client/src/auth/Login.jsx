@@ -69,7 +69,7 @@ const Login = () => {
               <select
                 id="select"
                 {...register("authority")}
-                className="w-full bg-gray-700 text-center text-[0.93rem] p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                className="w-full bg-gray-700 text-center text-[0.92rem] p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                 required
               >
                 <option value="">--- Select Authority ---</option>
@@ -87,7 +87,7 @@ const Login = () => {
                   {...register("employeeId")}
                   placeholder="Employee ID"
                   autoComplete="off"
-                  className="w-full bg-secondary text-[0.93rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                  className="w-full bg-secondary text-[0.92rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                   required
                 />
               </div>
@@ -106,7 +106,7 @@ const Login = () => {
                   type={active ? "text" : "password"}
                   {...register("password")}
                   placeholder="Password"
-                  className="w-full bg-secondary text-[0.93rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                  className="w-full bg-secondary text-[0.92rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                   required
                 />
                 <span
