@@ -19,7 +19,7 @@ const attendanceSlice = createSlice({
   initialState,
   reducers: {
     removeQr: (state) => {
-      console.log("Ruuned");
+
       state.qrcode = null;
       console.log(state.qrcode);
     },

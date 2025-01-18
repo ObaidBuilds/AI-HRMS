@@ -5,7 +5,7 @@ import axiosInstance from "../axios/axiosInstance";
 // Fetch Feedbacks
 export const getFeedbacks = createAsyncThunk(
   "feedbacks/getFeedbacks",
-  async ({ review, currentPage, limit = 10 }, { rejectWithValue }) => {
+  async ({ review, currentPage, limit = 13 }, { rejectWithValue }) => {
     try {
       const queryParams = new URLSearchParams({
         page: currentPage,

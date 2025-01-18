@@ -136,7 +136,7 @@ const Sidebar = () => {
             <i className="fas fa-sign-out-alt mr-3 text-sm text-gray-300"></i>
             <p className=" text-[0.82rem]">Logout</p>
           </button>
-          <div className="w-full py-2 hidden lg:block  bottom-0">
+          <div className="w-full py-2 hidden lg:block  bottom-2">
             <div className="flex items-center gap-4">
               <div className="w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer">
                 <img
