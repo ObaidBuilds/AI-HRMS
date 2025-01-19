@@ -113,7 +113,7 @@ function Attendance() {
                 attendanceList.map((employee) => (
                   <tr
                     key={employee._id}
-                    className="even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600"
+                    className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
                   >
                     <td className="py-3 px-4 border-b border-gray-500">
                       EMP {employee.employeeId}

@@ -5,7 +5,7 @@ const Modal = ({ onClose, isConfirm, action }) => {
     <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
       <div
         id="modal"
-        className="border border-gray-300 dark:border-gray-700 bg-gray-300 text-gray-800 p-4 rounded-lg w-[92%] md:w-[400px] max-w-md"
+        className="border border-gray-300 dark:border-gray-700 bg-gray-200 text-gray-800 p-4 rounded-lg w-[92%] md:w-[400px] max-w-md"
       >
         <h3
           className="text-lg border-b border-gray-400 pb-1 font-bold mb-4"
