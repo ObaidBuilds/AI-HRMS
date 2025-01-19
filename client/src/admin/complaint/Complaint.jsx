@@ -69,7 +69,7 @@ function Complaint() {
     <>
       {loading && <Loader />}
       <div className="w-full rounded-lg">
-        <section className="bg-gray-700 p-3 sm:p-4 rounded-lg min-h-screen">
+        <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen">
           {/* Filter Buttons */}
           <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
             {["Pending", "Resolved", "Closed"].map((filter) => (
@@ -131,7 +131,7 @@ function Complaint() {
                   }) => (
                     <tr
                       key={_id}
-                      className="even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600"
+                      className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
                     >
                       <td className="py-3 px-4 border-b border-secondary">
                         {employee.employeeId}

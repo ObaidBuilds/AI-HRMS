@@ -112,7 +112,7 @@ function Employee() {
     <>
       {loading && <Loader />}
 
-      <section className="bg-secondary p-3 sm:p-4 rounded-lg w-full  min-h-screen">
+      <section className="bg-gray-100 border-gray-400 dark:bg-secondary p-3 sm:p-4 rounded-lg w-full  min-h-screen">
         {uiState.toggleFilterBar && (
           <FilterBar
             handleApplyFilters={handleApplyFilters}
@@ -193,7 +193,7 @@ function Employee() {
                 employees.map((employee) => (
                   <tr
                     key={employee._id}
-                    className="even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600"
+                    className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
                   >
                     <td className="py-3 px-4 border-b border-secondary">
                       EMP {employee.employeeId}

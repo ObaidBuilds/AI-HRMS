@@ -78,21 +78,24 @@ const EditEmployee = () => {
 
   return (
     <>
-      <section className="w-full max-h-auto sm:min-h-screen rounded-lg bg-secondary border border-gray-600 p-3 text-sm">
+      <section className="w-full max-h-auto sm:min-h-screen rounded-lg bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-gray-600 p-3 text-sm">
         <form
           id="form"
           onSubmit={handleSubmit(onSubmit)}
           className="space-y-2 sm:space-y-4"
         >
           {/* Basic Details */}
-          <div className="bg-gray-800 p-4 rounded-lg">
-            <h4 className="text-primary font-semibold mb-3">Basic Details</h4>
+          <div className="dark:bg-gray-800 p-4 rounded-lg">
+            <h4 className="dark:text-primary font-semibold mb-3">
+              Basic Details
+            </h4>
             <div className="grid gap-4 sm:grid-cols-2">
               <Controller
                 name="employeeId"
                 control={control}
                 render={({ field }) => (
                   <input
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Employee ID"
                     {...field}
@@ -105,6 +108,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Full Name"
                     {...field}
@@ -116,7 +120,13 @@ const EditEmployee = () => {
                 name="email"
                 control={control}
                 render={({ field }) => (
-                  <input type="email" placeholder="Email" {...field} required />
+                  <input
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    type="email"
+                    placeholder="Email"
+                    {...field}
+                    required
+                  />
                 )}
               />
               <Controller
@@ -124,6 +134,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="date"
                     placeholder="Date of Birth"
                     {...field}
@@ -136,6 +147,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Phone Number"
                     {...field}
@@ -147,7 +159,11 @@ const EditEmployee = () => {
                 name="gender"
                 control={control}
                 render={({ field }) => (
-                  <select {...field} required>
+                  <select
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    {...field}
+                    required
+                  >
                     <option value="">--Gender--</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -158,7 +174,11 @@ const EditEmployee = () => {
                 name="martialStatus"
                 control={control}
                 render={({ field }) => (
-                  <select {...field} required>
+                  <select
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    {...field}
+                    required
+                  >
                     <option value="">--Marital Status--</option>
                     <option value="Single">Single</option>
                     <option value="Married">Married</option>
@@ -169,50 +189,75 @@ const EditEmployee = () => {
           </div>
 
           {/* Address Details */}
-          <div className="bg-gray-800 p-4 rounded-lg">
-            <h4 className="text-primary font-semibold mb-3">Address</h4>
+          <div className="dark:bg-gray-800 p-4 rounded-lg">
+            <h4 className="dark:text-primary font-semibold mb-3">Address</h4>
             <div className="grid gap-4 sm:grid-cols-2">
               <Controller
                 name="address.street"
                 control={control}
                 render={({ field }) => (
-                  <input type="text" placeholder="Street" {...field} />
+                  <input
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    type="text"
+                    placeholder="Street"
+                    {...field}
+                  />
                 )}
               />
               <Controller
                 name="address.city"
                 control={control}
                 render={({ field }) => (
-                  <input type="text" placeholder="City" {...field} />
+                  <input
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    type="text"
+                    placeholder="City"
+                    {...field}
+                  />
                 )}
               />
               <Controller
                 name="address.state"
                 control={control}
                 render={({ field }) => (
-                  <input type="text" placeholder="State" {...field} />
+                  <input
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    type="text"
+                    placeholder="State"
+                    {...field}
+                  />
                 )}
               />
               <Controller
                 name="address.postalCode"
                 control={control}
                 render={({ field }) => (
-                  <input type="text" placeholder="Postal Code" {...field} />
+                  <input
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    type="text"
+                    placeholder="Postal Code"
+                    {...field}
+                  />
                 )}
               />
               <Controller
                 name="address.country"
                 control={control}
                 render={({ field }) => (
-                  <input type="text" placeholder="Country" {...field} />
+                  <input
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    type="text"
+                    placeholder="Country"
+                    {...field}
+                  />
                 )}
               />
             </div>
           </div>
 
           {/* Department & Role */}
-          <div className="bg-gray-800 p-4 rounded-lg">
-            <h4 className="text-primary font-semibold mb-3">
+          <div className="dark:bg-gray-800 p-4 rounded-lg">
+            <h4 className="dark:text-primary font-semibold mb-3">
               Department & Role
             </h4>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -220,7 +265,11 @@ const EditEmployee = () => {
                 name="department"
                 control={control}
                 render={({ field }) => (
-                  <select {...field} required>
+                  <select
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    {...field}
+                    required
+                  >
                     <option value="">--Department--</option>
                     {departments.map((department) => (
                       <option key={department._id} value={department._id}>
@@ -234,7 +283,11 @@ const EditEmployee = () => {
                 name="role"
                 control={control}
                 render={({ field }) => (
-                  <select {...field} required>
+                  <select
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    {...field}
+                    required
+                  >
                     <option value="">--Role--</option>
                     {roles.map((role) => (
                       <option key={role._id} value={role._id}>
@@ -248,14 +301,24 @@ const EditEmployee = () => {
                 name="salary"
                 control={control}
                 render={({ field }) => (
-                  <input type="text" placeholder="Salary" {...field} required />
+                  <input
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    type="text"
+                    placeholder="Salary"
+                    {...field}
+                    required
+                  />
                 )}
               />
               <Controller
                 name="shift"
                 control={control}
                 render={({ field }) => (
-                  <select {...field} required>
+                  <select
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    {...field}
+                    required
+                  >
                     <option value="">--Shift--</option>
                     <option value="Morning">Morning</option>
                     <option value="Evening">Evening</option>
@@ -267,7 +330,10 @@ const EditEmployee = () => {
                 name="status"
                 control={control}
                 render={({ field }) => (
-                  <select {...field}>
+                  <select
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    {...field}
+                  >
                     <option value="Active">Active</option>
                     <option value="Inactive">Inactive</option>
                     <option value="Leave">Leave</option>
@@ -279,6 +345,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="date"
                     placeholder="Date of Joining"
                     {...field}
@@ -290,7 +357,11 @@ const EditEmployee = () => {
                 name="employmentType"
                 control={control}
                 render={({ field }) => (
-                  <select {...field} required>
+                  <select
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    {...field}
+                    required
+                  >
                     <option value="">--Employment Type--</option>
                     <option value="Full-Time">Full-Time</option>
                     <option value="Part-Time">Part-Time</option>
@@ -302,29 +373,44 @@ const EditEmployee = () => {
           </div>
 
           {/* Bank Details */}
-          <div className="bg-gray-800 p-4 rounded-lg">
-            <h4 className="text-primary font-semibold mb-3">Bank Details</h4>
+          <div className="dark:bg-gray-800 p-4 rounded-lg">
+            <h4 className="dark:text-primary font-semibold mb-3">
+              Bank Details
+            </h4>
             <div className="grid gap-4 sm:grid-cols-2">
               <Controller
                 name="bankDetails.accountNumber"
                 control={control}
                 render={({ field }) => (
-                  <input type="text" placeholder="Account Number" {...field} />
+                  <input
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    type="text"
+                    placeholder="Account Number"
+                    {...field}
+                  />
                 )}
               />
               <Controller
                 name="bankDetails.bankName"
                 control={control}
                 render={({ field }) => (
-                  <input type="text" placeholder="Bank Name" {...field} />
+                  <select
+                    {...field}
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                  >
+                    <option value="">--Bank Name--</option>
+                    <option value="HBL">HBL</option>
+                    <option value="ABL">ABL</option>
+                    <option value="GOP">GOP</option>
+                  </select>
                 )}
               />
             </div>
           </div>
 
           {/* Emergency Contact */}
-          <div className="bg-gray-800 p-4 rounded-lg">
-            <h4 className="text-primary font-semibold mb-3">
+          <div className="dark:bg-gray-800 p-4 rounded-lg">
+            <h4 className="dark:text-primary font-semibold mb-3">
               Emergency Contact
             </h4>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -332,21 +418,40 @@ const EditEmployee = () => {
                 name="emergencyContact.name"
                 control={control}
                 render={({ field }) => (
-                  <input type="text" placeholder="Name" {...field} />
+                  <input
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    type="text"
+                    placeholder="Name"
+                    {...field}
+                  />
                 )}
               />
               <Controller
                 name="emergencyContact.relationship"
                 control={control}
                 render={({ field }) => (
-                  <input type="text" placeholder="Relationship" {...field} />
+                  <select
+                    {...field}
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                  >
+                    <option value="">--Relationship--</option>
+                    <option value="Father">Father</option>
+                    <option value="Brother">Brother</option>
+                    <option value="Friend">Friend</option>
+                    <option value="Relative">Father</option>
+                  </select>
                 )}
               />
               <Controller
                 name="emergencyContact.phoneNumber"
                 control={control}
                 render={({ field }) => (
-                  <input type="text" placeholder="Phone Number" {...field} />
+                  <input
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    type="text"
+                    placeholder="Phone Number"
+                    {...field}
+                  />
                 )}
               />
             </div>
@@ -356,7 +461,7 @@ const EditEmployee = () => {
           <button
             type="submit"
             disabled={loading}
-            className="p-3 bg-blue-600 font-semibold hover:bg-blue-700 text-white w-full rounded-3xl"
+            className="p-4 bg-blue-600 font-semibold hover:bg-blue-700 text-white w-full rounded-3xl"
           >
             Update Employee
           </button>

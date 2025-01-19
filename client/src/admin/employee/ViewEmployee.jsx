@@ -22,22 +22,22 @@ const ViewEmployee = () => {
 
   return (
     <>
-      <section className="w-full rounded-lg text-primary">
+      <section className="w-full rounded-lg text-gray-700 dark:text-primary">
         {/* Profile Section */}
-        <div className="flex flex-col items-center bg-navy p-5 rounded-lg mb-2">
+        <div className="flex flex-col items-center bg-gray-100 dark:bg-navy p-5 rounded-lg mb-2">
           <img
             src={employee?.profilePicture || "https://via.placeholder.com/150"}
             alt={employee?.name}
             className="w-28 h-28 border-4 border-blue-500 rounded-full mb-4"
           />
           <h2 className="text-xl font-bold">{employee?.name}</h2>
-          <p className="text-gray-400">{employee?.role.name}</p>
+          <p className="text-gray-500">{employee?.role.name}</p>
         </div>
 
-        <main className="bg-secondary p-4 sm:p-6 rounded-lg space-y-6 text-[0.88rem]">
+        <main className="bg-gray-100 dark:bg-secondary p-4 sm:p-6 rounded-lg space-y-6 text-[0.88rem]">
           {/* Personal Details */}
           <div>
-            <h2 className="text-base font-semibold border-b border-gray-600 pb-2 mb-4">
+            <h2 className="text-base font-semibold border-b border-gray-300 dark:border-gray-600 pb-2 mb-4">
               Personal Details
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -65,7 +65,7 @@ const ViewEmployee = () => {
 
           {/* Department Details */}
           <div>
-            <h2 className="text-base font-semibold border-b border-gray-600 pb-2 mb-4">
+            <h2 className="text-base font-semibold border-b border-gray-300 dark:border-gray-600  pb-2 mb-4">
               Department Details
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -93,7 +93,7 @@ const ViewEmployee = () => {
 
           {/* Salary Details */}
           <div>
-            <h2 className="text-base font-semibold border-b border-gray-600 pb-2 mb-4">
+            <h2 className="text-base font-semibold border-b border-gray-300 dark:border-gray-600  pb-2 mb-4">
               Salary Details
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -115,7 +115,7 @@ const ViewEmployee = () => {
 
           {/* Emergency Contact */}
           <div className="pb-4">
-            <h2 className="text-base font-semibold border-b border-gray-600 pb-2 mb-4">
+            <h2 className="text-base font-semibold border-b border-gray-300 dark:border-gray-600  pb-2 mb-4">
               Emergency Contact
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

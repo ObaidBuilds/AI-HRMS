@@ -7,6 +7,10 @@
   font-family: "Poppins";
 }
 
+#transition {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 .gradient {
   background: linear-gradient(135deg, #111827, #1f2937);
 }
@@ -121,7 +125,7 @@ td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background-color: #3498db;
+  background-color: #0f5c90;
   animation: wave 1s infinite ease-in-out;
 }
 
@@ -144,21 +148,6 @@ td {
   }
 }
 
-#form input,
-#form select {
-  padding: 0.6rem;
-  border-radius: 0.4rem;
-  background-color: #4b5563;
-  color: #e5e7eb;
-  width: 100%;
-}
-
-#background {
-background-image: url("");
-background-repeat: no-repeat;
-background-size: cover;
-}
-
 #select {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -177,6 +166,7 @@ background-size: cover;
 }
 
 #modal {
+  backdrop-filter: blur(6px);
   opacity: 0;
   transform: scale(0.8);
   animation: modal-appearance 0.3s ease-out forwards;

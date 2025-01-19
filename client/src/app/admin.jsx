@@ -34,7 +34,10 @@ const AdminApp = () => {
 
   return (
     <div>
-      <div className="min-h-screen max-h-auto text-gray-200 bg-primary flex justify-between relative">
+      <div
+        id="transition"
+        className="min-h-screen max-h-auto text-gray-800 bg-gray-200 dark:text-gray-200 dark:bg-primary flex justify-between relative"
+      >
         <Sidebar />
         <Suspense fallback={<Loader />}>
           <main

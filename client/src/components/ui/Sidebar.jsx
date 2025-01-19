@@ -3,12 +3,17 @@ import { logout } from "../../services/auth";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Modal from "../shared/modals/Modal";
+import { useTheme } from "../../context";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
+
   const [showSidebar, setShowSidebar] = useState(false);
   const [openSubMenuIndex, setOpenSubMenuIndex] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const user = useSelector((state) => state.authentication.user);
 
   const toggleSubMenu = (index) =>
@@ -23,6 +28,11 @@ const Sidebar = () => {
       });
   };
 
+  const confirmLogout = () => {
+    handleLogout();
+    setShowConfirmModal(false);
+  };
+
   useEffect(() => {
     if (showSidebar) {
       document.body.classList.add("no-scroll");
@@ -34,6 +44,7 @@ const Sidebar = () => {
   return (
     <div className="text-white">
       {/* Navigation Bar */}
+
       <nav className="w-full fixed top-0 left-0 lg:hidden h-[70px] bg-navy flex justify-between items-center px-7 z-50">
         <img
           className="w-[25px]"
@@ -52,6 +63,7 @@ const Sidebar = () => {
       </nav>
 
       {/* Sidebar */}
+
       <aside
         id="overflow"
         className={`fixed top-0 h-screen bg-navy transition-all duration-300 ease-in-out z-50 overflow-y-auto text-[0.72rem] font-medium ${
@@ -59,6 +71,7 @@ const Sidebar = () => {
         } lg:left-0 w-full lg:w-[255px]`}
       >
         {/* Logo and Close Button */}
+
         <div className="p-3 mt-3 sm:mt-5 flex justify-between lg:justify-center items-center space-x-2 px-7 animate-float">
           <div className="flex flex-col sm:items-center animate__animated animate__bounce">
             <img className="w-[55px]" src="/metro.png" alt="logo" />
@@ -77,6 +90,18 @@ const Sidebar = () => {
           </div>
         </div>
 
+         {/* Theme Toggle */}
+         <div className="flex gap-2 items-center mx-4">
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={theme === "dark"}
+              onChange={toggleTheme}
+            />
+            <span className="slider round"></span>
+          </label>
+        </div>
+
         {/* Sidebar Links */}
         <ul className="flex flex-col gap-4 p-4 overflow-y-auto">
           {sidebarLinks.map((item, index) => (
@@ -86,6 +111,7 @@ const Sidebar = () => {
               className="cursor-pointer border-b border-gray-700 py-[5px]"
             >
               {/* Main Link */}
+
               <div className="flex justify-between items-center">
                 <Link
                   to={item.link}
@@ -97,7 +123,9 @@ const Sidebar = () => {
                   ></i>
                   <p>{item.name.toUpperCase()}</p>
                 </Link>
+
                 {/* Arrow Icon for Submenu */}
+
                 {item.childrens && item.childrens.length > 0 && (
                   <i
                     className={`fas text-[0.6rem] text-gray-400 transition-transform ${
@@ -110,6 +138,7 @@ const Sidebar = () => {
               </div>
 
               {/* Submenu */}
+
               {item.childrens &&
                 item.childrens.length > 0 &&
                 openSubMenuIndex === index && (
@@ -130,7 +159,7 @@ const Sidebar = () => {
             </li>
           ))}
           <button
-            onClick={handleLogout}
+            onClick={() => setShowConfirmModal(true)}
             className="flex items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
           >
             <i className="fas fa-sign-out-alt mr-3 text-sm text-gray-300"></i>
@@ -153,6 +182,14 @@ const Sidebar = () => {
           </div>
         </ul>
       </aside>
+
+      {showConfirmModal && (
+        <Modal
+          onClose={() => setShowConfirmModal(false)}
+          action="logout"
+          isConfirm={confirmLogout}
+        />
+      )}
     </div>
   );
 };

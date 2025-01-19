@@ -32,7 +32,7 @@ function EmployeeOnLeave() {
     <>
       {loading && <Loader />}
 
-      <section className="bg-gray-700 p-3 sm:p-4 rounded-lg min-h-screen">
+      <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen">
         <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
           {buttons.map((button) => (
             <button
@@ -79,7 +79,7 @@ function EmployeeOnLeave() {
                 employeesOnLeaveToday.map((leave, index) => (
                   <tr
                     key={index}
-                    className="even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600"
+                    className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
                   >
                     <td className="py-3 px-4 border-b border-gray-500">
                       EMP {leave.employee?.employeeId}
