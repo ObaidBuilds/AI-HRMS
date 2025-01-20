@@ -68,8 +68,8 @@ function Complaint() {
   return (
     <>
       {loading && <Loader />}
-      <div className="w-full rounded-lg">
-        <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen">
+ 
+        <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen shadow">
           {/* Filter Buttons */}
           <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
             {["Pending", "Resolved", "Closed"].map((filter) => (
@@ -193,6 +193,7 @@ function Complaint() {
               onPageChange={goToPage}
             />
           )}
+
           {/* Modals */}
           {toggleModal && (
             <Modal
@@ -201,6 +202,7 @@ function Complaint() {
               isConfirm={isConfirm}
             />
           )}
+
           {toggleRemarkModal && (
             <RemarksModal
               onClose={() => setToggleRemarkModal(false)}
@@ -208,7 +210,6 @@ function Complaint() {
             />
           )}
         </section>
-      </div>
     </>
   );
 }

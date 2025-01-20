@@ -53,7 +53,7 @@ const PieGraph = () => {
       },
       title: {
         display: true,
-        text: "Technical Skill I have",
+        text: "Employee Category Overview",
       },
     },
   };

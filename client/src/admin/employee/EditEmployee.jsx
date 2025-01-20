@@ -95,7 +95,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Employee ID"
                     {...field}
@@ -108,7 +108,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Full Name"
                     {...field}
@@ -121,7 +121,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="email"
                     placeholder="Email"
                     {...field}
@@ -134,7 +134,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="date"
                     placeholder="Date of Birth"
                     {...field}
@@ -147,7 +147,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Phone Number"
                     {...field}
@@ -160,7 +160,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <select
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     {...field}
                     required
                   >
@@ -175,7 +175,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <select
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     {...field}
                     required
                   >
@@ -197,7 +197,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Street"
                     {...field}
@@ -209,7 +209,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="City"
                     {...field}
@@ -221,7 +221,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="State"
                     {...field}
@@ -233,7 +233,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Postal Code"
                     {...field}
@@ -245,7 +245,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Country"
                     {...field}
@@ -266,7 +266,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <select
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     {...field}
                     required
                   >
@@ -284,7 +284,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <select
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     {...field}
                     required
                   >
@@ -302,7 +302,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Salary"
                     {...field}
@@ -315,7 +315,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <select
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     {...field}
                     required
                   >
@@ -331,7 +331,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <select
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     {...field}
                   >
                     <option value="Active">Active</option>
@@ -345,7 +345,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="date"
                     placeholder="Date of Joining"
                     {...field}
@@ -358,7 +358,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <select
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     {...field}
                     required
                   >
@@ -383,7 +383,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Account Number"
                     {...field}
@@ -396,7 +396,7 @@ const EditEmployee = () => {
                 render={({ field }) => (
                   <select
                     {...field}
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                   >
                     <option value="">--Bank Name--</option>
                     <option value="HBL">HBL</option>
@@ -419,7 +419,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Name"
                     {...field}
@@ -432,7 +432,7 @@ const EditEmployee = () => {
                 render={({ field }) => (
                   <select
                     {...field}
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                   >
                     <option value="">--Relationship--</option>
                     <option value="Father">Father</option>
@@ -447,7 +447,7 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-200 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Phone Number"
                     {...field}

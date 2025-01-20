@@ -32,7 +32,7 @@ function EmployeeOnLeave() {
     <>
       {loading && <Loader />}
 
-      <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen">
+      <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen shadow">
         <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
           {buttons.map((button) => (
             <button

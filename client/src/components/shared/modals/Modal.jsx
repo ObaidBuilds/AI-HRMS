@@ -8,7 +8,7 @@ const Modal = ({ onClose, isConfirm, action }) => {
         className="border border-gray-300 dark:border-gray-700 bg-gray-200 text-gray-800 p-4 rounded-lg w-[92%] md:w-[400px] max-w-md"
       >
         <h3
-          className="text-lg border-b border-gray-400 pb-1 font-bold mb-4"
+          className="text-lg border-b border-gray-00 pb-1 font-bold mb-1"
           id="modal-title"
         >
           Confirmation ✨
