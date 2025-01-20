@@ -7,9 +7,10 @@ const Home = () => {
   return (
     <section className="h-[60vh] sm:h-auto w-full flex flex-col">
       <div className="w-full flex justify-center">
-        <div className="w-[70%] h-[50px] border-b border-gray-700 flex justify-center items-center">
+        <div className="w-[70%] h-[50px] border-b border-gray-400 flex justify-center items-center">
           <ul className="flex items-center gap-4">
             <h1
+            className="text-gray-700"
               style={{
                 fontFamily: "Bruno Ace",
               }}

@@ -11,6 +11,7 @@ import { Route, Routes } from "react-router-dom";
 import NotFound from "./components/shared/error/NotFound";
 import Loader from "./components/shared/loaders/Loader";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { ThemeProvider } from "./context";
 
 function HrmsForMetroCashAndCarry() {
   const { user } = useSelector((state) => state.authentication);
@@ -34,9 +35,11 @@ function EmployeeRouter() {
 
 function AdminRouter() {
   return (
-    <Routes>
-      <Route path="/*" element={<AdminApp />} />
-    </Routes>
+    <ThemeProvider>
+      <Routes>
+        <Route path="/*" element={<AdminApp />} />
+      </Routes>
+    </ThemeProvider>
   );
 }
 

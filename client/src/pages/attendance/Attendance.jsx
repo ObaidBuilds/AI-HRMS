@@ -95,11 +95,7 @@ const Attendance = () => {
                   filteredAttendance.map((item, index) => (
                     <tr
                       key={item._id}
-                      className={`${
-                        index % 2 === 0
-                          ? "even:bg-gray-800 odd:bg-gray-700"
-                          : "even:bg-gray-800 odd:bg-gray-700"
-                      } hover:bg-gray-600`}
+                      className="even:bg-gray-100 text-gray-700 odd:bg-gray-200  hover:bg-gray-300"
                     >
                       <td className="py-3 px-4 border-b border-gray-500">
                         EMP {item.employee.employeeId}

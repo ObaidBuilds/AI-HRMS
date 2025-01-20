@@ -16,7 +16,6 @@ const Feedback = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-
     dispatch(createFeedback(data))
       .unwrap()
       .then(() => {
@@ -37,12 +36,12 @@ const Feedback = () => {
           </h1>
         </div>
 
-        <form className="space-y-3  text-sm" onSubmit={handleSubmit(onSubmit)}>
+        <form className="space-y-2 text-sm" onSubmit={handleSubmit(onSubmit)}>
           <div className="relative">
             <i className="fa fa-calendar-check text-sm absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
             <select
               {...register("rating", { required: "Rating  is required" })}
-              className="w-full bg-gray-700 text-center text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-100 text-gray-800 text-center text-sm p-4 rounded-full border border-gray-300 pl-12 focus:ring-2 focus:ring-blue-500"
               id="select"
             >
               <option value="">--- Select Rating ---</option>
@@ -61,7 +60,7 @@ const Feedback = () => {
               })}
               type="text"
               placeholder="Any Suggestion"
-              className="w-full bg-gray-700 text-center text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-100 text-gray-800 text-center text-sm p-4 rounded-full border border-gray-300 pl-12 focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -77,10 +76,10 @@ const Feedback = () => {
               })}
               placeholder="Write your feedback..."
               rows="4"
-              className={`w-full bg-gray-700 text-sm p-3 rounded-xl border ${
+              className={`w-full bg-gray-100 text-gray-800 text-sm p-3 rounded-xl border ${
                 errors.description
                   ? "border-red-500 focus:ring-red-500"
-                  : "border-gray-600 focus:ring-blue-500"
+                  : "border-gray-300 focus:ring-blue-500"
               }`}
             ></textarea>
           </div>

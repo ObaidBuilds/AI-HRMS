@@ -25,7 +25,7 @@ function Update() {
           <section className="mt-2 sm:p-4 flex flex-col items-center justify-center rounded-lg">
             <div
               id="overflow"
-              className="overflow-auto rounded-lg w-[96%] sm:w-[90%] h-[55vh] bg-secondary "
+              className="overflow-auto rounded-lg w-[96%] sm:w-[90%] h-[55vh] bg-gray-100"
             >
               <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
                 <thead>
@@ -52,7 +52,7 @@ function Update() {
                     updates.map((update, index) => (
                       <tr
                         key={index}
-                        className="even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600"
+                        className="even:bg-gray-100 text-gray-700 odd:bg-gray-200  hover:bg-gray-300"
                       >
                         <td className="py-3 px-4 border-b border-gray-500">
                           {update.leaveType ? "Leave" : "Complaint"}
@@ -72,7 +72,7 @@ function Update() {
                             : update.complaintDetails.slice(0, 20) + "..."}
                         </td>
                         <td
-                          className={`py-3 px-4 border-b border-gray-500 font-semibold ${
+                          className={`py-3 px-4 border-b border-gray-500 font-bold ${
                             update.status === "Approved"
                               ? "text-green-400"
                               : update.status === "Pending"
@@ -82,15 +82,17 @@ function Update() {
                               : "text-blue-400"
                           }`}
                         >
-                          {update.status}
+                          {update.status.toUpperCase()}
                         </td>
                         <td className="py-3 px-4 border-b border-gray-500">
                           {update.leaveType
                             ? new Date(update.fromDate).toLocaleDateString()
                             : new Date(update.createdAt).toLocaleDateString()}
                         </td>
-                        <td className="py-3 px-4 border-b border-gray-500">
-                          {update.leaveType ? update.remarks : update.remarks}
+                        <td className="py-3 px-4 border-b border-gray-500 text-green-600 font-semibold">
+                          {update.leaveType
+                            ? update.remarks.toUpperCase()
+                            : update.remarks.toUpperCase()}
                         </td>
                       </tr>
                     ))}

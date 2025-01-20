@@ -22,7 +22,7 @@ const Security = () => {
           </h1>
         </div>
 
-        <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+        <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
           {/* Old Password */}
           <div className="relative">
             <i className="fa fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
@@ -32,7 +32,7 @@ const Security = () => {
               {...register("oldPassword", {
                 required: "Old password is required",
               })}
-              className="w-full bg-gray-700 text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-100 text-gray-800 text-sm p-4 rounded-full border border-gray-300 pl-12 focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -45,7 +45,7 @@ const Security = () => {
               {...register("newPassword", {
                 required: "New password is required",
               })}
-              className="w-full bg-gray-700 text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-100 text-gray-800 text-sm p-4 rounded-full border border-gray-300 pl-12 focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -58,7 +58,7 @@ const Security = () => {
               })}
               type="password"
               placeholder="Confirm New Password"
-              className="w-full bg-gray-700 text-sm p-4 rounded-full border border-gray-600 pl-12 focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-100 text-gray-800 text-sm p-4 rounded-full border border-gray-300 pl-12 focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
