@@ -85,8 +85,8 @@ const EditEmployee = () => {
           className="space-y-2 sm:space-y-4"
         >
           {/* Basic Details */}
-          <div className="dark:bg-gray-800 p-4 rounded-lg">
-            <h4 className="dark:text-primary font-semibold mb-3">
+          <div className="dark:bg-gray-800 p-6 rounded-lg">
+            <h4 className="dark:text-primary font-semibold mb-3 text-[0.95rem]">
               Basic Details
             </h4>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -95,10 +95,10 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
+                    {...field}
                     className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Employee ID"
-                    {...field}
                     required
                   />
                 )}
@@ -108,10 +108,10 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
+                    {...field}
                     className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Full Name"
-                    {...field}
                     required
                   />
                 )}
@@ -121,10 +121,10 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
+                    {...field}
                     className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="email"
                     placeholder="Email"
-                    {...field}
                     required
                   />
                 )}
@@ -134,10 +134,10 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
+                    {...field}
                     className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="date"
                     placeholder="Date of Birth"
-                    {...field}
                     required
                   />
                 )}
@@ -147,10 +147,10 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
+                    {...field}
                     className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Phone Number"
-                    {...field}
                     required
                   />
                 )}
@@ -160,8 +160,8 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <select
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     {...field}
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     required
                   >
                     <option value="">--Gender--</option>
@@ -175,8 +175,8 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <select
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     {...field}
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     required
                   >
                     <option value="">--Marital Status--</option>
@@ -189,18 +189,20 @@ const EditEmployee = () => {
           </div>
 
           {/* Address Details */}
-          <div className="dark:bg-gray-800 p-4 rounded-lg">
-            <h4 className="dark:text-primary font-semibold mb-3">Address</h4>
+          <div className="dark:bg-gray-800 p-6 rounded-lg">
+            <h4 className="dark:text-primary font-semibold mb-3 text-[0.95rem]">
+              Address
+            </h4>
             <div className="grid gap-4 sm:grid-cols-2">
               <Controller
                 name="address.street"
                 control={control}
                 render={({ field }) => (
                   <input
+                    {...field}
                     className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Street"
-                    {...field}
                   />
                 )}
               />
@@ -209,10 +211,10 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
+                    {...field}
                     className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="City"
-                    {...field}
                   />
                 )}
               />
@@ -221,10 +223,10 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
+                    {...field}
                     className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="State"
-                    {...field}
                   />
                 )}
               />
@@ -233,10 +235,10 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
+                    {...field}
                     className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Postal Code"
-                    {...field}
                   />
                 )}
               />
@@ -245,10 +247,10 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
+                    {...field}
                     className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Country"
-                    {...field}
                   />
                 )}
               />
@@ -256,8 +258,8 @@ const EditEmployee = () => {
           </div>
 
           {/* Department & Role */}
-          <div className="dark:bg-gray-800 p-4 rounded-lg">
-            <h4 className="dark:text-primary font-semibold mb-3">
+          <div className="dark:bg-gray-800 p-6 rounded-lg">
+            <h4 className="dark:text-primary font-semibold mb-3 text-[0.95rem]">
               Department & Role
             </h4>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -266,8 +268,8 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <select
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     {...field}
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     required
                   >
                     <option value="">--Department--</option>
@@ -284,8 +286,8 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <select
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     {...field}
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     required
                   >
                     <option value="">--Role--</option>
@@ -302,10 +304,10 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
+                    {...field}
                     className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Salary"
-                    {...field}
                     required
                   />
                 )}
@@ -315,8 +317,8 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <select
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     {...field}
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     required
                   >
                     <option value="">--Shift--</option>
@@ -331,8 +333,8 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <select
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     {...field}
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                   >
                     <option value="Active">Active</option>
                     <option value="Inactive">Inactive</option>
@@ -345,10 +347,10 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
+                    {...field}
                     className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="date"
                     placeholder="Date of Joining"
-                    {...field}
                     required
                   />
                 )}
@@ -358,8 +360,8 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <select
-                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     {...field}
+                    className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     required
                   >
                     <option value="">--Employment Type--</option>
@@ -373,8 +375,8 @@ const EditEmployee = () => {
           </div>
 
           {/* Bank Details */}
-          <div className="dark:bg-gray-800 p-4 rounded-lg">
-            <h4 className="dark:text-primary font-semibold mb-3">
+          <div className="dark:bg-gray-800 p-6 rounded-lg">
+            <h4 className="dark:text-primary font-semibold mb-3 text-[0.95rem]">
               Bank Details
             </h4>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -383,10 +385,10 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
+                    {...field}
                     className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Account Number"
-                    {...field}
                   />
                 )}
               />
@@ -409,8 +411,8 @@ const EditEmployee = () => {
           </div>
 
           {/* Emergency Contact */}
-          <div className="dark:bg-gray-800 p-4 rounded-lg">
-            <h4 className="dark:text-primary font-semibold mb-3">
+          <div className="dark:bg-gray-800 p-6 rounded-lg">
+            <h4 className="dark:text-primary font-semibold mb-3 text-[0.95rem]">
               Emergency Contact
             </h4>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -419,10 +421,10 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
+                    {...field}
                     className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Name"
-                    {...field}
                   />
                 )}
               />
@@ -447,10 +449,10 @@ const EditEmployee = () => {
                 control={control}
                 render={({ field }) => (
                   <input
+                    {...field}
                     className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     type="text"
                     placeholder="Phone Number"
-                    {...field}
                   />
                 )}
               />

@@ -28,8 +28,8 @@ const AddEmployee = () => {
             className="space-y-2 sm:space-y-4"
           >
             {/* Basic Details */}
-            <div className="dark:bg-gray-800 p-6 rounded-lg">
-              <h4 className="dark:text-primary font-semibold mb-3">
+            <div className="dark:bg-gray-800 text-[0.95rem] p-6 rounded-lg">
+              <h4 className="dark:text-primary font-semibold mb-3 text-[0.95rem]">
                 Basic Details
               </h4>
               <div className="grid gap-4 sm:grid-cols-2">
@@ -40,9 +40,10 @@ const AddEmployee = () => {
                   rules={{ required: "Employee ID is required" }}
                   render={({ field }) => (
                     <input
+                      {...field}
                       type="text"
                       placeholder="Employee ID"
-                      {...field}
+                      autoComplete="off"
                       className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
@@ -54,9 +55,9 @@ const AddEmployee = () => {
                   rules={{ required: "Full Name is required" }}
                   render={({ field }) => (
                     <input
+                      {...field}
                       type="text"
                       placeholder="Full Name"
-                      {...field}
                       className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
@@ -71,9 +72,9 @@ const AddEmployee = () => {
                   }}
                   render={({ field }) => (
                     <input
+                      {...field}
                       type="email"
                       placeholder="Email"
-                      {...field}
                       className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
@@ -85,9 +86,10 @@ const AddEmployee = () => {
                   rules={{ required: "Password is required" }}
                   render={({ field }) => (
                     <input
+                      {...field}
                       type="password"
                       placeholder="Password"
-                      {...field}
+                      autoComplete="off"
                       className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
@@ -99,9 +101,9 @@ const AddEmployee = () => {
                   rules={{ required: "Date of Birth is required" }}
                   render={({ field }) => (
                     <input
+                      {...field}
                       type="date"
                       placeholder="Date of Birth"
-                      {...field}
                       className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
@@ -113,9 +115,9 @@ const AddEmployee = () => {
                   rules={{ required: "Phone Number is required" }}
                   render={({ field }) => (
                     <input
+                      {...field}
                       type="text"
                       placeholder="Phone Number"
-                      {...field}
                       className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
@@ -156,7 +158,7 @@ const AddEmployee = () => {
             </div>
 
             {/* Address Details */}
-            <div className="dark:bg-gray-800 p-4 rounded-lg">
+            <div className="dark:bg-gray-800 text-[0.95rem] p-6 rounded-lg">
               <h4 className="dark:text-primary font-semibold mb-3">Address</h4>
               <div className="grid gap-4 sm:grid-cols-2">
                 <Controller
@@ -165,9 +167,9 @@ const AddEmployee = () => {
                   defaultValue=""
                   render={({ field }) => (
                     <input
+                      {...field}
                       type="text"
                       placeholder="Street"
-                      {...field}
                       className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
@@ -178,9 +180,9 @@ const AddEmployee = () => {
                   defaultValue=""
                   render={({ field }) => (
                     <input
+                      {...field}
                       type="text"
                       placeholder="City"
-                      {...field}
                       className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
@@ -191,9 +193,9 @@ const AddEmployee = () => {
                   defaultValue=""
                   render={({ field }) => (
                     <input
+                      {...field}
                       type="text"
                       placeholder="State"
-                      {...field}
                       className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
@@ -204,9 +206,9 @@ const AddEmployee = () => {
                   defaultValue=""
                   render={({ field }) => (
                     <input
+                      {...field}
                       type="text"
                       placeholder="Postal Code"
-                      {...field}
                       className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
@@ -217,9 +219,9 @@ const AddEmployee = () => {
                   defaultValue=""
                   render={({ field }) => (
                     <input
+                      {...field}
                       type="text"
                       placeholder="Country"
-                      {...field}
                       className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
@@ -228,7 +230,7 @@ const AddEmployee = () => {
             </div>
 
             {/* Department & Role */}
-            <div className="dark:bg-gray-800 p-4 rounded-lg">
+            <div className="dark:bg-gray-800 text-[0.95rem] p-6 rounded-lg">
               <h4 className="dark:text-primary font-semibold mb-3">
                 Department & Role
               </h4>
@@ -278,9 +280,9 @@ const AddEmployee = () => {
                   rules={{ required: "Salary is required" }}
                   render={({ field }) => (
                     <input
+                      {...field}
                       type="text"
                       placeholder="Salary"
-                      {...field}
                       className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
@@ -324,9 +326,9 @@ const AddEmployee = () => {
                   rules={{ required: "Date of Joining is required" }}
                   render={({ field }) => (
                     <input
+                      {...field}
                       type="date"
                       placeholder="Date of Joining"
-                      {...field}
                       className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
@@ -351,7 +353,7 @@ const AddEmployee = () => {
             </div>
 
             {/* Bank Details */}
-            <div className="dark:bg-gray-800 p-4 rounded-lg">
+            <div className="dark:bg-gray-800 text-[0.95rem] p-6 rounded-lg">
               <h4 className="dark:text-primary font-semibold mb-3">
                 Bank Details
               </h4>
@@ -362,9 +364,9 @@ const AddEmployee = () => {
                   defaultValue=""
                   render={({ field }) => (
                     <input
+                      {...field}
                       type="text"
                       placeholder="Bank Account No"
-                      {...field}
                       className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
@@ -389,7 +391,7 @@ const AddEmployee = () => {
             </div>
 
             {/* Emergency Contact */}
-            <div className="dark:bg-gray-800 p-4 rounded-lg">
+            <div className="dark:bg-gray-800 text-[0.95rem] p-6 rounded-lg">
               <h4 className="dark:text-primary font-semibold mb-3">
                 Emergency Contact
               </h4>
@@ -400,9 +402,9 @@ const AddEmployee = () => {
                   defaultValue=""
                   render={({ field }) => (
                     <input
+                      {...field}
                       type="text"
                       placeholder="Emergency Contact Name"
-                      {...field}
                       className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
@@ -430,9 +432,9 @@ const AddEmployee = () => {
                   defaultValue=""
                   render={({ field }) => (
                     <input
+                      {...field}
                       type="text"
                       placeholder="Phone Number"
-                      {...field}
                       className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
