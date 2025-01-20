@@ -90,19 +90,8 @@ const Sidebar = () => {
           </div>
         </div>
 
-         {/* Theme Toggle */}
-         <div className="flex gap-2 items-center mx-4">
-          <label className="switch">
-            <input
-              type="checkbox"
-              checked={theme === "dark"}
-              onChange={toggleTheme}
-            />
-            <span className="slider round"></span>
-          </label>
-        </div>
-
         {/* Sidebar Links */}
+
         <ul className="flex flex-col gap-4 p-4 overflow-y-auto">
           {sidebarLinks.map((item, index) => (
             <li
@@ -158,6 +147,32 @@ const Sidebar = () => {
                 )}
             </li>
           ))}
+
+          {/* Theme Toggle */}
+
+          <button className="flex gap-2 justify-between items-center border-b py-[4px] border-gray-700">
+            <div className="flex items-center gap-2">
+              <i
+                className={`fas ${
+                  theme === "light" ? "fa-moon" : "fa-sun"
+                }  text-sm text-gray-300`}
+              ></i>
+              <p className=" text-[0.82rem]">
+                {theme === "light" ? " Dark mode" : " Light mode"}
+              </p>
+            </div>
+            <label className="switch">
+              <input
+                type="checkbox"
+                checked={theme === "dark"}
+                onChange={toggleTheme}
+              />
+              <span className="slider round"></span>
+            </label>
+          </button>
+
+          {/* Logout */}
+
           <button
             onClick={() => setShowConfirmModal(true)}
             className="flex items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
@@ -165,6 +180,7 @@ const Sidebar = () => {
             <i className="fas fa-sign-out-alt mr-3 text-sm text-gray-300"></i>
             <p className=" text-[0.82rem]">Logout</p>
           </button>
+
           <div className="w-full py-2 hidden lg:block  bottom-2">
             <div className="flex items-center gap-4">
               <div className="w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer">
