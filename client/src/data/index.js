@@ -76,6 +76,12 @@ const sidebarLinks = [
     link: "/report",
     childrens: [],
   },
+  {
+    name: "Settings",
+    iconClass: "fas fa-gear",
+    link: "/",
+    childrens: [],
+  },
 ];
 
 const navbarLinks = [
