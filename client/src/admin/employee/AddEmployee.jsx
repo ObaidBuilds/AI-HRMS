@@ -28,7 +28,7 @@ const AddEmployee = () => {
             className="space-y-2 sm:space-y-4"
           >
             {/* Basic Details */}
-            <div className="dark:bg-gray-800 text-[0.95rem] p-6 rounded-lg">
+            <div className="dark:bg-gray-800 text-[0.9rem] p-5 rounded-lg">
               <h4 className="dark:text-primary font-semibold mb-3 text-[0.95rem]">
                 Basic Details
               </h4>
@@ -158,7 +158,7 @@ const AddEmployee = () => {
             </div>
 
             {/* Address Details */}
-            <div className="dark:bg-gray-800 text-[0.95rem] p-6 rounded-lg">
+            <div className="dark:bg-gray-800 text-[0.9rem] p-5 rounded-lg">
               <h4 className="dark:text-primary font-semibold mb-3">Address</h4>
               <div className="grid gap-4 sm:grid-cols-2">
                 <Controller
@@ -230,7 +230,7 @@ const AddEmployee = () => {
             </div>
 
             {/* Department & Role */}
-            <div className="dark:bg-gray-800 text-[0.95rem] p-6 rounded-lg">
+            <div className="dark:bg-gray-800 text-[0.9rem] p-5 rounded-lg">
               <h4 className="dark:text-primary font-semibold mb-3">
                 Department & Role
               </h4>
@@ -353,7 +353,7 @@ const AddEmployee = () => {
             </div>
 
             {/* Bank Details */}
-            <div className="dark:bg-gray-800 text-[0.95rem] p-6 rounded-lg">
+            <div className="dark:bg-gray-800 text-[0.9rem] p-5 rounded-lg">
               <h4 className="dark:text-primary font-semibold mb-3">
                 Bank Details
               </h4>
@@ -391,7 +391,7 @@ const AddEmployee = () => {
             </div>
 
             {/* Emergency Contact */}
-            <div className="dark:bg-gray-800 text-[0.95rem] p-6 rounded-lg">
+            <div className="dark:bg-gray-800 text-[0.9rem] p-5 rounded-lg">
               <h4 className="dark:text-primary font-semibold mb-3">
                 Emergency Contact
               </h4>

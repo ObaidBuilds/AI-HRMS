@@ -85,8 +85,8 @@ const EditEmployee = () => {
           className="space-y-2 sm:space-y-4"
         >
           {/* Basic Details */}
-          <div className="dark:bg-gray-800 p-6 rounded-lg">
-            <h4 className="dark:text-primary font-semibold mb-3 text-[0.95rem]">
+          <div className="dark:bg-gray-800 p-5 rounded-lg">
+            <h4 className="dark:text-primary font-semibold mb-3 text-[0.9rem]">
               Basic Details
             </h4>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -189,8 +189,8 @@ const EditEmployee = () => {
           </div>
 
           {/* Address Details */}
-          <div className="dark:bg-gray-800 p-6 rounded-lg">
-            <h4 className="dark:text-primary font-semibold mb-3 text-[0.95rem]">
+          <div className="dark:bg-gray-800 p-5 rounded-lg">
+            <h4 className="dark:text-primary font-semibold mb-3 text-[0.9rem]">
               Address
             </h4>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -258,8 +258,8 @@ const EditEmployee = () => {
           </div>
 
           {/* Department & Role */}
-          <div className="dark:bg-gray-800 p-6 rounded-lg">
-            <h4 className="dark:text-primary font-semibold mb-3 text-[0.95rem]">
+          <div className="dark:bg-gray-800 p-5 rounded-lg">
+            <h4 className="dark:text-primary font-semibold mb-3 text-[0.9rem]">
               Department & Role
             </h4>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -375,8 +375,8 @@ const EditEmployee = () => {
           </div>
 
           {/* Bank Details */}
-          <div className="dark:bg-gray-800 p-6 rounded-lg">
-            <h4 className="dark:text-primary font-semibold mb-3 text-[0.95rem]">
+          <div className="dark:bg-gray-800 p-5 rounded-lg">
+            <h4 className="dark:text-primary font-semibold mb-3 text-[0.9rem]">
               Bank Details
             </h4>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -411,8 +411,8 @@ const EditEmployee = () => {
           </div>
 
           {/* Emergency Contact */}
-          <div className="dark:bg-gray-800 p-6 rounded-lg">
-            <h4 className="dark:text-primary font-semibold mb-3 text-[0.95rem]">
+          <div className="dark:bg-gray-800 p-5 rounded-lg">
+            <h4 className="dark:text-primary font-semibold mb-3 text-[0.9rem]">
               Emergency Contact
             </h4>
             <div className="grid gap-4 sm:grid-cols-2">
