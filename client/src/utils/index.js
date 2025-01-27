@@ -1,7 +1,5 @@
 import * as XLSX from "xlsx";
 
-
-
 const formatDate = (date) => {
   if (!date) return "";
   const d = new Date(date);
