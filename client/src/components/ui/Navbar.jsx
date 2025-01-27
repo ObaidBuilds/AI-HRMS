@@ -6,7 +6,7 @@ import ResponsiveNavbar from "./ResponsiveNavbar";
 import { logout } from "../../services/auth";
 import { updateProfile } from "../../services/employee";
 import ProfileModal from "../shared/modals/ProfileModal";
-import { formatDate } from "../../utils";
+import Loader from "../shared/loaders/Loader";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -52,6 +52,7 @@ const Navbar = () => {
 
   return (
     <>
+      {loading && <Loader />}
       <header className="hidden bg-navy text-white h-[50px] border-b md:flex justify-around items-center border-gray-700">
         <div className="text-sm">
           <Link to={"/update"}>
