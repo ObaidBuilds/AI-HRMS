@@ -57,10 +57,9 @@ const createFeedback = catchErrors(async (req, res) => {
     throw new Error("All fields are required");
 
   const prompt = `
-  Given the user's feedback description and rating, determine if the sentiment is positive or negative. 
+  Given the user's feedback description, determine if the sentiment is positive or negative. 
   The rating should be considered as an additional indicator. 
   Feedback Description: "${description}" 
-  Rating: ${parseInt(rating)} 
   Please respond with only one word which is "Positive" , "Negative" or "Neutral".
 `;
 
