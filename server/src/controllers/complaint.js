@@ -70,10 +70,34 @@ const createComplaint = catchErrors(async (req, res) => {
   });
 });
 
+const assignComplaintForResolution = catchErrors(async (req, res) => {
+  const { complaintId } = req.params;
+  const { employee } = req.body;
+
+  if (!complaintId || !employee) {
+    throw new Error("All fields are required");
+  }
+
+  const updatedComplaint = await Complaint.findByIdAndUpdate(
+    complaintId,
+    { assignComplaint: employee },
+    { new: true }
+  ).populate("assignComplaint", "name email");
+
+  if (!updatedComplaint) {
+    throw new Error("Complaint not found");
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Complaint successfully assigned for resolution.",
+    complaint: updatedComplaint,
+  });
+});
+
 const respondComplaint = catchErrors(async (req, res) => {
-  const { status } = req.query;
   const { complaintID } = req.params;
-  const { remarks } = req.body;
+  const { remarks, status } = req.body;
 
   if (!status || !complaintID) throw new Error("All fields are required");
 
@@ -98,4 +122,9 @@ const respondComplaint = catchErrors(async (req, res) => {
   });
 });
 
-export { getComplaints, createComplaint, respondComplaint };
+export {
+  getComplaints,
+  createComplaint,
+  respondComplaint,
+  assignComplaintForResolution,
+};

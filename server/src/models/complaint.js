@@ -25,6 +25,10 @@ const complaintSchema = new mongoose.Schema(
       type: String,
       default: "pending",
     },
+    assignComplaint: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Employee",
+    },
   },
   {
     timestamps: true,

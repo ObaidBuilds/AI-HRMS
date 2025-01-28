@@ -107,8 +107,7 @@ const applyLeave = catchErrors(async (req, res) => {
 
 const respondLeave = catchErrors(async (req, res) => {
   const { leaveID } = req.params;
-  const { status } = req.query;
-  const { remarks } = req.body;
+  const { remarks, status } = req.body;
 
   const leave = await Leave.findById(leaveID);
 

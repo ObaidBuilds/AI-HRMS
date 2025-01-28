@@ -45,10 +45,10 @@ export const respondToComplaintRequest = createAsyncThunk(
   "complaints/respondToComplaintRequest",
   async ({ complaintID, status, remarks }, { rejectWithValue }) => {
     try {
-      const { data } = await axiosInstance.patch(
-        `/complaints/${complaintID}?status=${status}`,
-        { remarks }
-      );
+      const { data } = await axiosInstance.patch(`/complaints/${complaintID}`, {
+        remarks,
+        status,
+      });
       toast.success(data.message);
       return data.complaint;
     } catch (error) {

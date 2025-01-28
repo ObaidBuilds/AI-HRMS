@@ -56,8 +56,8 @@ export const respondToLeaveRequest = createAsyncThunk(
   async ({ leaveID, status, remarks }, { rejectWithValue }) => {
     try {
       const { data } = await axios.patch(
-        `/leaves/${leaveID}?status=${status}`,
-        { remarks }
+        `/leaves/${leaveID}`,
+        { remarks, status }
       );
       toast.success(data.message);
       return data.leave;
