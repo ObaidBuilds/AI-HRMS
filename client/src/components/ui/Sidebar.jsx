@@ -5,16 +5,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../shared/modals/Modal";
 import { useTheme } from "../../context";
+import Loader from "../shared/loaders/Loader";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
+  const { loading, user } = useSelector((state) => state.authentication);
 
   const [showSidebar, setShowSidebar] = useState(false);
   const [openSubMenuIndex, setOpenSubMenuIndex] = useState(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const user = useSelector((state) => state.authentication.user);
 
   const toggleSubMenu = (index) =>
     setOpenSubMenuIndex(openSubMenuIndex === index ? null : index);
@@ -43,6 +44,8 @@ const Sidebar = () => {
 
   return (
     <div className="text-white">
+      {loading && <Loader />}
+
       {/* Navigation Bar */}
 
       <nav className="w-full fixed top-0 left-0 lg:hidden h-[70px] bg-navy flex justify-between items-center px-7 z-50">
