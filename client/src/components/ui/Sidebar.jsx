@@ -69,7 +69,7 @@ const Sidebar = () => {
 
       <aside
         id="overflow"
-        className={`fixed top-0 h-screen bg-navy transition-all duration-300 ease-in-out z-50 overflow-y-auto text-[0.82rem] font-medium ${
+        className={`fixed top-0 h-screen bg-navy transition-all duration-300 ease-in-out z-50 overflow-y-auto text-[0.72rem] font-medium ${
           showSidebar ? "left-0" : "-left-full"
         } lg:left-0 w-full lg:w-[255px]`}
       >
@@ -113,7 +113,7 @@ const Sidebar = () => {
                   <i
                     className={`${item.iconClass} mr-3 text-sm text-gray-200`}
                   ></i>
-                  <p>{item.name}</p>
+                  <p>{item.name.toUpperCase()}</p>
                 </Link>
 
                 {/* Arrow Icon for Submenu */}
@@ -160,8 +160,8 @@ const Sidebar = () => {
                   theme === "light" ? "fa-moon" : "fa-sun"
                 }  text-sm text-gray-300 pr-2`}
               ></i>
-              <p className=" text-[0.82rem]">
-                {theme === "light" ? " Dark mode" : " Light mode"}
+              <p className=" text-[0.72rem]">
+                {theme === "light" ? " DARK" : " LIGHT"} MODE
               </p>
             </div>
             <label className="switch">
@@ -181,7 +181,7 @@ const Sidebar = () => {
             className="flex items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
           >
             <i className="fas fa-sign-out-alt mr-3 text-sm text-gray-300"></i>
-            <p className=" text-[0.82rem]">Logout</p>
+            <p className=" text-[0.72rem]">LOGOUT</p>
           </button>
 
           <div className="w-full py-2 block  bottom-2">
