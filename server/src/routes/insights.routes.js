@@ -1,7 +1,7 @@
 import express from "express";
-import { getInsights } from "../controllers/insights.js";
+import { getUpdates } from "../controllers/update.controller.js";
+import { getInsights } from "../controllers/insights.controller.js";
 import { verifyAdminToken, verifyEmployeeToken } from "../middlewares/index.js";
-import { getUpdates } from "../controllers/update.js";
 
 const router = express.Router();
 

@@ -6,7 +6,7 @@ import {
   markAttendanceByQrCode,
   genrateQrCodeForAttendance,
   getMonthlyAttendancePercentage,
-} from "../controllers/attendance.js";
+} from "../controllers/attendance.controller.js";
 import { verifyAdminToken, verifyEmployeeToken } from "../middlewares/index.js";
 
 const router = express.Router();

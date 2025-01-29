@@ -3,7 +3,7 @@ import {
   login,
   logout,
   updatePassword,
-} from "../controllers/authentication.js";
+} from "../controllers/authentication.controller.js";
 import { verifyEmployeeToken } from "../middlewares/index.js";
 
 const router = express.Router();

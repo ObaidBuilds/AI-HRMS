@@ -1,4 +1,4 @@
-import Complaint from "../models/complaint.js";
+import Complaint from "../models/complaint.model.js";
 import { catchErrors, myCache } from "../utils/index.js";
 
 const getComplaints = catchErrors(async (req, res) => {
@@ -48,8 +48,8 @@ const getComplaints = catchErrors(async (req, res) => {
 });
 
 const createComplaint = catchErrors(async (req, res) => {
-  const { complainType, complaintDetails, complainSubject } = req.body;
   const employee = req.user;
+  const { complainType, complaintDetails, complainSubject } = req.body;
 
   if (!employee || !complainType || !complaintDetails || !complainSubject)
     throw new Error("All fields are required");
@@ -71,22 +71,18 @@ const createComplaint = catchErrors(async (req, res) => {
 });
 
 const assignComplaintForResolution = catchErrors(async (req, res) => {
-  const { complaintId } = req.params;
+  const { id } = req.params;
   const { employee } = req.body;
 
-  if (!complaintId || !employee) {
-    throw new Error("All fields are required");
-  }
+  if (!id || !employee) throw new Error("All fields are required");
 
   const updatedComplaint = await Complaint.findByIdAndUpdate(
-    complaintId,
+    id,
     { assignComplaint: employee },
     { new: true }
   ).populate("assignComplaint", "name email");
 
-  if (!updatedComplaint) {
-    throw new Error("Complaint not found");
-  }
+  if (!updatedComplaint) throw new Error("Complaint not found");
 
   res.status(200).json({
     success: true,
@@ -96,12 +92,12 @@ const assignComplaintForResolution = catchErrors(async (req, res) => {
 });
 
 const respondComplaint = catchErrors(async (req, res) => {
-  const { complaintID } = req.params;
+  const { id } = req.params;
   const { remarks, status } = req.body;
 
-  if (!status || !complaintID) throw new Error("All fields are required");
+  if (!status || !id) throw new Error("All fields are required");
 
-  const complaint = await Complaint.findById(complaintID);
+  const complaint = await Complaint.findById(id);
 
   if (!complaint) throw new Error("Complaint not found");
   if (complaint.status.toLowerCase() === "resolved")

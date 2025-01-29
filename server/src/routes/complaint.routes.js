@@ -4,16 +4,16 @@ import {
   createComplaint,
   respondComplaint,
   assignComplaintForResolution,
-} from "../controllers/complaint.js";
+} from "../controllers/complaint.controller.js";
 import { verifyAdminToken, verifyEmployeeToken } from "../middlewares/index.js";
 
 const router = express.Router();
 
 router.get("/", verifyAdminToken, getComplaints);
 router.post("/", verifyEmployeeToken, createComplaint);
-router.patch("/:complaintID", verifyAdminToken, respondComplaint);
+router.patch("/:id", verifyAdminToken, respondComplaint);
 router.patch(
-  "/:complaintID/assign",
+  "/:id/assign",
   verifyAdminToken,
   assignComplaintForResolution
 );

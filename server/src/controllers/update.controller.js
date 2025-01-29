@@ -1,6 +1,6 @@
-import Leave from "../models/leave.js";
-import Complaint from "../models/complaint.js";
+import Leave from "../models/leave.model.js";
 import { catchErrors } from "../utils/index.js";
+import Complaint from "../models/complaint.model.js";
 
 const getUpdates = catchErrors(async (req, res) => {
   const employee = req.user;

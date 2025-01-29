@@ -6,9 +6,9 @@ import {
   deleteEmployee,
   updateEmployee,
   updateProfilePicture,
-} from "../controllers/employee.js";
-import { verifyAdminToken, verifyEmployeeToken } from "../middlewares/index.js";
+} from "../controllers/employee.controller.js";
 import { upload } from "../config/index.js";
+import { verifyAdminToken, verifyEmployeeToken } from "../middlewares/index.js";
 
 const router = express.Router();
 
@@ -20,8 +20,8 @@ router.patch(
   upload.single("profilePicture"),
   updateProfilePicture
 );
-router.get("/:employeeID", verifyEmployeeToken, getEmployeeById);
-router.delete("/:employeeID", verifyAdminToken, deleteEmployee);
-router.patch("/:employeeID", verifyEmployeeToken, updateEmployee);
+router.get("/:id", verifyEmployeeToken, getEmployeeById);
+router.delete("/:id", verifyAdminToken, deleteEmployee);
+router.patch("/:id", verifyEmployeeToken, updateEmployee);
 
 export default router;

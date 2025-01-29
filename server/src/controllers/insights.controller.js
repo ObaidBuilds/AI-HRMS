@@ -1,14 +1,14 @@
-import Employee from "../models/employee.js";
-import Department from "../models/department.js";
-import Leave from "../models/leave.js";
-import Feedback from "../models/feedback.js";
-import Complaint from "../models/complaint.js";
+import { myCache } from "../utils/index.js";
+import Leave from "../models/leave.model.js";
 import { catchErrors } from "../utils/index.js";
+import Employee from "../models/employee.model.js";
+import Feedback from "../models/feedback.model.js";
+import Complaint from "../models/complaint.model.js";
+import Department from "../models/department.model.js";
 import {
   getDepartmentAttendancePercentage,
   getMonthlyAttendancePercentage,
-} from "./attendance.js";
-import { myCache } from "../utils/index.js";
+} from "./attendance.controller.js";
 import { getSentimentAnalysis } from "../predictions/index.js";
 
 const getInsights = catchErrors(async (req, res) => {

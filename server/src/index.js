@@ -3,32 +3,25 @@ dotenv.config();
 
 import cors from "cors";
 import express from "express";
+import cloudinary from "cloudinary";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import cloudinary from "cloudinary";
 import { connectDB } from "./config/index.js";
-import roleRoutes from "./routes/role.js";
-import authRoutes from "./routes/auth.js";
-import leaveRoutes from "./routes/leave.js";
-import inshightRoutes from "./routes/insights.js";
-import employeeRoutes from "./routes/employee.js";
-import feedbackRoutes from "./routes/feedback.js";
-import attendanceRoutes from "./routes/attendance.js";
-import departmentRoutes from "./routes/department.js";
-import complaintRoutes from "./routes/complaint.js";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
+import roleRoutes from "./routes/role.routes.js";
+import leaveRoutes from "./routes/leave.routes.js";
+import inshightRoutes from "./routes/insights.routes.js";
+import employeeRoutes from "./routes/employee.routes.js";
+import feedbackRoutes from "./routes/feedback.routes.js";
+import authRoutes from "./routes/authentication.routes.js";
+import complaintRoutes from "./routes/complaint.routes.js";
+import attendanceRoutes from "./routes/attendance.routes.js";
+import departmentRoutes from "./routes/department.routes.js";
 
 const app = express();
 
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-app.use("/qrcode", express.static(__dirname + "/qr"));
 
 const allowedOrigins = [
   "http://localhost:8000",

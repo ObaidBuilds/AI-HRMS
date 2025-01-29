@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { catchErrors } from "../utils/index.js";
-import Employee from "../models/employee.js";
+import Employee from "../models/employee.model.js";
 
 const verifyEmployeeToken = catchErrors(async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];

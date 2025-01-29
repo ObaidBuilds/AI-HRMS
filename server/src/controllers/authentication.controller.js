@@ -1,7 +1,7 @@
-import Employee from "../models/employee.js";
-import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import * as bcrypt from "bcrypt";
 import { catchErrors } from "../utils/index.js";
+import Employee from "../models/employee.model.js";
 
 const login = catchErrors(async (req, res) => {
   const { employeeId, password, authority } = req.body;

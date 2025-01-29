@@ -1,5 +1,5 @@
-import Employee from "../models/employee.js";
-import Leave from "../models/leave.js";
+import Employee from "../models/employee.model.js";
+import Leave from "../models/leave.model.js";
 import { catchErrors, myCache } from "../utils/index.js";
 import { getSubstitute } from "../predictions/index.js";
 import { notifySubstituteEmployee } from "../templates/index.js";
@@ -80,8 +80,8 @@ const getEmployeesOnLeave = catchErrors(async (req, res) => {
 });
 
 const applyLeave = catchErrors(async (req, res) => {
-  const { leaveType, application, duration, fromDate, toDate } = req.body;
   const employee = req.user;
+  const { leaveType, application, duration, fromDate, toDate } = req.body;
 
   if (!employee || !leaveType || !fromDate || !toDate)
     throw new Error("All fields are required");
@@ -106,10 +106,10 @@ const applyLeave = catchErrors(async (req, res) => {
 });
 
 const respondLeave = catchErrors(async (req, res) => {
-  const { leaveID } = req.params;
+  const { id } = req.params;
   const { remarks, status } = req.body;
 
-  const leave = await Leave.findById(leaveID);
+  const leave = await Leave.findById(id);
 
   if (!leave) throw new Error("Leave not found");
   if (leave.status.toLowerCase() === "rejected")

@@ -1,10 +1,10 @@
 import cron from "node-cron";
 import cloudinary from "cloudinary";
-import Attendance from "../models/attendance.js";
-import Employee from "../models/employee.js";
-import { decodeQR, generateQrCode, getLocation } from "../utils/index.js";
 import { catchErrors } from "../utils/index.js";
+import Employee from "../models/employee.model.js";
+import Attendance from "../models/attendance.model.js";
 import { myCache, getPublicIdFromUrl } from "../utils/index.js";
+import { decodeQR, generateQrCode, getLocation } from "../utils/index.js";
 
 const today = new Date();
 today.setHours(0, 0, 0, 0);
@@ -12,7 +12,7 @@ const tomorrow = new Date(today);
 tomorrow.setDate(today.getDate() + 1);
 
 cron.schedule("0 23 * * *", async () => {
-  // This will run every day at 11:00 PM
+  //  Run every day at 11:00 PM
   await markAbsentAtEndOfDay();
 });
 

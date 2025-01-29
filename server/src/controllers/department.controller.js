@@ -1,6 +1,6 @@
 import { myCache } from "../utils/index.js";
-import Department from "../models/department.js";
 import { catchErrors } from "../utils/index.js";
+import Department from "../models/department.model.js";
 
 const createDepartment = catchErrors(async (req, res) => {
   const { name, head } = req.body;
@@ -36,11 +36,11 @@ const getAllDepartments = catchErrors(async (req, res) => {
 });
 
 const getDepartmentById = catchErrors(async (req, res) => {
-  const { departmentID } = req.params;
+  const { id } = req.params;
 
-  if (!departmentID) throw new Error("Please provide departmed Id");
+  if (!id) throw new Error("Please provide departmed Id");
 
-  const department = await Department.findById(departmentID).populate("head");
+  const department = await Department.findById(id).populate("head");
 
   return res.status(201).json({
     success: true,
@@ -50,14 +50,11 @@ const getDepartmentById = catchErrors(async (req, res) => {
 });
 
 const getDepartmentEmployees = catchErrors(async (req, res) => {
-  const { departmentID } = req.params;
+  const { id } = req.params;
 
-  if (!departmentID) throw new Error("Please provide departmed Id");
+  if (!id) throw new Error("Please provide departmed Id");
 
-  const department = await Department.findById(departmentID).populate(
-    "head",
-    "name"
-  );
+  const department = await Department.findById(id).populate("head", "name");
 
   return res.status(201).json({
     success: true,
@@ -67,11 +64,11 @@ const getDepartmentEmployees = catchErrors(async (req, res) => {
 });
 
 const deleteDepartment = catchErrors(async (req, res) => {
-  const { departmentID } = req.params;
+  const { id } = req.params;
 
-  if (!departmentID) throw new Error("Please provide departmed Id");
+  if (!id) throw new Error("Please provide departmed Id");
 
-  await Department.findByIdAndDelete(departmentID);
+  await Department.findByIdAndDelete(id);
 
   myCache.del("insights");
 
@@ -82,13 +79,13 @@ const deleteDepartment = catchErrors(async (req, res) => {
 });
 
 const updateDepartment = catchErrors(async (req, res) => {
-  const { departmentID } = req.params;
+  const { id } = req.params;
   const { name, head } = req.body;
 
-  if (!departmentID) throw new Error("Please provide departmed Id");
+  if (!id) throw new Error("Please provide departmed Id");
 
   const department = await Department.findByIdAndUpdate(
-    departmentID,
+    id,
     { name, head },
     { new: true }
   );

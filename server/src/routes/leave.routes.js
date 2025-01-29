@@ -4,7 +4,7 @@ import {
   applyLeave,
   respondLeave,
   getEmployeesOnLeave,
-} from "../controllers/leave.js";
+} from "../controllers/leave.controller.js";
 import { verifyAdminToken, verifyEmployeeToken } from "../middlewares/index.js";
 
 const router = express.Router();
@@ -12,6 +12,6 @@ const router = express.Router();
 router.get("/", verifyAdminToken, getLeaves);
 router.get("/employee", verifyAdminToken, getEmployeesOnLeave);
 router.post("/", verifyEmployeeToken, applyLeave);
-router.patch("/:leaveID", verifyAdminToken, respondLeave);
+router.patch("/:id", verifyAdminToken, respondLeave);
 
 export default router;

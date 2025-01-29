@@ -1,12 +1,11 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import mongoose from "mongoose";
-import Employee from "../models/employee.js";
-import { catchErrors, getPublicIdFromUrl } from "../utils/index.js";
-import bcrypt from "bcrypt";
-import { myCache } from "../utils/index.js";
+import * as bcrypt from "bcrypt";
 import cloudinary from "cloudinary";
+import { myCache } from "../utils/index.js";
+import Employee from "../models/employee.model.js";
+import { catchErrors, getPublicIdFromUrl } from "../utils/index.js";
 
 const createEmployee = catchErrors(async (req, res) => {
   const {
@@ -91,11 +90,10 @@ const getAllEmployees = catchErrors(async (req, res) => {
 
   const query = {};
 
+  if (role) query.role = role;
   if (status) query.status = status;
+  if (department) query.department = department;
   if (name) query.name = { $regex: name, $options: "i" };
-  if (role && mongoose.Types.ObjectId.isValid(role)) query.role = role;
-  if (department && mongoose.Types.ObjectId.isValid(department))
-    query.department = department;
 
   const pageNumber = Math.max(parseInt(page), 1);
   const limitNumber = Math.max(parseInt(limit), 1);
@@ -125,11 +123,11 @@ const getAllEmployees = catchErrors(async (req, res) => {
 });
 
 const getEmployeeById = catchErrors(async (req, res) => {
-  const { employeeID } = req.params;
+  const { id } = req.params;
 
-  if (!employeeID) throw new Error("Please provide employee Id");
+  if (!id) throw new Error("Please provide employee Id");
 
-  const employee = await Employee.findById(employeeID)
+  const employee = await Employee.findById(id)
     .populate("department", "name")
     .populate("role", "name")
     .select("-password");
@@ -142,11 +140,11 @@ const getEmployeeById = catchErrors(async (req, res) => {
 });
 
 const deleteEmployee = catchErrors(async (req, res) => {
-  const { employeeID } = req.params;
+  const { id } = req.params;
 
-  if (!employeeID) throw new Error("Please provide employee Id");
+  if (!id) throw new Error("Please provide employee Id");
 
-  await Employee.findByIdAndDelete(employeeID);
+  await Employee.findByIdAndDelete(id);
 
   myCache.del("insights");
 
@@ -157,7 +155,7 @@ const deleteEmployee = catchErrors(async (req, res) => {
 });
 
 const updateEmployee = catchErrors(async (req, res) => {
-  const { employeeID } = req.params;
+  const { id } = req.params;
   const {
     employeeId,
     name,
@@ -181,10 +179,10 @@ const updateEmployee = catchErrors(async (req, res) => {
     admin,
   } = req.body;
 
-  if (!employeeID) throw new Error("Please provide employee Id");
+  if (!id) throw new Error("Please provide employee Id");
 
   const employee = await Employee.findByIdAndUpdate(
-    employeeID,
+    id,
     {
       employeeId,
       name,

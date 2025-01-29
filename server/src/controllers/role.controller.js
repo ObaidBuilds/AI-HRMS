@@ -1,5 +1,5 @@
+import Role from "../models/role.model.js";
 import { myCache } from "../utils/index.js";
-import Role from "../models/role.js";
 import { catchErrors } from "../utils/index.js";
 
 const createRole = catchErrors(async (req, res) => {
@@ -35,11 +35,11 @@ const getAllRoles = catchErrors(async (req, res) => {
 });
 
 const getRoleById = catchErrors(async (req, res) => {
-  const { roleID } = req.params;
+  const { id } = req.params;
 
-  if (!roleID) throw new Error("Please provide role Id");
+  if (!id) throw new Error("Please provide role Id");
 
-  const role = await Role.findById(roleID).populate({
+  const role = await Role.findById(id).populate({
     path: "department",
     select: "name",
     populate: {
@@ -56,11 +56,11 @@ const getRoleById = catchErrors(async (req, res) => {
 });
 
 const deleteRole = catchErrors(async (req, res) => {
-  const { roleID } = req.params;
+  const { id } = req.params;
 
-  if (!roleID) throw new Error("Please provide role Id");
+  if (!id) throw new Error("Please provide role Id");
 
-  await Role.findByIdAndDelete(roleID);
+  await Role.findByIdAndDelete(id);
 
   myCache.del("insights");
 
@@ -71,13 +71,13 @@ const deleteRole = catchErrors(async (req, res) => {
 });
 
 const updateRole = catchErrors(async (req, res) => {
-  const { roleID } = req.params;
+  const { id } = req.params;
   const { name, description } = req.body;
 
-  if (!roleID) throw new Error("Please provide role Id");
+  if (!id) throw new Error("Please provide role Id");
 
   const role = await Role.findByIdAndUpdate(
-    roleID,
+    id,
     { name, description },
     { new: true }
   );

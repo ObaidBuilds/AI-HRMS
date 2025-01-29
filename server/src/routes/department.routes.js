@@ -6,20 +6,20 @@ import {
   getDepartmentEmployees,
   deleteDepartment,
   updateDepartment,
-} from "../controllers/department.js";
+} from "../controllers/department.controller.js";
 import { verifyAdminToken } from "../middlewares/index.js";
 
 const router = express.Router();
 
 router.post("/", verifyAdminToken, createDepartment);
-router.get("/",verifyAdminToken, getAllDepartments);
-router.get("/:departmentID", verifyAdminToken, getDepartmentById);
+router.get("/", verifyAdminToken, getAllDepartments);
+router.get("/:id", verifyAdminToken, getDepartmentById);
 router.get(
-  "/:departmentID/employees",
+  "/:id/employees",
   verifyAdminToken,
   getDepartmentEmployees
 );
-router.delete("/:departmentID", verifyAdminToken, deleteDepartment);
-router.patch("/:departmentID", verifyAdminToken, updateDepartment);
+router.delete("/:id", verifyAdminToken, deleteDepartment);
+router.patch("/:id", verifyAdminToken, updateDepartment);
 
 export default router;
