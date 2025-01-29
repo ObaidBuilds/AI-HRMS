@@ -238,6 +238,11 @@ const getDepartmentAttendancePercentage = async () => {
         },
       },
       {
+        $match: {
+          "departmentDetails.name": { $ne: null }, 
+        },
+      },
+      {
         $group: {
           _id: "$departmentDetails.name",
           totalPresent: {
@@ -276,6 +281,7 @@ const getDepartmentAttendancePercentage = async () => {
 
 const getMonthlyAttendancePercentage = async () => {
   const year = new Date().getFullYear();
+  const currentMonth = new Date().getMonth() + 1; // Get the current month (1-12)
 
   const attendanceData = await Attendance.aggregate([
     {
@@ -307,17 +313,20 @@ const getMonthlyAttendancePercentage = async () => {
     { $sort: { month: 1 } },
   ]);
 
-  const formattedData = Array.from({ length: 12 }, (_, i) => {
+  const formattedData = Array.from({ length: currentMonth }, (_, i) => {
     const monthData = attendanceData.find((data) => data.month === i + 1);
     return {
       month: new Date(0, i).toLocaleString("default", { month: "long" }),
-      attendancePercentage:
-        parseInt(monthData?.attendancePercentage.toFixed(2)) || 0,
+      attendancePercentage: monthData
+        ? parseInt(monthData.attendancePercentage.toFixed(2))
+        : 0,
     };
   });
 
   return formattedData;
 };
+
+
 
 export {
   getAttendanceList,
