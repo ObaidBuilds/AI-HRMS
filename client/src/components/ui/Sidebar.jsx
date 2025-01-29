@@ -66,7 +66,7 @@ const Sidebar = () => {
 
       <aside
         id="overflow"
-        className={`fixed top-0 h-screen bg-navy transition-all duration-300 ease-in-out z-50 overflow-y-auto text-[0.822rem] font-medium ${
+        className={`fixed top-0 h-screen bg-navy transition-all duration-300 ease-in-out z-50 overflow-y-auto text-[13px] font-medium ${
           showSidebar ? "left-0" : "-left-full"
         } lg:left-0 w-full lg:w-[255px]`}
       >
@@ -155,7 +155,7 @@ const Sidebar = () => {
               <i
                 className={`fas ${
                   theme === "light" ? "fa-moon" : "fa-sun"
-                }  text-sm text-gray-300`}
+                }  text-sm text-gray-300 pr-2`}
               ></i>
               <p className=" text-[0.82rem]">
                 {theme === "light" ? " Dark mode" : " Light mode"}
