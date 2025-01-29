@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getInsights } from "../services/insights";
+import { getInsights } from "../services/insights.service";
 
 const initialState = {
   insights: null,

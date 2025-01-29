@@ -5,7 +5,7 @@ import Pagination from "../../components/shared/others/Pagination";
 import {
   getComplaints,
   respondToComplaintRequest,
-} from "../../services/complaint";
+} from "../../services/complaint.service";
 import Loader from "../../components/shared/loaders/Loader";
 import { formatDate } from "../../utils";
 import Modal from "../../components/shared/modals/Modal";

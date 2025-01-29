@@ -7,7 +7,7 @@ import Modal from "../../components/shared/modals/Modal";
 import Loader from "../../components/shared/loaders/Loader";
 import FilterBar from "../../components/shared/others/FilterBar";
 import Pagination from "../../components/shared/others/Pagination";
-import { deleteEmployee, getAllEmployees } from "../../services/employee";
+import { deleteEmployee, getAllEmployees } from "../../services/employee.service";
 
 function Employee() {
   const dispatch = useDispatch();

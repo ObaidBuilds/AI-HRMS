@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getEmployeeAttendance } from "../../services/attendance";
+import { getEmployeeAttendance } from "../../services/attendance.service";
 import { formatDate } from "../../utils";
 import Loader from "../../components/shared/loaders/Loader";
 

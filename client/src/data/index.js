@@ -20,6 +20,12 @@ const sidebarLinks = [
     ],
   },
   {
+    name: "Departments & Roles",
+    iconClass: "fas fa-users-cog",
+    link: "/",
+    childrens: [],
+  },
+  {
     name: "Attendance Management",
     iconClass: "fas fa-calendar-check",
     link: "/mark-attendance",

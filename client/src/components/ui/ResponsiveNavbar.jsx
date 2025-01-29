@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { navbarLinks } from "../../data";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../../services/auth";
+import { logout } from "../../services/authentication.service";
 
 function ResponsiveNavbar({ showSidebar, setShowSidebar }) {
   const dispatch = useDispatch();

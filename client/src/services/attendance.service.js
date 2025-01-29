@@ -1,7 +1,7 @@
 import axiosInstance from "../axios/axiosInstance";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
-import { removeQr } from "../reducers/attendance";
+import { removeQr } from "../reducers/attendance.reducer";
 
 // Get attendance list
 export const getAttendanceList = createAsyncThunk(

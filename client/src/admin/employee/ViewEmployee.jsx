@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Error from "../../components/shared/error/Error";
 import { useDispatch, useSelector } from "react-redux";
-import { getEmployeeById } from "../../services/employee";
+import { getEmployeeById } from "../../services/employee.service";
 import { formatDate } from "../../utils";
 import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
 

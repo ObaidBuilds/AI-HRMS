@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getEmployeesOnLeave } from "../../services/leave";
+import { getEmployeesOnLeave } from "../../services/leave.service";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDate } from "../../utils";
 import Loader from "../../components/shared/loaders/Loader";

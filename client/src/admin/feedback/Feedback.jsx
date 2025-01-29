@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { formatDate } from "../../utils";
 import { FaStar } from "react-icons/fa";
-import { getFeedbacks } from "../../services/feedback";
+import { getFeedbacks } from "../../services/feedback.service";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/shared/loaders/Loader";
 import Pagination from "../../components/shared/others/Pagination";

@@ -5,7 +5,7 @@ import {
   getEmployeeAttendance,
   markAttendance,
   markAttendanceUsingQrCode,
-} from "../services/attendance";
+} from "../services/attendance.service.js";
 
 const initialState = {
   attendanceList: [],

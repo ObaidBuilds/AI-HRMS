@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { updatePassword } from "../../services/auth";
+import { updatePassword } from "../../services/authentication.service";
 import ClipLoader from "react-spinners/ClipLoader";
 
 const Security = () => {

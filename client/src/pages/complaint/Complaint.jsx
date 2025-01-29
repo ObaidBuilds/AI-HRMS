@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { createComplaint } from "../../services/complaint";
+import { createComplaint } from "../../services/complaint.service";
 import ClipLoader from "react-spinners/ClipLoader";
 
 const Complaint = () => {

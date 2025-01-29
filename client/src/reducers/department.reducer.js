@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   getDepartments,
-} from "../services/department";
+} from "../services/department.service";
 
 const initialState = {
   departments: [],

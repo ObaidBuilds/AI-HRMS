@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 import ResponsiveNavbar from "./ResponsiveNavbar";
-import { logout } from "../../services/auth";
-import { updateProfile } from "../../services/employee";
+import { logout } from "../../services/authentication.service";
+import { updateProfile } from "../../services/employee.service";
 import ProfileModal from "../shared/modals/ProfileModal";
 import Loader from "../shared/loaders/Loader";
 

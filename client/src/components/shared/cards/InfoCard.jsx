@@ -11,7 +11,7 @@ const InfoCard = ({ detail }) => {
 
       <div className="mt-3 section-border w-[100%] h-[7px] rounded-xl bg-[#383838] overflow-hidden">
         <div
-          className={`h-full w-[${detail.range}%] bg-[#FFC260] transition-all duration-300`}
+          className="h-full w-full bg-[#FFC260] transition-all duration-300"
         ></div>
       </div>
     </div>

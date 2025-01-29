@@ -3,7 +3,7 @@ import {
   createComplaint,
   getComplaints,
   respondToComplaintRequest,
-} from "../services/complaint";
+} from "../services/complaint.service";
 
 const initialState = {
   complaints: [],

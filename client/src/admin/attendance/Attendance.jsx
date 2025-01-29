@@ -1,10 +1,13 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import SheetModal from "../../components/shared/modals/SheetModal";
 import Modal from "../../components/shared/modals/Modal";
 import Loader from "../../components/shared/loaders/Loader";
-import { getAttendanceList, markAttendance } from "../../services/attendance";
-import toast from "react-hot-toast";
+import {
+  getAttendanceList,
+  markAttendance,
+} from "../../services/attendance.service";
 
 function Attendance() {
   const dispatch = useDispatch();

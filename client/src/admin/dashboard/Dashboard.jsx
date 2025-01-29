@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import InfoCard from "../../components/shared/others/InfoCard";
+import InfoCard from "../../components/shared/cards/InfoCard";
 import LineChart from "../../components/shared/charts/LineChart";
 import PieChart from "../../components/shared/charts/Pie";
 import BarGraph from "../../components/shared/charts/BarGraph";
@@ -14,37 +14,31 @@ const Dashboard = () => {
       id: 1,
       title: "Total Employees",
       stats: insights?.totalEmployees,
-      range: 70,
     },
     {
       id: 2,
       title: "Total Department",
       stats: insights?.totalDepartments,
-      range: 30,
     },
     {
       id: 3,
       title: "Complaints Today",
       stats: insights?.totalComplaints,
-      range: 50,
     },
     {
       id: 4,
       title: "Pending Leaves",
       stats: insights?.pendingLeaves,
-      range: 30,
     },
     {
       id: 5,
       title: "Emp on Leaves Today",
       stats: insights?.employeesOnLeave,
-      range: 70,
     },
     {
       id: 6,
       title: "AI Sentiment Analysis",
       stats: insights?.sentimentAnalysis === "Positive" ? "``🙂``" : "``😐``",
-      range: 50,
     },
   ];
 

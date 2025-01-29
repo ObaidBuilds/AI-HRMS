@@ -1,13 +1,12 @@
 import React, { Suspense, useEffect } from "react";
-import Footer from "../components/ui/Footer";
 import Sidebar from "../components/ui/Sidebar";
 import Loader from "../components/shared/loaders/Loader";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "../components/shared/error/NotFound";
-import { getRoles } from "../services/role";
+import { getRoles } from "../services/role.service";
 import { useDispatch } from "react-redux";
-import { getInsights } from "../services/insights";
-import { getDepartments } from "../services/department";
+import { getInsights } from "../services/insights.service";
+import { getDepartments } from "../services/department.service";
 
 // Lazy loading the components
 const Dashboard = React.lazy(() => import("../admin/dashboard/Dashboard"));

@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import ClipLoader from "react-spinners/ClipLoader";
-import { login } from "../services/auth";
+import { login } from "../services/authentication.service";
 
 const schema = z.object({
   authority: z.string().nonempty("Authority is required"),

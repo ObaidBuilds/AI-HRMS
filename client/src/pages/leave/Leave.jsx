@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
-import { createLeave } from "../../services/leave";
+import { createLeave } from "../../services/leave.service";
 
 const Leave = () => {
   const dispatch = useDispatch();

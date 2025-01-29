@@ -3,7 +3,10 @@ import { formatDate } from "../../utils";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../../components/shared/loaders/Loader";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
-import { getLeavesByStatus, respondToLeaveRequest } from "../../services/leave";
+import {
+  getLeavesByStatus,
+  respondToLeaveRequest,
+} from "../../services/leave.service";
 import RemarksModal from "../../components/shared/modals/RemarksModal";
 import Modal from "../../components/shared/modals/Modal";
 

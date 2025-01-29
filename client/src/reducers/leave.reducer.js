@@ -4,7 +4,7 @@ import {
   getEmployeesOnLeave,
   respondToLeaveRequest,
   createLeave,
-} from "../services/leave";
+} from "../services/leave.service";
 
 const initialState = {
   leaves: [],

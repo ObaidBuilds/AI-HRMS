@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUpdates } from "../../services/insights";
+import { getUpdates } from "../../services/insights.service";
 import Loader from "../../components/shared/loaders/Loader";
 
 function Update() {

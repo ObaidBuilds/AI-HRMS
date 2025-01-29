@@ -5,7 +5,7 @@ import {
   addEmployee,
   editEmployee,
   deleteEmployee,
-} from "../services/employee";
+} from "../services/employee.service";
 
 const initialState = {
   employees: [],

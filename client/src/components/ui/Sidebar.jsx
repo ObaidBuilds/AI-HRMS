@@ -1,5 +1,5 @@
 import { sidebarLinks } from "../../data";
-import { logout } from "../../services/auth";
+import { logout } from "../../services/authentication.service";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -66,7 +66,7 @@ const Sidebar = () => {
 
       <aside
         id="overflow"
-        className={`fixed top-0 h-screen bg-navy transition-all duration-300 ease-in-out z-50 overflow-y-auto text-[0.72rem] font-medium ${
+        className={`fixed top-0 h-screen bg-navy transition-all duration-300 ease-in-out z-50 overflow-y-auto text-[0.822rem] font-medium ${
           showSidebar ? "left-0" : "-left-full"
         } lg:left-0 w-full lg:w-[255px]`}
       >
@@ -110,7 +110,7 @@ const Sidebar = () => {
                   <i
                     className={`${item.iconClass} mr-3 text-sm text-gray-200`}
                   ></i>
-                  <p>{item.name.toUpperCase()}</p>
+                  <p>{item.name}</p>
                 </Link>
 
                 {/* Arrow Icon for Submenu */}

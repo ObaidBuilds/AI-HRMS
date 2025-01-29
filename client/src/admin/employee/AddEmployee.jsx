@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addEmployee } from "../../services/employee";
+import { addEmployee } from "../../services/employee.service";
 import { useForm, Controller } from "react-hook-form";
 import Loader from "../../components/shared/loaders/Loader";
 

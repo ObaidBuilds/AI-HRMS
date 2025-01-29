@@ -4,7 +4,7 @@ import { formatDate } from "../../utils";
 import {
   generateQRCodeForAttendance,
   markAttendanceUsingQrCode,
-} from "../../services/attendance";
+} from "../../services/attendance.service";
 import ClipLoader from "react-spinners/ClipLoader";
 import toast from "react-hot-toast";
 
