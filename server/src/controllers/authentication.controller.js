@@ -4,7 +4,7 @@ import { catchErrors } from "../utils/index.js";
 import Employee from "../models/employee.model.js";
 
 const login = catchErrors(async (req, res) => {
-  const { employeeId, password, authority } = req.body;
+  const { employeeId, password, authority, remember } = req.body;
 
   if (!employeeId || !password || !authority)
     throw new Error("Please provide all fields");
@@ -24,7 +24,9 @@ const login = catchErrors(async (req, res) => {
 
   if (!comparePassword) throw new Error("Invalid credentials");
 
-  const token = jwt.sign({ employeeId: employee._id }, process.env.JWTSECRET);
+  const token = jwt.sign({ employeeId: employee._id }, process.env.JWTSECRET, {
+    expiresIn: remember ? "10d" : "1d",
+  });
 
   await employee.save();
 
@@ -37,11 +39,9 @@ const login = catchErrors(async (req, res) => {
       email: employee.email,
       department: employee.department,
       position: employee.role,
-      shift: employee.shift,
-      leaveBalance: employee.leaveBalance,
-      employmentType: employee.employmentType,
       profilePicture: employee.profilePicture,
       authority: authority.toLowerCase(),
+      remember,
     },
   });
 });

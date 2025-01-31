@@ -13,6 +13,7 @@ const schema = z.object({
     .string()
     .regex(/^\d{3}$/, "* Employee ID must be exactly 3 digits"),
   password: z.string().min(6, "* Password must be at least 6 characters"),
+  remember: z.boolean().optional(),
 });
 
 const Login = () => {
@@ -140,8 +141,8 @@ const Login = () => {
               )}
             </button>
 
-            <div className="text-sm flex items-center gap-2 mt-2 font-medium">
-              <input type="checkbox" />
+            <div className="text-sm flex items-center gap-2 mt-2 font-medium cursor-pointer">
+              <input {...register("remember")} type="checkbox" />
               <p>
                 Remember me <span className="text-xs">( 30 days )</span>
               </p>

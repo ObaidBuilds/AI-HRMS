@@ -1,13 +1,16 @@
-
 /* 
 *
 Custom hook for getting token from session storage 
 */
 const useGetToken = () => {
+  const remeber = localStorage.getItem("remember") === "true";
+
   try {
-    const token = sessionStorage.getItem("session");
-    if (!token) return null;
-    return token;
+    const token = remeber
+      ? localStorage.getItem("session")
+      : sessionStorage.getItem("session");
+
+    return token || null;
   } catch (error) {
     console.log(error.message);
     return null;

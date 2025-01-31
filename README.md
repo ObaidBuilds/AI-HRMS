@@ -1,1 +1,1 @@
- ![Example Image](_public/erd.png)
+ ![Example Image](__public__/erd.png)

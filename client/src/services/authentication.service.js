@@ -8,7 +8,10 @@ export const login = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.post("/auth/login", credentials);
-      sessionStorage.setItem("session", data.token);
+      console.log();
+      if (data.user.remember) localStorage.setItem("session", data.token);
+      else sessionStorage.setItem("session", data.token);
+      localStorage.setItem("remember", data.user.remember);
       toast.success(data.message);
       return data.user;
     } catch (error) {
