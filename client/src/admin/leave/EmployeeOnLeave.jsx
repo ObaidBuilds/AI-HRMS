@@ -3,6 +3,9 @@ import { getEmployeesOnLeave } from "../../services/leave.service";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDate } from "../../utils";
 import Loader from "../../components/shared/loaders/Loader";
+import NoDataMessage from "../../components/shared/error/NoDataMessage";
+import FilterButton from "../../components/shared/buttons/FilterButton";
+import { employeesOnLeaveButtons } from "../../data";
 
 function EmployeeOnLeave() {
   const dispatch = useDispatch();
@@ -22,31 +25,19 @@ function EmployeeOnLeave() {
     dispatch(getEmployeesOnLeave(formatDate(dateMapping[status])));
   }, [status, dispatch]);
 
-  const buttons = [
-    { value: "Yesterday", icon: "fa-arrow-left" },
-    { value: "Present", icon: "fa-calendar-check" },
-    { value: "Tomorrow", icon: "fa-arrow-right" },
-  ];
-
   return (
     <>
       {loading && <Loader />}
 
       <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen shadow">
         <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
-          {buttons.map((button) => (
-            <button
-              key={button.value}
-              onClick={() => setStatus(button.value)}
-              className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.8rem] border py-1 px-5 rounded-3xl font-semibold ${
-                status === button.value
-                  ? "border-blue-500 ring-1 ring-blue-500"
-                  : "border-gray-300"
-              } focus:outline-none focus:ring-1 focus:ring-blue-500`}
-            >
-              <i className={`text-xs fas ${button.icon}`}></i>
-              {button.value}
-            </button>
+          {employeesOnLeaveButtons.map((filter, i) => (
+            <FilterButton
+              key={i}
+              setState={setStatus}
+              state={status}
+              filter={filter}
+            />
           ))}
         </div>
         <div id="overflow" className="overflow-x-auto">
@@ -113,12 +104,7 @@ function EmployeeOnLeave() {
             </tbody>
           </table>
           {!loading && employeesOnLeaveToday.length === 0 && (
-            <div className="w-full h-[78vh] flex flex-col justify-center items-center">
-              <i className="fas fa-ban text-2xl text-gray-400"></i>
-              <p className="mt-2 text-sm text-gray-400">
-                No employees on leave for {status}.
-              </p>
-            </div>
+            <NoDataMessage message={`No employees on leave for ${status}.`} />
           )}
         </div>
       </section>

@@ -11,8 +11,8 @@ import { getDepartments } from "../services/department.service";
 // Lazy loading the components
 const Dashboard = React.lazy(() => import("../admin/dashboard/Dashboard"));
 const Employee = React.lazy(() => import("../admin/employee/Employee"));
-const AddEmployee = React.lazy(() => import("../admin/employee/AddEmployee"));
-const EditEmployee = React.lazy(() => import("../admin/employee/EditEmployee"));
+const AddEmployee = React.lazy(() => import("../admin/employee/CreateEmployee"));
+const EditEmployee = React.lazy(() => import("../admin/employee/UpdateEmployee"));
 const ViewEmployee = React.lazy(() => import("../admin/employee/ViewEmployee"));
 const Attendance = React.lazy(() => import("../admin/attendance/Attendance"));
 const Feedback = React.lazy(() => import("../admin/feedback/Feedback"));
@@ -51,16 +51,16 @@ const AdminApp = () => {
                   path="/employee/:employeeID"
                   element={<ViewEmployee />}
                 />
-                <Route path="/add-employee" element={<AddEmployee />} />
+                <Route path="/employee/create" element={<AddEmployee />} />
                 <Route
-                  path="/edit-employee/:employeeID"
+                  path="/employee/update/:employeeID"
                   element={<EditEmployee />}
                 />
-                <Route path="/mark-attendance" element={<Attendance />} />
-                <Route path="/leave-request" element={<LeaveRequest />} />
-                <Route path="/on-leave" element={<EmployeeOnLeave />} />
-                <Route path="/feedback-management" element={<Feedback />} />
-                <Route path="/complaint-management" element={<Complaint />} />
+                <Route path="/attendance" element={<Attendance />} />
+                <Route path="/leaves" element={<LeaveRequest />} />
+                <Route path="/leave/active-leaves" element={<EmployeeOnLeave />} />
+                <Route path="/feedbacks" element={<Feedback />} />
+                <Route path="/complaints" element={<Complaint />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </div>

@@ -28,7 +28,7 @@ const EmployeeApp = () => {
             <Route path="/leave" element={<Leave />} />
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/attendance" element={<Attendance />} />
-            <Route path="/mark-attendance" element={<MarkAttendance />} />
+            <Route path="/attendance/mark" element={<MarkAttendance />} />
             <Route path="/security" element={<Security />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -5,6 +5,9 @@ import { getFeedbacks } from "../../services/feedback.service";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/shared/loaders/Loader";
 import Pagination from "../../components/shared/others/Pagination";
+import NoDataMessage from "../../components/shared/error/NoDataMessage";
+import FilterButton from "../../components/shared/buttons/FilterButton";
+import { feedbackButtons } from "../../data";
 
 function Feedback() {
   const dispatch = useDispatch();
@@ -19,32 +22,19 @@ function Feedback() {
     dispatch(getFeedbacks({ review: reviewFilter.toLowerCase(), currentPage }));
   }, [reviewFilter, currentPage]);
 
-  const filters = [
-    { label: "All Feedbacks", value: "", icon: "fa-globe" },
-    { label: "Positive Feedbacks", value: "Positive", icon: "fa-thumbs-up" },
-    { label: "Negative Feedbacks", value: "Negative", icon: "fa-thumbs-down" },
-    { label: "Neutral Feedbacks", value: "Neutral", icon: "fa-hand-paper" },
-  ];
-
   return (
     <>
       {loading && <Loader />}
 
       <section className="bg-gray-100 dark:bg-secondary max-h-auto min-h-screen p-3 sm:p-4 rounded-lg shadow">
         <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
-          {filters.map((filter, i) => (
-            <button
+          {feedbackButtons.map((filter, i) => (
+            <FilterButton
               key={i}
-              onClick={() => setReviewFilter(filter.value)}
-              className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.8rem]  border py-1 px-5 rounded-3xl font-semibold ${
-                reviewFilter === filter.value
-                  ? "border-blue-500 ring-1 ring-blue-500"
-                  : "border-gray-300"
-              } focus:outline-none focus:ring-1 focus:ring-blue-500`}
-            >
-              <i className={`text-xs fas ${filter.icon}`}></i>
-              {filter.label}
-            </button>
+              setState={setReviewFilter}
+              state={reviewFilter}
+              filter={filter}
+            />
           ))}
         </div>
 
@@ -110,10 +100,7 @@ function Feedback() {
           </table>
 
           {!loading && feedbacks.length === 0 && (
-            <div className="w-full h-[78vh] flex flex-col justify-center items-center">
-              <i className="fas fa-ban text-2xl text-gray-400"></i>
-              <p className="mt-2 text-sm text-gray-400">No feedback found</p>
-            </div>
+            <NoDataMessage message={"No feedback found"} />
           )}
         </div>
         {!loading && feedbacks.length > 0 && (

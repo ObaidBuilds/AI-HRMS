@@ -64,12 +64,11 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="sm:flex justify-between md:flex-row flex-col h-auto md:h-[400px] mb-2 ">
-          <div className="md:w-[59%] block h-full w-full mt-2 rounded-lg  dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary  p-4 overflow-auto shadow">
+        <div className="sm:flex gap-2 justify-between md:flex-row flex-col h-auto md:h-[400px] mb-2">
+          <div className="md:w-[60%] block h-full w-full mt-2 rounded-lg  dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary  p-4 overflow-auto shadow">
             <h3 className="text-base font-bold mb-4">
               Attendace Overview By Department
             </h3>
-
             <div className="w-full pt-9 pr-6">
               <BarGraph />
             </div>

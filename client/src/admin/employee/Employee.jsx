@@ -7,7 +7,11 @@ import Modal from "../../components/shared/modals/Modal";
 import Loader from "../../components/shared/loaders/Loader";
 import FilterBar from "../../components/shared/others/FilterBar";
 import Pagination from "../../components/shared/others/Pagination";
-import { deleteEmployee, getAllEmployees } from "../../services/employee.service";
+import {
+  deleteEmployee,
+  getAllEmployees,
+} from "../../services/employee.service";
+import NoDataMessage from "../../components/shared/error/NoDataMessage";
 
 function Employee() {
   const dispatch = useDispatch();
@@ -223,7 +227,7 @@ function Employee() {
                         </button>
                       </Link>
 
-                      <Link to={`/edit-employee/${employee._id}`}>
+                      <Link to={`/employee/update/${employee._id}`}>
                         <button
                           className="text-green-500 hover:text-green-400"
                           title="Edit"
@@ -251,10 +255,7 @@ function Employee() {
             </tbody>
           </table>
           {!loading && employees.length === 0 && (
-            <div className="w-full h-[78vh] flex flex-col justify-center items-center">
-              <i className="fas fa-ban text-2xl text-gray-400"></i>
-              <p className="mt-2 text-sm text-gray-400">No employee found</p>
-            </div>
+            <NoDataMessage message={"No employee found"} />
           )}
         </div>
         {!loading && employees.length > 0 && (

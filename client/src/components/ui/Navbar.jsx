@@ -7,6 +7,7 @@ import { logout } from "../../services/authentication.service";
 import { updateProfile } from "../../services/employee.service";
 import ProfileModal from "../shared/modals/ProfileModal";
 import Loader from "../shared/loaders/Loader";
+import { navLinks } from "../../data";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -53,6 +54,7 @@ const Navbar = () => {
   return (
     <>
       {loading && <Loader />}
+
       <header className="hidden bg-navy text-white h-[50px] border-b md:flex justify-around items-center border-gray-700">
         <div className="text-sm">
           <Link to={"/update"}>
@@ -94,41 +96,13 @@ const Navbar = () => {
           </h1>
         </div>
         <ul className="hidden md:flex items-center gap-6 justify-center">
-          <Link to={"/"}>
-            <li className="text-[0.9rem] flex-col md:flex-row flex items-center md:gap-2">
-              Home
-            </li>
-          </Link>
-          <Link to={"/mark-attendance"}>
-            <li className="text-[0.9rem] flex-col md:flex-row flex items-center md:gap-2">
-              Mark Attendance <br />
-            </li>
-          </Link>
-          <Link to={"/security"}>
-            <li className="text-[0.9rem] flex-col md:flex-row flex items-center md:gap-2">
-              Security
-            </li>
-          </Link>
-          <Link to={"/attendance"}>
-            <li className="text-[0.9rem] flex-col md:flex-row flex items-center md:gap-2">
-              Attendance
-            </li>
-          </Link>
-          <Link to={"/leave"}>
-            <li className="text-[0.9rem] flex-col md:flex-row flex items-center md:gap-2">
-              Leave
-            </li>
-          </Link>
-          <Link to={"/complaint"}>
-            <li className="text-[0.9rem] flex-col md:flex-row flex items-center md:gap-2">
-              Complaint
-            </li>
-          </Link>
-          <Link to={"/feedback"}>
-            <li className="text-[0.9rem] flex-col md:flex-row flex items-center md:gap-2">
-              Feedback
-            </li>
-          </Link>
+          {navLinks.map((item, index) => (
+            <Link key={index} to={item.to}>
+              <li className="text-[0.9rem] flex-col md:flex-row flex items-center md:gap-2">
+                {item.label}
+              </li>
+            </Link>
+          ))}
         </ul>
         <div>
           <div
