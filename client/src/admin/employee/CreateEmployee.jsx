@@ -44,7 +44,7 @@ const AddEmployee = () => {
                       type="text"
                       placeholder="Employee ID"
                       autoComplete="off"
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
                 />
@@ -58,7 +58,7 @@ const AddEmployee = () => {
                       {...field}
                       type="text"
                       placeholder="Full Name"
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
                 />
@@ -75,7 +75,7 @@ const AddEmployee = () => {
                       {...field}
                       type="email"
                       placeholder="Email"
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
                 />
@@ -90,7 +90,7 @@ const AddEmployee = () => {
                       type="password"
                       placeholder="Password"
                       autoComplete="off"
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
                 />
@@ -104,7 +104,7 @@ const AddEmployee = () => {
                       {...field}
                       type="date"
                       placeholder="Date of Birth"
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
                 />
@@ -118,7 +118,7 @@ const AddEmployee = () => {
                       {...field}
                       type="text"
                       placeholder="Phone Number"
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
                 />
@@ -130,7 +130,7 @@ const AddEmployee = () => {
                   render={({ field }) => (
                     <select
                       {...field}
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     >
                       <option value="">--Gender--</option>
                       <option value="Male">Male</option>
@@ -146,7 +146,7 @@ const AddEmployee = () => {
                   render={({ field }) => (
                     <select
                       {...field}
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     >
                       <option value="">--Marital Status--</option>
                       <option value="Single">Single</option>
@@ -170,7 +170,7 @@ const AddEmployee = () => {
                       {...field}
                       type="text"
                       placeholder="Street"
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
                 />
@@ -183,7 +183,7 @@ const AddEmployee = () => {
                       {...field}
                       type="text"
                       placeholder="City"
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
                 />
@@ -196,7 +196,7 @@ const AddEmployee = () => {
                       {...field}
                       type="text"
                       placeholder="State"
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
                 />
@@ -209,7 +209,7 @@ const AddEmployee = () => {
                       {...field}
                       type="text"
                       placeholder="Postal Code"
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
                 />
@@ -222,7 +222,7 @@ const AddEmployee = () => {
                       {...field}
                       type="text"
                       placeholder="Country"
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
                 />
@@ -243,7 +243,7 @@ const AddEmployee = () => {
                   render={({ field }) => (
                     <select
                       {...field}
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     >
                       <option value="">--Department--</option>
                       {departments.map((department) => (
@@ -262,7 +262,7 @@ const AddEmployee = () => {
                   render={({ field }) => (
                     <select
                       {...field}
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     >
                       <option value="">--Role--</option>
                       {roles.map((role) => (
@@ -283,7 +283,7 @@ const AddEmployee = () => {
                       {...field}
                       type="text"
                       placeholder="Salary"
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
                 />
@@ -295,7 +295,7 @@ const AddEmployee = () => {
                   render={({ field }) => (
                     <select
                       {...field}
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     >
                       <option value="">--Shift--</option>
                       <option value="Morning">Morning</option>
@@ -311,7 +311,7 @@ const AddEmployee = () => {
                   render={({ field }) => (
                     <select
                       {...field}
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     >
                       <option value="Active">Active</option>
                       <option value="Inactive">Inactive</option>
@@ -329,7 +329,7 @@ const AddEmployee = () => {
                       {...field}
                       type="date"
                       placeholder="Date of Joining"
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
                 />
@@ -341,7 +341,7 @@ const AddEmployee = () => {
                   render={({ field }) => (
                     <select
                       {...field}
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     >
                       <option value="">--Employment Type--</option>
                       <option value="Full-Time">Full-Time</option>
@@ -367,7 +367,7 @@ const AddEmployee = () => {
                       {...field}
                       type="text"
                       placeholder="Bank Account No"
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
                 />
@@ -378,7 +378,7 @@ const AddEmployee = () => {
                   render={({ field }) => (
                     <select
                       {...field}
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     >
                       <option value="">--Bank Name--</option>
                       <option value="HBL">HBL</option>
@@ -405,7 +405,7 @@ const AddEmployee = () => {
                       {...field}
                       type="text"
                       placeholder="Emergency Contact Name"
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
                 />
@@ -416,7 +416,7 @@ const AddEmployee = () => {
                   render={({ field }) => (
                     <select
                       {...field}
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     >
                       <option value="">--Relationship--</option>
                       <option value="Father">Father</option>
@@ -435,7 +435,7 @@ const AddEmployee = () => {
                       {...field}
                       type="text"
                       placeholder="Phone Number"
-                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-gray-100 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200"
+                      className="w-full p-[0.75rem] dark:p-[0.7rem] rounded-lg dark:bg-[#4b5563] bg-[#EFEFEF] border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200"
                     />
                   )}
                 />
