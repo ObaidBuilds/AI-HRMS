@@ -144,7 +144,11 @@ const Sidebar = () => {
               {item.childrens &&
                 item.childrens.length > 0 &&
                 openSubMenuIndex === index && (
-                  <ul className="flex flex-col gap-2 pl-5 p-3 my-2 rounded-lg bg-secondary animate_animated animate__bounceIn">
+                  <ul
+                    className={`flex flex-col gap-2 pl-5 p-3 my-2 rounded-lg ${
+                      theme === "light" ? "bg-[#1d3557]" : "bg-gray-700"
+                    } animate_animated animate__bounceIn`}
+                  >
                     {item.childrens.map((subLink, subIndex) => (
                       <li
                         key={subIndex}

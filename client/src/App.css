@@ -7,11 +7,6 @@
   font-family: "Poppins";
 }
 
-.sidebar_gradient_light{
-  background: linear-gradient(to right, #0a2540, #1d3557);
-
-}
-
 #transition {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
