@@ -1,4 +1,3 @@
-
 - **Employee**  
   - `employeeId`  
   - `name`  
@@ -63,41 +62,47 @@
   - `suggestion`  
 
 
-
 ```bash
 HRMS/
 │── client/
 │   ├── public/
 │   ├── src/
+│   │   ├── admin/
+│   │   ├── app/
+│   │   ├── auth/
+│   │   ├── axios/
 │   │   ├── components/
-│   │   ├── pages/
 │   │   ├── context/
+│   │   ├── data/
 │   │   ├── hooks/
-│   │   ├── utils/
+│   │   ├── pages/
+│   │   ├── reducers/
 │   │   ├── services/
-│   │   ├── styles/
-│   │   ├── router/
-│   │   ├── redux/
-│   │   ├── App.js
-│   │   ├── index.js
+│   │   ├── store/
+│   │   ├── utils/
+│   │   ├── App.css
+│   │   ├── App.jsx
+│   │   ├── main.jsx
 │   ├── package.json
 │   ├── .env
 │
 │── server/
 │   ├── src/
 │   │   ├── config/
-│   │   ├── models/
-│   │   ├── routes/
 │   │   ├── controllers/
+│   │   ├── gemini/
 │   │   ├── middlewares/
-│   │   ├── services/
+│   │   ├── models/
+│   │   ├── predictions/
+│   │   ├── routes/
+│   │   ├── templates/
 │   │   ├── utils/
-│   │   ├── app.js
-│   ├── server.js
+│   │   ├── index.js
 │   ├── package.json
 │   ├── .env
+│   ├── vercel.json
 │
-│── README.md
 │── .gitignore
-│── package.json
-│── yarn.lock / package-lock.json
+│── .nvmrc
+│── README.md
+│── .SECURITY.md
