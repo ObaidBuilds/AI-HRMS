@@ -58,7 +58,7 @@ const Attendance = () => {
                 id="select"
                 value={sortOrder}
                 onChange={(e) => setSortOrder(e.target.value)}
-                className="w-full text-gray-800 font-medium bg-gray-100 text-center text-sm p-3 sm:p-4 rounded-full border border-gray-300 pl-12 focus:ring-2 focus:ring-blue-500"
+                className="w-full text-gray-800 font-medium bg-[#EFEFEF] text-center text-sm p-3 sm:p-4 rounded-full border border-gray-200 pl-12 focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">--- Sort Attendance ---</option>
                 <option value="asc">Ascending</option>
@@ -142,10 +142,8 @@ const Attendance = () => {
             )}
           </div>
 
-          <div className="mt-2 bg-gray-100 border border-gray-300 p-7 rounded-lg text-center text-gray-700">
-            <h2 className="text-lg font-medium ">
-              Average Percentage
-            </h2>
+          <div className="mt-2 bg-[#EFEFEF] border border-gray-200 p-7 rounded-lg text-center text-gray-700">
+            <h2 className="text-lg font-medium ">Average Percentage</h2>
             <p className="text-2xl font-bold mt-3">
               {calculateAttendancePercentage()} %
             </p>
