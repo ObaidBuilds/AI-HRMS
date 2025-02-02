@@ -37,9 +37,9 @@ const Login = () => {
   };
 
   return (
-    <section className="h-screen overflow-hidden bg-gray-50">
-      <main className="flex justify-center items-center w-full h-screen text-black">
-        <div className="w-[88%] sm:w-[490px] sm:h-[94%] lg:h-[580px] rounded-2xl border border-gray-200 shadow-md bg-white">
+    <section className="h-screen overflow-hidden bg-gray-100">
+      <main className="flex justify-center items-center w-full h-screen text-white bg-white">
+        <div className="w-[88%] sm:w-[490px] sm:h-[94%] lg:h-[580px]  rounded-2xl shadow-md border text-gray-800">
           <div className="flex flex-col items-center py-8">
             <div className="sm:w-[140px] w-[120px] h-[120px] sm:h-[140px] bg-gray-400 rounded-full flex items-center justify-center">
               <img
@@ -52,8 +52,8 @@ const Login = () => {
               />
             </div>
             <h1
+              className="text-2xl sm:text-3xl mt-3 "
               style={{ fontFamily: "Bruno Ace, sans-serif" }}
-              className="text-2xl sm:text-3xl mt-3 font-semibold"
             >
               Welcome Back! <span className="handshake">👋</span>
             </h1>
@@ -64,11 +64,13 @@ const Login = () => {
             className="flex flex-col items-center gap-2 pb-8"
             onSubmit={handleSubmit(onSubmit)}
           >
+            {/* Department Select */}
             <div className="w-[85%] relative">
+              <i className="fa fa-building-columns text-sm icon absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
               <select
                 id="select"
                 {...register("authority")}
-                className="w-full bg-gray-100 border text-center text-[0.92rem] p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
+                className="w-full  text-center text-[0.92rem] p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-[#1d3557] font-[500] pl-12"
                 required
               >
                 <option value="">--- Select Authority ---</option>
@@ -77,14 +79,16 @@ const Login = () => {
               </select>
             </div>
 
+            {/* Employee ID */}
             <div className="w-[85%]">
               <div className="w-full relative">
+                <i className="fa fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
                 <input
                   type="text"
                   {...register("employeeId")}
                   placeholder="Employee ID"
                   autoComplete="off"
-                  className="w-full bg-gray-100 border text-[0.92rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
+                  className="w-full bg-[#EFEFEF] text-[0.92rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-[#1d3557] font-[500] pl-12"
                   required
                 />
               </div>
@@ -95,23 +99,25 @@ const Login = () => {
               )}
             </div>
 
+            {/* Password */}
             <div className="w-[85%]">
               <div className="w-full relative">
+                <i className="fa fa-key text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
                 <input
                   type={active ? "text" : "password"}
                   {...register("password")}
                   placeholder="Password"
-                  className="w-full bg-gray-100 border text-[0.92rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
+                  className="w-full bg-[#EFEFEF] text-[0.92rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-[#1d3557] font-[500] pl-12"
                   required
                 />
                 <span
-                  className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer"
+                  className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-800 cursor-pointer"
                   onClick={handleShowPass}
                 >
                   {active ? (
-                    <FaEyeSlash color="black" size={17} />
+                    <FaEyeSlash color="white" size={17} />
                   ) : (
-                    <FaEye color="black" size={17} />
+                    <FaEye color="white" size={17} />
                   )}
                 </span>
               </div>
@@ -122,6 +128,7 @@ const Login = () => {
               )}
             </div>
 
+            {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}
