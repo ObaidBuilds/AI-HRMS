@@ -1,7 +1,5 @@
 
-## 📂 Schemas Relationship
-
-- **👥 Employee**  
+- **Employee**  
   - `employeeId`  
   - `name`  
   - `dob`  
@@ -24,20 +22,20 @@
   - `leaveBalance`  
   - `admin`  
 
-- **🏢 Department**  
+- **Department**  
   - `name`  
   - `head` (🔗 Reference to **Employee**)  
 
-- **🎭 Role**  
+- **Role**  
   - `name`  
   - `description`
 
-- **📅 Attendance**  
+- **Attendance**  
   - `employee` (🔗 Reference to **Employee**)  
   - `date`  
   - `status`  
 
-- **🗓 Leave**  
+- **Leave**  
   - `employee` (🔗 Reference to **Employee**)  
   - `leaveType`  
   - `remarks`  
@@ -48,7 +46,7 @@
   - `duration`  
   - `status`  
 
-- **📢 Complaint**  
+- **Complaint**  
   - `employee` (🔗 Reference to **Employee**)  
   - `complainType`  
   - `complainSubject`  
@@ -57,7 +55,7 @@
   - `status`  
   - `assignComplaint` (🔗 Reference to **Employee**)  
 
-- **🗣 Feedback**  
+- **Feedback**  
   - `employee` (🔗 Reference to **Employee**)  
   - `review`  
   - `rating`  
@@ -65,8 +63,6 @@
   - `suggestion`  
 
 
-
-## 📂 Folder Structure
 
 ```bash
 HRMS/
