@@ -8,6 +8,7 @@ import { updateProfile } from "../../services/employee.service";
 import ProfileModal from "../shared/modals/ProfileModal";
 import Loader from "../shared/loaders/Loader";
 import { navLinks } from "../../data";
+import Modal from "../shared/modals/Modal";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const Navbar = () => {
   const [profileLoading, setProfileLoading] = useState(false);
   const [showButton, setShowButton] = useState(false);
   const [toggleModal, setToggleModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const handleLogout = () => {
     dispatch(logout())
@@ -34,6 +36,11 @@ const Navbar = () => {
       setImagePreview(URL.createObjectURL(file));
       setShowButton(true);
     }
+  };
+
+  const confirmLogout = () => {
+    handleLogout();
+    setShowConfirmModal(false);
   };
 
   const handleClick = async () => {
@@ -55,7 +62,7 @@ const Navbar = () => {
     <>
       {loading && <Loader />}
 
-      <header className="hidden bg-navy text-white h-[50px] border-b md:flex justify-around items-center border-gray-700">
+      <header className="hidden bg-gradient-to-r from-[#0a2540] to-[#1d3557] text-white h-[50px] border-b md:flex justify-around items-center border-gray-700">
         <div className="text-sm">
           <Link to={"/update"}>
             <p className="flex items-center gap-2">
@@ -79,7 +86,7 @@ const Navbar = () => {
           </div>
         </div>
       </header>
-      <nav className="bg-navy w-full h-[70px] md:h-[85px] flex items-center px-8 md:px-0 justify-between md:justify-around relative top-0 left-0 border-b border-gray-700 text-white">
+      <nav className="bg-gradient-to-r from-[#0a2540] to-[#1d3557] w-full h-[70px] md:h-[85px] flex items-center px-8 md:px-0 justify-between md:justify-around relative top-0 left-0 border-b border-gray-700 text-white">
         <div
           onClick={() => setShowSidebar(!showSidebar)}
           className="block md:hidden"
@@ -114,17 +121,11 @@ const Navbar = () => {
           <div className="hidden md:block">
             <button
               disabled={loading}
-              onClick={handleLogout}
+              onClick={() => setShowConfirmModal(true)}
               className="text-sm flex items-center justify-center gap-2 h-[38px] p-2 w-[150px] rounded-3xl bg-blue-700 border-2 border-blue-700 hover:bg-blue-800 transition-all ease-in-out"
             >
-              {loading ? (
-                <ClipLoader size={10} color="white" loading={loading} />
-              ) : (
-                <>
-                  <i className=" text-xs fas fa-sign-out-alt"></i>
-                  Logout
-                </>
-              )}
+              <i className=" text-xs fas fa-sign-out-alt"></i>
+              Logout
             </button>
           </div>
         </div>
@@ -142,6 +143,14 @@ const Navbar = () => {
           imagePreview={imagePreview}
           close={() => setToggleModal(false)}
           handleFileChange={handleFileChange}
+        />
+      )}
+
+      {showConfirmModal && (
+        <Modal
+          onClose={() => setShowConfirmModal(false)}
+          action="logout"
+          isConfirm={confirmLogout}
         />
       )}
     </>

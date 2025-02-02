@@ -21,7 +21,7 @@ const Complaint = () => {
 
   return (
     <section className="h-[80vh] flex justify-center items-center text-white">
-      <div className="w-full sm:w-[95%] rounded-2xl p-8">
+      <div className="w-full sm:w-[95%] rounded-2xl p-5 sm:p-8">
         <div className="flex flex-col items-center mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
             Submit Your Complaint

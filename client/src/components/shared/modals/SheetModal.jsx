@@ -18,7 +18,7 @@ const SheetModal = ({
       >
         {/* Modal Header */}
         <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-          <h2 className="text-base sm:text-lg font-semibold text-gray-600">
+          <h2 className="font-semibold text-gray-600">
             Select Department & Date
           </h2>
           <button
@@ -35,7 +35,7 @@ const SheetModal = ({
             value={selectedDepartment}
             onChange={(e) => setSelectedDepartment(e.target.value)}
             id="select"
-            className="w-full text-center text-sm p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
+            className="w-full bg-[#EFEFEF] text-center text-sm p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
             required
           >
             <option value="">--- Select Depart ---</option>

@@ -78,7 +78,7 @@ const Sidebar = () => {
         className={`fixed top-0 h-screen ${
           theme === "light"
             ? "bg-gradient-to-r from-[#0a2540] to-[#1d3557]"
-            : "bg-gradient-to-r from-[#0f172a] to-[#1e293b]"
+            : "bg-gradient-to-r from-[#212d3f] to-[#1e293b]"
         }  transition-all duration-300 ease-in-out z-50 overflow-y-auto text-[0.72rem] font-medium ${
           showSidebar ? "left-0" : "-left-full"
         } lg:left-0 w-full lg:w-[255px]`}
