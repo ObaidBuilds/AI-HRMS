@@ -1,4 +1,3 @@
- ![Example Image](__public__/erd.png)
 
 ## 📂 Folder Structure
 
@@ -40,3 +39,58 @@ HRMS/
 │── package.json
 │── yarn.lock / package-lock.json
 
+
+## 📂 Schemas Relationsship
+
+## 📂 Schemas Relationship
+
+- **👥 Employee**  
+  - `employeeId`
+  - `name`
+  - `dob`
+  - `email`
+  - `phoneNumber`
+  - `address`
+  - `department` (🔗 Reference to Department)
+  - `role` (🔗 Reference to Role)
+  - `status`
+  - `salary`
+  
+- **🏢 Department**  
+  - `departmentId`
+  - `departmentName`
+  
+- **🎭 Role**  
+  - `roleId`
+  - `roleName`
+  
+- **📅 Attendance**  
+  - `employeeId` (🔗 Reference to Employee)
+  - `checkIn`
+  - `checkOut`
+  - `date`
+  
+- **🗓 Leave**  
+  - `employeeId` (🔗 Reference to Employee)
+  - `leaveType`
+  - `leaveStartDate`
+  - `leaveEndDate`
+  - `status`
+  
+- **📜 Payroll**  
+  - `employeeId` (🔗 Reference to Employee)
+  - `salary`
+  - `payDate`
+  
+- **🗣 Feedback**  
+  - `employeeId` (🔗 Reference to Employee)
+  - `feedbackText`
+  - `rating`
+  
+- **📢 Complaint**  
+  - `employeeId` (🔗 Reference to Employee)
+  - `complaintText`
+  - `status`
+
+
+#  <!-- ![Example Image](__public__/erd.png) -->
