@@ -1,3 +1,6 @@
+![ER Diagram](https://www.mermaidchart.com/raw/7b1172bf-6ec9-4a9d-ac3d-d7ded23c7e1a?theme=light&version=v0.1&format=svg)
+
+
 - **Employee**  
   - `employeeId`  
   - `name`  
