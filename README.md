@@ -39,58 +39,68 @@ HRMS/
 │── package.json
 │── yarn.lock / package-lock.json
 
-
-## 📂 Schemas Relationsship
-
 ## 📂 Schemas Relationship
 
+```bash
 - **👥 Employee**  
-  - `employeeId`
-  - `name`
-  - `dob`
-  - `email`
-  - `phoneNumber`
-  - `address`
-  - `department` (🔗 Reference to Department)
-  - `role` (🔗 Reference to Role)
-  - `status`
-  - `salary`
-  
+  - `employeeId`  
+  - `name`  
+  - `dob`  
+  - `email`  
+  - `password`  
+  - `profilePicture`  
+  - `phoneNumber`  
+  - `address`  
+  - `department` (🔗 Reference to **Department**)  
+  - `role` (🔗 Reference to **Role**)  
+  - `dateOfJoining`  
+  - `gender`  
+  - `martialStatus`  
+  - `employmentType`  
+  - `shift`  
+  - `status`  
+  - `salary`  
+  - `bankDetails`  
+  - `emergencyContact`  
+  - `leaveBalance`  
+  - `admin`  
+
 - **🏢 Department**  
-  - `departmentId`
-  - `departmentName`
-  
+  - `name`  
+  - `head` (🔗 Reference to **Employee**)  
+
 - **🎭 Role**  
-  - `roleId`
-  - `roleName`
-  
+  - `name`  
+  - `description`
+
 - **📅 Attendance**  
-  - `employeeId` (🔗 Reference to Employee)
-  - `checkIn`
-  - `checkOut`
-  - `date`
-  
+  - `employee` (🔗 Reference to **Employee**)  
+  - `date`  
+  - `status`  
+
 - **🗓 Leave**  
-  - `employeeId` (🔗 Reference to Employee)
-  - `leaveType`
-  - `leaveStartDate`
-  - `leaveEndDate`
-  - `status`
-  
-- **📜 Payroll**  
-  - `employeeId` (🔗 Reference to Employee)
-  - `salary`
-  - `payDate`
-  
-- **🗣 Feedback**  
-  - `employeeId` (🔗 Reference to Employee)
-  - `feedbackText`
-  - `rating`
-  
+  - `employee` (🔗 Reference to **Employee**)  
+  - `leaveType`  
+  - `remarks`  
+  - `substitute` (🔗 Reference to **Employee**)  
+  - `application`  
+  - `fromDate`  
+  - `toDate`  
+  - `duration`  
+  - `status`  
+
 - **📢 Complaint**  
-  - `employeeId` (🔗 Reference to Employee)
-  - `complaintText`
-  - `status`
+  - `employee` (🔗 Reference to **Employee**)  
+  - `complainType`  
+  - `complainSubject`  
+  - `complaintDetails`  
+  - `remarks`  
+  - `status`  
+  - `assignComplaint` (🔗 Reference to **Employee**)  
 
-
-#  <!-- ![Example Image](__public__/erd.png) -->
+- **🗣 Feedback**  
+  - `employee` (🔗 Reference to **Employee**)  
+  - `review`  
+  - `rating`  
+  - `description`  
+  - `suggestion`  
