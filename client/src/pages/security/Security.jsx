@@ -32,7 +32,7 @@ const Security = () => {
               {...register("oldPassword", {
                 required: "Old password is required",
               })}
-              className="w-full bg-gray-100 text-gray-800 text-sm p-4 rounded-full border border-gray-300 pl-12 focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-[#EFEFEF] text-gray-800 text-sm p-4 rounded-full border border-gray-200 pl-12 focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -45,7 +45,7 @@ const Security = () => {
               {...register("newPassword", {
                 required: "New password is required",
               })}
-              className="w-full bg-gray-100 text-gray-800 text-sm p-4 rounded-full border border-gray-300 pl-12 focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-[#EFEFEF] text-gray-800 text-sm p-4 rounded-full border border-gray-200 pl-12 focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -58,7 +58,7 @@ const Security = () => {
               })}
               type="password"
               placeholder="Confirm New Password"
-              className="w-full bg-gray-100 text-gray-800 text-sm p-4 rounded-full border border-gray-300 pl-12 focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-[#EFEFEF] text-gray-800 text-sm p-4 rounded-full border border-gray-200 pl-12 focus:ring-2 focus:ring-blue-500"
             />
           </div>
 

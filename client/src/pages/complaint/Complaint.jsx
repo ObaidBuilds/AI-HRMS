@@ -34,7 +34,7 @@ const Complaint = () => {
             <i className="fa fa-list-alt absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
             <select
               id="select"
-              className="w-full bg-gray-100 text-gray-800 text-center text-sm p-4 rounded-full border border-gray-300 pl-12 focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-[#EFEFEF] text-gray-800 text-center text-sm p-4 rounded-full border border-gray-200 pl-12 focus:ring-2 focus:ring-blue-500"
               {...register("complainType", {
                 required: "Complaint type is required",
               })}
@@ -54,7 +54,7 @@ const Complaint = () => {
               type="text"
               placeholder="Complaint Subject"
               autoComplete="off"
-              className="w-full bg-gray-100 text-gray-800 text-sm p-4 rounded-full border border-gray-300 pl-12 focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-[#EFEFEF] text-gray-800 text-sm p-4 rounded-full border border-gray-200 pl-12 focus:ring-2 focus:ring-blue-500"
               {...register("complainSubject", {
                 required: "Complaint subject is required",
               })}
@@ -66,7 +66,7 @@ const Complaint = () => {
             <textarea
               placeholder="Complaint Details"
               rows="4"
-              className="w-full bg-gray-100 text-gray-800 text-sm p-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-[#EFEFEF] text-gray-800 text-sm p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500"
               {...register("complaintDetails", {
                 required: "Complaint details are required",
               })}

@@ -37,11 +37,11 @@ const Login = () => {
   };
 
   return (
-    <section className="h-screen overflow-hidden bg-gray-100">
-      <main className="flex justify-center items-center w-full h-screen text-white bg-white">
-        <div className="w-[88%] sm:w-[490px] sm:h-[94%] lg:h-[580px]  rounded-2xl shadow-md border text-gray-800">
+    <section className="h-screen overflow-hidden">
+      <main className="flex justify-center items-center w-full h-screen text-white">
+        <div className="w-[88%] sm:w-[490px] sm:h-[94%] lg:h-[580px]  rounded-2xl shadow-md border border-gray-700 bg-gray-800">
           <div className="flex flex-col items-center py-8">
-            <div className="sm:w-[140px] w-[120px] h-[120px] sm:h-[140px] bg-gray-400 rounded-full flex items-center justify-center">
+            <div className="sm:w-[140px] w-[120px] h-[120px] sm:h-[140px] bg-gray-600 rounded-full flex items-center justify-center">
               <img
                 src="/metro.png"
                 alt="user"
@@ -66,11 +66,11 @@ const Login = () => {
           >
             {/* Department Select */}
             <div className="w-[85%] relative">
-              <i className="fa fa-building-columns text-sm icon absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
+              <i className="fa fa-building-columns text-sm icon absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
               <select
                 id="select"
                 {...register("authority")}
-                className="w-full  text-center text-[0.92rem] p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-[#1d3557] font-[500] pl-12"
+                className="w-full bg-gray-700 text-center text-[0.92rem] p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                 required
               >
                 <option value="">--- Select Authority ---</option>
@@ -82,13 +82,13 @@ const Login = () => {
             {/* Employee ID */}
             <div className="w-[85%]">
               <div className="w-full relative">
-                <i className="fa fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
+                <i className="fa fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
                 <input
                   type="text"
                   {...register("employeeId")}
                   placeholder="Employee ID"
                   autoComplete="off"
-                  className="w-full bg-[#EFEFEF] text-[0.92rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-[#1d3557] font-[500] pl-12"
+                  className="w-full bg-secondary text-[0.92rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                   required
                 />
               </div>
@@ -102,12 +102,12 @@ const Login = () => {
             {/* Password */}
             <div className="w-[85%]">
               <div className="w-full relative">
-                <i className="fa fa-key text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
+                <i className="fa fa-key text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
                 <input
                   type={active ? "text" : "password"}
                   {...register("password")}
                   placeholder="Password"
-                  className="w-full bg-[#EFEFEF] text-[0.92rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-[#1d3557] font-[500] pl-12"
+                  className="w-full bg-secondary text-[0.92rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                   required
                 />
                 <span
@@ -132,7 +132,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-[85%] text-sm sm:text-[0.95rem] p-[18px] bg-blue-500 text-white rounded-full font-medium hover:bg-blue-600 transition duration-300"
+              className="w-[85%] text-sm sm:text-[0.95rem] p-[18px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
             >
               {loading ? (
                 <ClipLoader size={10} color="white" loading={loading} />
