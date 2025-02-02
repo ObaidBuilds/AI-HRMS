@@ -52,7 +52,7 @@ const Sidebar = () => {
         className={`w-full fixed top-0 left-0 lg:hidden h-[70px] ${
           theme === "light"
             ? "bg-gradient-to-r from-[#0a2540] to-[#1d3557]"
-            : "bg-gradient-to-r from-[#0f172a] to-[#1e293b]"
+            : "bg-gradient-to-r from-[#212d3f] to-[#1e293b]"
         } flex justify-between items-center px-7 z-50`}
       >
         <img

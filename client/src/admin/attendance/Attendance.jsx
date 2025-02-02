@@ -76,7 +76,7 @@ function Attendance() {
     <>
       {loading && <Loader />}
 
-      <section className="bg-gray-100 border border-gray-300 dark:border-primary dark:bg-secondary p-3 max-h-auto min-h-[88vh] sm:min-h-screen rounded-lg shadow">
+      <section className="bg-gray-100 border border-gray-300 dark:border-primary dark:bg-secondary p-3 min-h-screen rounded-lg shadow">
         <div className="flex gap-2 flex-wrap justify-between items-center py-1 sm:px-3">
           <button className="hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-sm border py-1 px-5 rounded-3xl font-semibold">
             Total Employees: {attendanceList.length}
@@ -173,7 +173,7 @@ function Attendance() {
             <button
               onClick={() => setShowConfirmModal(true)}
               disabled={loading}
-              className="bg-blue-600 mb-4 text-primary p-3 font-semibold mt-5 rounded-3xl hover:bg-blue-700 w-full"
+              className="bg-blue-600 mb-4 text-primary p-4 font-semibold mt-5 rounded-full hover:bg-blue-700 w-full"
             >
               Submit
             </button>
