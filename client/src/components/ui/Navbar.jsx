@@ -12,8 +12,8 @@ import { navLinks } from "../../data";
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const { loading, user } = useSelector((state) => state.authentication);
+
   const [file, setFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(user.profilePicture);
   const [showSidebar, setShowSidebar] = useState(false);

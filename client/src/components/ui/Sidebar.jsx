@@ -48,7 +48,13 @@ const Sidebar = () => {
 
       {/* Navigation Bar */}
 
-      <nav className="w-full fixed top-0 left-0 lg:hidden h-[70px] bg-navy flex justify-between items-center px-7 z-50">
+      <nav
+        className={`w-full fixed top-0 left-0 lg:hidden h-[70px] ${
+          theme === "light"
+            ? "bg-gradient-to-r from-[#0a2540] to-[#1d3557]"
+            : "bg-gradient-to-r from-[#0f172a] to-[#1e293b]"
+        } flex justify-between items-center px-7 z-50`}
+      >
         <img
           className="w-[25px]"
           onClick={() => setShowSidebar(true)}
@@ -69,7 +75,11 @@ const Sidebar = () => {
 
       <aside
         id="overflow"
-        className={`fixed top-0 h-screen bg-gradient-to-r from-[#0a2540] to-[#1d3557]  transition-all duration-300 ease-in-out z-50 overflow-y-auto text-[0.72rem] font-medium ${
+        className={`fixed top-0 h-screen ${
+          theme === "light"
+            ? "bg-gradient-to-r from-[#0a2540] to-[#1d3557]"
+            : "bg-gradient-to-r from-[#0f172a] to-[#1e293b]"
+        }  transition-all duration-300 ease-in-out z-50 overflow-y-auto text-[0.72rem] font-medium ${
           showSidebar ? "left-0" : "-left-full"
         } lg:left-0 w-full lg:w-[255px]`}
       >
