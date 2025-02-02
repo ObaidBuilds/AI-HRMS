@@ -4,7 +4,7 @@ const FilterButton = ({ setState, state, filter }) => {
   return (
     <button
       onClick={() => setState(filter.value)}
-      className={`flex flex-grow sm:flex-grow-0 items-center gap-2 text-sm font-semibold border py-1 px-5 rounded-3xl transition-all 
+      className={`flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-sm font-semibold border py-1 px-5 rounded-3xl transition-all  ease-in-out duration-300
    ${
      state === filter.value
        ? "border-blue-500 bg-blue-100 text-blue-600 dark:bg-transparent dark:text-blue-400"

@@ -22,6 +22,8 @@ function Feedback() {
     dispatch(getFeedbacks({ review: reviewFilter.toLowerCase(), currentPage }));
   }, [reviewFilter, currentPage]);
 
+  console.log(feedbacks)
+
   return (
     <>
       {loading && <Loader />}
@@ -65,37 +67,38 @@ function Feedback() {
               </tr>
             </thead>
             <tbody>
-              {feedbacks.map((feedback, index) => (
-                <tr
-                  key={index}
-                  className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
-                >
-                  <td className="py-3 px-4 border-b border-secondary">
-                    {feedback.employee.employeeId}
-                  </td>
-                  <td className="py-3 px-4 border-b border-secondary">
-                    {feedback.employee.name}
-                  </td>
-                  <td className="py-3 px-4 border-b border-secondary">
-                    {feedback.employee.department.name}
-                  </td>
-                  <td className="py-3 px-4 border-b border-secondary">
-                    {feedback.employee.role.name}
-                  </td>
-                  <td className="py-3 px-4 border-b border-secondary">
-                    {feedback.review}
-                  </td>
-                  <td className="py-3 px-4 border-b border-secondary">
-                    {feedback.description.slice(0, 10) + "..."}
-                  </td>
-                  <td className="py-3 px-4 border-b border-secondary">
-                    {formatDate(feedback.createdAt)}
-                  </td>
-                  <td className="py-3 px-4 border-b border-secondary flex items-center gap-2">
-                    {feedback.rating} <FaStar color="gold" />
-                  </td>
-                </tr>
-              ))}
+              {feedbacks.length > 0 &&
+                feedbacks.map((feedback, index) => (
+                  <tr
+                    key={index}
+                    className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
+                  >
+                    <td className="py-3 px-4 border-b border-secondary">
+                      {feedback.employee.employeeId}
+                    </td>
+                    <td className="py-3 px-4 border-b border-secondary">
+                      {feedback.employee.name}
+                    </td>
+                    <td className="py-3 px-4 border-b border-secondary">
+                      {feedback.employee.department.name}
+                    </td>
+                    <td className="py-3 px-4 border-b border-secondary">
+                      {feedback.employee.role.name}
+                    </td>
+                    <td className="py-3 px-4 border-b border-secondary">
+                      {feedback.review}
+                    </td>
+                    <td className="py-3 px-4 border-b border-secondary">
+                      {feedback.description.slice(0, 10) + "..."}
+                    </td>
+                    <td className="py-3 px-4 border-b border-secondary">
+                      {formatDate(feedback.createdAt)}
+                    </td>
+                    <td className="py-3 px-4 border-b border-secondary flex items-center gap-2">
+                      {feedback.rating} <FaStar color="gold" />
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
 

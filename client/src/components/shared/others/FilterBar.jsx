@@ -36,10 +36,10 @@ const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
   };
 
   return (
-    <section className="fixed bg-gray-900 bg-opacity-20 inset-0 z-50">
+    <section className="fixed bg-gray-900 bg-opacity-50 inset-0 z-50">
       <aside
         id="overflow"
-        className="w-[75%] text-gray-200 h-screen overflow-y-scroll sm:overflow-auto sm:w-[350px] rounded-md p-5 md:mb-0 bg-gray-800 font-bold fixed top-0 right-0 z-50"
+        className="w-[75%] text-gray-200 h-screen overflow-y-scroll sm:overflow-auto sm:w-[400px] rounded-md p-5 md:mb-0 bg-gray-800 font-bold fixed top-0 right-0 z-50"
       >
         <div className="w-full pb-4 mb-4 border-b border-gray-600">
           <div
@@ -166,9 +166,10 @@ const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
               </div>
             )}
             <button
-              className="w-full sm:mb-0 text-sm rounded-3xl border border-gray-600 bg-gradient-to-r from-blue-700 via-blue-600 to-blue-800 hover:bg-gradient-to-r hover:from-blue-800 hover:via-blue-700 hover:to-blue-600 p-3  mt-3"
+              className="w-full sm:mb-0 text-sm font-semibold rounded-full border border-blue-800 bg-blue-700 hover:bg-blue-800 p-4 mt-3 flex items-center justify-center gap-2"
               onClick={() => handleApplyFilters(filters)}
             >
+              <i className="fas fa-filter"></i>
               Apply Filters
             </button>
           </div>

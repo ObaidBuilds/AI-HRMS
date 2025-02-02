@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { createComplaint } from "../../services/complaint.service";
-import ClipLoader from "react-spinners/ClipLoader";
 
 const Complaint = () => {
   const dispatch = useDispatch();
@@ -80,7 +79,7 @@ const Complaint = () => {
             className="w-full bg-blue-500 text-sm p-4 rounded-full font-medium hover:bg-blue-600 transition duration-300"
           >
             {loading ? (
-              <ClipLoader size={10} color="white" loading={loading} />
+               <i className="fas fa-spinner fa-spin"></i>
             ) : (
               "Submit Complaint"
             )}

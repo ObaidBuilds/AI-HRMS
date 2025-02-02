@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { updatePassword } from "../../services/authentication.service";
-import ClipLoader from "react-spinners/ClipLoader";
 
 const Security = () => {
   const [loading, setLoading] = useState(false);
@@ -69,7 +68,7 @@ const Security = () => {
             className="w-full bg-blue-500 text-sm p-4 rounded-full font-medium hover:bg-blue-600 transition duration-300"
           >
             {loading ? (
-              <ClipLoader size={10} color="white" loading={loading} />
+              <i className="fas fa-spinner fa-spin"></i>
             ) : (
               "Change Password"
             )}

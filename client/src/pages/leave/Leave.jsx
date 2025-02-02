@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import ClipLoader from "react-spinners/ClipLoader";
 import { createLeave } from "../../services/leave.service";
 
 const Leave = () => {
@@ -85,7 +84,7 @@ const Leave = () => {
             className="w-full bg-blue-500 text-sm p-4 rounded-full font-medium hover:bg-blue-600 transition duration-300"
           >
             {loading ? (
-              <ClipLoader size={20} color="white" loading={loading} />
+                <i className="fas fa-spinner fa-spin"></i>
             ) : (
               "Submit Leave Application"
             )}

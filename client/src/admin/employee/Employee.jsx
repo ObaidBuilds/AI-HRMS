@@ -12,6 +12,7 @@ import {
   getAllEmployees,
 } from "../../services/employee.service";
 import NoDataMessage from "../../components/shared/error/NoDataMessage";
+import ImportExcelModal from "../../components/shared/modals/ImportExcelModal";
 
 function Employee() {
   const dispatch = useDispatch();
@@ -22,7 +23,9 @@ function Employee() {
   const [uiState, setUiState] = useState({
     toggleFilterBar: false,
     toggleModal: false,
+    toggleExcelModal: false,
     deletedEmployee: null,
+    exportLoading: false,
     currentPage: 1,
   });
 
@@ -48,6 +51,8 @@ function Employee() {
   }, [dispatch, uiState.deletedEmployee]);
 
   const handleExportToExcel = useCallback(() => {
+    setUiState((prev) => ({ ...prev, exportLoading: true }));
+
     const data = employees.map((employee) => ({
       EmployeeID: `EMP ${employee.employeeId}`,
       Name: employee.name,
@@ -69,7 +74,11 @@ function Employee() {
       LeaveBalance: employee.leaveBalance,
       Admin: employee.admin ? "Yes" : "No",
     }));
-    downloadXls(data);
+
+    setTimeout(() => {
+      downloadXls(data);
+      setUiState((prev) => ({ ...prev, exportLoading: false }));
+    }, 2000);
   }, [employees]);
 
   const handleApplyFilters = (newFilters) => {
@@ -85,14 +94,6 @@ function Employee() {
     }));
   };
 
-  useEffect(() => {
-    dispatch(getAllEmployees({ currentPage: uiState.currentPage, filters }));
-  }, [dispatch, uiState.currentPage, filters]);
-
-  useEffect(() => {
-    document.body.classList.toggle("no-scroll", uiState.toggleFilterBar);
-  }, [uiState.toggleFilterBar]);
-
   const renderFilters = Object.keys(filters)
     .filter(
       (key) => filters[key] && key !== "departmentName" && key !== "roleName"
@@ -100,7 +101,8 @@ function Employee() {
     .map((key) => (
       <button
         key={key}
-        className="flex justify-between items-center gap-2 text-[0.9rem] border py-1 px-5 rounded-2xl"
+        className="flex justify-between items-center gap-2 text-[0.9rem] border border-gray-300 py-1 px-5 rounded-2xl hover:border-blue-500 hover:bg-blue-100 hover:text-blue-600 
+   dark:hover:border-blue-500 dark:hover:bg-transparent dark:hover:text-blue-500  transition-all  ease-in-out duration-300"
       >
         {filters[key + "Name"] || filters[key]}
         <i
@@ -110,6 +112,14 @@ function Employee() {
       </button>
     ));
 
+  useEffect(() => {
+    dispatch(getAllEmployees({ currentPage: uiState.currentPage, filters }));
+  }, [dispatch, uiState.currentPage, filters]);
+
+  useEffect(() => {
+    document.body.classList.toggle("no-scroll", uiState.toggleFilterBar);
+  }, [uiState.toggleFilterBar]);
+
   if (!employees) return <Error />;
 
   return (
@@ -117,25 +127,6 @@ function Employee() {
       {loading && <Loader />}
 
       <section className="bg-gray-100 border-gray-400 dark:bg-secondary p-3 sm:p-4 rounded-lg w-full  min-h-screen">
-        {uiState.toggleFilterBar && (
-          <FilterBar
-            handleApplyFilters={handleApplyFilters}
-            hideFilterBar={() =>
-              setUiState((prev) => ({ ...prev, toggleFilterBar: false }))
-            }
-          />
-        )}
-
-        {uiState.toggleModal && (
-          <Modal
-            onClose={() =>
-              setUiState((prev) => ({ ...prev, toggleModal: false }))
-            }
-            action={"delete"}
-            isConfirm={confirmation}
-          />
-        )}
-
         <div className="relative flex gap-1 items-center justify-between py-1 sm:px-3 mb-3">
           {!(
             filters.status ||
@@ -147,7 +138,8 @@ function Employee() {
               onClick={() =>
                 setUiState((prev) => ({ ...prev, toggleFilterBar: true }))
               }
-              className="flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold"
+              className="flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold border-gray-300 hover:border-blue-500 hover:bg-blue-100 hover:text-blue-600 
+   dark:hover:border-blue-500 dark:hover:bg-transparent dark:hover:text-blue-500  transition-all  ease-in-out duration-300"
             >
               <i className="fa-solid fa-filter text-[0.7rem] sm:text-xs"></i>{" "}
               Apply Filters
@@ -158,13 +150,30 @@ function Employee() {
             {renderFilters}
           </div>
 
-          <button
-            onClick={handleExportToExcel}
-            className="hidden sm:flex justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold"
-          >
-            <i className="fas fa-file-excel text-[0.7rem] text-xs"></i> Export
-            to Excel
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleExportToExcel}
+              className="hidden sm:flex justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border border-gray-300 py-1 px-5 rounded-3xl font-semibold  hover:border-blue-500 hover:bg-blue-100 hover:text-blue-600 
+   dark:hover:border-blue-500 dark:hover:bg-transparent dark:hover:text-blue-500  transition-all  ease-in-out duration-300"
+            >
+              {uiState.exportLoading ? (
+                <i className="fas fa-spinner fa-spin"></i>
+              ) : (
+                <i className="fas fa-file-excel text-[0.7rem] text-xs"></i>
+              )}
+              {uiState.exportLoading ? " Exporting..." : "Export to Excel"}
+            </button>
+            <button
+              onClick={() =>
+                setUiState((prev) => ({ ...prev, toggleExcelModal: true }))
+              }
+              className="hidden sm:flex justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border border-gray-300 py-1 px-5 rounded-3xl font-semibold  hover:border-blue-500 hover:bg-blue-100 hover:text-blue-600 
+   dark:hover:border-blue-500 dark:hover:bg-transparent dark:hover:text-blue-500  transition-all  ease-in-out duration-300"
+            >
+              <i className="fas fa-file-excel text-[0.7rem] text-xs"></i> Import
+              from Excel
+            </button>
+          </div>
         </div>
 
         <div
@@ -260,6 +269,33 @@ function Employee() {
         </div>
         {!loading && employees.length > 0 && (
           <Pagination {...pagination} onPageChange={goToPage} />
+        )}
+
+        {uiState.toggleFilterBar && (
+          <FilterBar
+            handleApplyFilters={handleApplyFilters}
+            hideFilterBar={() =>
+              setUiState((prev) => ({ ...prev, toggleFilterBar: false }))
+            }
+          />
+        )}
+
+        {uiState.toggleModal && (
+          <Modal
+            onClose={() =>
+              setUiState((prev) => ({ ...prev, toggleModal: false }))
+            }
+            action={"delete"}
+            isConfirm={confirmation}
+          />
+        )}
+
+        {uiState.toggleExcelModal && (
+          <ImportExcelModal
+            onClose={() =>
+              setUiState((prev) => ({ ...prev, toggleExcelModal: false }))
+            }
+          />
         )}
       </section>
     </>

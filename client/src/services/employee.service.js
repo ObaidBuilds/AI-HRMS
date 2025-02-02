@@ -61,6 +61,23 @@ export const addEmployee = createAsyncThunk(
   }
 );
 
+// Create a new employee
+export const bulkUploadEmployees = createAsyncThunk(
+  "employee/bulkUploadEmployees",
+  async (employeesRecords, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.post("/employees/bulk", employeesRecords);
+      toast.success(data.message);
+      return data.employee;
+    } catch (error) {
+      toast.error(error.response?.data.message || "Client : " + error.message);
+      return rejectWithValue(
+        error.response?.data.message || "Client : " + error.message
+      );
+    }
+  }
+);
+
 // Update an existing employee
 export const editEmployee = createAsyncThunk(
   "employee/editEmployee",

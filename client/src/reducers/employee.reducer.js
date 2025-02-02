@@ -5,6 +5,7 @@ import {
   addEmployee,
   editEmployee,
   deleteEmployee,
+  bulkUploadEmployees,
 } from "../services/employee.service";
 
 const initialState = {
@@ -60,6 +61,19 @@ const employeeSlice = createSlice({
         state.employees.push(action.payload);
       })
       .addCase(addEmployee.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Handle bulkUploadEmployee async action
+      .addCase(bulkUploadEmployees.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(bulkUploadEmployees.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(bulkUploadEmployees.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })

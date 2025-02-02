@@ -91,7 +91,7 @@ const Feedback = () => {
             className="w-full bg-blue-500 text-sm p-4 rounded-full font-medium hover:bg-blue-600 transition duration-300"
           >
             {loading ? (
-              <ClipLoader size={10} color="white" loading={loading} />
+               <i className="fas fa-spinner fa-spin"></i>
             ) : (
               "Submit Feedback"
             )}

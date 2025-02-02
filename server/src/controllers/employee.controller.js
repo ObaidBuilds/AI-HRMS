@@ -7,6 +7,51 @@ import { myCache } from "../utils/index.js";
 import Employee from "../models/employee.model.js";
 import { catchErrors, getPublicIdFromUrl } from "../utils/index.js";
 
+const bulkCreateEmployees = catchErrors(async (req, res) => {
+  const  employeesRecords  = req.body;
+ 
+  if (!Array.isArray(employeesRecords)) {
+    throw new Error("Please provide an array of employee data.");
+  }
+
+  employeesRecords.forEach((employee) => {
+    if (
+      !employee.employeeId ||
+      !employee.name ||
+      !employee.dob ||
+      !employee.email ||
+      !employee.password ||
+      !employee.phoneNumber ||
+      !employee.address ||
+      !employee.department ||
+      !employee.role ||
+      !employee.dateOfJoining ||
+      !employee.gender ||
+      !employee.martialStatus ||
+      !employee.employmentType ||
+      !employee.shift ||
+      !employee.salary
+    ) {
+      throw new Error("Please provide all required fields for each employee.");
+    }
+  });
+
+  const hashedEmployeesData = await Promise.all(
+    employeesData.map(async (employee) => {
+      const hashedPassword = await bcrypt.hash(employee.password, 10);
+      return { ...employee, password: hashedPassword };
+    })
+  );
+
+  const result = await Employee.insertMany(hashedEmployeesData);
+
+  return res.status(201).json({
+    success: true,
+    message: `${result.length} employees uploaded successfully.`,
+    employees: result,
+  });
+});
+
 const createEmployee = catchErrors(async (req, res) => {
   const {
     employeeId,
@@ -251,4 +296,5 @@ export {
   deleteEmployee,
   updateEmployee,
   updateProfilePicture,
+  bulkCreateEmployees,
 };

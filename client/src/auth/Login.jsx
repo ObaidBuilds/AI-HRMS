@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-import ClipLoader from "react-spinners/ClipLoader";
 import { login } from "../services/authentication.service";
 
 const schema = z.object({
@@ -134,11 +133,7 @@ const Login = () => {
               disabled={loading}
               className="w-[85%] text-sm sm:text-[0.95rem] p-[18px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
             >
-              {loading ? (
-                <ClipLoader size={10} color="white" loading={loading} />
-              ) : (
-                "Login"
-              )}
+              {loading ? <i className="fas fa-spinner fa-spin"></i> : "Login"}
             </button>
 
             <div className="text-sm flex items-center gap-2 mt-2 font-medium cursor-pointer">

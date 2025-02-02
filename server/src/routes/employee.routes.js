@@ -6,12 +6,14 @@ import {
   deleteEmployee,
   updateEmployee,
   updateProfilePicture,
+  bulkCreateEmployees,
 } from "../controllers/employee.controller.js";
 import { upload } from "../config/index.js";
 import { verifyAdminToken, verifyEmployeeToken } from "../middlewares/index.js";
 
 const router = express.Router();
 
+router.post("/bulk", verifyAdminToken, bulkCreateEmployees);
 router.post("/", verifyAdminToken, createEmployee);
 router.get("/", verifyAdminToken, getAllEmployees);
 router.patch(

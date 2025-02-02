@@ -34,9 +34,8 @@ const feedbackSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(createFeedback.fulfilled, (state, action) => {
-        state.feedbacks = [action.payload.feedback, ...state.feedbacks]; 
-        state.loading = false; 
+      .addCase(createFeedback.fulfilled, (state) => {
+        state.loading = false;
       })
       .addCase(createFeedback.rejected, (state, action) => {
         state.loading = false;
