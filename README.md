@@ -1,5 +1,7 @@
 ![logo](/client/public/metro.png)
 
+[View on Eraser![](https://app.eraser.io/workspace/0XJ1l2yX5YkpNdRhRfq8/preview?elements=jTik3uFN-8w0K42pAilZnA&type=embed)](https://app.eraser.io/workspace/0XJ1l2yX5YkpNdRhRfq8?elements=jTik3uFN-8w0K42pAilZnA)
+
 - **Employee**  
   - `employeeId`  
   - `name`  
