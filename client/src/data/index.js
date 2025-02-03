@@ -12,7 +12,9 @@ const sidebarLinks = [
     { name: "Employees Details", link: "/employees" },
     { name: "Create Employee", link: "/employee/create" }
   ] },
-  { name: "Attendance Management", iconClass: "fas fa-calendar-check", link: "/attendance" },
+  { name: "Department & Roles", iconClass: "fas fa-building", link: "/" },
+  { name: "Attendance Management", iconClass: "fas fa-calendar-check", link: "/attendance" },  { name: "Attendance Management", iconClass: "fas fa-calendar-check", link: "/attendance" },
+
   { name: "Recruitment Management", iconClass: "fas fa-users-cog", 
     childrens: [
     { name: "View Applications", link: "/" },
