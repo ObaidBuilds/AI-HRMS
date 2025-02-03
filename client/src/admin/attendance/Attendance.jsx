@@ -101,7 +101,7 @@ function Attendance() {
         <div className="overflow-x-auto mt-3">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
-              <tr className="bg-head text-primary">
+              <tr className="bg-headLight dark:bg-head text-primary">
                 <th className="py-3 px-4 border-b border-gray-500">Emp ID</th>
                 <th className="py-3 px-4 border-b border-gray-500 text-center">
                   Name

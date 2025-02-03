@@ -88,7 +88,7 @@ function Complaint() {
         <div id="overflow" className="overflow-x-auto min-h-[77vh]">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
-              <tr className="bg-head text-primary">
+              <tr className="dark:bg-head bg-headLight text-primary">
                 {[
                   "Emp ID",
                   "Name",

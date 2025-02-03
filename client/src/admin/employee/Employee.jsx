@@ -182,7 +182,7 @@ function Employee() {
         >
           <table className="min-w-full text-left table-auto border-collapse text-[0.83rem] whitespace-nowrap">
             <thead>
-              <tr className="bg-head text-primary">
+              <tr className="bg-headLight dark:bg-head text-primary">
                 {[
                   "Employee ID",
                   "Name",

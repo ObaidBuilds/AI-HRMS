@@ -146,7 +146,7 @@ const Sidebar = () => {
                 openSubMenuIndex === index && (
                   <ul
                     className={`flex flex-col gap-2 pl-5 p-3 my-2 rounded-lg ${
-                      theme === "light" ? "bg-[#1d3557]" : "bg-gray-700"
+                      theme === "light" ? "bg-[#233d64]" : "bg-gray-700"
                     } animate_animated animate__bounceIn`}
                   >
                     {item.childrens.map((subLink, subIndex) => (
