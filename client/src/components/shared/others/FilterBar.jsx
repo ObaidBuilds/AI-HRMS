@@ -39,9 +39,9 @@ const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
     <section className="fixed bg-gray-900 bg-opacity-50 inset-0 z-50">
       <aside
         id="overflow"
-        className="w-[75%] text-gray-200 h-screen overflow-y-scroll sm:overflow-auto sm:w-[400px] rounded-md p-5 md:mb-0 bg-gray-800 font-bold fixed top-0 right-0 z-50"
+        className="filter_bar w-[75%] text-gray-200 h-screen overflow-y-scroll sm:overflow-auto sm:w-[350px] rounded-md p-5 md:mb-0 bg-gray-800 font-bold fixed top-0 right-0 z-50"
       >
-        <div className="w-full pb-4 mb-4 border-b border-gray-600">
+        <div className="w-full pb-4 mb-4 border-b border-gray-700">
           <div
             onClick={() => hideFilterBar(false)}
             className="w-[20px] h-[20px] text-black bg-gray-300 flex justify-center items-center rounded-full cursor-pointer"
@@ -50,7 +50,7 @@ const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
           </div>
         </div>
         <div>
-          <div className="w-full border-b border-gray-500 pb-6">
+          <div className="w-full border-b border-gray-700 pb-6">
             <div className="w-full relative">
               <i className="fa fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
               <input
@@ -61,13 +61,13 @@ const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
                   setFilters({ ...filters, name: e.target.value })
                 }
                 autoComplete="off"
-                className="w-full bg-secondary text-sm sm:text-[0.9rem] sm:text-center p-4 sm:p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                className="w-full bg-secondary text-sm sm:text-[0.9rem] sm:text-center p-3 sm:p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                 required
               />
             </div>
           </div>
           {/* Department Filter */}
-          <div className="h-auto border-b border-gray-500 pt-4">
+          <div className="h-auto border-b border-gray-700 pt-4">
             <div
               className="flex justify-between items-center mb-5 cursor-pointer"
               onClick={() => handleToggle("department")}
@@ -105,7 +105,7 @@ const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
           </div>
 
           {/* Position Filter */}
-          <div className="h-auto py-1 mt-1 border-b border-gray-500">
+          <div className="h-auto py-1 mt-1 border-b border-gray-700">
             <div
               className="flex justify-between items-center my-3 cursor-pointer"
               onClick={() => handleToggle("position")}
