@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import ClipLoader from "react-spinners/ClipLoader";
 import ResponsiveNavbar from "./ResponsiveNavbar";
 import { logout } from "../../services/authentication.service";
 import { updateProfile } from "../../services/employee.service";
@@ -130,10 +129,12 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+
       <ResponsiveNavbar
         showSidebar={showSidebar}
         setShowSidebar={setShowSidebar}
       />
+
       {toggleModal && (
         <ProfileModal
           name={user.name}

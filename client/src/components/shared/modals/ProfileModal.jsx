@@ -1,6 +1,5 @@
 import React from "react";
 import { FiEdit } from "react-icons/fi";
-import ClipLoader from "react-spinners/ClipLoader";
 
 const ProfileModal = ({
   handleFileChange,
@@ -9,7 +8,7 @@ const ProfileModal = ({
   showButton,
   loading,
   handleClick,
-  close
+  close,
 }) => {
   const handleEditImage = () => {
     document.getElementById("fileInput").click();
@@ -60,16 +59,13 @@ const ProfileModal = ({
             disabled={loading}
             className="text-gray-300 w-full p-4 text-sm font-semibold bg-blue-600 rounded-3xl mt-3 hover:bg-blue-700"
           >
-            {loading ? (
-              <ClipLoader size={10} color="white" loading={loading} />
-            ) : (
-              "Update"
-            )}
+            {loading ? <i className="fas fa-spinner fa-spin"></i> : "Update"}
           </button>
         ) : (
           <button
-          onClick={() => close()}
-          className="text-gray-300 w-full p-4 text-sm font-semibold bg-red-600 rounded-3xl mt-3 hover:bg-red-700">
+            onClick={() => close()}
+            className="text-gray-300 w-full p-4 text-sm font-semibold bg-red-600 rounded-3xl mt-3 hover:bg-red-700"
+          >
             Cancel
           </button>
         )}
