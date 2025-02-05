@@ -39,7 +39,7 @@ const ChatPanel = () => {
 
       {/* Chat Panel */}
       <div
-        className={`fixed z-50 top-0 right-0 w-[400px] h-screen ${
+        className={`fixed z-50 top-0 right-0 w-full sm:w-[400px] h-screen ${
           theme === "light"
             ? "bg-gradient-to-r from-[#0a2540] to-[#1d3557]"
             : "bg-gradient-to-br from-[#1E293B] to-[#334155]"
