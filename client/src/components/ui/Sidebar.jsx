@@ -46,8 +46,6 @@ const Sidebar = () => {
     <div className="text-white">
       {loading && <Loader />}
 
-      {/* Navigation Bar */}
-
       <nav
         className={`w-full fixed top-0 left-0 lg:hidden h-[70px] ${
           theme === "light"
@@ -71,8 +69,6 @@ const Sidebar = () => {
         </div>
       </nav>
 
-      {/* Sidebar */}
-
       <aside
         id="overflow"
         className={`fixed top-0 h-screen ${
@@ -83,8 +79,6 @@ const Sidebar = () => {
           showSidebar ? "left-0" : "-left-full"
         } lg:left-0 w-full lg:w-[255px]`}
       >
-        {/* Logo and Close Button */}
-
         <div className="p-3 mt-3 sm:mt-5 flex justify-between lg:justify-center items-center space-x-2 px-7 animate-float">
           <div className="flex flex-col sm:items-center">
             <img className="w-[55px]" src="/metro.png" alt="logo" />
@@ -103,8 +97,6 @@ const Sidebar = () => {
           </div>
         </div>
 
-        {/* Sidebar Links */}
-
         <ul className="flex flex-col gap-4 p-4 overflow-y-auto">
           {sidebarLinks.map((item, index) => (
             <li
@@ -112,8 +104,6 @@ const Sidebar = () => {
               onClick={() => toggleSubMenu(index)}
               className="cursor-pointer border-b border-gray-700 py-[5px]"
             >
-              {/* Main Link */}
-
               <div className="flex justify-between items-center">
                 <Link
                   to={item.link}
@@ -126,8 +116,6 @@ const Sidebar = () => {
                   <p>{item.name.toUpperCase()}</p>
                 </Link>
 
-                {/* Arrow Icon for Submenu */}
-
                 {item.childrens && item.childrens.length > 0 && (
                   <i
                     className={`fas text-[0.6rem] text-gray-400 transition-transform ${
@@ -138,8 +126,6 @@ const Sidebar = () => {
                   ></i>
                 )}
               </div>
-
-              {/* Submenu */}
 
               {item.childrens &&
                 item.childrens.length > 0 &&
@@ -165,8 +151,6 @@ const Sidebar = () => {
             </li>
           ))}
 
-          {/* Theme Toggle */}
-
           <button className="flex gap-2 justify-between items-center border-b py-[4px] border-gray-700">
             <div className="flex items-center gap-2">
               <i
@@ -187,8 +171,6 @@ const Sidebar = () => {
               <span className="slider round"></span>
             </label>
           </button>
-
-          {/* Logout */}
 
           <button
             onClick={() => setShowConfirmModal(true)}

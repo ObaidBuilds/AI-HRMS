@@ -9,7 +9,7 @@ const ChatPanel = () => {
     { text: "Hello! How can I help?", sender: "ai" },
   ]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   const sendMessage = () => {
     if (input.trim() === "") return;
@@ -28,7 +28,6 @@ const ChatPanel = () => {
 
   return (
     <>
-      {/* Floating AI Button */}
       <button
         onClick={() => setIsOpen(true)}
         className="animate-float fixed bottom-7 right-7 z-50 w-[60px] sm:w-[130px] text-sm bg-gradient-to-r from-[#FF416C] to-[#FF4B2B] text-white font-semibold p-4 rounded-full flex items-center justify-center gap-2 shadow-xl hover:scale-105 transition-transform"
@@ -37,7 +36,6 @@ const ChatPanel = () => {
         <p className="sm:flex hidden">ASK AI</p>
       </button>
 
-      {/* Chat Panel */}
       <div
         className={`fixed z-50 top-0 right-0 w-full sm:w-[400px] h-screen ${
           theme === "light"
@@ -47,7 +45,6 @@ const ChatPanel = () => {
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {/* Header */}
         <div className="flex justify-between items-center pb-3 border-b border-gray-500">
           <img src="/metro.png" className="w-[50px]" alt="" />
           <button
@@ -58,7 +55,6 @@ const ChatPanel = () => {
           </button>
         </div>
 
-        {/* Chat Messages */}
         <div
           id="overflow"
           className="mt-4 h-[75%] overflow-y-auto space-y-3 p-2 custom-scrollbar"
@@ -94,7 +90,6 @@ const ChatPanel = () => {
             </div>
           ))}
 
-          {/* Show loading spinner when AI is responding */}
           {loading && (
             <div className="flex items-center gap-3 text-sm">
               <div className="w-4 h-4 border-4 border-t-4 border-gray-300 rounded-full animate-spin border-t-blue-400"></div>
@@ -103,7 +98,6 @@ const ChatPanel = () => {
           )}
         </div>
 
-        {/* Input Field */}
         <div className="w-[94%] bottom-4 right-2 absolute">
           <div className="relative">
             <i className="fas fa-robot text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
@@ -127,7 +121,6 @@ const ChatPanel = () => {
         </div>
       </div>
 
-      {/* Click Outside to Close */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-slate-900 opacity-15 z-40"
