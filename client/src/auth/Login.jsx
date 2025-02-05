@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
-import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { login } from "../services/authentication.service";
 
 const schema = z.object({
@@ -110,13 +109,13 @@ const Login = () => {
                   required
                 />
                 <span
-                  className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-800 cursor-pointer"
+                  className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-300 cursor-pointer"
                   onClick={handleShowPass}
                 >
                   {active ? (
-                    <FaEyeSlash color="white" size={17} />
+                    <i className="fas fa-eye-slash text-sm"></i>
                   ) : (
-                    <FaEye color="white" size={17} />
+                    <i className="fas fa-eye text-sm"></i>
                   )}
                 </span>
               </div>
@@ -133,7 +132,11 @@ const Login = () => {
               disabled={loading}
               className="w-[85%] text-sm sm:text-[0.95rem] p-[18px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
             >
-              {loading ? <i className="fas fa-spinner fa-spin"></i> : "Login"}
+              {loading ? (
+                <i className="fas fa-spinner fa-spin text-sm"></i>
+              ) : (
+                "Login"
+              )}
             </button>
 
             <div className="text-sm flex items-center gap-2 mt-2 font-medium cursor-pointer">

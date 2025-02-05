@@ -86,7 +86,7 @@ const Sidebar = () => {
         {/* Logo and Close Button */}
 
         <div className="p-3 mt-3 sm:mt-5 flex justify-between lg:justify-center items-center space-x-2 px-7 animate-float">
-          <div className="flex flex-col sm:items-center animate__animated animate__bounce">
+          <div className="flex flex-col sm:items-center">
             <img className="w-[55px]" src="/metro.png" alt="logo" />
             <h1
               className="text-center mt-1 text-base"
@@ -147,7 +147,7 @@ const Sidebar = () => {
                   <ul
                     className={`flex flex-col gap-2 pl-5 p-3 my-2 rounded-lg ${
                       theme === "light" ? "bg-[#233d64]" : "bg-gray-700"
-                    } animate_animated animate__bounceIn`}
+                    } dropdown-active`}
                   >
                     {item.childrens.map((subLink, subIndex) => (
                       <li

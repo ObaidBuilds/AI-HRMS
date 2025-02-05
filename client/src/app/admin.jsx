@@ -11,8 +11,12 @@ import { getDepartments } from "../services/department.service";
 // Lazy loading the components
 const Dashboard = React.lazy(() => import("../admin/dashboard/Dashboard"));
 const Employee = React.lazy(() => import("../admin/employee/Employee"));
-const AddEmployee = React.lazy(() => import("../admin/employee/CreateEmployee"));
-const EditEmployee = React.lazy(() => import("../admin/employee/UpdateEmployee"));
+const AddEmployee = React.lazy(() =>
+  import("../admin/employee/CreateEmployee")
+);
+const EditEmployee = React.lazy(() =>
+  import("../admin/employee/UpdateEmployee")
+);
 const ViewEmployee = React.lazy(() => import("../admin/employee/ViewEmployee"));
 const Attendance = React.lazy(() => import("../admin/attendance/Attendance"));
 const Feedback = React.lazy(() => import("../admin/feedback/Feedback"));
@@ -32,11 +36,11 @@ const AdminApp = () => {
   }, []);
 
   return (
-    <div>
       <div
         id="transition"
         className="min-h-screen max-h-auto text-gray-800 bg-gray-200 dark:text-gray-200 dark:bg-primary flex justify-between relative"
       >
+      
         <Sidebar />
         <Suspense fallback={<Loader />}>
           <main
@@ -58,7 +62,10 @@ const AdminApp = () => {
                 />
                 <Route path="/attendance" element={<Attendance />} />
                 <Route path="/leaves" element={<LeaveRequest />} />
-                <Route path="/leave/active-leaves" element={<EmployeeOnLeave />} />
+                <Route
+                  path="/leave/active-leaves"
+                  element={<EmployeeOnLeave />}
+                />
                 <Route path="/feedbacks" element={<Feedback />} />
                 <Route path="/complaints" element={<Complaint />} />
                 <Route path="*" element={<NotFound />} />
@@ -68,7 +75,6 @@ const AdminApp = () => {
           </main>
         </Suspense>
       </div>
-    </div>
   );
 };
 

@@ -1,4 +1,5 @@
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { React } from "react";
+
 
 function Pagination({ currentPage, totalPages, onPageChange }) {
   const goToPrevPage = () => {
@@ -26,7 +27,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
           }`}
           disabled={currentPage === 1}
         >
-          <FaChevronLeft />
+          <i className="fas fa-chevron-left text-sm"></i>
         </button>
         <button
           onClick={goToNextPage}
@@ -35,7 +36,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
           }`}
           disabled={currentPage === totalPages}
         >
-          <FaChevronRight />
+          <i className="fas fa-chevron-right text-sm"></i>
         </button>
       </div>
     </div>

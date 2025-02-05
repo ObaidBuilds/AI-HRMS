@@ -1,5 +1,4 @@
 import React from "react";
-import { FiEdit } from "react-icons/fi";
 
 const ProfileModal = ({
   handleFileChange,
@@ -23,7 +22,7 @@ const ProfileModal = ({
           className="absolute top-2 right-2 text-gray-600 hover:text-blue-500"
           aria-label="Edit Image"
         >
-          <FiEdit size={17} />
+          <i className="fas fa-pencil-alt text-[17px]"></i>
         </button>
 
         {/* Hidden File Input */}

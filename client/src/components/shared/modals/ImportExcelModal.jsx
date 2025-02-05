@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { FaFileUpload, FaTimes } from "react-icons/fa";
-import { useDispatch } from "react-redux";
 import * as XLSX from "xlsx";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { bulkUploadEmployees } from "../../../services/employee.service";
 
 const ImportExcelModal = ({ onClose }) => {
@@ -86,21 +85,23 @@ const ImportExcelModal = ({ onClose }) => {
         id="modal"
         className="border border-gray-300 dark:border-gray-700 bg-white text-gray-800 p-8 rounded-lg w-[95%] md:w-[500px] shadow-lg relative"
       >
-        <FaTimes
+        <button
           onClick={onClose}
           className="absolute top-3 right-3 text-gray-600 text-sm cursor-pointer hover:text-gray-800 transition duration-200"
-        />
+        >
+          <i className="fas fa-times"></i>
+        </button>
         <div
           className="border-2 border-dashed border-gray-400 rounded-lg p-8 flex justify-center items-center flex-col text-center space-y-4 cursor-pointer transition-transform"
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
         >
-          <FaFileUpload
-            className={`text-4xl text-gray-600 mb-4 transition-all ease-in-out duration-200 ${
+          <i
+            className={`fas fa-upload text-4xl text-gray-600 mb-4 transition-all ease-in-out duration-200 ${
               isDragging ? "scale-150" : ""
-            } `}
-          />
+            }`}
+          ></i>
           <p className="text-lg font-semibold text-gray-700">
             Drag & Drop your file here
           </p>

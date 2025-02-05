@@ -47,6 +47,11 @@ const Dashboard = () => {
   return (
     <>
       <section className=" text-primary">
+        <button className="animate-float fixed bottom-7 right-7 z-50 w-[50px] sm:w-[120px] text-sm bg-gradient-to-r from-[#1E4B8E] to-[#316BB0] text-white font-semibold p-4 rounded-full flex items-center justify-center gap-2 shadow-lg">
+          <i className="fas fa-robot text-lg"></i>
+          <p className="sm:flex hidden">ASK AI</p>
+        </button>
+
         <div className="w-full flex flex-wrap justify-between gap-2">
           {infoCardData.map((item) => (
             <InfoCard key={item.id} detail={item} />

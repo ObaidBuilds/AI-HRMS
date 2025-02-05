@@ -1,4 +1,3 @@
-import "animate.css";
 import "typeface-poppins";
 import Login from "./auth/Login";
 import AdminApp from "./app/admin";

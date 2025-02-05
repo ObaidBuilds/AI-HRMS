@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { FaChevronDown, FaChevronUp, FaTimes } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
@@ -46,7 +45,7 @@ const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
             onClick={() => hideFilterBar(false)}
             className="w-[20px] h-[20px] text-black bg-gray-300 flex justify-center items-center rounded-full cursor-pointer"
           >
-            <FaTimes className="text-sm" />
+            <i className="fas fa-times"></i>
           </div>
         </div>
         <div>
@@ -74,9 +73,9 @@ const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
             >
               <h1 className="text-sm font-medium">Department</h1>
               {toggleState.department ? (
-                <FaChevronUp className="text-xs" />
+                <i className="fas fa-chevron-up text-xs"></i>
               ) : (
-                <FaChevronDown className="text-xs" />
+                <i className="fas fa-chevron-down text-xs"></i>
               )}
             </div>
             {toggleState.department && (
@@ -112,9 +111,9 @@ const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
             >
               <h1 className="text-sm pb-2 font-medium">Position</h1>
               {toggleState.position ? (
-                <FaChevronUp className="text-xs" />
+                <i className="fas fa-chevron-up text-xs"></i>
               ) : (
-                <FaChevronDown className="text-xs" />
+                <i className="fas fa-chevron-down text-xs"></i>
               )}
             </div>
             {toggleState.position && (
@@ -145,9 +144,9 @@ const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
             >
               <h1 className="text-sm font-medium">Status</h1>
               {toggleState.status ? (
-                <FaChevronUp className="text-xs" />
+                <i className="fas fa-chevron-up text-xs"></i>
               ) : (
-                <FaChevronDown className="text-xs" />
+                <i className="fas fa-chevron-down text-xs"></i>
               )}
             </div>
             {toggleState.status && (
