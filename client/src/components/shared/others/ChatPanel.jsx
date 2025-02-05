@@ -9,18 +9,21 @@ const ChatPanel = () => {
     { text: "Hello! How can I help?", sender: "ai" },
   ]);
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false); 
 
   const sendMessage = () => {
     if (input.trim() === "") return;
     setMessages([...messages, { text: input, sender: "user" }]);
     setInput("");
+    setLoading(true);
 
     setTimeout(() => {
       setMessages((prev) => [
         ...prev,
         { text: "I'm here to assist you! 😊", sender: "ai" },
       ]);
-    }, 1200);
+      setLoading(false);
+    }, 2000);
   };
 
   return (
@@ -56,7 +59,10 @@ const ChatPanel = () => {
         </div>
 
         {/* Chat Messages */}
-        <div className="mt-4 h-[75%] overflow-y-auto space-y-3 p-2 custom-scrollbar">
+        <div
+          id="overflow"
+          className="mt-4 h-[75%] overflow-y-auto space-y-3 p-2 custom-scrollbar"
+        >
           {messages.map((msg, index) => (
             <div key={index} className="flex items-end gap-2">
               {msg.sender === "ai" && (
@@ -87,6 +93,14 @@ const ChatPanel = () => {
               )}
             </div>
           ))}
+
+          {/* Show loading spinner when AI is responding */}
+          {loading && (
+            <div className="flex items-center gap-3 text-sm">
+              <div className="w-4 h-4 border-4 border-t-4 border-gray-300 rounded-full animate-spin border-t-blue-400"></div>
+              <span className="text-gray-300">AI is typing...</span>
+            </div>
+          )}
         </div>
 
         {/* Input Field */}
@@ -116,7 +130,7 @@ const ChatPanel = () => {
       {/* Click Outside to Close */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-slate-900 opacity-15  z-40"
+          className="fixed inset-0 bg-slate-900 opacity-15 z-40"
           onClick={() => setIsOpen(false)}
         ></div>
       )}
