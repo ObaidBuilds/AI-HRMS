@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useTheme } from "../../../context";
 
 const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
+  const { theme } = useTheme();
+
   const [filters, setFilters] = useState({
     department: "",
     role: "",
@@ -38,7 +41,11 @@ const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
     <section className="fixed bg-gray-900 bg-opacity-50 inset-0 z-50">
       <aside
         id="overflow"
-        className="filter_bar w-[75%] text-gray-200 h-screen overflow-y-scroll sm:overflow-auto sm:w-[350px] rounded-md p-5 md:mb-0 bg-[#1B3455] font-bold fixed top-0 right-0 z-50"
+        className={`filter_bar w-[75%] text-gray-200 h-screen overflow-y-scroll sm:overflow-auto sm:w-[350px] rounded-md p-5 md:mb-0 ${
+          theme === "light"
+            ? "bg-gradient-to-r from-[#0a2540] to-[#1d3557]"
+            : "bg-gradient-to-br from-[#1E293B] to-[#334155]"
+        } font-bold fixed top-0 right-0 z-50`}
       >
         <div className="w-full pb-4 mb-2 border-b border-gray-600">
           <div
@@ -49,6 +56,7 @@ const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
           </div>
         </div>
         <div>
+          
           {/* <div className="w-full border-b border-gray-600 pb-6">
             <div className="w-full relative">
               <i className="fa fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
@@ -65,6 +73,7 @@ const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
               />
             </div>
           </div> */}
+
           {/* Department Filter */}
           <div className="h-auto border-b border-gray-600 pt-4">
             <div

@@ -167,7 +167,7 @@ const Sidebar = () => {
 
           {/* Theme Toggle */}
 
-          {/* <button className="flex gap-2 justify-between items-center border-b py-[4px] border-gray-700">
+          <button className="flex gap-2 justify-between items-center border-b py-[4px] border-gray-700">
             <div className="flex items-center gap-2">
               <i
                 className={`fas ${
@@ -186,7 +186,7 @@ const Sidebar = () => {
               />
               <span className="slider round"></span>
             </label>
-          </button> */}
+          </button>
 
           {/* Logout */}
 
