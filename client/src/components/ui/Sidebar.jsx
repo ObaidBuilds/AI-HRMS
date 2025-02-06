@@ -151,7 +151,7 @@ const Sidebar = () => {
             </li>
           ))}
 
-          <button className="flex gap-2 justify-between items-center border-b py-[4px] border-gray-700">
+          <button className="hidden gap-2 justify-between items-center border-b py-[4px] border-gray-700">
             <div className="flex items-center gap-2">
               <i
                 className={`fas ${
@@ -190,8 +190,8 @@ const Sidebar = () => {
                 />
               </div>
               <div className="text-center text-white">
-                <p className="text-base font-semibold">{user?.name}</p>
-                <p className="text-sm text-gray-400">{user?.email}</p>
+                <p className="text-sm font-semibold">{user?.name}</p>
+                <p className="text-xs text-gray-400">{user?.email}</p>
               </div>
             </div>
           </div>
