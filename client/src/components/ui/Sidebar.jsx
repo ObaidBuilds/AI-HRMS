@@ -74,7 +74,7 @@ const Sidebar = () => {
         className={`fixed top-0 h-screen ${
           theme === "light"
             ? "bg-gradient-to-r from-[#0a2540] to-[#1d3557]"
-            : "bg-gradient-to-r from-[#212d3f] to-[#1e293b]"
+            : "bg-gradient-to-r from-[#1e293b] to-[#212d3f]"
         }  transition-all duration-300 ease-in-out z-50 overflow-y-auto text-[0.72rem] font-medium ${
           showSidebar ? "left-0" : "-left-full"
         } lg:left-0 w-full lg:w-[255px]`}
@@ -180,18 +180,18 @@ const Sidebar = () => {
             <p className=" text-[0.72rem]">LOGOUT</p>
           </button>
 
-          <div className="w-full py-2 hidden md:block  bottom-2">
-            <div className="flex items-center gap-4">
-              <div className="w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer">
+          <div className="w-full hidden md:block bg-[#1d3557] dark:bg-[#182233] rounded-xl">
+            <div className="flex flex-col items-center gap-3 p-4 ">
+              <div className="w-[60px] h-[60px] rounded-full overflow-hidden cursor-pointer border-2 border-gray-500 hover:scale-105 transition-all duration-300">
                 <img
-                  className="w-full"
-                  src={user.profilePicture || "https://via.placeholder.com/40"}
-                  alt="obaid"
+                  className="w-full h-full object-cover"
+                  src={user.profilePicture || "https://via.placeholder.com/60"}
+                  alt="Profile"
                 />
               </div>
-              <div>
-                <p className="text-sm">{user?.name}</p>
-                <p className="text-xs">{user?.email}</p>
+              <div className="text-center text-white">
+                <p className="text-base font-semibold">{user?.name}</p>
+                <p className="text-sm text-gray-400">{user?.email}</p>
               </div>
             </div>
           </div>
