@@ -23,6 +23,7 @@ function Complaint() {
   const [status, setStatus] = useState("Pending");
   const [currentPage, setCurrentPage] = useState(1);
   const [toggleModal, setToggleModal] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
   const [selectedComplaint, setSelectedComplaint] = useState(null);
   const [toggleRemarkModal, setToggleRemarkModal] = useState(false);
 
@@ -136,8 +137,18 @@ function Complaint() {
                     <td className="py-3 px-4 border-b border-secondary">
                       {complainType}
                     </td>
-                    <td className="py-3 px-4 border-b border-secondary">
+                    <td
+                      className="py-3 px-4 border-b border-secondary"
+                      onMouseEnter={() => setHoveredIndex(index)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                    >
                       {complaintDetails.slice(0, 20)}
+
+                      {hoveredIndex === index && (
+                       <div className="absolute left-0 top-full mt-1 max-w-auto h-auto bg-gray-900 text-white text-xs p-2 rounded shadow-lg z-10 break-words whitespace-normal">
+                       {complaintDetails}
+                     </div>
+                      )}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
                       {formatDate(createdAt)}

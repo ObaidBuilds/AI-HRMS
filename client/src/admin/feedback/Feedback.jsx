@@ -17,12 +17,11 @@ function Feedback() {
 
   const [reviewFilter, setReviewFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   useEffect(() => {
     dispatch(getFeedbacks({ review: reviewFilter.toLowerCase(), currentPage }));
   }, [reviewFilter, currentPage]);
-
-  console.log(feedbacks)
 
   return (
     <>
@@ -88,9 +87,23 @@ function Feedback() {
                     <td className="py-3 px-4 border-b border-secondary">
                       {feedback.review}
                     </td>
-                    <td className="py-3 px-4 border-b border-secondary">
+
+                    {/* Description with Tooltip */}
+                    <td
+                      className="py-3 px-4 border-b border-secondary relative cursor-pointer"
+                      onMouseEnter={() => setHoveredIndex(index)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                    >
                       {feedback.description.slice(0, 10) + "..."}
+
+                      {hoveredIndex === index && (
+                        <div className="absolute left-0 top-full mt-1 max-w-[300px] h-auto bg-gray-900 text-white text-xs p-2 rounded shadow-lg z-10 break-words whitespace-normal">
+                          <i className="fas fa-quote-left text-white mr-2"></i>
+                          {feedback.description}
+                        </div>
+                      )}
                     </td>
+
                     <td className="py-3 px-4 border-b border-secondary">
                       {formatDate(feedback.createdAt)}
                     </td>
