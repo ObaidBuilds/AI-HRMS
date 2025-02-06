@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useTheme } from "../../../context";
 
-const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
+const FilterBar = ({ isOpen, hideFilterBar, handleApplyFilters }) => {
   const { theme } = useTheme();
 
   const [filters, setFilters] = useState({
@@ -38,42 +38,27 @@ const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
   };
 
   return (
-    <section className="fixed bg-gray-900 bg-opacity-50 inset-0 z-50">
+    <>
       <aside
         id="overflow"
-        className={`filter_bar w-[75%] text-gray-200 h-screen overflow-y-scroll sm:overflow-auto sm:w-[350px] rounded-md p-5 md:mb-0 ${
+        className={`fixed z-50 top-0 right-0 w-[75%] sm:w-[400px] h-screen overflow-y-auto ${
           theme === "light"
             ? "bg-gradient-to-r from-[#0a2540] to-[#1d3557]"
             : "bg-gradient-to-br from-[#1E293B] to-[#334155]"
-        } font-bold fixed top-0 right-0 z-50`}
+        }  text-white p-5 shadow-2xl transform transition-transform duration-300 backdrop-blur-xl ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        }`}
       >
-        <div className="w-full pb-4 mb-2 border-b border-gray-600">
-          <div
+        <div className="flex justify-between items-center pb-3 mb-3 border-b border-gray-500">
+          <img src="/metro.png" className="w-[50px]" alt="" />
+          <button
+            className="text-gray-300 hover:text-white transition duration-200"
             onClick={() => hideFilterBar(false)}
-            className="w-[20px] h-[20px] text-black bg-gray-300 flex justify-center items-center rounded-full cursor-pointer"
           >
-            <i className="fas fa-times"></i>
-          </div>
+            <i className="fas fa-times text-sm"></i>
+          </button>
         </div>
         <div>
-          
-          {/* <div className="w-full border-b border-gray-600 pb-6">
-            <div className="w-full relative">
-              <i className="fa fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
-              <input
-                type="text"
-                placeholder="Search by name"
-                value={filters.name}
-                onChange={(e) =>
-                  setFilters({ ...filters, name: e.target.value })
-                }
-                autoComplete="off"
-                className="w-full bg-secondary text-sm sm:text-[0.9rem] sm:text-center p-3 sm:p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
-                required
-              />
-            </div>
-          </div> */}
-
           {/* Department Filter */}
           <div className="h-auto border-b border-gray-600 pt-4">
             <div
@@ -174,7 +159,7 @@ const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
               </div>
             )}
             <button
-              className="w-full sm:mb-0 text-sm font-semibold rounded-full border border-blue-800 bg-blue-700 hover:bg-blue-800 p-4 mt-3 flex items-center justify-center gap-2"
+              className="w-full sm:mb-0 text-sm font-medium rounded-full border border-blue-800 bg-blue-700 hover:bg-blue-800 p-3 mt-3 flex items-center justify-center gap-2 transition-all duration-300"
               onClick={() => handleApplyFilters(filters)}
             >
               <i className="fas fa-filter"></i>
@@ -183,7 +168,13 @@ const FilterBar = ({ hideFilterBar, handleApplyFilters }) => {
           </div>
         </div>
       </aside>
-    </section>
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-slate-900 opacity-15 z-40 transition-all duration-300"
+          onClick={() => hideFilterBar(false)}
+        ></div>
+      )}
+    </>
   );
 };
 

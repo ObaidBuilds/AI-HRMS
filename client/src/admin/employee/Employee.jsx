@@ -273,6 +273,7 @@ function Employee() {
 
         {uiState.toggleFilterBar && (
           <FilterBar
+            isOpen={uiState.toggleFilterBar}
             handleApplyFilters={handleApplyFilters}
             hideFilterBar={() =>
               setUiState((prev) => ({ ...prev, toggleFilterBar: false }))
