@@ -41,7 +41,7 @@ const FilterBar = ({ isOpen, hideFilterBar, handleApplyFilters }) => {
     <>
       <aside
         id="overflow"
-        className={`fixed z-50 top-0 right-0 w-[75%] sm:w-[400px] h-screen overflow-y-auto ${
+        className={`filter_bar fixed z-50 top-0 right-0 w-[75%] sm:w-[400px] h-screen overflow-y-auto ${
           theme === "light"
             ? "bg-gradient-to-r from-[#0a2540] to-[#1d3557]"
             : "bg-gradient-to-br from-[#1E293B] to-[#334155]"
