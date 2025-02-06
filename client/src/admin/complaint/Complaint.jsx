@@ -145,9 +145,9 @@ function Complaint() {
                       {complaintDetails.slice(0, 20)}
 
                       {hoveredIndex === index && (
-                       <div className="absolute left-0 top-full mt-1 max-w-auto h-auto bg-gray-900 text-white text-xs p-2 rounded shadow-lg z-10 break-words whitespace-normal">
-                       {complaintDetails}
-                     </div>
+                        <div className="absolute left-0 top-full mt-1 max-w-[300px] h-auto bg-gray-900 dark:bg-gray-200 dark:text-black text-white text-xs p-2 rounded shadow-lg z-10 break-words whitespace-normal">
+                          {complaintDetails}
+                        </div>
                       )}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
