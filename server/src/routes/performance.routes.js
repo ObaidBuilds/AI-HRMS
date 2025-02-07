@@ -1,6 +1,5 @@
 import express from "express";
 import {
-  addPerformanceWithKPI,
   updatePerformance,
   getAllPerformances,
   getPerformanceMetricsById,
@@ -8,7 +7,6 @@ import {
 
 const router = express.Router();
 
-router.post("/", addPerformanceWithKPI);
 router.patch("/", updatePerformance);
 router.get("/", getAllPerformances);
 router.get("/:employeeID", getPerformanceMetricsById);

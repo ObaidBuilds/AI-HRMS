@@ -6,10 +6,11 @@ import cloudinary from "cloudinary";
 import { myCache } from "../utils/index.js";
 import Employee from "../models/employee.model.js";
 import { catchErrors, getPublicIdFromUrl } from "../utils/index.js";
+import { addPerformanceWithKPI } from "./performance.controller.js";
 
 const bulkCreateEmployees = catchErrors(async (req, res) => {
-  const  employeesRecords  = req.body;
- 
+  const employeesRecords = req.body;
+
   if (!Array.isArray(employeesRecords)) {
     throw new Error("Please provide an array of employee data.");
   }
@@ -122,6 +123,8 @@ const createEmployee = catchErrors(async (req, res) => {
     leaveBalance: leaveBalance || 0,
     admin: admin || false,
   });
+
+  await addPerformanceWithKPI(employee._id);
 
   return res.status(201).json({
     success: true,

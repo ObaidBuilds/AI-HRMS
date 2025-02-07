@@ -138,11 +138,10 @@ function Employee() {
               onClick={() =>
                 setUiState((prev) => ({ ...prev, toggleFilterBar: true }))
               }
-              className="flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold border-gray-300 hover:border-blue-500 hover:bg-blue-100 hover:text-blue-600 
+              className="flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold border-gray-300 hover:border-blue-500 hover:bg-blue-100 text-gray-700 dark:text-gray-300 hover:text-blue-600 
    dark:hover:border-blue-500 dark:hover:bg-transparent dark:hover:text-blue-500  transition-all  ease-in-out duration-300"
             >
-              <i className="fa-solid fa-filter text-[0.7rem] sm:text-xs"></i>{" "}
-              Apply Filters
+              <i className="fa-solid fa-filter text-xs"></i> Apply Filters
             </button>
           )}
 
@@ -153,13 +152,13 @@ function Employee() {
           <div className="flex items-center gap-3">
             <button
               onClick={handleExportToExcel}
-              className="hidden sm:flex justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border border-gray-300 py-1 px-5 rounded-3xl font-semibold  hover:border-blue-500 hover:bg-blue-100 hover:text-blue-600 
+              className="hidden sm:flex justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border border-gray-300 py-1 px-5 rounded-3xl font-semibold text-gray-700 dark:text-gray-300 hover:border-blue-500 hover:bg-blue-100 hover:text-blue-600 
    dark:hover:border-blue-500 dark:hover:bg-transparent dark:hover:text-blue-500  transition-all  ease-in-out duration-300"
             >
               {uiState.exportLoading ? (
                 <i className="fas fa-spinner fa-spin"></i>
               ) : (
-                <i className="fas fa-file-excel text-[0.7rem] text-xs"></i>
+                <i className="fas fa-file-excel text-xs"></i>
               )}
               {uiState.exportLoading ? " Exporting..." : "Export to Excel"}
             </button>
@@ -167,11 +166,10 @@ function Employee() {
               onClick={() =>
                 setUiState((prev) => ({ ...prev, toggleExcelModal: true }))
               }
-              className="hidden sm:flex justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border border-gray-300 py-1 px-5 rounded-3xl font-semibold  hover:border-blue-500 hover:bg-blue-100 hover:text-blue-600 
+              className="hidden sm:flex justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border border-gray-300 py-1 px-5 rounded-3xl font-semibold text-gray-700 dark:text-gray-300  hover:border-blue-500 hover:bg-blue-100 hover:text-blue-600 
    dark:hover:border-blue-500 dark:hover:bg-transparent dark:hover:text-blue-500  transition-all  ease-in-out duration-300"
             >
-              <i className="fas fa-file-excel text-[0.7rem] text-xs"></i> Import
-              from Excel
+              <i className="fas fa-file-excel  text-xs"></i> Import from Excel
             </button>
           </div>
         </div>
@@ -209,6 +207,9 @@ function Employee() {
                     className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
                   >
                     <td className="py-3 px-4 border-b border-secondary">
+                      {employee.admin && (
+                        <i className="fa-solid fa-crown text-[gold] mr-2"></i>
+                      )}
                       EMP {employee.employeeId}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
@@ -304,5 +305,3 @@ function Employee() {
 }
 
 export default Employee;
-
-

@@ -3,8 +3,8 @@ import Performance from "../models/performance.model.js";
 import { calculateAverageAttendance } from "../controllers/attendance.controller.js";
 
 const generateRandomKPI = () => ({
-  taskCompletion: 0,
-  deadlinesMet: 0,
+  attendance: 0,
+  rating: 0,
 });
 
 const generatePerformanceData = async () => {
@@ -21,17 +21,15 @@ const generatePerformanceData = async () => {
     for (const employee of employees) {
       const kpis = generateRandomKPI();
       kpis.attendance = await calculateAverageAttendance(employee._id);
+      kpis.rating = 0;
 
-      const kpiScore =
-        kpis.taskCompletion * 0.4 +
-        kpis.attendance * 0.3 +
-        kpis.deadlinesMet * 0.3;
+      const kpiScore = kpis.attendance * 0.3 + kpis.rating * 0.7;
 
       performanceData.push({
         employee: employee._id,
         kpis,
         kpiScore,
-        feedback: "Auto-generated performance record",
+        feedback: "",
       });
     }
 
@@ -42,4 +40,13 @@ const generatePerformanceData = async () => {
   }
 };
 
-export default generatePerformanceData;
+const deleteAllPerformanceRecords = async () => {
+  try {
+    await Performance.deleteMany({});
+    console.log("All performance records deleted successfully.");
+  } catch (error) {
+    console.error("Error deleting performance records:", error);
+  }
+};
+
+export { generatePerformanceData, deleteAllPerformanceRecords };

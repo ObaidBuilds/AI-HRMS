@@ -159,7 +159,7 @@ const FilterBar = ({ isOpen, hideFilterBar, handleApplyFilters }) => {
               </div>
             )}
             <button
-              className="w-full sm:mb-0 text-sm font-medium rounded-full border border-blue-800 bg-blue-700 hover:bg-blue-800 p-3 mt-3 flex items-center justify-center gap-2 transition-all duration-300"
+              className="w-full sm:mb-0 text-sm font-medium rounded-full border border-blue-800 bg-blue-700 hover:bg-blue-800 p-4 mt-3 flex items-center justify-center gap-2 transition-all duration-300"
               onClick={() => handleApplyFilters(filters)}
             >
               <i className="fas fa-filter"></i>

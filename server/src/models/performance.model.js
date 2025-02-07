@@ -7,15 +7,7 @@ const performanceSchema = new mongoose.Schema({
     required: true,
   },
   kpis: {
-    taskCompletion: {
-      type: Number,
-      required: true,
-    },
     attendance: {
-      type: Number,
-      required: true,
-    },
-    deadlinesMet: {
       type: Number,
       required: true,
     },
@@ -26,6 +18,10 @@ const performanceSchema = new mongoose.Schema({
   },
   feedback: {
     type: String,
+  },
+  rating: {
+    type: Number,
+    default: 0,
   },
   lastUpdated: {
     type: Date,

@@ -152,7 +152,7 @@ function Attendance() {
 
           {attendanceList.length === 0 && (
             <div className="flex flex-col items-center justify-center h-[60vh] sm:h-[70vh]">
-              {!selectedDepartment ? (
+              {!selectedDepartment && (
                 <button
                   onClick={() => setShowModal(true)}
                   className="p-4 rounded-md text-center text-sm font-semibold text-gray-700 dark:text-gray-300"
@@ -160,10 +160,12 @@ function Attendance() {
                   <i className="fas fa-building mr-2"></i>
                   Select Department to get sheet
                 </button>
-              ) : (
-                <button className="p-4 rounded-md text-center text-sm font-semibold text-gray-300">
+              )}
+
+              {selectedDepartment && (
+                <button className="p-4 rounded-md text-center text-sm font-semibold text-gray-700 dark:text-gray-300">
                   <i className="fas fa-building mr-2"></i>
-                  No Employee in this department
+                  Attendance marked for {selectedDate}
                 </button>
               )}
             </div>

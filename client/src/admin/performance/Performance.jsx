@@ -7,6 +7,7 @@ import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import FilterButton from "../../components/shared/buttons/FilterButton";
 import { performanceButtons } from "../../data";
 import { getPerformances } from "../../services/performance.service";
+import { formatDate } from "../../utils";
 
 function Perfromance() {
   const dispatch = useDispatch();
@@ -17,8 +18,6 @@ function Perfromance() {
   const [status, setStatus] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [hoveredIndex, setHoveredIndex] = useState(null);
-
-  console.log(hoveredIndex);
 
   const goToPage = (page) => setCurrentPage(page);
 
@@ -48,16 +47,16 @@ function Perfromance() {
             <thead>
               <tr className="dark:bg-head bg-headLight text-primary">
                 {[
-                  "Emp ID",
                   "Name",
                   "Position",
-                  "Tasks",
-                  "Deadlines",
                   "Attendance",
-                  "KPI Score",
+                  "Rating",
                   "Feedback",
+                  "KPI Score",
+                  "Last Updated",
+                  "Actions",
                 ].map((header, i) => (
-                  <th key={i} className="py-3 pl-4 border-b border-secondary">
+                  <th key={i} className="py-3 px-4 border-b border-secondary">
                     {header}
                   </th>
                 ))}
@@ -71,24 +70,12 @@ function Perfromance() {
                     className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
                   >
                     <td className="py-3 px-4 border-b border-secondary">
-                      EMP {performance.employee.employeeId}
+                      {performance.employee?.name}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {performance.employee.name}
+                      {performance.employee?.role.name}
                     </td>
-                    <td className="py-3 px-4 border-b border-secondary">
-                      {performance.employee.role.name}
-                    </td>
-                    <td className="py-3 pl-7 border-b border-secondary">
-                      {performance.kpis.taskCompletion === 0
-                        ? "--"
-                        : performance.kpis.taskCompletion}
-                    </td>
-                    <td className="py-3 pl-9 border-b border-secondary">
-                      {performance.kpis.deadlinesMet === 0
-                        ? "--"
-                        : "performance.kpis.deadlinesMet"}
-                    </td>
+
                     <td className="py-3 px-4 border-b border-secondary font-semibold">
                       <span
                         className={`inline-flex items-center px-8 py-1 text-xs font-semibold text-white rounded-full shadow-lg bg-gradient-to-r ${
@@ -103,23 +90,45 @@ function Perfromance() {
                       </span>
                     </td>
 
-                    <td className="py-3 border-b border-secondary">
-                      <span className="inline-flex items-center px-8 py-1 text-xs font-semibold text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg">
-                        {Math.floor(performance.kpiScore)} %
-                      </span>
+                    <td className="py-3 pl-8 border-b border-secondary">
+                      {performance.rating === 0 ? "--" : performance.rating}
                     </td>
+
                     <td
-                      className="relative py-3 px-4 border-b border-secondary cursor-pointer"
+                      className={`relative py-3 ${
+                        performance.feedback === "" ? "pl-10" : "px-4"
+                      } border-b border-secondary cursor-pointer`}
                       onMouseEnter={() => setHoveredIndex(index)}
                       onMouseLeave={() => setHoveredIndex(null)}
                     >
-                      {performance.feedback.slice(0, 10) + "..."}
+                      {performance.feedback === ""
+                        ? "--"
+                        : performance.feedback.slice(0, 10) + "..."}
 
-                      {hoveredIndex === index && (
-                        <div className="absolute left-0 top-full mt-1 max-w-[300px] h-auto bg-gray-900 dark:bg-gray-200 dark:text-black text-white text-xs p-2 rounded shadow-lg z-10 break-words whitespace-normal">
-                          {performance.feedback}
-                        </div>
-                      )}
+                      {performance.feedback !== "" &&
+                        hoveredIndex === index && (
+                          <div className="absolute left-0 top-full mt-1 max-w-[300px] h-auto bg-gray-900 dark:bg-gray-200 dark:text-black text-white text-xs p-2 rounded shadow-lg z-10 break-words whitespace-normal">
+                            {performance.feedback}
+                          </div>
+                        )}
+                    </td>
+
+                    <td className="py-3 border-b border-secondary">
+                      <span className="inline-flex items-center px-8 py-1 text-xs font-semibold text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg">
+                        {Math.floor(performance.kpiScore)}
+                      </span>
+                    </td>
+
+                    <td className="py-3 px-4 border-b border-secondary">
+                      {formatDate(performance.lastUpdated)}
+                    </td>
+                    <td className="py-[14.5px] pl-8 border-b border-secondary flex items-center gap-3">
+                      <button
+                        className="text-blue-500 hover:text-blue-400"
+                        title="Add Feedback"
+                      >
+                        <i className="fa-solid fa-comment-dots"></i>
+                      </button>
                     </td>
                   </tr>
                 ))}
