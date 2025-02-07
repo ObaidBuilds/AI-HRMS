@@ -78,7 +78,7 @@ function Perfromance() {
 
                     <td className="py-3 px-4 border-b border-secondary font-semibold">
                       <span
-                        className={`inline-flex items-center px-8 py-1 text-xs font-semibold text-white rounded-full shadow-lg bg-gradient-to-r ${
+                        className={`inline-flex items-center px-8 py-1 text-xs font-semibold text-white rounded-full  bg-gradient-to-r ${
                           performance.kpis.attendance >= 60
                             ? "from-green-500 to-green-600"
                             : performance.kpis.attendance >= 50
@@ -114,7 +114,7 @@ function Perfromance() {
                     </td>
 
                     <td className="py-3 border-b border-secondary">
-                      <span className="inline-flex items-center px-8 py-1 text-xs font-semibold text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg">
+                      <span className="inline-flex items-center px-8 py-1 text-xs font-semibold text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full">
                         {Math.floor(performance.kpiScore)}
                       </span>
                     </td>
