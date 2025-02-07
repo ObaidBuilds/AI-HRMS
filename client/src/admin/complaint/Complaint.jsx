@@ -138,7 +138,7 @@ function Complaint() {
                       {complainType}
                     </td>
                     <td
-                      className="py-3 px-4 border-b border-secondary"
+                      className="relative py-3 px-4 border-b border-secondary"
                       onMouseEnter={() => setHoveredIndex(index)}
                       onMouseLeave={() => setHoveredIndex(null)}
                     >
@@ -181,7 +181,7 @@ function Complaint() {
             />
           )}
         </div>
-        {/* Pagination */}
+
         {complaints.length > 0 && (
           <Pagination
             currentPage={currentPage}
@@ -190,7 +190,6 @@ function Complaint() {
           />
         )}
 
-        {/* Modals */}
         {toggleModal && (
           <Modal
             action={"approve"}

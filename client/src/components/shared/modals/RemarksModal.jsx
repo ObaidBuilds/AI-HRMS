@@ -5,7 +5,10 @@ const RemarksModal = ({ onClose, isConfirm }) => {
 
   return (
     <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white text-gray-700 p-6 rounded-lg w-[92%] md:w-[550px] max-w-md shadow-lg">
+      <div
+        id="modal"
+        className="bg-white text-gray-700 p-6 rounded-lg w-[92%] md:w-[550px] max-w-md shadow-lg"
+      >
         <h3 className="text-lg font-bold border-b border-gray-300 pb-3 mb-4">
           Add Remarks
         </h3>

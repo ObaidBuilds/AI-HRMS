@@ -17,16 +17,16 @@ const sidebarLinks = [
 
   { name: "Recruitment Management", iconClass: "fas fa-users-cog", 
     childrens: [
-    { name: "View Applications", link: "/" },
-    { name: "Post Applications", link: "/" }
+    { name: "View Applications", link: "/recruitment/applications" },
+    { name: "Post Applications", link: "/recruitment/create" }
   ] },
-  { name: "Payroll Management", iconClass: "fas fa-money-bill-wave", link: "/", childrens: [] },
+  { name: "Payroll Management", iconClass: "fas fa-money-bill-wave", link: "/payroll", childrens: [] },
   { name: "Leave Management", iconClass: "fas fa-calendar-alt", 
     childrens: [
     { name: "Leave Requests", link: "leaves" },
-    { name: "Employees On Leave", link: "/leave/active-leaves" }
+    { name: "Employees On Leave", link: "/leave/active" }
   ] },
-  { name: "Performance Management", iconClass: "fas fa-users-cog", link: "/", childrens: [] },
+  { name: "Performance Management", iconClass: "fas fa-users-cog", link: "/performances", childrens: [] },
   { name: "Complaint Management", iconClass: "fas fa-exclamation-circle", link: "/complaints", childrens: [] },
   { name: "Feedback Management", iconClass: "fas fa-brain", link: "/feedbacks", childrens: [] },
   { name: "Reports & Analytics", iconClass: "fas fa-chart-bar", link: "/reports", childrens: [] },
@@ -65,9 +65,17 @@ const employeesOnLeaveButtons = [
 const feedbackButtons = [
   { label: "All Feedbacks", value: "", icon: "fa-globe" },
   { label: "Positive Feedbacks", value: "Positive", icon: "fa-thumbs-up" },
-  { label: "Negative Feedbacks", value: "Negative", icon: "fa-thumbs-down" },
   { label: "Neutral Feedbacks", value: "Neutral", icon: "fa-hand-paper" },
+  { label: "Negative Feedbacks", value: "Negative", icon: "fa-thumbs-down" },
 ];
+
+const performanceButtons = [
+  { label: "All Metrices", value: "", icon: "fa-globe" },
+  { label: "Good metrices", value: "Positive", icon: "fa-thumbs-up" },
+  { label: "Average metrices", value: "Negative", icon: "fa-hand-paper" },
+  { label: "Poort metrices", value: "Neutral", icon: "fa-thumbs-down" },
+];
+
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -86,5 +94,6 @@ export {
   leaveRequestButtons,
   employeesOnLeaveButtons,
   feedbackButtons,
-  navLinks
+  navLinks,
+  performanceButtons
 };

@@ -136,15 +136,15 @@ const Sidebar = () => {
                     } dropdown-active`}
                   >
                     {item.childrens.map((subLink, subIndex) => (
-                      <li
-                        key={subIndex}
-                        onClick={() => setShowSidebar(false)}
-                        className="hover:text-gray-300 cursor-pointer flex items-center py-[3px]"
-                      >
-                        <Link to={subLink.link} className="text-[0.82rem]">
+                      <Link to={subLink.link} className="text-[0.82rem]">
+                        <li
+                          key={subIndex}
+                          onClick={() => setShowSidebar(false)}
+                          className="hover:text-gray-300 cursor-pointer flex items-center py-[3px]"
+                        >
                           {subLink.name}
-                        </Link>{" "}
-                      </li>
+                        </li>
+                      </Link>
                     ))}
                   </ul>
                 )}

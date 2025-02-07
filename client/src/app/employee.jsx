@@ -5,7 +5,6 @@ import { Route, Routes } from "react-router-dom";
 import NotFound from "../components/shared/error/NotFound";
 import Navbar from "../components/ui/Navbar";
 
-// Lazy loading the components
 const Home = lazy(() => import("../pages/home/Home"));
 const Complaint = lazy(() => import("../pages/complaint/Complaint"));
 const Feedback = lazy(() => import("../pages/feedback/Feedback"));

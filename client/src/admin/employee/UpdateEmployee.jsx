@@ -8,7 +8,7 @@ import Error from "../../components/shared/error/Error";
 import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
 
 const EditEmployee = () => {
-  const { employeeID } = useParams();
+  const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ const EditEmployee = () => {
   const { control, handleSubmit, setValue } = useForm();
 
   const onSubmit = (data) => {
-    dispatch(editEmployee({ id: employeeID, employee: data }))
+    dispatch(editEmployee({ id, employee: data }))
       .unwrap()
       .then(() => navigate("/employees"))
       .catch((error) => {
@@ -28,10 +28,10 @@ const EditEmployee = () => {
   };
 
   useEffect(() => {
-    if (employeeID) {
-      dispatch(getEmployeeById(employeeID));
+    if (id) {
+      dispatch(getEmployeeById(id));
     }
-  }, [employeeID]);
+  }, [id]);
 
   useEffect(() => {
     if (employee) {

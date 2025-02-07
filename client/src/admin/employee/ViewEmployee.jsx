@@ -7,15 +7,15 @@ import { formatDate } from "../../utils";
 import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
 
 const ViewEmployee = () => {
-  const { employeeID } = useParams();
+  const { id } = useParams();
   const dispatch = useDispatch();
   const { employee, loading, error } = useSelector((state) => state.employee);
 
   useEffect(() => {
-    if (employeeID) {
-      dispatch(getEmployeeById(employeeID));
+    if (id) {
+      dispatch(getEmployeeById(id));
     }
-  }, [employeeID, dispatch]);
+  }, [id]);
 
   if (loading) return <ComponentLoader />;
   if (error || !employee) return <Error />;

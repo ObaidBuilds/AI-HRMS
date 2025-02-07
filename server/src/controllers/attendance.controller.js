@@ -239,7 +239,7 @@ const getDepartmentAttendancePercentage = async () => {
       },
       {
         $match: {
-          "departmentDetails.name": { $ne: null }, 
+          "departmentDetails.name": { $ne: null },
         },
       },
       {
@@ -281,7 +281,7 @@ const getDepartmentAttendancePercentage = async () => {
 
 const getMonthlyAttendancePercentage = async () => {
   const year = new Date().getFullYear();
-  const currentMonth = new Date().getMonth() + 1; // Get the current month (1-12)
+  const currentMonth = new Date().getMonth() + 1;
 
   const attendanceData = await Attendance.aggregate([
     {
@@ -326,7 +326,20 @@ const getMonthlyAttendancePercentage = async () => {
   return formattedData;
 };
 
+const calculateAverageAttendance = async (employeeId) => {
+  const attendanceRecords = await Attendance.find({ employee: employeeId });
 
+  if (!attendanceRecords || attendanceRecords.length === 0) return 0;
+
+  const totalDays = attendanceRecords.length;
+  const presentDays = attendanceRecords.filter(
+    (record) => record.status === "Present"
+  ).length;
+
+  const attendancePercentage = (presentDays / totalDays) * 100;
+
+  return attendancePercentage.toFixed(2);
+};
 
 export {
   getAttendanceList,
@@ -336,4 +349,5 @@ export {
   getDepartmentAttendancePercentage,
   getMonthlyAttendancePercentage,
   genrateQrCodeForAttendance,
+  calculateAverageAttendance,
 };

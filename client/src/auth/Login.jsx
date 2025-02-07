@@ -133,7 +133,7 @@ const Login = () => {
               className="w-[85%] text-sm sm:text-[0.95rem] p-[18px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
             >
               {loading ? (
-                <i className="fas fa-spinner fa-spin text-sm"></i>
+                <i className="fas fa-spinner fa-spin text-xs"></i>
               ) : (
                 "Login"
               )}
