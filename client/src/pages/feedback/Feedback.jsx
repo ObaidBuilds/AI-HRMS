@@ -29,12 +29,6 @@ const Feedback = () => {
   return (
     <section className="h-[80vh] flex justify-center items-center text-white">
       <div className="w-full sm:w-[95%] rounded-2xl p-5 sm:p-8">
-        <div className="flex flex-col items-center">
-          <h1 className="text-2xl sm:text-3xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
-            Submit Your Feedback
-          </h1>
-        </div>
-
         <form className="space-y-2 text-sm" onSubmit={handleSubmit(onSubmit)}>
           <div className="relative">
             <i className="fa fa-calendar-check text-sm absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
@@ -90,7 +84,7 @@ const Feedback = () => {
             className="w-full bg-blue-500 text-sm p-4 rounded-full font-medium hover:bg-blue-600 transition duration-300"
           >
             {loading ? (
-               <i className="fas fa-spinner fa-spin text-xs"></i>
+              <i className="fas fa-spinner fa-spin text-xs"></i>
             ) : (
               "Submit Feedback"
             )}

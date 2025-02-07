@@ -48,9 +48,9 @@ const Attendance = () => {
       <section className="py-5 flex justify-center items-center text-white">
         <div className="w-full sm:w-[95%] rounded-2xl p-3 sm:p-8">
           <div className="flex flex-col items-center mb-6">
-            <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
+            {/* <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
               View Your Attendance
-            </h1>
+            </h1> */}
           </div>
           <div>
             <div className="relative mb-2">
@@ -58,7 +58,7 @@ const Attendance = () => {
                 id="select"
                 value={sortOrder}
                 onChange={(e) => setSortOrder(e.target.value)}
-                className="w-full text-gray-800 font-medium bg-[#EFEFEF] text-center text-sm p-3 sm:p-4 rounded-full border border-gray-200 pl-12 focus:ring-2 focus:ring-blue-500"
+                className="w-full text-gray-800 font-medium bg-[#EFEFEF] text-center text-sm p-3 sm:p-4 rounded-full border-2 border-gray-200 pl-12 focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">--- Sort Attendance ---</option>
                 <option value="asc">Ascending</option>
@@ -68,11 +68,11 @@ const Attendance = () => {
           </div>
           <div
             id="overflow"
-            className="overflow-auto bg-gray-100 rounded-lg shadow h-[65vh]"
+            className="overflow-auto bg-gray-100 rounded-lg shadow h-[60vh]"
           >
             <table className="min-w-full table-auto text-sm text-white whitespace-nowrap">
               <thead>
-                <tr className="bg-gray-600 text-gray-200 text-left">
+                <tr className="bg-headLight text-gray-200 text-left">
                   {[
                     "Emp ID",
                     "Name",
@@ -142,8 +142,8 @@ const Attendance = () => {
             )}
           </div>
 
-          <div className="mt-2 bg-[#EFEFEF] border border-gray-200 p-7 rounded-lg text-center text-gray-700">
-            <h2 className="text-lg font-medium ">Average Percentage</h2>
+          <div className="mt-2 bg-headLight border border-gray-200 p-7 rounded-lg text-center text-gray-200">
+            <h2 className="text-lg font-semibold">Average Percentage</h2>
             <p className="text-2xl font-bold mt-3">
               {calculateAttendancePercentage()} %
             </p>

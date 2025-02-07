@@ -29,7 +29,7 @@ function Update() {
             >
               <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
                 <thead>
-                  <tr className="text-gray-200 bg-gray-600">
+                  <tr className="text-gray-200 bg-headLight">
                     {[
                       "Type",
                       "Subject",
@@ -108,7 +108,7 @@ function Update() {
                 </div>
               )}
             </div>
-            <div className="w-[95%] sm:w-[90%] mt-2 bg-gray-700 p-7 rounded-lg text-center">
+            <div className="w-[95%] sm:w-[90%] mt-2 bg-headLight p-7 rounded-lg text-center">
               <h2 className="text-lg font-semibold text-white">
                 Total Updates
               </h2>

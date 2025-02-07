@@ -20,12 +20,6 @@ const Leave = () => {
   return (
     <section className="h-[80vh] flex justify-center items-center text-white">
       <div className="w-full sm:w-[95%] rounded-2xl p-5 sm:p-8">
-        <div className="flex flex-col items-center mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
-            Apply for Leave
-          </h1>
-        </div>
-
         <form className="space-y-2  text-sm" onSubmit={handleSubmit(onSubmit)}>
           {/* Leave Type Select */}
           <div className="relative">
@@ -84,7 +78,7 @@ const Leave = () => {
             className="w-full bg-blue-500 text-sm p-4 rounded-full font-medium hover:bg-blue-600 transition duration-300"
           >
             {loading ? (
-                <i className="fas fa-spinner fa-spin text-xs"></i>
+              <i className="fas fa-spinner fa-spin text-xs"></i>
             ) : (
               "Submit Leave Application"
             )}
