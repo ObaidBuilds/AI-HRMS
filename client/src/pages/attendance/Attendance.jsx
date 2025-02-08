@@ -7,8 +7,6 @@ import Loader from "../../components/shared/loaders/Loader";
 const Attendance = () => {
   const dispatch = useDispatch();
   const attendance = useSelector((state) => state.attendance);
-
-  const [sortOrder, setSortOrder] = useState("");
   const [filteredAttendance, setFilteredAttendance] = useState([]);
 
   useEffect(() => {
@@ -17,22 +15,9 @@ const Attendance = () => {
 
   useEffect(() => {
     if (attendance?.attendanceList?.attendanceRecord) {
-      let records = [...attendance.attendanceList.attendanceRecord];
-
-      if (sortOrder) {
-        records.sort((a, b) => {
-          if (sortOrder === "asc") {
-            return a.date > b.date ? 1 : -1;
-          } else if (sortOrder === "desc") {
-            return a.date < b.date ? 1 : -1;
-          }
-          return 0;
-        });
-      }
-
-      setFilteredAttendance(records);
+      setFilteredAttendance([...attendance.attendanceList.attendanceRecord]);
     }
-  }, [attendance, sortOrder]);
+  }, [attendance]);
 
   const calculateAttendancePercentage = () => {
     const total = filteredAttendance.length;
@@ -47,32 +32,13 @@ const Attendance = () => {
       {attendance.loading && <Loader />}
       <section className="py-5 flex justify-center items-center text-white">
         <div className="w-full sm:w-[95%] rounded-2xl p-3 sm:p-8">
-          <div className="flex flex-col items-center mb-6">
-            {/* <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
-              View Your Attendance
-            </h1> */}
-          </div>
-          <div>
-            <div className="relative mb-2">
-              <select
-                id="select"
-                value={sortOrder}
-                onChange={(e) => setSortOrder(e.target.value)}
-                className="w-full text-gray-800 font-medium bg-[#EFEFEF] text-center text-sm p-3 sm:p-4 rounded-full border-2 border-gray-200 pl-12 focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="">--- Sort Attendance ---</option>
-                <option value="asc">Ascending</option>
-                <option value="desc">Descending</option>
-              </select>
-            </div>
-          </div>
           <div
             id="overflow"
             className="overflow-auto bg-gray-100 rounded-lg shadow h-[60vh]"
           >
             <table className="min-w-full table-auto text-sm text-white whitespace-nowrap">
               <thead>
-                <tr className="bg-headLight text-gray-200 text-left">
+                <tr className="bg-headLight sticky top-0 text-gray-200 text-left">
                   {[
                     "Emp ID",
                     "Name",
@@ -92,10 +58,10 @@ const Attendance = () => {
               </thead>
               <tbody>
                 {filteredAttendance &&
-                  filteredAttendance.map((item, index) => (
+                  filteredAttendance.map((item) => (
                     <tr
                       key={item._id}
-                      className="even:bg-gray-100 text-gray-700 odd:bg-gray-200  hover:bg-gray-300"
+                      className="even:bg-gray-100 text-gray-700 odd:bg-gray-200 hover:bg-gray-300"
                     >
                       <td className="py-3 px-4 border-b border-gray-500">
                         EMP {item.employee.employeeId}

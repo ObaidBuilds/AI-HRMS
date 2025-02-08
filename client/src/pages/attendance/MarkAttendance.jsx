@@ -50,7 +50,7 @@ const MarkAttendance = () => {
                 className="text-sm py-3 w-[300px] bg-green-600 rounded-3xl font-bold hover:bg-green-700 text-gray-300"
               >
                 {loading ? (
-                  <ClipLoader size={10} color="white" loading={loading} />
+                  <i className="fas fa-spinner fa-spin"></i>
                 ) : (
                   <>
                     <i className="fas fa-qrcode mr-2"></i>
