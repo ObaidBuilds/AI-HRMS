@@ -138,7 +138,7 @@ function Employee() {
               onClick={() =>
                 setUiState((prev) => ({ ...prev, toggleFilterBar: true }))
               }
-              className="flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold border-gray-300 hover:border-blue-500 hover:bg-blue-100 text-gray-700 dark:text-gray-300 hover:text-blue-600 
+              className="hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-[0.81rem] sm:text-[0.9rem] border py-1 px-5 rounded-3xl font-semibold border-gray-300 hover:border-blue-500 hover:bg-blue-100 text-gray-700 dark:text-gray-300 hover:text-blue-600 
    dark:hover:border-blue-500 dark:hover:bg-transparent dark:hover:text-blue-500  transition-all  ease-in-out duration-300"
             >
               <i className="fa-solid fa-filter text-xs"></i> Apply Filters

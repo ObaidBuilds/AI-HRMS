@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import PerfromanceModal from "../../components/shared/modals/PerformanceModal";
 import { useSelector, useDispatch } from "react-redux";
 import Pagination from "../../components/shared/others/Pagination";
 import Loader from "../../components/shared/loaders/Loader";
@@ -18,6 +18,7 @@ function Perfromance() {
   const [status, setStatus] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [toggleModal, settoggleModal] = useState(false);
 
   const goToPage = (page) => setCurrentPage(page);
 
@@ -124,6 +125,7 @@ function Perfromance() {
                     </td>
                     <td className="py-[14.5px] pl-8 border-b border-secondary flex items-center gap-3">
                       <button
+                      onClick={() => settoggleModal(true)}
                         className="text-blue-500 hover:text-blue-400"
                         title="Add Feedback"
                       >
@@ -146,6 +148,10 @@ function Perfromance() {
             totalPages={pagination?.totalPages}
             onPageChange={goToPage}
           />
+        )}
+
+        {toggleModal && (
+          <PerfromanceModal onClose={() => settoggleModal(false)} />
         )}
       </section>
     </>

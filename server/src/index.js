@@ -17,6 +17,7 @@ import attendance from "./routes/attendance.routes.js";
 import department from "./routes/department.routes.js";
 import performance from "./routes/performance.routes.js";
 
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -60,6 +61,7 @@ app.use("/api/insights", inshight);
 app.use("/api/leaves", leave);
 app.use("/api/feedbacks", feedback);
 app.use("/api/complaints", complaint);
+
 
 app.get("/", (req, res) => {
   res.send("HRMS For Metro");

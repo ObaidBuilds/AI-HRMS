@@ -30,7 +30,7 @@ const ChatPanel = () => {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="animate-float hidden fixed bottom-7 right-7 z-50 w-[130px] text-sm bg-gradient-to-r from-[#FF416C] to-[#FF4B2B] text-white font-semibold p-4 rounded-full sm:flex items-center justify-center gap-2 shadow-xl hover:scale-105 transition-transform"
+        className="animate-float hidden fixed bottom-7 right-7 z-40 w-[130px] text-sm bg-gradient-to-r from-[#FF416C] to-[#FF4B2B] text-white font-semibold p-4 rounded-full sm:flex items-center justify-center gap-2 shadow-xl hover:scale-105 transition-transform"
       >
         <i className="fas fa-robot text-lg"></i>
         <p>ASK AI</p>
