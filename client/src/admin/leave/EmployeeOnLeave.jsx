@@ -40,7 +40,7 @@ function EmployeeOnLeave() {
             />
           ))}
         </div>
-        <div id="overflow" className="overflow-x-auto">
+        <div id="overflow" className="overflow-x-auto min-h-[83vh]">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-headLight dark:bg-head text-primary">

@@ -86,7 +86,7 @@ function Complaint() {
         </div>
 
         {/* Complaints Table */}
-        <div id="overflow" className="overflow-x-auto min-h-[77vh]">
+        <div id="overflow" className="overflow-x-auto min-h-[83vh]">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="dark:bg-head bg-headLight text-primary">
@@ -117,7 +117,7 @@ function Complaint() {
                   complainType,
                   complaintDetails,
                   createdAt,
-                }) => (
+                }, index) => (
                   <tr
                     key={_id}
                     className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
