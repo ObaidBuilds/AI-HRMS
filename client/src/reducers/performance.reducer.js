@@ -1,15 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getPerformances } from "../services/performance.service";
+import {
+  getPerformances,
+  updatePerformance,
+} from "../services/performance.service";
 
 const initialState = {
   performances: [],
-  pagination : null,
+  pagination: null,
   loading: false,
   error: null,
 };
 
 const performanceSlice = createSlice({
-  name: "perfromance",
+  name: "performance",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -26,7 +29,28 @@ const performanceSlice = createSlice({
       })
       .addCase(getPerformances.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch roles";
+        state.error = action.payload || "Failed to fetch performance";
+      })
+
+      // Handling the updatePerformance action
+      .addCase(updatePerformance.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updatePerformance.fulfilled, (state, action) => {
+        const updatedPerformance = [...state.performances];
+        const findIndex = updatedPerformance.findIndex(
+          (perfromance) => perfromance._id == action.payload._id
+        );
+        if (findIndex !== -1) {
+          updatedPerformance[findIndex] = action.payload;
+          state.performances = updatedPerformance;
+        }
+        state.loading = false;
+      })
+      .addCase(updatePerformance.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to update perfromance";
       });
   },
 });

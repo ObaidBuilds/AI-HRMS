@@ -19,8 +19,6 @@ cron.schedule("0 23 * * *", async () => {
 const getAttendanceList = catchErrors(async (req, res) => {
   const { department, date } = req.query;
 
-  console.log(department, date);
-
   if (!department)
     throw new Error("Please provide a department to get the sheet");
 

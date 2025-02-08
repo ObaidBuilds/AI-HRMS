@@ -7,7 +7,7 @@ import {
 
 const router = express.Router();
 
-router.patch("/", updatePerformance);
+router.patch("/:employeeID", updatePerformance);
 router.get("/", getAllPerformances);
 router.get("/:employeeID", getPerformanceMetricsById);
 

@@ -19,8 +19,16 @@ function Perfromance() {
   const [currentPage, setCurrentPage] = useState(1);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [toggleModal, settoggleModal] = useState(false);
+  const [selectedPerformance, setSelectedPerformance] = useState(null);
 
   const goToPage = (page) => setCurrentPage(page);
+
+  function handleClick(performance) {
+    if (performance) {
+      settoggleModal(true);
+      setSelectedPerformance(performance);
+    }
+  }
 
   useEffect(() => {
     dispatch(getPerformances(currentPage));
@@ -64,17 +72,18 @@ function Perfromance() {
               </tr>
             </thead>
             <tbody className="text-[0.83rem]">
-              {performances.length > 0 &&
+              {performance &&
+                performances.length > 0 &&
                 performances.map((performance, index) => (
                   <tr
                     key={performance._id}
                     className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
                   >
                     <td className="py-3 px-4 border-b border-secondary">
-                      {performance.employee?.name}
+                      {performance?.employee?.name}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {performance.employee?.role.name}
+                      {performance?.employee?.role.name}
                     </td>
 
                     <td className="py-3 px-4 border-b border-secondary font-semibold">
@@ -92,7 +101,14 @@ function Perfromance() {
                     </td>
 
                     <td className="py-3 pl-8 border-b border-secondary">
-                      {performance.rating === 0 ? "--" : performance.rating}
+                      {performance.rating === 0 ? (
+                        "--"
+                      ) : (
+                        <>
+                          {performance.rating}
+                          <i className="fa fa-star ml-1 text-[gold] text-xs"></i>
+                        </>
+                      )}
                     </td>
 
                     <td
@@ -125,7 +141,7 @@ function Perfromance() {
                     </td>
                     <td className="py-[14.5px] pl-8 border-b border-secondary flex items-center gap-3">
                       <button
-                      onClick={() => settoggleModal(true)}
+                        onClick={() => handleClick(performance)}
                         className="text-blue-500 hover:text-blue-400"
                         title="Add Feedback"
                       >
@@ -151,7 +167,10 @@ function Perfromance() {
         )}
 
         {toggleModal && (
-          <PerfromanceModal onClose={() => settoggleModal(false)} />
+          <PerfromanceModal
+            onClose={() => settoggleModal(false)}
+            performance={selectedPerformance}
+          />
         )}
       </section>
     </>

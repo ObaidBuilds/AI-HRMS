@@ -91,7 +91,7 @@ function Attendance() {
           {!attendanceList.length && (
             <button
               onClick={() => setShowModal(true)}
-              className="flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-sm border py-1 px-5 rounded-3xl font-semibold"
+              className="hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-sm border py-1 px-5 rounded-3xl font-semibold"
             >
               Select Department
             </button>

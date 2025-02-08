@@ -11,7 +11,7 @@ export const addPerformanceWithKPI = async (employee) => {
     attendance: 0,
   };
 
-  const kpiScore = kpis.attendance * 0.3 + rating * 0.7;
+  const kpiScore = kpis.attendance * 0.5 + (rating / 5) * 100 * 0.5;
 
   await Performance.create({
     employee,
@@ -25,15 +25,18 @@ export const addPerformanceWithKPI = async (employee) => {
 };
 
 export const updatePerformance = catchErrors(async (req, res) => {
-  const { id, kpis, feedback, rating } = req.body;
+  const { employeeID } = req.params;
+  const { kpis, feedback, rating } = req.body;
 
-  if (!id || !kpis?.attendance) throw new Error("All fields are required");
+  if (!employeeID || !kpis?.attendance)
+    throw new Error("All fields are required");
 
   const kpiScore =
-    kpis.attendance * 0.3 + (parseInt(rating) ? parseInt(rating) * 0.7 : 0);
+    kpis.attendance * 0.5 +
+    (parseInt(rating) ? (parseInt(rating) / 5) * 100 * 0.5 : 0);
 
   const performance = await Performance.findByIdAndUpdate(
-    id,
+    employeeID,
     {
       kpis,
       kpiScore,
@@ -42,7 +45,11 @@ export const updatePerformance = catchErrors(async (req, res) => {
       lastUpdated: Date.now(),
     },
     { new: true }
-  );
+  ).populate({
+    path: "employee",
+    select: "name employeeId  role",
+    populate: [{ path: "role", select: "name" }],
+  });
 
   if (!performance) throw new Error("Performance not found");
 

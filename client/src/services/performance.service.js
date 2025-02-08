@@ -11,9 +11,30 @@ export const getPerformances = createAsyncThunk(
       );
       return data;
     } catch (error) {
-      console.error(error.response?.data.message || "Failed to fetch roles");
       return rejectWithValue(
         error.response?.data.message || "Failed to fetch roles"
+      );
+    }
+  }
+);
+
+// Fetch Performance
+export const updatePerformance = createAsyncThunk(
+  "performance/updatePerformance",
+  async ({ id, performance }, { rejectWithValue }) => {
+    try {
+
+      console.log(id, performance)
+
+      const { data } = await axiosInstance.patch(
+        `/performance/${id}`,
+        performance
+      );
+      return data.performance;
+    } catch (error) {
+      toast.error(error.response?.data.message);
+      return rejectWithValue(
+        error.response?.data.message || "Failed to update performance"
       );
     }
   }

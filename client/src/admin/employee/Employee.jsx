@@ -54,7 +54,7 @@ function Employee() {
     setUiState((prev) => ({ ...prev, exportLoading: true }));
 
     const data = employees.map((employee) => ({
-      EmployeeID: `EMP ${employee.employeeId}`,
+      EmployeeID: employee.employeeId,
       Name: employee.name,
       DateOfBirth: employee.dob,
       Email: employee.email,
