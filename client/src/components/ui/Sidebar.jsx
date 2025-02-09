@@ -131,7 +131,7 @@ const Sidebar = () => {
                 item.childrens.length > 0 &&
                 openSubMenuIndex === index && (
                   <ul
-                  key={index}
+                    key={index}
                     className={`flex flex-col gap-2 pl-5 p-3 my-2 rounded-lg ${
                       theme === "light" ? "bg-[#233d64]" : "bg-gray-700"
                     } dropdown-active`}
@@ -177,7 +177,7 @@ const Sidebar = () => {
             onClick={() => setShowConfirmModal(true)}
             className="flex items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
           >
-            <i className="fas fa-sign-out-alt mr-3 text-sm text-gray-300"></i>
+            <i className="far fa-arrow-alt-circle-right mr-3 text-sm text-gray-300"></i>
             <p className=" text-[0.72rem]">LOGOUT</p>
           </button>
 
