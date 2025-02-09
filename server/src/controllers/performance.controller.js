@@ -83,7 +83,8 @@ export const getAllPerformances = catchErrors(async (req, res) => {
     );
 
     performance.kpis.attendance = attendance;
-    performance.kpiScore = attendance * 0.3 + performance.rating * 0.7;
+    performance.kpiScore =
+      attendance * 0.5 + (performance.rating / 5) * 100 * 0.5;
   }
 
   const totalPerformances = await Performance.countDocuments();
