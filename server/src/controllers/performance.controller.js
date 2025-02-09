@@ -2,7 +2,7 @@ import Performance from "../models/performance.model.js";
 import { catchErrors } from "../utils/index.js";
 import { calculateAverageAttendance } from "./attendance.controller.js";
 
-export const addPerformanceWithKPI = async (employee) => {
+const addPerformanceWithKPI = async (employee) => {
   if (!employee) throw new Error("All fields are required");
 
   const rating = 0;
@@ -60,17 +60,23 @@ export const updatePerformance = catchErrors(async (req, res) => {
   });
 });
 
-export const getAllPerformances = catchErrors(async (req, res) => {
-  const { page = 1, limit = 13 } = req.query;
+const getAllPerformances = catchErrors(async (req, res) => {
+  const { page = 1, limit = 13, status } = req.query;
 
   const pageNumber = Math.max(parseInt(page), 1);
   const limitNumber = Math.max(parseInt(limit), 1);
   const skip = (pageNumber - 1) * limitNumber;
 
-  const performances = await Performance.find()
+  let query = {};
+
+  if (status === "good") query.kpiScore = { $gt: 75 };
+  else if (status === "average") query.kpiScore = { $gt: 50, $lte: 75 };
+  else if (status === "poor") query.kpiScore = { $lte: 50 };
+
+  const performances = await Performance.find(query)
     .populate({
       path: "employee",
-      select: "name employeeId  role",
+      select: "name employeeId role",
       populate: [{ path: "role", select: "name" }],
     })
     .skip(skip)
@@ -85,9 +91,10 @@ export const getAllPerformances = catchErrors(async (req, res) => {
     performance.kpis.attendance = attendance;
     performance.kpiScore =
       attendance * 0.5 + (performance.rating / 5) * 100 * 0.5;
+    await performance.save();
   }
 
-  const totalPerformances = await Performance.countDocuments();
+  const totalPerformances = await Performance.countDocuments(query);
   const totalPages = Math.ceil(totalPerformances / limitNumber);
 
   return res.status(200).json({
@@ -103,7 +110,7 @@ export const getAllPerformances = catchErrors(async (req, res) => {
   });
 });
 
-export const getPerformanceMetricsById = catchErrors(async (req, res) => {
+const getPerformanceMetricsById = catchErrors(async (req, res) => {
   const { employeeID } = req.params;
 
   if (!employeeID) throw new Error("Employee ID is required");
@@ -132,3 +139,20 @@ export const getPerformanceMetricsById = catchErrors(async (req, res) => {
     performance,
   });
 });
+
+const deletePerformance = async (employee) => {
+  if (!employee) throw new Error("Please provide employee Id");
+
+  const performance = await Performance.deleteOne({ employee });
+
+  if (performance.deletedCount) return;
+
+  return "Performance deleted successfuly";
+};
+
+export {
+  deletePerformance,
+  getPerformanceMetricsById,
+  getAllPerformances,
+  addPerformanceWithKPI,
+};

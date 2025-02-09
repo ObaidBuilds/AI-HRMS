@@ -4,11 +4,14 @@ import axiosInstance from "../axios/axiosInstance";
 // Fetch Performance
 export const getPerformances = createAsyncThunk(
   "performance/getPerformances",
-  async (currentPage, { rejectWithValue }) => {
+  async ({ status, currentPage }, { rejectWithValue }) => {
     try {
-      const { data } = await axiosInstance.get(
-        `/performance?page=${currentPage}`
-      );
+      const queryParams = new URLSearchParams({
+        page: currentPage,
+        status: status || "",
+      }).toString();
+
+      const { data } = await axiosInstance.get(`/performance?${queryParams}`);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -23,8 +26,7 @@ export const updatePerformance = createAsyncThunk(
   "performance/updatePerformance",
   async ({ id, performance }, { rejectWithValue }) => {
     try {
-
-      console.log(id, performance)
+      console.log(id, performance);
 
       const { data } = await axiosInstance.patch(
         `/performance/${id}`,

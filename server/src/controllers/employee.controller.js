@@ -6,7 +6,7 @@ import cloudinary from "cloudinary";
 import { myCache } from "../utils/index.js";
 import Employee from "../models/employee.model.js";
 import { catchErrors, getPublicIdFromUrl } from "../utils/index.js";
-import { addPerformanceWithKPI } from "./performance.controller.js";
+import { addPerformanceWithKPI, deletePerformance } from "./performance.controller.js";
 
 const bulkCreateEmployees = catchErrors(async (req, res) => {
   const employeesRecords = req.body;
@@ -193,6 +193,8 @@ const deleteEmployee = catchErrors(async (req, res) => {
   if (!id) throw new Error("Please provide employee Id");
 
   await Employee.findByIdAndDelete(id);
+
+  await deletePerformance(id);
 
   myCache.del("insights");
 

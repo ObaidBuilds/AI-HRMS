@@ -31,8 +31,8 @@ function Perfromance() {
   }
 
   useEffect(() => {
-    dispatch(getPerformances(currentPage));
-  }, [currentPage]);
+    dispatch(getPerformances({ status, currentPage }));
+  }, [currentPage, status]);
 
   return (
     <>

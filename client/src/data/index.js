@@ -71,9 +71,9 @@ const feedbackButtons = [
 
 const performanceButtons = [
   { label: "All Metrices", value: "", icon: "fa-globe" },
-  { label: "Good metrices", value: "Positive", icon: "fa-thumbs-up" },
-  { label: "Average metrices", value: "Negative", icon: "fa-hand-paper" },
-  { label: "Poort metrices", value: "Neutral", icon: "fa-thumbs-down" },
+  { label: "Good metrices", value: "good", icon: "fa-thumbs-up" },
+  { label: "Average metrices", value: "average", icon: "fa-hand-paper" },
+  { label: "Poort metrices", value: "poor", icon: "fa-thumbs-down" },
 ];
 
 
