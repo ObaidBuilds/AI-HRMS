@@ -1,44 +1,76 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import ReactMarkdown from "react-markdown";
 import { useTheme } from "../../../context";
+import ChatbotLoader from "../loaders/ChatbotLoader";
+import { useSelector } from "react-redux";
 
 const ChatPanel = () => {
   const { theme } = useTheme();
-
+  const {
+    user: { profilePicture, name },
+  } = useSelector((state) => state.authentication);
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { text: "Hello! How can I help?", sender: "ai" },
+    { text: "Hello! How can I help?", sender: "gemini" },
   ]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
+  const chatEndRef = useRef(null);
 
   const sendMessage = () => {
     if (input.trim() === "") return;
-    setMessages([...messages, { text: input, sender: "user" }]);
+
+    const userMessage = { text: input, sender: "user" };
+    setMessages((prev) => [...prev, userMessage]);
     setInput("");
-    setLoading(true);
+
+    const loadingMessage = { text: "...", sender: "gemini", isLoading: true };
+    setMessages((prev) => [...prev, loadingMessage]);
 
     setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        { text: "I'm here to assist you! 😊", sender: "ai" },
-      ]);
-      setLoading(false);
+      typeResponse("**I'm here to assist you. 😊**");
     }, 2000);
   };
 
-   useEffect(() => {
-      if (isOpen) {
-        document.body.classList.add("no-scroll");
-      } else {
-        document.body.classList.remove("no-scroll");
-      }
-    }, [isOpen]);
+  const typeResponse = (fullText) => {
+    let index = 0;
+    setMessages((prev) =>
+      prev.map((msg) => (msg.isLoading ? { text: "", sender: "gemini" } : msg))
+    );
+
+    const interval = setInterval(() => {
+      setMessages((prev) =>
+        prev.map((msg, i) => {
+          if (msg.sender === "gemini" && i === prev.length - 1) {
+            return { text: fullText.slice(0, index + 1), sender: "gemini" };
+          }
+          return msg;
+        })
+      );
+
+      index++;
+      if (index === fullText.length) clearInterval(interval);
+    }, 15);
+  };
+
+  useEffect(() => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  }, [isOpen]);
 
   return (
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="animate-float  fixed bottom-7 right-7 z-40 w-[130px] text-sm bg-gradient-to-r from-[#FF416C] to-[#FF4B2B] text-white font-semibold p-4 rounded-full flex items-center justify-center gap-2 shadow-xl hover:scale-105 transition-transform"
+        className="animate-float fixed bottom-7 right-7 z-40 w-[130px] text-sm bg-gradient-to-r from-[#FF416C] to-[#FF4B2B] text-white font-semibold p-4 rounded-full flex items-center justify-center gap-2 shadow-xl hover:scale-105 transition-transform"
       >
         <i className="fas fa-robot text-lg"></i>
         <p>ASK AI</p>
@@ -49,7 +81,7 @@ const ChatPanel = () => {
           theme === "light"
             ? "bg-gradient-to-r from-[#0a2540] to-[#1d3557]"
             : "bg-gradient-to-br from-[#1E293B] to-[#334155]"
-        }  text-white p-5 shadow-2xl transform transition-transform duration-300 backdrop-blur-xl ${
+        } text-white p-5 shadow-2xl transform transition-transform duration-300 backdrop-blur-xl ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -69,7 +101,7 @@ const ChatPanel = () => {
         >
           {messages.map((msg, index) => (
             <div key={index} className="flex items-end gap-2">
-              {msg.sender === "ai" && (
+              {msg.sender === "gemini" && (
                 <div className="w-8 h-8 bg-gradient-to-r from-[#FF416C] to-[#FF4B2B] rounded-full flex items-center justify-center shadow-md">
                   <i className="fas fa-robot text-white text-sm"></i>
                 </div>
@@ -88,22 +120,25 @@ const ChatPanel = () => {
                       : "bg-gray-800 -left-1 bottom-1 rotate-45"
                   }`}
                 ></span>
-                {msg.text}
+
+                {msg.isLoading ? (
+                  <ChatbotLoader />
+                ) : (
+                  <ReactMarkdown>{msg.text}</ReactMarkdown>
+                )}
               </div>
               {msg.sender === "user" && (
-                <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center shadow-md">
-                  <i className="fas fa-user text-white text-sm"></i>
+                <div className="w-8 h-8 rounded-full flex items-center justify-center shadow-md">
+                  <img
+                    className="rounded-full"
+                    src={profilePicture}
+                    alt={name}
+                  />
                 </div>
               )}
             </div>
           ))}
-
-          {loading && (
-            <div className="flex items-center gap-3 text-sm">
-              <div className="w-4 h-4 border-4 border-t-4 border-gray-300 rounded-full animate-spin border-t-blue-400"></div>
-              <span className="text-gray-300">AI is typing...</span>
-            </div>
-          )}
+          <div ref={chatEndRef} />
         </div>
 
         <div className="w-[94%] bottom-4 right-2 absolute">
