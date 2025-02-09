@@ -131,6 +131,7 @@ const Sidebar = () => {
                 item.childrens.length > 0 &&
                 openSubMenuIndex === index && (
                   <ul
+                  key={index}
                     className={`flex flex-col gap-2 pl-5 p-3 my-2 rounded-lg ${
                       theme === "light" ? "bg-[#233d64]" : "bg-gray-700"
                     } dropdown-active`}
