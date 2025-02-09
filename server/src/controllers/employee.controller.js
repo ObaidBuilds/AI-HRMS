@@ -6,7 +6,11 @@ import cloudinary from "cloudinary";
 import { myCache } from "../utils/index.js";
 import Employee from "../models/employee.model.js";
 import { catchErrors, getPublicIdFromUrl } from "../utils/index.js";
-import { addPerformanceWithKPI, deletePerformance } from "./performance.controller.js";
+import {
+  addPerformanceWithKPI,
+  deletePerformance,
+} from "./performance.controller.js";
+import { createPayroll } from "./payroll.controller.js";
 
 const bulkCreateEmployees = catchErrors(async (req, res) => {
   const employeesRecords = req.body;
@@ -124,6 +128,7 @@ const createEmployee = catchErrors(async (req, res) => {
     admin: admin || false,
   });
 
+  await createPayroll(employee._id, employee.salary);
   await addPerformanceWithKPI(employee._id);
 
   return res.status(201).json({

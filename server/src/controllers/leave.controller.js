@@ -3,6 +3,7 @@ import Leave from "../models/leave.model.js";
 import { catchErrors, myCache } from "../utils/index.js";
 import { getSubstitute } from "../predictions/index.js";
 import { notifySubstituteEmployee } from "../templates/index.js";
+import Payroll from "../models/payroll.model.js";
 
 const getLeaves = catchErrors(async (req, res) => {
   const { status = "pending" } = req.query;
@@ -108,6 +109,7 @@ const applyLeave = catchErrors(async (req, res) => {
 const respondLeave = catchErrors(async (req, res) => {
   const { id } = req.params;
   const { remarks, status } = req.body;
+  const detuctionPerDay = 1000;
 
   const leave = await Leave.findById(id);
 
@@ -141,6 +143,11 @@ const respondLeave = catchErrors(async (req, res) => {
       leave.remarks = `${leave.duration} days deducted from leave balance.`;
     } else {
       leave.remarks = `Pay deducted for ${leave.duration} days.`;
+      const payroll = await Payroll.findOne({ employee: employee._id });
+      const newDeduction = detuctionPerDay * parseInt(duration);
+      payroll.deductions = newDeduction;
+      payroll.netSalary = payroll.netSalary - newDeduction;
+      await payroll.save();
     }
 
     const substituteData = await getSubstitute({
