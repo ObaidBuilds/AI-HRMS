@@ -3,54 +3,67 @@ import ReactMarkdown from "react-markdown";
 import { useTheme } from "../../../context";
 import ChatbotLoader from "../loaders/ChatbotLoader";
 import { useSelector } from "react-redux";
+import { chatWithGemini } from "../../../services/chat.service";
 
 const ChatPanel = () => {
   const { theme } = useTheme();
+  const [loading, setLoading] = useState(false);
+
   const {
     user: { profilePicture, name },
   } = useSelector((state) => state.authentication);
+
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     { text: "Hello! How can I help?", sender: "gemini" },
   ]);
+
   const [input, setInput] = useState("");
   const chatEndRef = useRef(null);
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (input.trim() === "") return;
-
+  
     const userMessage = { text: input, sender: "user" };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
-
-    const loadingMessage = { text: "...", sender: "gemini", isLoading: true };
-    setMessages((prev) => [...prev, loadingMessage]);
-
-    setTimeout(() => {
-      typeResponse("**I'm here to assist you. 😊**");
-    }, 2000);
+  
+    setLoading(true);
+    setMessages((prev) => [...prev, { text: "", sender: "gemini", loading: true }]);
+  
+    try {
+      const result = await chatWithGemini(input, setLoading);
+  
+      if (result) {
+        let index = 0;
+        const fullText = result.response;
+  
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.loading ? { ...msg, text: "", loading: false } : msg
+          )
+        );
+  
+        const interval = setInterval(() => {
+          setMessages((prev) =>
+            prev.map((msg, i) =>
+              i === prev.length - 1 
+                ? { ...msg, text: fullText.substring(0, index + 1) }
+                : msg
+            )
+          );
+  
+          index++;
+          if (index === fullText.length) clearInterval(interval);
+        }, 20);
+      }
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
-
-  const typeResponse = (fullText) => {
-    let index = 0;
-    setMessages((prev) =>
-      prev.map((msg) => (msg.isLoading ? { text: "", sender: "gemini" } : msg))
-    );
-
-    const interval = setInterval(() => {
-      setMessages((prev) =>
-        prev.map((msg, i) => {
-          if (msg.sender === "gemini" && i === prev.length - 1) {
-            return { text: fullText.slice(0, index + 1), sender: "gemini" };
-          }
-          return msg;
-        })
-      );
-
-      index++;
-      if (index === fullText.length) clearInterval(interval);
-    }, 15);
-  };
+  
 
   useEffect(() => {
     if (chatEndRef.current) {
@@ -121,11 +134,7 @@ const ChatPanel = () => {
                   }`}
                 ></span>
 
-                {msg.isLoading ? (
-                  <ChatbotLoader />
-                ) : (
-                  <ReactMarkdown>{msg.text}</ReactMarkdown>
-                )}
+                {msg.loading ? <ChatbotLoader /> : <ReactMarkdown>{msg.text}</ReactMarkdown>}
               </div>
               {msg.sender === "user" && (
                 <div className="w-8 h-8 rounded-full flex items-center justify-center shadow-md">

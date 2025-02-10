@@ -27,6 +27,8 @@ const verifyAdminToken = catchErrors(async (req, res, next) => {
 
   if (!user || !user.admin) throw new Error("Unauthorized access");
 
+  req.user = decoded.employeeId;
+
   next();
 });
 

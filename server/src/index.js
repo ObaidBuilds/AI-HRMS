@@ -61,6 +61,7 @@ app.use("/api/leaves", leave);
 app.use("/api/feedbacks", feedback);
 app.use("/api/complaints", complaint);
 
+
 app.get("/", (req, res) => {
   res.send("HRMS For Metro");
 });
