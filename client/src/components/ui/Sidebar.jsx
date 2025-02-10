@@ -152,27 +152,6 @@ const Sidebar = () => {
             </li>
           ))}
 
-          <button className="hidden gap-2 justify-between items-center border-b py-[4px] border-gray-700">
-            <div className="flex items-center gap-2">
-              <i
-                className={`fas ${
-                  theme === "light" ? "fa-moon" : "fa-sun"
-                }  text-sm text-gray-300 pr-2`}
-              ></i>
-              <p className=" text-[0.72rem]">
-                {theme === "light" ? " DARK" : " LIGHT"} MODE
-              </p>
-            </div>
-            <label className="switch">
-              <input
-                type="checkbox"
-                checked={theme === "dark"}
-                onChange={toggleTheme}
-              />
-              <span className="slider round"></span>
-            </label>
-          </button>
-
           <button
             onClick={() => setShowConfirmModal(true)}
             className="flex items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
