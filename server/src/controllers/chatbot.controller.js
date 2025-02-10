@@ -42,7 +42,7 @@ const answerAdminQuery = catchErrors(async (req, res) => {
   ---
   
   ### Response Guidelines:
-  - If the prompt is a **greeting**, respond with a warm welcome and ask how you may assist (with an emoji).  
+  - If the prompt is a **greeting**, e.g HI or Hello respond with a warm welcome and **only** ask how you may assist (with an emoji).  
   - If the prompt is a **farewell**, say goodbye in a professional and friendly manner (with an emoji).  
   - If the prompt is related to **HRMS insights**, analyze the provided data and generate a well-structured, insightful, and concise response.  
   
