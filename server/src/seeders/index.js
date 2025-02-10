@@ -1,7 +1,7 @@
 import Employee from "../models/employee.model.js";
 import Performance from "../models/performance.model.js";
 import { calculateAverageAttendance } from "../controllers/attendance.controller.js";
-import { createPayroll } from "../controllers/payroll.controller.js";
+
 
 const generateRandomKPI = () => ({
   attendance: 0,
@@ -50,23 +50,9 @@ const deleteAllPerformanceRecords = async () => {
   }
 };
 
-const generatePayrollData = async () => {
-  const employees = await Employee.find();
 
-  if (!employees.length) {
-    console.log("No employees found.");
-    return;
-  }
-
-  for (const employee of employees) {
-    await createPayroll(employee._id, employee.salary);
-  }
-
-  console.log("Payroll data created");
-};
 
 export {
   generatePerformanceData,
   deleteAllPerformanceRecords,
-  generatePayrollData,
 };

@@ -21,7 +21,6 @@ const Complaint = lazy(() => import("../admin/complaint/Complaint"));
 const JobApplications = lazy(() => import("../admin/recruitment/JobApplications"));
 const PostJob = lazy(() => import("../admin/recruitment/PostJob"));
 const Performance = lazy(() => import("../admin/performance/Performance"));
-const Payroll = lazy(() => import("../admin/payroll/Payroll"));
 const Report = lazy(() => import("../admin/report/Report"));
 const Setting = lazy(() => import("../admin/settings/Setting"));
 
@@ -60,7 +59,6 @@ const AdminApp = () => {
               element={<JobApplications />}
             />
             <Route path="/recruitment/create" element={<PostJob />} />
-            <Route path="/payroll" element={<Payroll />} />
             <Route path="/feedbacks" element={<Feedback />} />
             <Route path="/feedbacks" element={<Feedback />} />
             <Route path="/complaints" element={<Complaint />} />

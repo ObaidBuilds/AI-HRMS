@@ -30,10 +30,10 @@ const Leave = () => {
               id="select"
             >
               <option value="">--- Select Leave Type ---</option>
-              <option value="sick">Sick Leave</option>
-              <option value="casual">Casual Leave</option>
-              <option value="vacation">Vacation Leave</option>
-              <option value="other">Other</option>
+              <option value="Sick">Sick Leave</option>
+              <option value="Casual">Casual Leave</option>
+              <option value="Vacation">Vacation Leave</option>
+              <option value="Unpaid">Unpaid</option>
             </select>
           </div>
 

@@ -29,12 +29,6 @@ const sidebarLinks = [
     ],
   },
   {
-    name: "Payroll Management",
-    iconClass: "far fa-credit-card",
-    link: "/payroll",
-    childrens: [],
-  },
-  {
     name: "Leave Management",
     iconClass: "far fa-calendar-alt",
     childrens: [

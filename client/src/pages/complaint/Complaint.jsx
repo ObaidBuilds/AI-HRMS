@@ -21,7 +21,6 @@ const Complaint = () => {
   return (
     <section className="h-[80vh] flex justify-center items-center text-white">
       <div className="w-full sm:w-[95%] rounded-2xl p-5 sm:p-8">
-    
         <form className="space-y-2 text-sm" onSubmit={handleSubmit(onSubmit)}>
           {/* Complaint Type */}
           <div className="relative">
@@ -34,10 +33,12 @@ const Complaint = () => {
               })}
             >
               <option value="">--- Select Complaint Type ---</option>
-              <option value="workplace">Workplace Issue</option>
-              <option value="payroll">Payroll Issue</option>
-              <option value="harassment">Harassment</option>
-              <option value="other">Other</option>
+              <option value="Workplace">Workplace Issue</option>
+              <option value="Payroll">Payroll Issue</option>
+              <option value="Harassment">Harassment</option>
+              <option value="Leave">Leave Dispute</option>
+              <option value="Scheduling">Scheduling Issue</option>
+              <option value="Misconduct">Employee Misconduct</option>
             </select>
           </div>
 
@@ -74,7 +75,7 @@ const Complaint = () => {
             className="w-full bg-blue-500 text-sm p-4 rounded-full font-medium hover:bg-blue-600 transition duration-300"
           >
             {loading ? (
-               <i className="fas fa-spinner fa-spin text-xs"></i>
+              <i className="fas fa-spinner fa-spin text-xs"></i>
             ) : (
               "Submit Complaint"
             )}

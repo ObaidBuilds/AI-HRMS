@@ -9,9 +9,9 @@ import { verifyAdminToken, verifyEmployeeToken } from "../middlewares/index.js";
 
 const router = express.Router();
 
-router.get("/", verifyAdminToken, getLeaves);
-router.get("/employee", verifyAdminToken, getEmployeesOnLeave);
+router.get("/", getLeaves);
+router.get("/employee", getEmployeesOnLeave);
 router.post("/", verifyEmployeeToken, applyLeave);
-router.patch("/:id", verifyAdminToken, respondLeave);
+router.patch("/:id", respondLeave);
 
 export default router;

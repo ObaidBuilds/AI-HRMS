@@ -23,7 +23,7 @@ const Dashboard = () => {
     },
     {
       id: 3,
-      title: "Complaints Today",
+      title: "Pending Complaints",
       stats: insights?.totalComplaints,
     },
     {

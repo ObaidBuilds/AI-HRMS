@@ -9,17 +9,15 @@ const leaveSchema = new mongoose.Schema(
     leaveType: {
       type: String,
       required: true,
+      enum: ["Sick", "Casual", "Vacation", "Unpaid"],
     },
-    remarks : {
-        type: String,
-        default : ""
+    remarks: {
+      type: String,
+      default: "",
     },
     substitute: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Employee",
-    },
-    application: {
-      type: String,
     },
     fromDate: {
       type: Date,
@@ -29,9 +27,9 @@ const leaveSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
-    duration : {
-        type: Number,
-        required: true,
+    duration: {
+      type: Number,
+      required: true,
     },
     status: {
       type: String,

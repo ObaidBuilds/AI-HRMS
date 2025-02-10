@@ -69,11 +69,7 @@ const Feedback = () => {
               })}
               placeholder="Write your feedback..."
               rows="4"
-              className={`w-full bg-[#EFEFEF] text-gray-800 text-sm p-3 rounded-xl border ${
-                errors.description
-                  ? "border-red-500 focus:ring-red-500"
-                  : "border-gray-200 focus:ring-blue-500"
-              }`}
+              className="w-full bg-[#EFEFEF] text-gray-800 text-sm p-3 rounded-xl border"
             ></textarea>
           </div>
 

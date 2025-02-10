@@ -23,14 +23,11 @@ const getInsights = catchErrors(async (req, res) => {
     });
   }
   const today = new Date();
-  const startOfDay = new Date(today.setHours(0, 0, 0, 0));
-  const endOfDay = new Date(today.setHours(23, 59, 59, 999));
-
+ 
   const totalEmployees = await Employee.countDocuments();
   const totalDepartments = await Department.countDocuments();
   const totalComplaints = await Complaint.find({
     status: "Pending",
-    createdAt: { $gte: startOfDay, $lte: endOfDay },
   }).countDocuments();
   const departmentAttandancePercent = await getDepartmentAttendancePercentage();
   const overallAttendancePercentage = await getMonthlyAttendancePercentage();

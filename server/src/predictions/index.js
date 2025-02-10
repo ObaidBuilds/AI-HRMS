@@ -1,7 +1,6 @@
 import getPredictionFromGeminiAI from "../gemini/index.js";
 import Employee from "../models/employee.model.js";
 
-
 async function getSubstitute({ department, shift }) {
   let requiredShift;
 
@@ -53,6 +52,8 @@ async function getSubstitute({ department, shift }) {
     if (!suggestedEmployee.name || !suggestedEmployee.email) {
       throw new Error("Incomplete JSON data from AI response.");
     }
+
+    console.log("AI Suggested");
   } catch (error) {
     console.error("Error with AI prediction or parsing:", error.message);
 

@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import toast from "react-hot-toast";
+import axiosInstance from "../axios/axiosInstance";
 
 // Fetch Leaves by Status
 export const getLeavesByStatus = createAsyncThunk(
   "leaves/getLeavesByStatus",
   async (status, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/leaves?status=${status}`);
+      const { data } = await axiosInstance.get(`/leaves?status=${status}`);
       return data.leaves;
     } catch (error) {
       return rejectWithValue(
@@ -22,7 +22,9 @@ export const getEmployeesOnLeave = createAsyncThunk(
   "leaves/getEmployeesOnLeaveToday",
   async (status, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/leaves/employee?date=${status}`);
+      const { data } = await axiosInstance.get(
+        `/leaves/employee?date=${status}`
+      );
       return data.leaves;
     } catch (error) {
       return rejectWithValue(
@@ -38,7 +40,7 @@ export const createLeave = createAsyncThunk(
   "leaves/createLeave",
   async (leave, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(`/leaves`, leave);
+      const { data } = await axiosInstance.post(`/leaves`, leave);
       toast.success(data.message);
       return data.leave;
     } catch (error) {
@@ -55,10 +57,10 @@ export const respondToLeaveRequest = createAsyncThunk(
   "leaves/respondToLeaveRequest",
   async ({ leaveID, status, remarks }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.patch(
-        `/leaves/${leaveID}`,
-        { remarks, status }
-      );
+      const { data } = await axiosInstance.patch(`/leaves/${leaveID}`, {
+        remarks,
+        status,
+      });
       toast.success(data.message);
       return data.leave;
     } catch (error) {

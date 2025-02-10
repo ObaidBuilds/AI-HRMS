@@ -9,6 +9,14 @@ const complaintSchema = new mongoose.Schema(
     complainType: {
       type: String,
       required: true,
+      enum: [
+        "Workplace",
+        "Payroll",
+        "Leave",
+        "Harassment",
+        "Scheduling",
+        "Misconduct",
+      ],
     },
     complainSubject: {
       type: String,
@@ -23,7 +31,7 @@ const complaintSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      default: "pending",
+      default: "Pending",
     },
     assignComplaint: {
       type: mongoose.Schema.Types.ObjectId,
