@@ -14,9 +14,19 @@ const ChatPanel = () => {
   } = useSelector((state) => state.authentication);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    { text: "Hello! How can I help?", sender: "gemini" },
-  ]);
+
+  const loadMessages = () => {
+    const storedMessages = sessionStorage.getItem("chatMessages");
+    return storedMessages
+      ? JSON.parse(storedMessages)
+      : [{ text: "Hello! How can I help?", sender: "gemini" }];
+  };
+
+  const [messages, setMessages] = useState(loadMessages);
+
+  useEffect(() => {
+    sessionStorage.setItem("chatMessages", JSON.stringify(messages));
+  }, [messages]);
 
   const [input, setInput] = useState("");
   const chatEndRef = useRef(null);
