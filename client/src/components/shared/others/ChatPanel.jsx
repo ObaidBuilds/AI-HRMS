@@ -23,36 +23,39 @@ const ChatPanel = () => {
 
   const sendMessage = async () => {
     if (input.trim() === "") return;
-  
+
     const userMessage = { text: input, sender: "user" };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
-  
+
     setLoading(true);
-    setMessages((prev) => [...prev, { text: "", sender: "gemini", loading: true }]);
-  
+    setMessages((prev) => [
+      ...prev,
+      { text: "", sender: "gemini", loading: true },
+    ]);
+
     try {
       const result = await chatWithGemini(input, setLoading);
-  
+
       if (result) {
         let index = 0;
         const fullText = result.response;
-  
+
         setMessages((prev) =>
           prev.map((msg) =>
             msg.loading ? { ...msg, text: "", loading: false } : msg
           )
         );
-  
+
         const interval = setInterval(() => {
           setMessages((prev) =>
             prev.map((msg, i) =>
-              i === prev.length - 1 
+              i === prev.length - 1
                 ? { ...msg, text: fullText.substring(0, index + 1) }
                 : msg
             )
           );
-  
+
           index++;
           if (index === fullText.length) clearInterval(interval);
         }, 20);
@@ -63,7 +66,6 @@ const ChatPanel = () => {
       setLoading(false);
     }
   };
-  
 
   useEffect(() => {
     if (chatEndRef.current) {
@@ -134,7 +136,11 @@ const ChatPanel = () => {
                   }`}
                 ></span>
 
-                {msg.loading ? <ChatbotLoader /> : <ReactMarkdown>{msg.text}</ReactMarkdown>}
+                {msg.loading ? (
+                  <ChatbotLoader />
+                ) : (
+                  <ReactMarkdown>{msg.text}</ReactMarkdown>
+                )}
               </div>
               {msg.sender === "user" && (
                 <div className="w-8 h-8 rounded-full flex items-center justify-center shadow-md">
@@ -159,6 +165,7 @@ const ChatPanel = () => {
               className="w-full bg-gray-900 text-[0.92rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-500 font-[500] pl-12 text-white"
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              disabled={loading}
               onKeyPress={(e) => e.key === "Enter" && sendMessage()}
             />
             <span className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-300 cursor-pointer">
