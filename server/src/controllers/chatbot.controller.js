@@ -24,79 +24,92 @@ const answerAdminQuery = catchErrors(async (req, res) => {
   const employees = await Employee.find().populate("department role").lean();
   const complaints = await Complaint.find().populate("employee", "name").lean();
 
-  // -**Attendance Data ${attendances
-  //   .map(
-  //     (atd, index) =>
-  //       `${index + 1}. Name : ${atd.employee.name} Date: ${
-  //         atd.date
-  //       }, Status : ${atd.status},`
-  //   )
-  //   .join("\n")}
-
   const formattedPrompt = `
- The admin has asked: **"${prompt}"**.
- Some info of this hrms 
-This is made for **Metro cach & carry** using MERN & Gemini by **Obaid ALi**
-They have modules like :
-1.Employee Management
-2. Attendance and Time Tracking
-QR code-based attendance system
-4. Leave Management ( AI Substitute Assigning )
-6. Performance Management
-7. Feedback and Complaint Management
-8. AI-Based Sentiment Analysis
-9. Recruitment Management
-10. Analytics and Reporting
-
-If prompt is any greet say How may i assist you with an emoji
-and if prompt is Bye etc then say the admin Bye in better way with emoji
-
- Analyze the following HRMS data and provide an insightful response.
-  -**Employee Data ${employees
+  **Admin Query:** "${prompt}"
+  
+  ### About the HRMS  
+  This HRMS is developed for **Metro Cash & Carry** using **MERN** & **Gemini AI** by **Obaid Ali**.  
+  It includes the following modules:  
+  1. **Employee Management**  
+  2. **Attendance and Time Tracking** (QR code-based attendance)  
+  3. **Leave Management** (AI-powered substitute assigning)  
+  4. **Performance Management**  
+  5. **Feedback and Complaint Management**  
+  6. **AI-Based Sentiment Analysis**  
+  7. **Recruitment Management**  
+  8. **Analytics and Reporting**  
+  
+  ---
+  
+  ### Response Guidelines:
+  - If the prompt is a **greeting**, respond with a warm welcome and ask how you may assist (with an emoji).  
+  - If the prompt is a **farewell**, say goodbye in a professional and friendly manner (with an emoji).  
+  - If the prompt is related to **HRMS insights**, analyze the provided data and generate a well-structured, insightful, and concise response.  
+  
+  ---
+  
+  ### HRMS Data Analysis:
+  
+  #### **Employee Data**  
+  ${employees
     .map(
       (emp, index) =>
-        `${index + 1}. Name: ${emp.name}, Department: ${
+        `${index + 1}. **Name:** ${emp.name} | **Department:** ${
           emp.department.name
-        } Role: ${emp.role.name} Salary: ${emp.salary}  is Admin: ${emp.admin},`
+        } | **Role:** ${emp.role.name} | **Salary:** ${
+          emp.salary
+        } | **Admin:** ${emp.admin}`
     )
     .join("\n")}
-    -**Performance Data ${performances
-      .map(
-        (per, index) =>
-          `${index + 1}. Name : ${per.employee.name} Score: ${
-            per.kpiScore
-          }, Rating : ${per.rating},`
-      )
-      .join("\n")}
-        -**Leave Data ${leaves
-          .map(
-            (leave, index) =>
-              `${index + 1}. Name : ${leave.employee.name} Type: ${
-                leave.leaveType
-              }, 
-        Date : ${leave.fromDate} - ${leave.toDate} Type: ${leave.status}, `
-          )
-          .join("\n")}
-           ALl leave types : "Sick", "Casual", "Vacation", "Unpaid"
-          -**Complaint Data ${complaints
-            .map(
-              (com, index) =>
-                `${index + 1}. Name : ${com.employee.name} Compleiny Type: ${
-                  com.leaveType
-                }, 
-        Status: ${com.status}, `
-            )
-            .join("\n")}
-          ALl complaint types : "Workplace", "Payroll", "Leave", "Harassment","Scheduling","Misconduct",
-      -**Feedback Data ${feedbacks
-        .map(
-          (feed, index) =>
-            `${index + 1}. Name : ${feed.employee.name} Review: ${feed.review},
-         Rating : ${feed.rating}, Suggestion : ${feed.suggestion}`
-        )
-        .join("\n")}
- Based on this data, answer the admin’s query accurately and *consicely*.
- `;
+  
+  #### **Performance Data**  
+  ${performances
+    .map(
+      (per, index) =>
+        `${index + 1}. **Name:** ${per.employee.name} | **KPI Score:** ${
+          per.kpiScore
+        } | **Rating:** ${per.rating}`
+    )
+    .join("\n")}
+  
+  #### **Leave Data**  
+  ${leaves
+    .map(
+      (leave, index) =>
+        `${index + 1}. **Name:** ${leave.employee.name} | **Type:** ${
+          leave.leaveType
+        } | **Date:** ${leave.fromDate} - ${leave.toDate} | **Status:** ${
+          leave.status
+        }`
+    )
+    .join("\n")}
+  **All Leave Types:** Sick, Casual, Vacation, Unpaid  
+  
+  #### **Complaint Data**  
+  ${complaints
+    .map(
+      (com, index) =>
+        `${index + 1}. **Name:** ${com.employee.name} | **Complaint Type:** ${
+          com.leaveType
+        } | **Status:** ${com.status}`
+    )
+    .join("\n")}
+  **All Complaint Types:** Workplace, Payroll, Leave, Harassment, Scheduling, Misconduct  
+  
+  #### **Feedback Data**  
+  ${feedbacks
+    .map(
+      (feed, index) =>
+        `${index + 1}. **Name:** ${feed.employee.name} | **Review:** ${
+          feed.review
+        } | **Rating:** ${feed.rating} | **Suggestion:** ${feed.suggestion}`
+    )
+    .join("\n")}
+  
+  ---
+  
+  ### Generate an insightful and concise response to the admin's query based on the provided data.
+  `;
 
   const response = await getPredictionFromGeminiAI(formattedPrompt);
 
