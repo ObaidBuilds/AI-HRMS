@@ -60,12 +60,6 @@ const sidebarLinks = [
     link: "/reports",
     childrens: [],
   },
-  {
-    name: "Settings",
-    iconClass: "far fa-circle",
-    link: "/settings",
-    childrens: [],
-  },
 ];
 
 const navbarLinks = [

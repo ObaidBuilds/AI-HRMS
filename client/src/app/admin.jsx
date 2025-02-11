@@ -22,7 +22,6 @@ const JobApplications = lazy(() => import("../admin/recruitment/JobApplications"
 const PostJob = lazy(() => import("../admin/recruitment/PostJob"));
 const Performance = lazy(() => import("../admin/performance/Performance"));
 const Report = lazy(() => import("../admin/report/Report"));
-const Setting = lazy(() => import("../admin/settings/Setting"));
 
 const AdminApp = () => {
   const dispatch = useDispatch();
@@ -64,7 +63,6 @@ const AdminApp = () => {
             <Route path="/complaints" element={<Complaint />} />
             <Route path="/complaints" element={<Complaint />} />
             <Route path="/reports" element={<Report />} />
-            <Route path="/settings" element={<Setting />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           {/* <Footer /> */}
