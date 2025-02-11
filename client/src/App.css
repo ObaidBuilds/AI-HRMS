@@ -7,6 +7,11 @@
   font-family: "Poppins";
 }
 
+body {
+  cursor: url("/cursor.png") 10 10, auto;
+  overflow-x: hidden;
+}
+
 #transition {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -15,17 +20,9 @@
   background: linear-gradient(135deg, #111827, #1f2937);
 }
 
-body {
-  overflow-x: hidden;
-}
-
 body::-webkit-scrollbar,
 #overflow::-webkit-scrollbar {
   display: none;
-}
-
-aside {
-  font-size: 0.82rem;
 }
 
 #refill input:-webkit-autofill {
