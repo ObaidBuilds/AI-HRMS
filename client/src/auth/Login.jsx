@@ -64,7 +64,7 @@ const Login = () => {
           >
             {/* Department Select */}
             <div className="w-[85%] relative">
-              <i className="far fa-building text-sm icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
+              <i className="far fa-building text-sm icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-200"></i>
               <select
                 id="select"
                 {...register("authority")}
@@ -80,7 +80,7 @@ const Login = () => {
             {/* Employee ID */}
             <div className="w-[85%]">
               <div className="w-full relative">
-                <i className="far fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
+                <i className="far fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-200"></i>
                 <input
                   type="text"
                   {...register("employeeId")}
@@ -100,7 +100,7 @@ const Login = () => {
             {/* Password */}
             <div className="w-[85%]">
               <div className="w-full relative">
-                <i className="fas fa-unlock-alt text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
+                <i className="fas fa-unlock-alt text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-200"></i>
                 <input
                   type={active ? "text" : "password"}
                   {...register("password")}
@@ -109,7 +109,7 @@ const Login = () => {
                   required
                 />
                 <span
-                  className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-300 cursor-pointer"
+                  className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-200 cursor-pointer"
                   onClick={handleShowPass}
                 >
                   {active ? (
