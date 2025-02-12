@@ -64,11 +64,11 @@ const Login = () => {
           >
             {/* Department Select */}
             <div className="w-[85%] relative">
-              <i className="fa fa-building-columns text-sm icon absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
+              <i className="far fa-building text-sm icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
               <select
                 id="select"
                 {...register("authority")}
-                className="w-full bg-gray-700 text-center text-[0.92rem] p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                className="w-full bg-gray-700 text-center text-sm p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                 required
               >
                 <option value="">--- Select Authority ---</option>
@@ -80,18 +80,18 @@ const Login = () => {
             {/* Employee ID */}
             <div className="w-[85%]">
               <div className="w-full relative">
-                <i className="fa fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
+                <i className="far fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
                 <input
                   type="text"
                   {...register("employeeId")}
                   placeholder="Employee ID"
                   autoComplete="off"
-                  className="w-full bg-secondary text-[0.92rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                  className="w-full bg-secondary text-sm sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                   required
                 />
               </div>
               {errors.employeeId && (
-                <p className="text-red-500 text-xs sm:mt-1 mt-2">
+                <p className="text-red-500 text-xs pl-3 mt-1">
                   {errors.employeeId.message}
                 </p>
               )}
@@ -100,12 +100,12 @@ const Login = () => {
             {/* Password */}
             <div className="w-[85%]">
               <div className="w-full relative">
-                <i className="fa fa-key text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
+                <i className="fas fa-unlock-alt text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
                 <input
                   type={active ? "text" : "password"}
                   {...register("password")}
                   placeholder="Password"
-                  className="w-full bg-secondary text-[0.92rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                  className="w-full bg-secondary text-sm sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
                   required
                 />
                 <span
@@ -120,7 +120,7 @@ const Login = () => {
                 </span>
               </div>
               {errors.password && (
-                <p className="text-red-500 text-xs sm:mt-1 mt-2">
+                <p className="text-red-500 text-xs mt-1 pl-3">
                   {errors.password.message}
                 </p>
               )}
@@ -130,7 +130,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-[85%] text-sm sm:text-[0.95rem] p-[18px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
+              className="w-[85%] text-sm p-[18px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
             >
               {loading ? (
                 <i className="fas fa-spinner fa-spin text-xs"></i>
