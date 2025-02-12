@@ -77,27 +77,7 @@ function Attendance() {
       {loading && <Loader />}
 
       <section className="bg-gray-100 border border-gray-300 dark:border-primary dark:bg-secondary p-3 min-h-screen rounded-lg shadow">
-        <div className="flex gap-2 flex-wrap justify-between items-center py-1 sm:px-3">
-          <button className="hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-sm border py-1 px-5 rounded-3xl font-semibold">
-            Total Employees: {attendanceList.length}
-          </button>
-
-          {attendanceList.length > 0 && (
-            <button className="hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-sm border py-1 px-5 rounded-3xl font-semibold">
-              Total Present: {attendanceRecord.length}
-            </button>
-          )}
-
-          {!attendanceList.length && (
-            <button
-              onClick={() => setShowModal(true)}
-              className="hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-sm border py-1 px-5 rounded-3xl font-semibold"
-            >
-              Select Department
-            </button>
-          )}
-        </div>
-
+   
         <div className="overflow-x-auto mt-3">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
