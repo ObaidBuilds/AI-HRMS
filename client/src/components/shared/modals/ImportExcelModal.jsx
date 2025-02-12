@@ -75,8 +75,8 @@ const ImportExcelModal = ({ onClose }) => {
       setError("No data to upload.");
       return;
     }
-
     dispatch(bulkUploadEmployees(jsonData));
+    onClose();
   };
 
   return (

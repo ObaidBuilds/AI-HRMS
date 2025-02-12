@@ -54,7 +54,6 @@ const employeeSchema = new mongoose.Schema(
     },
     dateOfJoining: {
       type: Date,
-      required: true,
     },
     gender: {
       type: String,

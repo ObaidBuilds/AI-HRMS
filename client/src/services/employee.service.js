@@ -68,7 +68,7 @@ export const bulkUploadEmployees = createAsyncThunk(
     try {
       const { data } = await axiosInstance.post("/employees/bulk", employeesRecords);
       toast.success(data.message);
-      return data.employee;
+      return data.employees;
     } catch (error) {
       toast.error(error.response?.data.message || "Client : " + error.message);
       return rejectWithValue(

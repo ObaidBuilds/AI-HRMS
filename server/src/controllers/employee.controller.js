@@ -24,12 +24,9 @@ const bulkCreateEmployees = catchErrors(async (req, res) => {
       !employee.name ||
       !employee.dob ||
       !employee.email ||
-      !employee.password ||
       !employee.phoneNumber ||
-      !employee.address ||
       !employee.department ||
       !employee.role ||
-      !employee.dateOfJoining ||
       !employee.gender ||
       !employee.martialStatus ||
       !employee.employmentType ||
@@ -41,13 +38,19 @@ const bulkCreateEmployees = catchErrors(async (req, res) => {
   });
 
   const hashedEmployeesData = await Promise.all(
-    employeesData.map(async (employee) => {
-      const hashedPassword = await bcrypt.hash(employee.password, 10);
+    employeesRecords.map(async (employee) => {
+      const hashedPassword = await bcrypt.hash("password", 10);
       return { ...employee, password: hashedPassword };
     })
   );
 
-  const result = await Employee.insertMany(hashedEmployeesData);
+  const insertedEmployees = await Employee.insertMany(hashedEmployeesData);
+
+  const result = await Employee.find({
+    _id: { $in: insertedEmployees.map((emp) => emp._id) },
+  })
+    .populate("department", "name")
+    .populate("role", "name");
 
   return res.status(201).json({
     success: true,

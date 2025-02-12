@@ -71,6 +71,7 @@ const employeeSlice = createSlice({
         state.error = null;
       })
       .addCase(bulkUploadEmployees.fulfilled, (state, action) => {
+        state.employees = [...state.employees, ...action.payload];
         state.loading = false;
       })
       .addCase(bulkUploadEmployees.rejected, (state, action) => {
