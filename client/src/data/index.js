@@ -24,6 +24,7 @@ const sidebarLinks = [
     name: "Recruitment Management",
     iconClass: "far fa-id-card",
     childrens: [
+      { name: "View Posted Jobs", link: "/recruitment" },
       { name: "View Applications", link: "/recruitment/applications" },
       { name: "Post Applications", link: "/recruitment/create" },
     ],
