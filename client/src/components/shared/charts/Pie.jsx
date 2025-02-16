@@ -38,8 +38,16 @@ const PieGraph = () => {
       {
         label: "Employee Category %",
         data: [malePercentage, femalePercentage],
-        backgroundColor: ["rgba(255, 99, 132, 0.6)", "rgba(54, 162, 235, 0.6)"],
-        borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+        backgroundColor: [
+          "rgba(30, 144, 255, 0.7)",
+          "rgba(220, 20, 60, 0.7)", 
+        ],
+
+        borderColor: [
+          "rgba(30, 144, 255, 1)",
+          "rgba(220, 20, 60, 1)",
+        ],
+
         borderWidth: 1,
       },
     ],
