@@ -10,6 +10,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  Filler,
 } from "chart.js";
 
 ChartJS.register(
@@ -19,7 +20,8 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  Filler
 );
 
 const LineChart = () => {
@@ -49,10 +51,11 @@ const LineChart = () => {
     datasets: [
       {
         label: "Attendance Percentage",
-        data: attendancePercentage,
-        fill: false,
+        data: [10, 30, 40, 20, 50, 34, 20, 60, 85, 76, 80, 40],
+        fill: true,
+        backgroundColor: "rgba(75,192,192,0.2)",
         borderColor: "rgba(75,192,192,1)",
-        tension: 0.1,
+        tension: 0.4,
       },
     ],
   };
