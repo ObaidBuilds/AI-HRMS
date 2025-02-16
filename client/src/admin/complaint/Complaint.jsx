@@ -110,68 +110,61 @@ function Complaint() {
               </tr>
             </thead>
             <tbody className="text-[0.83rem]">
-              {complaints.map(
-                ({
-                  _id,
-                  employee,
-                  complainType,
-                  complaintDetails,
-                  createdAt,
-                }, index) => (
+              {complaints.length > 0 &&
+                complaints.map((complaint, index) => (
                   <tr
-                    key={_id}
+                    key={complaint._id}
                     className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
                   >
                     <td className="py-3 px-4 border-b border-secondary">
-                      {employee.employeeId}
+                      {complaint.employee.employeeId}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {employee.name}
+                      {complaint.employee.name}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {employee.department.name}
+                      {complaint.employee.department.name}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {employee.role.name}
+                      {complaint.employee.role.name}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {complainType}
+                      {complaint.complainType}
                     </td>
                     <td
                       className="relative py-3 px-4 border-b border-secondary"
                       onMouseEnter={() => setHoveredIndex(index)}
                       onMouseLeave={() => setHoveredIndex(null)}
                     >
-                      {complaintDetails.slice(0, 20)}
+                      {complaint.complaintDetails.slice(0, 20)}
 
                       {hoveredIndex === index && (
                         <div className="absolute left-0 top-full mt-1 max-w-[300px] h-auto bg-gray-900 dark:bg-gray-200 dark:text-black text-white text-xs p-2 rounded shadow-lg z-10 break-words whitespace-normal">
-                          {complaintDetails}
+                          {complaint.complaintDetails}
                         </div>
                       )}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {formatDate(createdAt)}
+                      {formatDate(complaint.createdAt)}
                     </td>
                     {status === "Pending" && (
                       <td className="py-3 px-4 border-b border-secondary flex justify-center space-x-2 items-center">
                         <FaCheckCircle
                           className="text-green-500 cursor-pointer hover:text-green-600"
                           size={20}
-                          onClick={() => handleApprove(_id)}
+                          onClick={() => handleApprove(complaint._id)}
                           title="Approve"
                         />
                         <FaTimesCircle
                           className="text-red-500 cursor-pointer hover:text-red-600"
                           size={20}
-                          onClick={() => handleReject(_id)}
+                          onClick={() => handleReject(complaint._id)}
                           title="Reject"
                         />
                       </td>
                     )}
                   </tr>
-                )
-              )}
+                ))}
             </tbody>
           </table>
 

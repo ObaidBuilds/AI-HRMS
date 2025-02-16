@@ -43,6 +43,16 @@ const Dashboard = () => {
     },
   ];
 
+  const { totalEmployees, totalMaleEmployees, totalFemaleEmployees } =
+    useSelector((state) => state.insight.insights);
+
+  const malePercentage = totalEmployees
+    ? ((totalMaleEmployees / totalEmployees) * 100).toFixed(0)
+    : 0;
+  const femalePercentage = totalEmployees
+    ? ((totalFemaleEmployees / totalEmployees) * 100).toFixed(0)
+    : 0;
+
   if (loading || !insights || error) return <ComponentLoader />;
 
   return (
@@ -83,7 +93,13 @@ const Dashboard = () => {
             </h3>
             <div className="w-full flex justify-center items-center">
               <div className="py-4">
-                <PieChart />
+                <PieChart
+                  labels={{ category1: "Male", category2: "Female" }}
+                  label="Employee Category %"
+                  title="Employee Category Overview"
+                  data1={malePercentage}
+                  data2={femalePercentage}
+                />
               </div>
             </div>
           </div>

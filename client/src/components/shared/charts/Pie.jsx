@@ -21,32 +21,16 @@ ChartJS.register(
   Legend
 );
 
-const PieGraph = () => {
-  const { totalEmployees, totalMaleEmployees, totalFemaleEmployees } =
-    useSelector((state) => state.insight.insights);
-
-  const malePercentage = totalEmployees
-    ? ((totalMaleEmployees / totalEmployees) * 100).toFixed(0)
-    : 0;
-  const femalePercentage = totalEmployees
-    ? ((totalFemaleEmployees / totalEmployees) * 100).toFixed(0)
-    : 0;
-
+const PieGraph = ({ labels, title, label, data1, data2 }) => {
   const pieData = {
-    labels: ["Male", "Female"],
+    labels: [labels.category1, labels.category2],
     datasets: [
       {
-        label: "Employee Category %",
-        data: [malePercentage, femalePercentage],
-        backgroundColor: [
-          "rgba(30, 144, 255, 0.7)",
-          "rgba(220, 20, 60, 0.7)", 
-        ],
+        label: label,
+        data: [data1, data2],
+        backgroundColor: ["rgba(30, 144, 255, 0.7)", "rgba(220, 20, 60, 0.7)"],
 
-        borderColor: [
-          "rgba(30, 144, 255, 1)",
-          "rgba(220, 20, 60, 1)",
-        ],
+        borderColor: ["rgba(30, 144, 255, 1)", "rgba(220, 20, 60, 1)"],
 
         borderWidth: 1,
       },
@@ -61,7 +45,7 @@ const PieGraph = () => {
       },
       title: {
         display: true,
-        text: "Employee Category Overview",
+        text: title,
       },
     },
   };

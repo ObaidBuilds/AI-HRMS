@@ -23,7 +23,7 @@ const getInsights = catchErrors(async (req, res) => {
     });
   }
   const today = new Date();
- 
+
   const totalEmployees = await Employee.countDocuments();
   const totalDepartments = await Department.countDocuments();
   const totalComplaints = await Complaint.find({
@@ -54,6 +54,39 @@ const getInsights = catchErrors(async (req, res) => {
 
   const sentimentAnalysis = getSentimentAnalysis(feedbacks[0]?.avgRating || 0);
 
+  const totalLeaves = await Leave.countDocuments();
+
+  const rejectedLeaves = await Leave.countDocuments({
+    status: { $regex: "rejected", $options: "i" },
+  });
+
+  const approvedLeaves = await Leave.countDocuments({
+    status: { $regex: "approved", $options: "i" },
+  });
+
+  const leaveRejectionRate =
+    totalLeaves > 0 ? (rejectedLeaves / totalLeaves) * 100 : 0;
+  const leaveApprovalRate =
+    totalLeaves > 0 ? (approvedLeaves / totalLeaves) * 100 : 0;
+
+  const totalAllComplaints = await Complaint.countDocuments();
+
+  const resolvedComplaints = await Complaint.countDocuments({
+    status: { $regex: "resolved", $options: "i" },
+  });
+
+  const closedComplaints = await Complaint.countDocuments({
+    status: { $regex: "closed", $options: "i" },
+  });
+
+  const complaintResolutionRate =
+    totalAllComplaints > 0
+      ? (resolvedComplaints / totalAllComplaints) * 100
+      : 0;
+
+  const complaintCloseRate =
+    totalAllComplaints > 0 ? (closedComplaints / totalAllComplaints) * 100 : 0;
+
   const insights = {
     totalEmployees,
     totalDepartments,
@@ -65,6 +98,10 @@ const getInsights = catchErrors(async (req, res) => {
     totalFemaleEmployees: totalEmployees - totalMaleEmployees,
     departmentAttandancePercent,
     overallAttendancePercentage,
+    leaveRejectionRate,
+    leaveApprovalRate,
+    complaintResolutionRate,
+    complaintCloseRate,
   };
 
   myCache.set(cacheKey, insights);

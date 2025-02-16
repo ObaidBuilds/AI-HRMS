@@ -2,8 +2,16 @@ import React from "react";
 import BarGraph from "../../components/shared/charts/BarGraph";
 import PieChart from "../../components/shared/charts/Pie";
 import LineChart from "../../components/shared/charts/LineChart";
+import { useSelector } from "react-redux";
 
 const Report = () => {
+  const {
+    leaveRejectionRate,
+    leaveApprovalRate,
+    complaintResolutionRate,
+    complaintCloseRate,
+  } = useSelector((state) => state.insight.insights);
+
   return (
     <section>
       <div className="sm:flex gap-1 justify-between md:flex-row flex-col h-auto md:h-[400px] mb-1">
@@ -27,31 +35,9 @@ const Report = () => {
       </div>
 
       <div className="sm:flex gap-1 justify-between md:flex-row flex-col h-auto md:h-[400px] mb-1">
-        <div className="md:w-1/2 h-full md:mt-2 rounded-lg dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary  py-4 px-1 mt-2 shadow">
-          <h3 className="text-base font-bold md:mb-3 pl-4">
-            Department Leave Analysis
-          </h3>
-          <div className="w-full flex justify-center items-center">
-            <div className="py-4">
-              <PieChart />
-            </div>
-          </div>
-        </div>
-
         <div className="md:w-1/2 block h-full w-full mt-2 rounded-lg  dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary  p-4 overflow-auto shadow">
           <h3 className="text-base font-bold mb-4">
-            Leave Approval - Rejection Rate
-          </h3>
-          <div className="w-full pt-9 pr-6">
-            <LineChart />
-          </div>
-        </div>
-      </div>
-
-      <div className="sm:flex gap-1 justify-between md:flex-row flex-col h-auto md:h-[400px] mb-1">
-        <div className="md:w-1/2 block h-full w-full mt-2 rounded-lg  dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary  p-4 overflow-auto shadow">
-          <h3 className="text-base font-bold mb-4">
-            Department-wise Complaints Analysis
+            Department wise Leave Analysis
           </h3>
           <div className="w-full pt-5 sm:pt-16 pr-6">
             <BarGraph />
@@ -60,12 +46,52 @@ const Report = () => {
 
         <div className="md:w-1/2 h-full md:mt-2 rounded-lg dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary  py-4 px-1 mt-2 shadow">
           <h3 className="text-base font-bold md:mb-3 pl-4">
+            Leave Approval Rejection Rate
+          </h3>
+          <div className="w-full flex justify-center items-center">
+            <div className="py-4">
+              <PieChart
+                labels={{
+                  category1: "Approved",
+                  category2: "Rejected",
+                }}
+                label="Leave Approval vs Rejection (%)"
+                title="Leave Request Analysis"
+                data1={leaveApprovalRate}
+                data2={leaveRejectionRate}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="sm:flex gap-1 justify-between md:flex-row flex-col h-auto md:h-[400px] mb-1">
+        <div className="md:w-1/2 h-full md:mt-2 rounded-lg dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary  py-4 px-1 mt-2 shadow">
+          <h3 className="text-base font-bold md:mb-3 pl-4">
             Complaint Resolution Rate
           </h3>
           <div className="w-full flex justify-center items-center">
             <div className="py-4">
-              <PieChart />
+              <PieChart
+                labels={{
+                  category1: "Resolved",
+                  category2: "Closed",
+                }}
+                label="Complaint Handling Efficiency (%)"
+                title="Employee Complaint Resolution Summary"
+                data1={complaintResolutionRate}
+                data2={complaintCloseRate}
+              />
             </div>
+          </div>
+        </div>
+
+        <div className="md:w-1/2 block h-full w-full mt-2 rounded-lg  dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary  p-4 overflow-auto shadow">
+          <h3 className="text-base font-bold mb-4">
+            Department-wise Complaints Analysis
+          </h3>
+          <div className="w-full pt-5 sm:pt-16 pr-6">
+            <BarGraph />
           </div>
         </div>
       </div>
