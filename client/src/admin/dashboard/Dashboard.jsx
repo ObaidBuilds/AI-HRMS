@@ -43,13 +43,16 @@ const Dashboard = () => {
     },
   ];
 
-  const malePercentage = insights.totalEmployees
-    ? ((insights.totalMaleEmployees / insights.totalEmployees) * 100).toFixed(0)
-    : 0;
-  const femalePercentage = insights.totalEmployees
-    ? ((insights.totalFemaleEmployees / insights.totalEmployees) * 100).toFixed(
+  const malePercentage = insights?.totalEmployees
+    ? ((insights?.totalMaleEmployees / insights?.totalEmployees) * 100).toFixed(
         0
       )
+    : 0;
+  const femalePercentage = insights?.totalEmployees
+    ? (
+        (insights?.totalFemaleEmployees / insights?.totalEmployees) *
+        100
+      ).toFixed(0)
     : 0;
 
   if (loading || !insights || error) return <ComponentLoader />;
