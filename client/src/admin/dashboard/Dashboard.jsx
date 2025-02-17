@@ -72,7 +72,7 @@ const Dashboard = () => {
 
         <div className="flex justify-between md:flex-row flex-col h-auto md:h-[400px] md:mb-2 shadow">
           <div className="w-full h-full mt-2 rounded-lg dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary py-4 px-1">
-            <h3 className="text-base font-bold mb-7 sm:mb-10 pl-4">
+            <h3 className="text-base font-extrabold mb-7 sm:mb-10 pl-4">
               Overall Attendance Overview
             </h3>
             <div className="w-full flex justify-center">
@@ -83,7 +83,7 @@ const Dashboard = () => {
 
         <div className="sm:flex gap-2 justify-between md:flex-row flex-col h-auto md:h-[400px] mb-2">
           <div className="md:w-[60%] block h-full w-full mt-2 rounded-lg  dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary  p-4 overflow-auto shadow">
-            <h3 className="text-base font-bold mb-4">
+            <h3 className="text-base font-extrabold mb-4">
               Attendace Overview By Department
             </h3>
             <div className="w-full pt-9 pr-6">
@@ -92,7 +92,7 @@ const Dashboard = () => {
           </div>
 
           <div className="md:w-[40%] h-full md:mt-2 rounded-lg dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary  py-4 px-1 mt-2 shadow">
-            <h3 className="text-base font-bold md:mb-3 pl-4">
+            <h3 className="text-base font-extrabold md:mb-3 pl-4">
               Employee Category
             </h3>
             <div className="w-full flex justify-center items-center">
