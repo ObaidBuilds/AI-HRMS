@@ -35,7 +35,7 @@ const Report = () => {
           <h3 className="text-[0.93rem] font-extrabold mb-4 border-b pb-2">
             Overall Attendance Overview
           </h3>
-          <div className="w-full pt-9 pr-6">
+          <div className="w-full pt-5 pr-6">
             <LineChart />
           </div>
         </div>
@@ -102,11 +102,14 @@ const Report = () => {
           </div>
         </div>
 
-        <div className="md:w-1/2 h-full mt-2 rounded-lg dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary py-4 px-1">
-          <h3 className="text-[0.93rem] font-extrabold mb-7 sm:mb-10 pl-4 border-b pb-2">
-            Employee Performance Overview
+        <div
+          id="overflow"
+          className="md:w-1/2 block h-full w-full rounded-lg  dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary  p-4 overflow-auto "
+        >
+          <h3 className="text-[0.93rem] font-extrabold mb-4 border-b pb-2">
+            Overall Performance Overview
           </h3>
-          <div className="w-full flex justify-center">
+          <div className="w-full pt-5 pr-6">
             <LineChart />
           </div>
         </div>
