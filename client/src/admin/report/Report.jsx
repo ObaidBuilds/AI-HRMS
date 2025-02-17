@@ -14,8 +14,8 @@ const Report = () => {
   } = useSelector((state) => state.insight.insights);
 
   return (
-    <section className="pt-1 pb-3">
-      <div className="w-full flex flex-wrap gap-2 bg-gray-50 p-3 rounded-lg">
+    <section className="py-1">
+      <div className="w-full flex flex-wrap gap-2 bg-gray-50 dark:bg-secondary p-3 rounded-lg">
         {reports.map((report, index) => (
           <div
             key={index}
