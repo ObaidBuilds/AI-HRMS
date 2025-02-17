@@ -12,7 +12,7 @@ const SettingModal = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-5 rounded-lg w-[95%] sm:w-[700px]">
+      <div className="bg-white p-2 sm:p-5 rounded-lg w-[95%] sm:w-[800px]">
         <div className="flex flex-col md:flex-row gap-2 ">
           {/* Sidebar */}
           <div className="w-full md:w-64 sm:bg-gray-100 p-4 sm:shadow-lg rounded-lg md:block flex justify-center md:justify-start">
@@ -33,7 +33,7 @@ const SettingModal = ({ onClose }) => {
           </div>
 
           {/* Content Area */}
-          <div className="flex-1 p-6 shadow-lg rounded-lg flex items-center justify-center">
+          <div className="flex-1 p-6  rounded-lg flex items-center justify-center">
             <div className="text-sm text-gray-700 font-medium w-full sm:w-[400px]">
               {activeSection === "appearance" && (
                 <div>
