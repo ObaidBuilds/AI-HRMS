@@ -40,13 +40,13 @@ const PerformanceModal = ({ onClose, performance }) => {
       >
         {/* Modal Header */}
         <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-          <h2 className="font-semibold text-gray-600">Review & Rating</h2>
+          <h2 className="font-bold text-gray-600">Review & Rating</h2>
           <button
             type="button"
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700 text-sm"
           >
-            <i className="fas fa-times"></i>
+            <i className="fas fa-times text-sm"></i>
           </button>
         </div>
 
@@ -54,6 +54,7 @@ const PerformanceModal = ({ onClose, performance }) => {
         <div className="w-full relative">
           <i className="fa fa-building-columns text-sm icon absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600"></i>
           <select
+            id="select"
             name="rating"
             value={formData.rating}
             onChange={handleChange}
@@ -61,11 +62,11 @@ const PerformanceModal = ({ onClose, performance }) => {
             required
           >
             <option value="">--- Select Rating ---</option>
-            <option value="1">1 Star</option>
-            <option value="2">2 Star</option>
-            <option value="3">3 Star</option>
-            <option value="4">4 Star</option>
             <option value="5">5 Star</option>
+            <option value="4">4 Star</option>
+            <option value="3">3 Star</option>
+            <option value="2">2 Star</option>
+            <option value="1">1 Star</option>
           </select>
         </div>
 

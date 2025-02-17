@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "../shared/modals/Modal";
 import { useTheme } from "../../context";
 import Loader from "../shared/loaders/Loader";
+import SettingModal from "../shared/modals/SettingModal";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [openSubMenuIndex, setOpenSubMenuIndex] = useState(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showSettingModal, setShowSettingModal] = useState(false);
 
   const toggleSubMenu = (index) =>
     setOpenSubMenuIndex(openSubMenuIndex === index ? null : index);
@@ -160,10 +162,13 @@ const Sidebar = () => {
             <p className=" text-[0.72rem]">LOGOUT</p>
           </button>
 
-          <div className="w-full hidden md:block bg-[#1d3557] dark:bg-[#182233] rounded-xl relative group">
-            <div className="absolute top-2 right-2 hidden group-hover:flex items-center justify-center w-8 h-8 bg-gray-700 dark:bg-gray-600 rounded-full cursor-pointer hover:bg-gray-600 transition-all duration-300">
+          <div className="w-full bg-[#1d3557] dark:bg-[#182233] rounded-xl relative group">
+            <button
+              onClick={() => setShowSettingModal(true)}
+              className="absolute top-2 right-2 hidden group-hover:flex items-center justify-center w-8 h-8 bg-gray-700 dark:bg-gray-600 rounded-full cursor-pointer hover:bg-gray-600 transition-all duration-300"
+            >
               <i className="fas fa-cog text-white text-sm"></i>
-            </div>
+            </button>
             <div className="flex flex-col items-center gap-3 p-4">
               <div className="w-[60px] h-[60px] rounded-full overflow-hidden cursor-pointer border-2 border-gray-500 hover:scale-105 transition-all duration-300">
                 <img
@@ -188,6 +193,8 @@ const Sidebar = () => {
           isConfirm={confirmLogout}
         />
       )}
+
+      {showSettingModal && <SettingModal />}
     </div>
   );
 };
