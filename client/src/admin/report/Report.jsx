@@ -12,8 +12,42 @@ const Report = () => {
     complaintCloseRate,
   } = useSelector((state) => state.insight.insights);
 
+  const reports = [
+    {
+      title: "Attendance Report",
+      icon: "fas fa-clipboard-list",
+      gradient: "bg-gradient-to-r from-blue-500 to-blue-700",
+    },
+    {
+      title: "Recruitment Report",
+      icon: "fas fa-user-plus",
+      gradient: "bg-gradient-to-r from-green-500 to-green-700",
+    },
+    {
+      title: "Leave Report",
+      icon: "fas fa-plane-departure",
+      gradient: "bg-gradient-to-r from-yellow-500 to-yellow-700",
+    },
+    {
+      title: "Performance Report",
+      icon: "fas fa-chart-line",
+      gradient: "bg-gradient-to-r from-purple-500 to-purple-700",
+    },
+  ];
+
   return (
-    <section>
+    <section className="pt-1 pb-3">
+      <div className="w-full flex flex-wrap gap-2 bg-white p-3 rounded-lg">
+        {reports.map((report, index) => (
+          <div
+            key={index}
+            className={`w-[97%] md:w-[24%] ${report.gradient}  text-white rounded-2xl  p-5 flex flex-col items-center gap-3 cursor-pointer hover:scale-105 transition-all ease-in-out duration-300`}
+          >
+            <i className={`${report.icon} text-xl`}></i>
+            <h2 className="text-sm font-bold">{report.title}</h2>
+          </div>
+        ))}
+      </div>
       <div className="sm:flex gap-1 justify-between md:flex-row flex-col h-auto md:h-[400px] mb-1">
         <div className="md:w-1/2 block h-full w-full mt-2 rounded-lg  dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary  p-4 overflow-auto shadow">
           <h3 className="text-base font-bold mb-4">

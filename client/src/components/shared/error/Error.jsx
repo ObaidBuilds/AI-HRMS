@@ -2,11 +2,11 @@ import React from "react";
 
 const Error = () => {
   return (
-    <div className="h-[90vh] flex justify-center items-center text-sm">
-      <div className="flex flex-col justify-center items-center">
-        <i className="fas fa-ban text-2xl text-gray-500"></i>
-        <p className="mt-2 text-base text-gray-500">Error Fetching Data</p>
-      </div>
+    <div className="w-full h-[95vh] flex flex-col justify-center items-center">
+      <p className="text-2xl">⚠️</p>
+      <p className="mt-2 font-extrabold text-[0.9rem] text-gray-600 dark:text-gray-200">
+        Internal Server Error, Please Try Again Later
+      </p>
     </div>
   );
 };

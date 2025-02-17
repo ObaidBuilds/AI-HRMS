@@ -6,6 +6,7 @@ import PieChart from "../../components/shared/charts/Pie";
 import BarGraph from "../../components/shared/charts/BarGraph";
 import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
 import ChatPanel from "../../components/shared/others/ChatPanel";
+import Error from "../../components/shared/error/Error";
 
 const Dashboard = () => {
   const { insights, loading, error } = useSelector((state) => state.insight);
@@ -55,7 +56,8 @@ const Dashboard = () => {
       ).toFixed(0)
     : 0;
 
-  if (loading || !insights || error) return <ComponentLoader />;
+  if (loading || !insights) return <ComponentLoader />;
+  if (error) return <Error />;
 
   return (
     <>
