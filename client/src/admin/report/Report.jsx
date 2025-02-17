@@ -129,6 +129,17 @@ const Report = () => {
           </div>
         </div>
       </div>
+
+      <div className="flex justify-between md:flex-row flex-col h-auto md:h-[400px] md:mb-2 shadow">
+          <div className="w-full h-full mt-2 rounded-lg dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary py-4 px-1">
+            <h3 className="text-base font-bold mb-7 sm:mb-10 pl-4">
+              Employee Performance Overview
+            </h3>
+            <div className="w-full flex justify-center">
+              <LineChart />
+            </div>
+          </div>
+        </div>
     </section>
   );
 };
