@@ -150,6 +150,29 @@ const navLinks = [
   { to: "/feedback", label: "Feedback" },
 ];
 
+const reports = [
+  {
+    title: "Attendance Report",
+    icon: "fas fa-clipboard-list",
+    gradient: "bg-gradient-to-r from-blue-500 to-blue-700",
+  },
+  {
+    title: "Recruitment Report",
+    icon: "fas fa-user-plus",
+    gradient: "bg-gradient-to-r from-green-500 to-green-700",
+  },
+  {
+    title: "Leave Report",
+    icon: "fas fa-plane-departure",
+    gradient: "bg-gradient-to-r from-yellow-500 to-yellow-700",
+  },
+  {
+    title: "Performance Report",
+    icon: "fas fa-chart-line",
+    gradient: "bg-gradient-to-r from-purple-500 to-purple-700",
+  },
+];
+
 export {
   sidebarLinks,
   navbarLinks,
@@ -159,5 +182,6 @@ export {
   feedbackButtons,
   navLinks,
   performanceButtons,
-  payrollButtons
+  payrollButtons,
+  reports
 };
