@@ -173,6 +173,11 @@ const reports = [
   },
 ];
 
+const sections = [
+  { id: "appearance", label: "Appearance", icon: "fas fa-palette" },
+  { id: "security", label: "Security", icon: "fas fa-lock" },
+];
+
 export {
   sidebarLinks,
   navbarLinks,
@@ -183,5 +188,6 @@ export {
   navLinks,
   performanceButtons,
   payrollButtons,
-  reports
+  reports,
+  sections,
 };

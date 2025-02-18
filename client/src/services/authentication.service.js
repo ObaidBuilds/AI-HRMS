@@ -27,7 +27,9 @@ export const login = createAsyncThunk(
 export const updatePassword = async (setLoading, credentials) => {
   setLoading(true);
   try {
-    const { data } = await axiosInstance.patch("/auth/password", credentials);
+    const { data } = await axiosInstance.patch("/auth/password", {
+      credentials,
+    });
     toast.success(data.message);
     return data.success;
   } catch (error) {

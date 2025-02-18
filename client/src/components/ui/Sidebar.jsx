@@ -11,7 +11,7 @@ import SettingModal from "../shared/modals/SettingModal";
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const { loading, user } = useSelector((state) => state.authentication);
 
   const [showSidebar, setShowSidebar] = useState(false);
@@ -194,7 +194,9 @@ const Sidebar = () => {
         />
       )}
 
-      {showSettingModal && <SettingModal />}
+      {showSettingModal && (
+        <SettingModal onClose={() => setShowSettingModal(false)} />
+      )}
     </div>
   );
 };

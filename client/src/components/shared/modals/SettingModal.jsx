@@ -1,21 +1,40 @@
 import React, { useState } from "react";
 import { useTheme } from "../../../context";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { sections } from "../../../data";
+import { updatePassword } from "../../../services/authentication.service";
 
 const SettingModal = ({ onClose }) => {
-  const sections = [
-    { id: "security", label: "Security", icon: "fas fa-lock" },
-    { id: "appearance", label: "Appearance", icon: "fas fa-palette" },
-  ];
+  const dispatch = useDispatch();
 
   const { theme, toggleTheme } = useTheme();
+  const [loading, setLoading] = useState(false);
   const [activeSection, setActiveSection] = useState("security");
+
+  const { register, handleSubmit, reset } = useForm();
+
+  function onSubmit(credentials) {
+    dispatch(updatePassword(setLoading, credentials));
+    reset();
+  }
 
   return (
     <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-2 sm:p-5 rounded-lg w-[95%] sm:w-[800px]">
+      <div
+        id="modal"
+        className="bg-white relative p-2 sm:p-5 rounded-lg w-[95%] sm:w-[800px]"
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-3 sm:top-0 right-3 sm:right-[-2.4rem] w-6 h-6 bg-gray-400 rounded-full text-white"
+        >
+          <i className="fas fa-times text-xs"></i>
+        </button>
+
         <div className="flex flex-col md:flex-row gap-2 ">
           {/* Sidebar */}
-          <div className="w-full md:w-64 sm:bg-gray-100 p-4 sm:shadow-lg rounded-lg md:block flex justify-center md:justify-start">
+          <div className="w-full md:w-64 sm:bg-gray-100 p-4  rounded-lg md:block flex justify-center md:justify-start">
             <ul className="flex md:flex-col gap-2 w-full justify-center md:justify-start">
               {sections.map((section) => (
                 <li
@@ -66,7 +85,10 @@ const SettingModal = ({ onClose }) => {
                   <p className="text-gray-600 text-center mb-6">
                     Update your password for enhanced security.
                   </p>
-                  <form className="w-full max-w-sm space-y-6">
+                  <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="w-full max-w-sm space-y-6"
+                  >
                     <div className="mb-4">
                       <label className="block text-gray-700 text-sm font-medium mb-2">
                         Old Password
@@ -75,6 +97,8 @@ const SettingModal = ({ onClose }) => {
                         type="password"
                         className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                         placeholder="Enter old password"
+                        {...register("oldPassword")}
+                        required
                       />
                     </div>
                     <div className="mb-4">
@@ -85,6 +109,8 @@ const SettingModal = ({ onClose }) => {
                         type="password"
                         className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                         placeholder="Enter new password"
+                        {...register("newPassword")}
+                        required
                       />
                     </div>
                     <div className="mb-6">
@@ -95,13 +121,19 @@ const SettingModal = ({ onClose }) => {
                         type="password"
                         className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                         placeholder="Confirm new password"
+                        {...register("confirmPassword")}
+                        required
                       />
                     </div>
                     <button
                       type="submit"
                       className="w-full p-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                     >
-                      Update Password
+                      {loading ? (
+                        <i className="fas fa-spinner fa-spin text-xs"></i>
+                      ) : (
+                        "Update"
+                      )}
                     </button>
                   </form>
                 </div>
