@@ -95,7 +95,7 @@ const SettingModal = ({ onClose }) => {
                       </label>
                       <input
                         type="password"
-                        className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                        className="w-full p-3 text-sm border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                         placeholder="Enter old password"
                         {...register("oldPassword")}
                         required
@@ -107,7 +107,7 @@ const SettingModal = ({ onClose }) => {
                       </label>
                       <input
                         type="password"
-                        className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                        className="w-full text-sm p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                         placeholder="Enter new password"
                         {...register("newPassword")}
                         required
@@ -119,7 +119,7 @@ const SettingModal = ({ onClose }) => {
                       </label>
                       <input
                         type="password"
-                        className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                        className="w-full text-sm p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                         placeholder="Confirm new password"
                         {...register("confirmPassword")}
                         required
@@ -127,7 +127,7 @@ const SettingModal = ({ onClose }) => {
                     </div>
                     <button
                       type="submit"
-                      className="w-full p-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                      className="w-full text-sm font-semibold p-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                     >
                       {loading ? (
                         <i className="fas fa-spinner fa-spin text-xs"></i>
