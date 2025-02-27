@@ -2,14 +2,14 @@ import "typeface-poppins";
 import Login from "./auth/Login";
 import AdminApp from "./app/admin";
 import useGetToken from "./hooks";
-import React, { Suspense, useEffect } from "react";
 import EmployeeApp from "./app/employee";
 import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { ThemeProvider } from "./context";
+import { Suspense } from "react";
 import Loader from "./components/shared/loaders/Loader";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { ThemeProvider } from "./context";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 function HrmsForMetroCashAndCarry() {
   const { user } = useSelector((state) => state.authentication);

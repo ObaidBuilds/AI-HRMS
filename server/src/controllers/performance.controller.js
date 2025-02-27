@@ -28,8 +28,7 @@ export const updatePerformance = catchErrors(async (req, res) => {
   const { employeeID } = req.params;
   const { kpis, feedback, rating } = req.body;
 
-  if (!employeeID || !kpis?.attendance)
-    throw new Error("All fields are required");
+  if (!employeeID || !kpis) throw new Error("All fields are required");
 
   const kpiScore =
     kpis.attendance * 0.5 +

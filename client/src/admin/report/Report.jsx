@@ -1,4 +1,3 @@
-import React from "react";
 import BarGraph from "../../components/shared/charts/BarGraph";
 import PieChart from "../../components/shared/charts/Pie";
 import LineChart from "../../components/shared/charts/LineChart";
@@ -11,7 +10,23 @@ const Report = () => {
     leaveApprovalRate,
     complaintResolutionRate,
     complaintCloseRate,
+    departmentAttandancePercent,
+    overallAttendancePercentage,
   } = useSelector((state) => state.insight.insights);
+
+  const departments = departmentAttandancePercent.map((department) => {
+    return department._id;
+  });
+
+  const departmentAttendancePercentage = departmentAttandancePercent.map(
+    (department) => {
+      return parseInt(department.attendancePercentage);
+    }
+  );
+
+  const attendancePercentage = overallAttendancePercentage.map(
+    (item) => item.attendancePercentage
+  );
 
   return (
     <section className="py-1">
@@ -36,7 +51,11 @@ const Report = () => {
             Overall Attendance Overview
           </h3>
           <div className="w-full pt-5 pr-6">
-            <LineChart />
+            <LineChart
+              label="Attendance Percentage"
+              title="Monthly Attendance Percentage"
+              chartData={attendancePercentage}
+            />
           </div>
         </div>
 
@@ -87,7 +106,12 @@ const Report = () => {
             Attendace Overview By Department
           </h3>
           <div className="w-full pt-5 sm:pt-16 pr-6">
-            <BarGraph />
+            <BarGraph
+              departments={departments}
+              title="Attendance Rate (%)"
+              text="Employee Attendance Rate by Department"
+              departmentAttendancePercentage={departmentAttendancePercentage}
+            />
           </div>
         </div>
       </div>
@@ -98,7 +122,12 @@ const Report = () => {
             Performance Overview By Department
           </h3>
           <div className="w-full pt-5 sm:pt-16 pr-6">
-            <BarGraph />
+            <BarGraph
+              departments={departments}
+              title="Perfromance Rate (%)"
+              text="Employee Perfromance Rate by Department"
+              departmentAttendancePercentage={departmentAttendancePercentage}
+            />
           </div>
         </div>
 
@@ -110,7 +139,11 @@ const Report = () => {
             Overall Performance Overview
           </h3>
           <div className="w-full pt-5 pr-6">
-            <LineChart />
+            <LineChart
+              label="Perfromance Percentage"
+              title="Monthly Performance Percentage"
+              chartData={attendancePercentage}
+            />
           </div>
         </div>
       </div>

@@ -139,7 +139,11 @@ const Sidebar = () => {
                     } dropdown-active`}
                   >
                     {item.childrens.map((subLink, subIndex) => (
-                      <Link to={subLink.link} className="text-[0.82rem]">
+                      <Link
+                        key={subIndex}
+                        to={subLink.link}
+                        className="text-[0.82rem]"
+                      >
                         <li
                           key={subIndex}
                           onClick={() => setShowSidebar(false)}

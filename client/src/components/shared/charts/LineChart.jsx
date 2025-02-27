@@ -24,15 +24,7 @@ ChartJS.register(
   Filler
 );
 
-const LineChart = () => {
-  const {
-    insights: { overallAttendancePercentage },
-  } = useSelector((state) => state.insight);
-
-  const attendancePercentage = overallAttendancePercentage.map(
-    (item) => item.attendancePercentage
-  );
-
+const LineChart = ({ label, title, chartData }) => {
   const data = {
     labels: [
       "Jan",
@@ -50,7 +42,7 @@ const LineChart = () => {
     ],
     datasets: [
       {
-        label: "Attendance Percentage",
+        label: label,
         data: [10, 30, 40, 20, 50, 34, 20, 60, 85, 76, 80, 40],
         fill: true,
         backgroundColor: "rgba(54, 162, 235, 0.2)",
@@ -66,7 +58,7 @@ const LineChart = () => {
     plugins: {
       title: {
         display: true,
-        text: "Monthly Attendance Percentage",
+        text: title,
       },
     },
     scales: {

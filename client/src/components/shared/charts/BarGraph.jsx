@@ -21,19 +21,12 @@ ChartJS.register(
   Legend
 );
 
-const BarGraph = () => {
-  const departmentData = useSelector(
-    (state) => state.insight.insights.departmentAttandancePercent
-  );
-
-  const departments = departmentData.map((department) => {
-    return department._id;
-  });
-
-  const departmentAttendancePercentage = departmentData.map((department) => {
-    return parseInt(department.attendancePercentage);
-  });
-
+const BarGraph = ({
+  text,
+  title,
+  departments,
+  departmentAttendancePercentage,
+}) => {
   const data = {
     labels: departments || [],
     datasets: [
@@ -71,7 +64,7 @@ const BarGraph = () => {
       },
       title: {
         display: true,
-        text: "Employee Attendance Rate by Department",
+        text: text,
       },
     },
     scales: {
@@ -86,7 +79,7 @@ const BarGraph = () => {
         },
         title: {
           display: true,
-          text: "Attendance Rate (%)",
+          text: title,
         },
       },
     },

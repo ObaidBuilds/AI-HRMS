@@ -1,7 +1,7 @@
 {
-  "name": "HRMS",
+  "name": "hrms",
   "version": "1.0.0",
-  "description": "Human Resource Managemen System - Final Year Project",
+  "description": "AI Driven Human Resource Managemen System - Final Year Project",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
@@ -9,6 +9,16 @@
     "dev": "nodemon src/index.js"
   },
   "license": "ISC",
+  "author": "Obaid Ali Siddiqui",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WhatsWrongOB/AI-HRMS"
+  },
+  "bugs": {
+    "url": "https://github.com/WhatsWrongOB/AI-HRMS/issues"
+  },
+  "homepage": "https://metrohrms.netlify.app",
+  "keywords": ["HRMS", "AI", "MERN", "Human Resources", "Payroll", "Attendance"],
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
     "axios": "^1.7.9",

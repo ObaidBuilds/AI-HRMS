@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import Sidebar from "../components/ui/Sidebar";
 import Loader from "../components/shared/loaders/Loader";
 import { Route, Routes } from "react-router-dom";
@@ -18,7 +18,9 @@ const Feedback = lazy(() => import("../admin/feedback/Feedback"));
 const LeaveRequest = lazy(() => import("../admin/leave/LeaveRequest"));
 const EmployeeOnLeave = lazy(() => import("../admin/leave/EmployeeOnLeave"));
 const Complaint = lazy(() => import("../admin/complaint/Complaint"));
-const JobApplications = lazy(() => import("../admin/recruitment/JobApplications"));
+const JobApplications = lazy(() =>
+  import("../admin/recruitment/JobApplications")
+);
 const PostJob = lazy(() => import("../admin/recruitment/PostJob"));
 const Performance = lazy(() => import("../admin/performance/Performance"));
 const Report = lazy(() => import("../admin/report/Report"));

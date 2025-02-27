@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import InfoCard from "../../components/shared/cards/InfoCard";
 import LineChart from "../../components/shared/charts/LineChart";
@@ -56,6 +55,19 @@ const Dashboard = () => {
       ).toFixed(0)
     : 0;
 
+  const departments = insights.departmentAttandancePercent.map((department) => {
+    return department._id;
+  });
+
+  const departmentAttendancePercentage =
+    insights.departmentAttandancePercent.map((department) => {
+      return parseInt(department.attendancePercentage);
+    });
+
+  const attendancePercentage = insights.overallAttendancePercentage.map(
+    (item) => item.attendancePercentage
+  );
+
   if (loading || !insights) return <ComponentLoader />;
   if (error) return <Error />;
 
@@ -76,7 +88,11 @@ const Dashboard = () => {
               Overall Attendance Overview
             </h3>
             <div className="w-full flex justify-center">
-              <LineChart />
+              <LineChart
+                label="Attendance Percentage"
+                title="Monthly Attendance Percentage"
+                chartData={attendancePercentage}
+              />
             </div>
           </div>
         </div>
@@ -87,7 +103,12 @@ const Dashboard = () => {
               Attendace Overview By Department
             </h3>
             <div className="w-full pt-9 pr-6">
-              <BarGraph />
+              <BarGraph
+                departments={departments}
+                title="Attendance Rate (%)"
+                text="Employee Attendance Rate by Department"
+                departmentAttendancePercentage={departmentAttendancePercentage}
+              />
             </div>
           </div>
 

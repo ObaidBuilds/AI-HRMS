@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import Footer from "../components/ui/Footer";
 import Loader from "../components/shared/loaders/Loader";
 import { Route, Routes } from "react-router-dom";
