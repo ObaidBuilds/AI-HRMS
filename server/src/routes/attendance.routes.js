@@ -6,6 +6,7 @@ import {
   markAttendanceByQrCode,
   genrateQrCodeForAttendance,
   getMonthlyAttendancePercentage,
+  getEmployeeAttendanceByDepartment,
 } from "../controllers/attendance.controller.js";
 import { verifyAdminToken, verifyEmployeeToken } from "../middlewares/index.js";
 
@@ -17,5 +18,6 @@ router.get("/", verifyAdminToken, getAttendanceList);
 router.get("/month", verifyAdminToken, getMonthlyAttendancePercentage);
 router.post("/mark/qr", verifyEmployeeToken, markAttendanceByQrCode);
 router.post("/generate", verifyEmployeeToken, genrateQrCodeForAttendance);
+router.get("/department", verifyAdminToken, getEmployeeAttendanceByDepartment);
 
 export default router;

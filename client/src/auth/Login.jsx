@@ -4,15 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../services/authentication.service";
-
-const schema = z.object({
-  authority: z.string().nonempty("Authority is required"),
-  employeeId: z
-    .string()
-    .regex(/^\d{3}$/, "* Employee ID must be exactly 3 digits"),
-  password: z.string().min(6, "* Password must be at least 6 characters"),
-  remember: z.boolean().optional(),
-});
+import { authenticationScehma } from "../validations";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -25,7 +17,7 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(authenticationScehma),
   });
 
   const handleShowPass = () => setActive(!active);
@@ -87,7 +79,7 @@ const Login = () => {
                   placeholder="Employee ID"
                   autoComplete="off"
                   className="w-full bg-secondary text-sm sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
-                  required
+                  // required
                 />
               </div>
               {errors.employeeId && (
@@ -106,7 +98,7 @@ const Login = () => {
                   {...register("password")}
                   placeholder="Password"
                   className="w-full bg-secondary text-sm sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
-                  required
+                  // required
                 />
                 <span
                   className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-200 cursor-pointer"

@@ -55,7 +55,7 @@ const Dashboard = () => {
       ).toFixed(0)
     : 0;
 
-  const departments = insights.departmentAttandancePercent.map((department) => {
+  const departments = insights?.departmentAttandancePercent?.map((department) => {
     return department._id;
   });
 
@@ -64,7 +64,7 @@ const Dashboard = () => {
       return parseInt(department.attendancePercentage);
     });
 
-  const attendancePercentage = insights.overallAttendancePercentage.map(
+  const attendancePercentage = insights?.overallAttendancePercentage.map(
     (item) => item.attendancePercentage
   );
 

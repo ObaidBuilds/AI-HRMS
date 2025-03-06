@@ -19,7 +19,14 @@
     "url": "https://github.com/WhatsWrongOB/AI-HRMS/issues"
   },
   "homepage": "https://metrohrms.netlify.app",
-  "keywords": ["HRMS", "AI", "MERN", "Human Resources", "Payroll", "Attendance"],
+  "keywords": [
+    "HRMS",
+    "AI",
+    "MERN",
+    "Human Resources",
+    "Payroll",
+    "Attendance"
+  ],
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@hookform/resolvers": "^3.9.1",

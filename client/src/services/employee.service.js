@@ -49,6 +49,7 @@ export const addEmployee = createAsyncThunk(
   "employee/addEmployee",
   async (employee, { rejectWithValue }) => {
     try {
+      console.log(employee)
       const { data } = await axiosInstance.post("/employees", employee);
       toast.success(data.message);
       return data.employee;

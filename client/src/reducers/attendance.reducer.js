@@ -1,14 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  generateQRCodeForAttendance,
+  markAttendance,
   getAttendanceList,
   getEmployeeAttendance,
-  markAttendance,
   markAttendanceUsingQrCode,
+  generateQRCodeForAttendance,
+  getEmployeeAttendanceByDepartment,
 } from "../services/attendance.service.js";
 
 const initialState = {
   attendanceList: [],
+  attendanceRecord: [],
   loading: false,
   error: null,
   qrcode: null,
@@ -19,7 +21,6 @@ const attendanceSlice = createSlice({
   initialState,
   reducers: {
     removeQr: (state) => {
-
       state.qrcode = null;
       console.log(state.qrcode);
     },
@@ -91,6 +92,20 @@ const attendanceSlice = createSlice({
         state.loading = false;
       })
       .addCase(markAttendanceUsingQrCode.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Handling getEmployeeAttendanceByDepartment
+      .addCase(getEmployeeAttendanceByDepartment.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getEmployeeAttendanceByDepartment.fulfilled, (state, action) => {
+        state.attendanceRecord = action.payload;
+        state.loading = false;
+      })
+      .addCase(getEmployeeAttendanceByDepartment.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

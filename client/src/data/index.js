@@ -18,7 +18,16 @@ const sidebarLinks = [
   {
     name: "Attendance Management",
     iconClass: "far fa-calendar-check",
-    link: "/attendance",
+    childrens: [
+      { name: "Mark Attendance", link: "/attendance" },
+      { name: "Check Attendances", link: "/attendance/check" },
+    ],
+  },
+  {
+    name: "Payroll Management",
+    iconClass: "fas fa-money-check-alt",
+    link: "/",
+    childrens: [],
   },
   {
     name: "Recruitment Management",
@@ -30,18 +39,18 @@ const sidebarLinks = [
     ],
   },
   {
+    name: "Performance Management",
+    iconClass: "fas fa-chart-line",
+    link: "/performances",
+    childrens: [],
+  },
+  {
     name: "Leave Management",
     iconClass: "far fa-calendar-alt",
     childrens: [
       { name: "Leave Requests", link: "/leaves" },
       { name: "Employees On Leave", link: "/leave/active" },
     ],
-  },
-  {
-    name: "Performance Management",
-    iconClass: "fas fa-chart-line",
-    link: "/performances",
-    childrens: [],
   },
   {
     name: "Complaint Management",

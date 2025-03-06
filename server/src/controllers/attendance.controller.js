@@ -5,6 +5,7 @@ import Employee from "../models/employee.model.js";
 import Attendance from "../models/attendance.model.js";
 import { myCache, getPublicIdFromUrl } from "../utils/index.js";
 import { decodeQR, generateQrCode, getLocation } from "../utils/index.js";
+import mongoose from "mongoose";
 
 const today = new Date();
 today.setHours(0, 0, 0, 0);
@@ -113,8 +114,6 @@ const genrateQrCodeForAttendance = catchErrors(async (req, res) => {
   const id = req.user;
   const { latitude, longitude } = req.body;
 
-  console.log(latitude, longitude);
-
   const isPresent = await Attendance.findOne({
     employee: id,
     date: {
@@ -201,6 +200,71 @@ const getEmployeeAttendance = catchErrors(async (req, res) => {
       attendancePercentage: attendancePercentage.toFixed(2),
       attendanceRecord,
     },
+  });
+});
+
+const getEmployeeAttendanceByDepartment = catchErrors(async (req, res) => {
+  const { department, date } = req.query;
+
+  if (!department || !date) {
+    throw new Error("Please provide department and date");
+  }
+
+  const queryDate = new Date(date);
+  const departmentId = new mongoose.Types.ObjectId(department);
+
+  const attendanceRecord = await Attendance.aggregate([
+    {
+      $match: { date: queryDate },
+    },
+    {
+      $lookup: {
+        from: "employees",
+        localField: "employee",
+        foreignField: "_id",
+        as: "employee",
+      },
+    },
+    { $unwind: "$employee" },
+    {
+      $lookup: {
+        from: "departments",
+        localField: "employee.department",
+        foreignField: "_id",
+        as: "employee.department",
+      },
+    },
+    { $unwind: "$employee.department" },
+    {
+      $lookup: {
+        from: "roles",
+        localField: "employee.role",
+        foreignField: "_id",
+        as: "employee.role",
+      },
+    },
+    { $unwind: "$employee.role" },
+    {
+      $match: { "employee.department._id": departmentId },
+    },
+    {
+      $project: {
+        _id: 1,
+        date: 1,
+        status: 1,
+        "employee.name": 1,
+        "employee.employeeId": 1,
+        "employee.department.name": 1,
+        "employee.role.name": 1,
+      },
+    },
+    { $sort: { date: -1 } },
+  ]);
+
+  return res.status(200).json({
+    success: true,
+    message: "Attendance fetched successfully",
+    attendanceRecord,
   });
 });
 
@@ -348,4 +412,5 @@ export {
   getMonthlyAttendancePercentage,
   genrateQrCodeForAttendance,
   calculateAverageAttendance,
+  getEmployeeAttendanceByDepartment,
 };

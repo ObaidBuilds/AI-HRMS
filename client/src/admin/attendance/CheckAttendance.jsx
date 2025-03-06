@@ -1,0 +1,127 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import SheetModal from "../../components/shared/modals/SheetModal";
+import Loader from "../../components/shared/loaders/Loader";
+import { getEmployeeAttendanceByDepartment } from "../../services/attendance.service";
+
+function CheckAttendance() {
+  const dispatch = useDispatch();
+
+  const { departments } = useSelector((state) => state.department);
+  const { attendanceRecord, loading } = useSelector(
+    (state) => state.attendance
+  );
+
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [selectedDate, setSelectedDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
+  const [showModal, setShowModal] = useState(false);
+
+  const handleModalSubmit = (e) => {
+    e.preventDefault();
+    if (selectedDepartment && selectedDate) {
+      dispatch(
+        getEmployeeAttendanceByDepartment({ selectedDepartment, selectedDate })
+      );
+    }
+    setShowModal(false);
+  };
+
+  return (
+    <>
+      {loading && <Loader />}
+
+      <section className="bg-gray-100 border border-gray-300 dark:border-primary dark:bg-secondary p-3 min-h-screen rounded-lg shadow">
+        <div className="overflow-x-auto mt-3">
+          <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
+            <thead>
+              <tr className="bg-headLight dark:bg-head text-primary">
+                {["EMP ID", "Name", "Department", "Position", "Status"].map(
+                  (header, i) => (
+                    <th key={i} className="py-3 px-4 border-b border-secondary">
+                      {header}
+                    </th>
+                  )
+                )}
+              </tr>
+            </thead>
+            <tbody>
+              {attendanceRecord.length >= 1 &&
+                attendanceRecord.map((attendance) => (
+                  <tr
+                    key={attendance._id}
+                    className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
+                  >
+                    <td className="py-3 px-4 border-b border-gray-500">
+                      EMP {attendance.employee.employeeId}
+                    </td>
+                    <td className="py-3 px-4 border-b border-gray-500">
+                      {attendance.employee.name}
+                    </td>
+                    <td className="py-3 px-4 border-b border-gray-500">
+                      {attendance.employee.department.name}
+                    </td>
+                    <td className="py-3 px-4 border-b border-gray-500">
+                      {attendance.employee.role.name}
+                    </td>
+                    <td
+                      className={`py-3 px-4 border-b border-gray-500 font-semibold flex items-center gap-2 ${
+                        attendance.status === "Present"
+                          ? "text-green-400"
+                          : attendance.status === "Absent"
+                          ? "text-red-400"
+                          : "text-yellow-400"
+                      }`}
+                    >
+                      {attendance.status === "Present" ? (
+                        <i className="fas fa-check-circle text-green-500"></i>
+                      ) : (
+                        <i className="fas fa-times-circle text-red-500"></i>
+                      )}
+                      {attendance.status}
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+
+          {!selectedDepartment && attendanceRecord.length === 0 && (
+            <div className="flex flex-col items-center justify-center h-[60vh] sm:h-[70vh]">
+              <button
+                onClick={() => setShowModal(true)}
+                className="p-4 rounded-md text-center text-sm font-semibold text-gray-700 dark:text-gray-300"
+              >
+                <i className="fas fa-building mr-2"></i>
+                Select Department to see attendance
+              </button>
+            </div>
+          )}
+
+          {selectedDepartment && attendanceRecord.length === 0 && (
+            <div className="flex flex-col items-center justify-center h-[60vh] sm:h-[70vh]">
+              <button className="p-4 rounded-md text-center text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <i className="fas fa-building mr-2"></i>
+                No attendance record found
+              </button>
+            </div>
+          )}
+        </div>
+
+        {showModal && (
+          <SheetModal
+            onClose={() => setShowModal(false)}
+            departments={departments}
+            setSelectedDate={setSelectedDate}
+            selectedDate={selectedDate}
+            selectedDepartment={selectedDepartment}
+            setSelectedDepartment={setSelectedDepartment}
+            handleModalSubmit={handleModalSubmit}
+          />
+        )}
+      </section>
+    </>
+  );
+}
+
+export default CheckAttendance;

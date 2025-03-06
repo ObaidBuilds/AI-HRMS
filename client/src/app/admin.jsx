@@ -14,6 +14,9 @@ const AddEmployee = lazy(() => import("../admin/employee/CreateEmployee"));
 const EditEmployee = lazy(() => import("../admin/employee/UpdateEmployee"));
 const ViewEmployee = lazy(() => import("../admin/employee/ViewEmployee"));
 const Attendance = lazy(() => import("../admin/attendance/Attendance"));
+const CheckAttendance = lazy(() =>
+  import("../admin/attendance/CheckAttendance")
+);
 const Feedback = lazy(() => import("../admin/feedback/Feedback"));
 const LeaveRequest = lazy(() => import("../admin/leave/LeaveRequest"));
 const EmployeeOnLeave = lazy(() => import("../admin/leave/EmployeeOnLeave"));
@@ -52,6 +55,7 @@ const AdminApp = () => {
             <Route path="/employee/create" element={<AddEmployee />} />
             <Route path="/employee/update/:id" element={<EditEmployee />} />
             <Route path="/attendance" element={<Attendance />} />
+            <Route path="/attendance/check" element={<CheckAttendance />} />
             <Route path="/leaves" element={<LeaveRequest />} />
             <Route path="/leave/active" element={<EmployeeOnLeave />} />
             <Route path="/performances" element={<Performance />} />
