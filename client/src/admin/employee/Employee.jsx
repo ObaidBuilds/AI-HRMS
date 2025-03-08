@@ -213,10 +213,10 @@ function Employee() {
                       {employee.name}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {employee.department.name}
+                      {employee.department?.name || "Null"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {employee.role.name}
+                      {employee.role?.name || "Null"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
                       {employee.status}

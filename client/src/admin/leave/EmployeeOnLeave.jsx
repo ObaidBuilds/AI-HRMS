@@ -79,10 +79,10 @@ function EmployeeOnLeave() {
                       {leave.employee.name}
                     </td>
                     <td className="py-3 px-4 border-b border-gray-500">
-                      {leave.employee.department.name}
+                      {leave.employee.department?.name || "Null"}
                     </td>
                     <td className="py-3 px-4 border-b border-gray-500">
-                      {leave.employee.role.name}
+                      {leave.employee.role?.name || "Null"}
                     </td>
                     <td className="py-3 px-4 border-b border-gray-500">
                       {leave.substitute.name}

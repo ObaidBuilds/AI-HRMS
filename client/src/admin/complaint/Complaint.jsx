@@ -123,10 +123,10 @@ function Complaint() {
                       {complaint.employee.name}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {complaint.employee.department.name}
+                      {complaint.employee.department?.name || 'Null'}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {complaint.employee.role.name}
+                      {complaint.employee.role?.name || "Null"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
                       {complaint.complainType}

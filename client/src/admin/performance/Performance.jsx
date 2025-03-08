@@ -83,7 +83,7 @@ function Perfromance() {
                       {performance?.employee?.name}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {performance?.employee?.role.name}
+                      {performance?.employee?.role?.name || "Null"}
                     </td>
 
                     <td className="py-3 px-4 border-b border-secondary font-semibold">

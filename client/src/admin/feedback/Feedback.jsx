@@ -79,10 +79,10 @@ function Feedback() {
                       {feedback.employee.name}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {feedback.employee.department.name}
+                      {feedback.employee.department?.name || 'Null'}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {feedback.employee.role.name}
+                      {feedback.employee.role?.name || 'Null'}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
                       {feedback.review}

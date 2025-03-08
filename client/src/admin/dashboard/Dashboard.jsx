@@ -60,11 +60,11 @@ const Dashboard = () => {
   });
 
   const departmentAttendancePercentage =
-    insights.departmentAttandancePercent.map((department) => {
+    insights?.departmentAttandancePercent?.map((department) => {
       return parseInt(department.attendancePercentage);
     });
 
-  const attendancePercentage = insights?.overallAttendancePercentage.map(
+  const attendancePercentage = insights?.overallAttendancePercentage?.map(
     (item) => item.attendancePercentage
   );
 
