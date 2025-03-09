@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { sections } from "../../../data";
 import { updatePassword } from "../../../services/authentication.service";
+import { GiEarthAmerica } from "react-icons/gi";
+import { HiLockClosed } from "react-icons/hi";
 
 const SettingModal = ({ onClose }) => {
   const dispatch = useDispatch();
@@ -78,61 +80,74 @@ const SettingModal = ({ onClose }) => {
               )}
 
               {activeSection === "security" && (
-                <div className="flex flex-col items-center justify-center w-full">
-                  <h2 className="text-xl font-semibold text-gray-800 mb-4">
-                    Security Settings
-                  </h2>
-                  <p className="text-gray-600 text-center mb-6">
-                    Update your password for enhanced security.
-                  </p>
-                  <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    className="w-full max-w-sm space-y-6"
-                  >
+                <div className="w-[95%] sm:max-w-md rounded-lg bg-white p-8">
+                  <div className="flex items-center justify-center mb-9">
+                    <GiEarthAmerica className="text-blue-600 text-4xl" />
+                    <h2 className="ml-2 text-xl font-semibold text-gray-700">
+                      Update Password
+                    </h2>
+                  </div>
+                  <form className="text-sm" onSubmit={handleSubmit(onSubmit)}>
+                    {/* Old Password Field */}
                     <div className="mb-4">
-                      <label className="block text-gray-700 text-sm font-medium mb-2">
+                      <label className="block font-medium text-gray-600 mb-2">
                         Old Password
                       </label>
-                      <input
-                        type="password"
-                        className="w-full p-3 text-sm border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                        placeholder="Enter old password"
-                        {...register("oldPassword")}
-                        required
-                      />
+                      <div className="relative flex items-center">
+                        <HiLockClosed className="absolute left-3 text-gray-400 text-lg" />
+                        <input
+                          type="password"
+                          className="pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none"
+                          placeholder="Enter your old password"
+                          {...register("oldPassword")}
+                          required
+                        />
+                      </div>
                     </div>
+
+                    {/* New Password Field */}
                     <div className="mb-4">
-                      <label className="block text-gray-700 text-sm font-medium mb-2">
+                      <label className="block font-medium text-gray-600 mb-2">
                         New Password
                       </label>
-                      <input
-                        type="password"
-                        className="w-full text-sm p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                        placeholder="Enter new password"
-                        {...register("newPassword")}
-                        required
-                      />
+                      <div className="relative flex items-center">
+                        <HiLockClosed className="absolute left-3 text-gray-400 text-lg" />
+                        <input
+                          type="password"
+                          className="pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none"
+                          placeholder="Enter your new password"
+                          {...register("newPassword")}
+                          required
+                        />
+                      </div>
                     </div>
-                    <div className="mb-6">
-                      <label className="block text-gray-700 text-sm font-medium mb-2">
+
+                    {/* Confirm Password Field */}
+                    <div className="mb-4">
+                      <label className="block font-medium text-gray-600 mb-2">
                         Confirm Password
                       </label>
-                      <input
-                        type="password"
-                        className="w-full text-sm p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                        placeholder="Confirm new password"
-                        {...register("confirmPassword")}
-                        required
-                      />
+                      <div className="relative flex items-center">
+                        <HiLockClosed className="absolute left-3 text-gray-400 text-lg" />
+                        <input
+                          type="password"
+                          className="pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none"
+                          placeholder="Confirm your new password"
+                          {...register("confirmPassword")}
+                          required
+                        />
+                      </div>
                     </div>
+
+                    {/* Submit Button */}
                     <button
                       type="submit"
-                      className="w-full text-sm font-semibold p-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                      className="w-full rounded-lg bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
                     >
                       {loading ? (
-                        <i className="fas fa-spinner fa-spin text-xs"></i>
+                        <i className="fa fa-spinner fa-spin"></i>
                       ) : (
-                        "Update"
+                        "Update Password"
                       )}
                     </button>
                   </form>

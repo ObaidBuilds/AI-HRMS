@@ -131,7 +131,7 @@ const createEmployee = catchErrors(async (req, res) => {
   });
 
   await addPerformanceWithKPI(employee._id);
-
+  await createPayrollForEmployee({ employee });
   return res.status(201).json({
     success: true,
     message: "Employee created successfully",

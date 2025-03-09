@@ -12,6 +12,7 @@ import feedback from "../reducers/feedback.reducer";
 import complaint from "../reducers/complaint.reducer";
 import update from "../reducers/update.reducer";
 import performance from "../reducers/performance.reducer";
+import payroll from "../reducers/payroll.reducer";
 
 const persistConfig = {
   key: "root",
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   update,
   leave,
   insight,
+  payroll,
   employee,
   feedback,
   complaint,

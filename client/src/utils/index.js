@@ -9,7 +9,6 @@ const formatDate = (date) => {
   return `${day} ${month}, ${year}`;
 };
 
-
 function downloadXls(data) {
   const ws = XLSX.utils.json_to_sheet(data);
   const wb = XLSX.utils.book_new();
@@ -18,4 +17,22 @@ function downloadXls(data) {
   XLSX.writeFile(wb, "employees.xlsx");
 }
 
-export { formatDate, downloadXls };
+const getMonthAbbreviation = (month) => {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  return months[month - 1] || "Invalid";
+};
+
+export { formatDate, downloadXls, getMonthAbbreviation };

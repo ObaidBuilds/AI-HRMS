@@ -1,12 +1,16 @@
 import { z } from "zod";
 
-const authenticationScehma = z.object({
+const authenticationSchema = z.object({
   authority: z.string().nonempty("Authority is required"),
   employeeId: z
     .string()
     .regex(/^\d{3}$/, "* Employee ID must be exactly 3 digits"),
   password: z.string().min(6, "* Password must be at least 6 characters"),
   remember: z.boolean().optional(),
+});
+
+const forgetPasswordSchema = z.object({
+  email: z.string().email("Invalid email format").nonempty("Email is required"),
 });
 
 const employeeSchema = z.object({
@@ -64,4 +68,4 @@ const employeeSchema = z.object({
   }),
 });
 
-export { authenticationScehma, employeeSchema };
+export { authenticationSchema, employeeSchema, forgetPasswordSchema };

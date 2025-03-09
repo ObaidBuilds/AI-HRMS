@@ -51,6 +51,12 @@ const PayrollSchema = new mongoose.Schema(
   }
 );
 
+PayrollSchema.pre("save", function (next) {
+  this.netSalary =
+    this.baseSalary + this.allowances + this.bonuses - this.deductions;
+  next();
+});
+
 const Payroll = mongoose.model("Payroll", PayrollSchema);
 
 export default Payroll;

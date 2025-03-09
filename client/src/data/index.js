@@ -26,7 +26,7 @@ const sidebarLinks = [
   {
     name: "Payroll Management",
     iconClass: "fas fa-money-check-alt",
-    link: "/",
+    link: "/payrolls",
     childrens: [],
   },
   {

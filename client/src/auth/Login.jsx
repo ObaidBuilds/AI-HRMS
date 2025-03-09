@@ -1,10 +1,10 @@
-import { z } from "zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../services/authentication.service";
-import { authenticationScehma } from "../validations";
+import { authenticationSchema } from "../validations";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(authenticationScehma),
+    resolver: zodResolver(authenticationSchema),
   });
 
   const handleShowPass = () => setActive(!active);
@@ -28,10 +28,10 @@ const Login = () => {
 
   return (
     <section className="h-screen overflow-hidden">
-      <main className="flex justify-center items-center w-full h-screen text-white">
-        <div className="w-[88%] sm:w-[490px] sm:h-[94%] lg:h-[580px]  rounded-2xl shadow-md border border-gray-700 bg-gray-800">
+      <main className="flex justify-center items-center w-full h-screen text-gray-900">
+        <div className="w-[88%] sm:w-[490px] sm:h-[94%] lg:h-[580px] rounded-2xl border border-gray-200 shadow-2xl bg-white">
           <div className="flex flex-col items-center py-8">
-            <div className="sm:w-[140px] w-[120px] h-[120px] sm:h-[140px] bg-gray-600 rounded-full flex items-center justify-center">
+            <div className="sm:w-[140px] w-[120px] h-[120px] sm:h-[140px] bg-[#808080] rounded-full flex items-center justify-center">
               <img
                 src="/metro.png"
                 alt="user"
@@ -42,7 +42,7 @@ const Login = () => {
               />
             </div>
             <h1
-              className="text-2xl sm:text-3xl mt-3 "
+              className="text-2xl sm:text-3xl mt-3 font-medium"
               style={{ fontFamily: "Bruno Ace, sans-serif" }}
             >
               Welcome Back! <span className="handshake">👋</span>
@@ -56,11 +56,11 @@ const Login = () => {
           >
             {/* Department Select */}
             <div className="w-[85%] relative">
-              <i className="far fa-building text-sm icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-200"></i>
+              <i className="far fa-building text-sm icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-800"></i>
               <select
                 id="select"
                 {...register("authority")}
-                className="w-full bg-gray-700 text-center text-sm p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                className="w-full bg-[#E7E7E7] text-center text-[0.9rem] p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
                 required
               >
                 <option value="">--- Select Authority ---</option>
@@ -72,13 +72,13 @@ const Login = () => {
             {/* Employee ID */}
             <div className="w-[85%]">
               <div className="w-full relative">
-                <i className="far fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-200"></i>
+                <i className="far fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-800"></i>
                 <input
                   type="text"
                   {...register("employeeId")}
                   placeholder="Employee ID"
                   autoComplete="off"
-                  className="w-full bg-secondary text-sm sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                  className="w-full bg-[#E7E7E7] text-[0.9rem] sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
                   // required
                 />
               </div>
@@ -92,16 +92,16 @@ const Login = () => {
             {/* Password */}
             <div className="w-[85%]">
               <div className="w-full relative">
-                <i className="fas fa-unlock-alt text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-200"></i>
+                <i className="fas fa-unlock-alt text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-800"></i>
                 <input
                   type={active ? "text" : "password"}
                   {...register("password")}
                   placeholder="Password"
-                  className="w-full bg-secondary text-sm sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-400 font-[500] pl-12"
+                  className="w-full bg-[#E7E7E7] text-[0.9rem] sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
                   // required
                 />
                 <span
-                  className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-200 cursor-pointer"
+                  className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-800 cursor-pointer"
                   onClick={handleShowPass}
                 >
                   {active ? (
@@ -131,12 +131,21 @@ const Login = () => {
               )}
             </button>
 
-            <div className="text-sm flex items-center gap-2 mt-2 font-medium cursor-pointer">
+            <div className="text-sm font-medium mt-2">
+              Forget your password ?{" "}
+              <Link to={"/forget/password"}>
+                <span className="text-xs font-semibold text-green-500 hover:text-green-600">
+                  click here
+                </span>
+              </Link>
+            </div>
+
+            {/* <div className="text-sm flex items-center gap-2 mt-2 font-medium cursor-pointer">
               <input {...register("remember")} type="checkbox" />
               <p>
-                Remember me <span className="text-xs">( 30 days )</span>
+                Remember me <span className="text-xs">( 10 days )</span>
               </p>
-            </div>
+            </div> */}
           </form>
         </div>
       </main>

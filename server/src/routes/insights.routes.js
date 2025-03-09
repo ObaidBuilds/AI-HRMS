@@ -6,9 +6,8 @@ import answerAdminQuery from "../controllers/chatbot.controller.js";
 
 const router = express.Router();
 
-router.get("/", getInsights);
+router.get("/", verifyAdminToken, getInsights);
 router.get("/updates", verifyEmployeeToken, getUpdates);
 router.post("/chat", verifyAdminToken, answerAdminQuery);
-
 
 export default router;

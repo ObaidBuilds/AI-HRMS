@@ -10,6 +10,8 @@ import { Suspense } from "react";
 import Loader from "./components/shared/loaders/Loader";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Navigate, Route, Routes } from "react-router-dom";
+import ForgetPassword from "./auth/ForgetPassword";
+import EmailConfirmation from "./auth/EmailConfirmation";
 
 function HrmsForMetroCashAndCarry() {
   const { user } = useSelector((state) => state.authentication);
@@ -45,6 +47,8 @@ function AuthRouter() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
+      <Route path="/email/confirmation" element={<EmailConfirmation />} />
+      <Route path="/forget/password" element={<ForgetPassword />} />
       <Route path="*" element={<Navigate to={"/"} />} />
     </Routes>
   );
