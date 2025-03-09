@@ -28,7 +28,7 @@ const Login = () => {
 
   return (
     <section className="h-screen overflow-hidden">
-      <main className="flex justify-center items-center w-full h-screen text-gray-900">
+      <main className="flex justify-center items-center w-full h-screen text-black font-medium">
         <div className="w-[88%] sm:w-[490px] sm:h-[94%] lg:h-[580px] rounded-2xl border border-gray-200 shadow-2xl bg-white">
           <div className="flex flex-col items-center py-8">
             <div className="sm:w-[140px] w-[120px] h-[120px] sm:h-[140px] bg-[#808080] rounded-full flex items-center justify-center">
@@ -56,11 +56,11 @@ const Login = () => {
           >
             {/* Department Select */}
             <div className="w-[85%] relative">
-              <i className="far fa-building text-sm icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-800"></i>
+              <i className="fa fa-building text-sm icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
               <select
                 id="select"
                 {...register("authority")}
-                className="w-full bg-[#E7E7E7] text-center text-[0.9rem] p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
+                className="w-full bg-[#E7E7E7] text-center text-sm p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
                 required
               >
                 <option value="">--- Select Authority ---</option>
@@ -72,13 +72,13 @@ const Login = () => {
             {/* Employee ID */}
             <div className="w-[85%]">
               <div className="w-full relative">
-                <i className="far fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-800"></i>
+                <i className="fa fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
                 <input
                   type="text"
                   {...register("employeeId")}
                   placeholder="Employee ID"
                   autoComplete="off"
-                  className="w-full bg-[#E7E7E7] text-[0.9rem] sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
+                  className="w-full bg-[#E7E7E7] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
                   // required
                 />
               </div>
@@ -92,16 +92,16 @@ const Login = () => {
             {/* Password */}
             <div className="w-[85%]">
               <div className="w-full relative">
-                <i className="fas fa-unlock-alt text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-800"></i>
+                <i className="fas fa-unlock-alt text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
                 <input
                   type={active ? "text" : "password"}
                   {...register("password")}
                   placeholder="Password"
-                  className="w-full bg-[#E7E7E7] text-[0.9rem] sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
+                  className="w-full bg-[#E7E7E7] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
                   // required
                 />
                 <span
-                  className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-800 cursor-pointer"
+                  className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-700 cursor-pointer"
                   onClick={handleShowPass}
                 >
                   {active ? (

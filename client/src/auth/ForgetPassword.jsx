@@ -41,13 +41,13 @@ const ForgetPassword = () => {
             {/* Employee ID */}
             <div className="w-[85%]">
               <div className="w-full relative">
-                <i className="far fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-800"></i>
+                <i className="fa fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-800"></i>
                 <input
                   type="email"
                   {...register("email")}
                   placeholder="Enter you email"
                   autoComplete="off"
-                  className="w-full bg-[#E7E7E7] text-[0.9rem] sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
+                  className="w-full bg-[#E7E7E7] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
                   // required
                 />
               </div>
