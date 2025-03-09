@@ -29,8 +29,8 @@ const Login = () => {
   return (
     <section className="h-screen overflow-hidden">
       <main className="flex justify-center items-center w-full h-screen text-black font-medium">
-        <div className="w-[88%] sm:w-[490px] sm:h-[94%] lg:h-[580px] rounded-2xl border border-gray-200 shadow-2xl bg-white">
-          <div className="flex flex-col items-center py-8">
+        <div className="w-[88%] sm:w-[490px] sm:h-[94%] lg:h-[555px] rounded-2xl border border-gray-200 shadow-2xl bg-white">
+          <div className="flex flex-col items-center py-5">
             <div className="sm:w-[140px] w-[120px] h-[120px] sm:h-[140px] bg-[#808080] rounded-full flex items-center justify-center">
               <img
                 src="/metro.png"
@@ -131,7 +131,7 @@ const Login = () => {
               )}
             </button>
 
-            <div className="text-sm font-medium mt-2">
+            <div className="text-sm font-medium mt-3">
               Forget your password ?{" "}
               <Link to={"/forget/password"}>
                 <span className="text-xs font-semibold text-green-500 hover:text-green-600">
