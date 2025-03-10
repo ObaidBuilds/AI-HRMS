@@ -78,6 +78,7 @@ connectDB()
     console.error(err.message);
   });
 
+
 app.use((err, req, res, next) => {
   const message = err || "Internal server error";
   res.status(500).json({

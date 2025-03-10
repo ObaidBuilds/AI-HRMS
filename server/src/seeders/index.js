@@ -50,7 +50,7 @@ const deleteAllPerformanceRecords = async () => {
   }
 };
 
-const generatePayrollDataForNMonths = async (months = 6) => {
+const generatePayrollDataForMonths = async (months = 6) => {
   try {
     const employees = await Employee.find();
 
@@ -96,7 +96,7 @@ const generatePayrollDataForNMonths = async (months = 6) => {
 
 // Run Seeder
 const monthsToGenerate = 2;
-// generatePayrollDataForNMonths(monthsToGenerate);
+// generatePayrollDataForMonths(monthsToGenerate);
 
 const deleteAllPayrollRecords = async () => {
   try {
@@ -110,6 +110,6 @@ const deleteAllPayrollRecords = async () => {
 export {
   generatePerformanceData,
   deleteAllPerformanceRecords,
-  generatePayrollDataForNMonths,
+  generatePayrollDataForMonths,
   deleteAllPayrollRecords
 };

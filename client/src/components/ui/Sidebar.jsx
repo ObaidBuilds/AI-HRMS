@@ -79,10 +79,10 @@ const Sidebar = () => {
             : "bg-gradient-to-r from-[#1e293b] to-[#212d3f]"
         }  transition-all duration-300 ease-in-out z-50 overflow-y-auto text-[0.72rem] font-medium ${
           showSidebar ? "left-0" : "-left-full"
-        } lg:left-0 w-full lg:w-[255px]`}
+        } lg:left-0 w-[75%] lg:w-[255px]`}
       >
         <div className="p-3 mt-3 sm:mt-5 flex justify-between lg:justify-center items-center space-x-2 px-7 animate-float">
-          <div className="flex flex-col sm:items-center">
+          <div className="flex flex-col items-center">
             <img className="w-[55px]" src="/metro.png" alt="logo" />
             <h1
               className="text-center mt-1 text-base"
