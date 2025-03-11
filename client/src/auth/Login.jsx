@@ -135,7 +135,7 @@ const Login = () => {
               Forget your password ?{" "}
               <Link to={"/forget/password"}>
                 <span className="text-xs font-semibold text-green-500 hover:text-green-600">
-                  click here
+                  Click here
                 </span>
               </Link>
             </div>
