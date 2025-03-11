@@ -25,13 +25,13 @@ const sidebarLinks = [
   },
   {
     name: "Payroll Management",
-    iconClass: "fas fa-money-check-alt",
+    iconClass: "far fa-file-alt",
     link: "/payrolls",
     childrens: [],
   },
   {
     name: "Recruitment Management",
-    iconClass: "far fa-id-card",
+    iconClass: "far fa-address-card",
     childrens: [
       { name: "View Posted Jobs", link: "/recruitment" },
       { name: "View Applications", link: "/recruitment/applications" },

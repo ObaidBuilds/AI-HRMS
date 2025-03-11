@@ -36,13 +36,13 @@ const SettingModal = ({ onClose }) => {
 
         <div className="flex flex-col md:flex-row gap-2 ">
           {/* Sidebar */}
-          <div className="w-full md:w-64 sm:bg-gray-100 p-4  rounded-lg md:block flex justify-center md:justify-start">
+          <div className="w-full md:w-64 sm:bg-gray-50 p-4 rounded-lg md:block hidden sm:flex justify-center md:justify-start">
             <ul className="flex md:flex-col gap-2 w-full justify-center md:justify-start">
               {sections.map((section) => (
                 <li
                   key={section.id}
                   className={`p-3 text-sm cursor-pointer rounded-lg font-medium text-gray-700 hover:bg-gray-200 transition-all duration-300 ease-in-out ${
-                    activeSection === section.id ? "bg-gray-300" : ""
+                    activeSection === section.id ? "bg-gray-200" : ""
                   }`}
                   onClick={() => setActiveSection(section.id)}
                 >
@@ -54,7 +54,7 @@ const SettingModal = ({ onClose }) => {
           </div>
 
           {/* Content Area */}
-          <div className="flex-1 p-6  rounded-lg flex items-center justify-center">
+          <div className="flex-1 rounded-lg flex items-center justify-center">
             <div className="text-sm text-gray-700 font-medium w-full sm:w-[400px]">
               {activeSection === "appearance" && (
                 <div>
@@ -80,7 +80,7 @@ const SettingModal = ({ onClose }) => {
               )}
 
               {activeSection === "security" && (
-                <div className="w-[95%] sm:max-w-md rounded-lg bg-white p-8">
+                <div className="w-[99%] sm:max-w-md rounded-lg bg-white p-8">
                   <div className="flex items-center justify-center mb-9">
                     <GiEarthAmerica className="text-blue-600 text-4xl" />
                     <h2 className="ml-2 text-xl font-semibold text-gray-700">

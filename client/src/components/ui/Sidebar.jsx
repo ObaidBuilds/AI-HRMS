@@ -159,7 +159,10 @@ const Sidebar = () => {
           ))}
 
           <button
-            onClick={() => setShowConfirmModal(true)}
+            onClick={() => {
+              setShowSidebar(false);
+              setShowConfirmModal(true);
+            }}
             className="flex items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
           >
             <i className="far fa-arrow-alt-circle-right mr-3 text-sm text-gray-300"></i>
@@ -168,7 +171,10 @@ const Sidebar = () => {
 
           <div className="w-full bg-[#1d3557] dark:bg-[#182233] rounded-xl relative group">
             <button
-              onClick={() => setShowSettingModal(true)}
+              onClick={() => {
+                setShowSidebar(false);
+                setShowSettingModal(true);
+              }}
               className="absolute top-2 right-2 hidden group-hover:flex items-center justify-center w-8 h-8 bg-gray-700 dark:bg-gray-600 rounded-full cursor-pointer hover:bg-gray-600 transition-all duration-300"
             >
               <i className="fas fa-cog text-white text-sm"></i>
