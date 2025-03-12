@@ -9,6 +9,11 @@ const formatDate = (date) => {
   return `${day} ${month}, ${year}`;
 };
 
+const convertDate = (date) => {
+  if (!date) return "";
+  return new Date(date).toISOString().split("T")[0];
+};
+
 function downloadXls(data) {
   const ws = XLSX.utils.json_to_sheet(data);
   const wb = XLSX.utils.book_new();
@@ -35,4 +40,4 @@ const getMonthAbbreviation = (month) => {
   return months[month - 1] || "Invalid";
 };
 
-export { formatDate, downloadXls, getMonthAbbreviation };
+export { formatDate, downloadXls, getMonthAbbreviation, convertDate };
