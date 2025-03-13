@@ -22,7 +22,7 @@ const ForgetPassword = () => {
   };
 
   return (
-    <section className="h-screen overflow-hidden">
+    <section className="h-screen overflow-hidden bg-gray-50">
       <main className="flex justify-center items-center w-full h-screen text-gray-900">
         <div className="w-[88%] sm:w-[490px] sm:h-[94%] lg:h-[300px] rounded-2xl shadow-2xl border border-gray-200 bg-white">
           <div className="flex flex-col items-center py-8">
@@ -47,8 +47,8 @@ const ForgetPassword = () => {
                   {...register("email")}
                   placeholder="Enter you email"
                   autoComplete="off"
-                  className="w-full bg-[#E7E7E7] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
-                  // required
+                  className="w-full bg-[#EFEFEF] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
+                  required
                 />
               </div>
               {errors.email && (

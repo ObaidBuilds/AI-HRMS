@@ -26,14 +26,14 @@ body::-webkit-scrollbar,
 }
 
 #refill input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px #E7E7E7 inset;
+  -webkit-box-shadow: 0 0 0px 1000px #EFEFEF inset;
   -webkit-text-fill-color: #1F2937;
   transition: background-color 5000s ease-in-out 0s;
   font-family: "Poppins";
 }
 
 #change_refill input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px #E7E7E7 inset;
+  -webkit-box-shadow: 0 0 0px 1000px #EFEFEF inset;
   -webkit-text-fill-color: #1F2937;
   transition: background-color 5000s ease-in-out 0s;
   font-family: "Poppins";
