@@ -126,7 +126,7 @@ function Employee() {
     <>
       {loading && <Loader />}
 
-      <section className="bg-gray-100 border-gray-400 dark:bg-secondary p-3 sm:p-4 rounded-lg w-full  min-h-screen">
+      <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen shadow">
         <div className="relative flex gap-1 items-center justify-between py-1 sm:px-3 mb-3">
           {!(
             filters.status ||
@@ -174,7 +174,10 @@ function Employee() {
           </div>
         </div>
 
-        <div id="overflow" className="overflow-x-auto min-h-[83vh]">
+        <div
+          id="overflow"
+          className="overflow-x-auto min-h-screen sm:min-h-[80vh]"
+        >
           <table className="min-w-full text-left table-auto border-collapse text-[0.83rem] whitespace-nowrap">
             <thead>
               <tr className="bg-headLight dark:bg-head text-primary">
