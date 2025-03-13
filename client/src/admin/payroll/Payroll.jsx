@@ -38,7 +38,7 @@ function Payroll() {
           ))}
         </div>
 
-        <div id="overflow" className="overflow-auto border  min-h-[83vh]">
+        <div id="overflow" className="overflow-auto min-h-[83vh]">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-headLight dark:bg-head text-primary">

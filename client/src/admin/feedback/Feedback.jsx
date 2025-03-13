@@ -27,7 +27,7 @@ function Feedback() {
     <>
       {loading && <Loader />}
 
-      <section className="bg-gray-100 dark:bg-secondary max-h-auto min-h-screen p-3 sm:p-4 rounded-lg shadow">
+      <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen shadow">
         <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
           {feedbackButtons.map((filter, i) => (
             <FilterButton
@@ -39,13 +39,10 @@ function Feedback() {
           ))}
         </div>
 
-        <div
-          id="overflow"
-          className="overflow-x-auto min-h-[83vh]"
-        >
+        <div id="overflow" className="overflow-x-auto min-h-[83vh]">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
-              <tr className="bg-headLight dark:bg-head text-primary">
+              <tr className="dark:bg-head bg-headLight text-primary">
                 {[
                   "Emp ID",
                   "Name",
@@ -79,10 +76,10 @@ function Feedback() {
                       {feedback.employee.name}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {feedback.employee.department?.name || 'Null'}
+                      {feedback.employee.department?.name || "Null"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {feedback.employee.role?.name || 'Null'}
+                      {feedback.employee.role?.name || "Null"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
                       {feedback.review}
