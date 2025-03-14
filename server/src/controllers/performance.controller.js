@@ -60,7 +60,7 @@ export const updatePerformance = catchErrors(async (req, res) => {
 });
 
 const getAllPerformances = catchErrors(async (req, res) => {
-  const { page = 1, limit = 13, status } = req.query;
+  const { page = 1, limit = 15, status } = req.query;
 
   const pageNumber = Math.max(parseInt(page), 1);
   const limitNumber = Math.max(parseInt(limit), 1);

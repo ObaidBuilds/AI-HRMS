@@ -4,7 +4,7 @@ import getPredictionFromGeminiAI from "../gemini/index.js";
 import { getSentimentAnalysis } from "../predictions/index.js";
 
 const getFeedbacks = catchErrors(async (req, res) => {
-  const { review, page = 1, limit = 10 } = req.query;
+  const { review, page = 1, limit = 15 } = req.query;
 
   const query = {};
 

@@ -140,7 +140,7 @@ const createEmployee = catchErrors(async (req, res) => {
 });
 
 const getAllEmployees = catchErrors(async (req, res) => {
-  const { role, name, department, status, page = 1, limit = 13 } = req.query;
+  const { role, name, department, status, page = 1, limit = 15 } = req.query;
 
   const query = {};
 
