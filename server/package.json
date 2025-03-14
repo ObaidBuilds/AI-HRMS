@@ -18,7 +18,14 @@
     "url": "https://github.com/WhatsWrongOB/AI-HRMS/issues"
   },
   "homepage": "https://metrohrms.netlify.app",
-  "keywords": ["HRMS", "AI", "MERN", "Human Resources", "Payroll", "Attendance"],
+  "keywords": [
+    "HRMS",
+    "AI",
+    "MERN",
+    "Human Resources",
+    "Payroll",
+    "Attendance"
+  ],
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
     "axios": "^1.7.9",
@@ -40,7 +47,8 @@
     "nodemailer": "^6.9.16",
     "qrcode": "^1.5.4",
     "streamifier": "^0.1.1",
-    "uuidv4": "^6.2.13"
+    "uuidv4": "^6.2.13",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "nodemon": "3.1.7"
