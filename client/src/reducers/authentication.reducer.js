@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { login, logout } from "../services/authentication.service";
+import {
+  forgetPassword,
+  login,
+  logout,
+  resetPassword,
+} from "../services/authentication.service";
 
 const initialState = {
   user: null,
@@ -24,6 +29,30 @@ const authSlice = createSlice({
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.user = null;
+        state.error = action.payload;
+      })
+
+      // Handling Forget Password
+      .addCase(forgetPassword.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(forgetPassword.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(forgetPassword.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Handling resetPassword
+      .addCase(resetPassword.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(resetPassword.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
+        state.loading = false;
         state.error = action.payload;
       })
 

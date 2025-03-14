@@ -122,9 +122,15 @@ const updateEmployeeSchema = z.object({
   }),
 });
 
+const resetPasswordSchema = z.object({
+  newPassword: z.string().min(6, "Password must be at least 6 characters"),
+  confirmPassword: z.string().min(6, "Password must be at least 6 characters"),
+});
+
 export {
   authenticationSchema,
   createEmployeeSchema,
   forgetPasswordSchema,
   updateEmployeeSchema,
+  resetPasswordSchema,
 };

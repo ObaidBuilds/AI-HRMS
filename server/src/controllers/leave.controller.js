@@ -144,16 +144,17 @@ const respondLeave = catchErrors(async (req, res) => {
         .split("T")[0];
 
       leave.substitute = substituteData.id;
-      await notifySubstituteEmployee(
-        substituteData.email,
-        substituteData.name,
-        employee.name,
-        employee.shift,
-        employee.department.name,
-        formattedToDate,
-        formattedFromDate,
-        leave.duration
-      );
+
+      await notifySubstituteEmployee({
+        email: substituteData.email,
+        subsName: substituteData.name,
+        name: employee.name,
+        shift: employee.shift,
+        department: employee.department.name,
+        toDate: formattedToDate,
+        fromDate: formattedFromDate,
+        duration: leave.duration,
+      });
     }
 
     await leave.save();

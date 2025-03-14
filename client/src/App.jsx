@@ -12,6 +12,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Navigate, Route, Routes } from "react-router-dom";
 import ForgetPassword from "./auth/ForgetPassword";
 import EmailConfirmation from "./auth/EmailConfirmation";
+import ResetPassword from "./auth/ResetPassword";
 
 function HrmsForMetroCashAndCarry() {
   const { user } = useSelector((state) => state.authentication);
@@ -47,8 +48,9 @@ function AuthRouter() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
-      <Route path="/email/confirmation" element={<EmailConfirmation />} />
       <Route path="/forget/password" element={<ForgetPassword />} />
+      <Route path="/reset/password" element={<ResetPassword />} />
+      <Route path="/email/confirmation" element={<EmailConfirmation />} />
       <Route path="*" element={<Navigate to={"/"} />} />
     </Routes>
   );

@@ -28,12 +28,11 @@ const employeeSchema = new mongoose.Schema(
       type: String,
       default: "https://via.placeholder.com/45",
     },
-    qrCode: {
-      type: String,
-    },
+    qrCode: String,
     phoneNumber: {
       type: String,
       required: true,
+      unique: true,
     },
     address: {
       street: String,
@@ -101,6 +100,7 @@ const employeeSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    forgetPasswordToken: String,
   },
   {
     timestamps: true,

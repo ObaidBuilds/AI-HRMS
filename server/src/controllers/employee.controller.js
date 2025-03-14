@@ -10,6 +10,7 @@ import {
   addPerformanceWithKPI,
   deletePerformance,
 } from "./performance.controller.js";
+import { createPayrollForEmployee } from "./payroll.controller.js";
 
 const bulkCreateEmployees = catchErrors(async (req, res) => {
   const employeesRecords = req.body;

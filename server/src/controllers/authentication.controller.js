@@ -1,7 +1,11 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 import { catchErrors } from "../utils/index.js";
 import Employee from "../models/employee.model.js";
+import { passwordRecovery } from "../templates/index.js";
 
 const login = catchErrors(async (req, res) => {
   const { employeeId, password, authority, remember } = req.body;
@@ -89,4 +93,66 @@ const logout = catchErrors(async (req, res) => {
   });
 });
 
-export { login, logout, updatePassword };
+const forgetPassword = catchErrors(async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) throw new Error("Email is required");
+
+  const employee = await Employee.findOne({ email }).select("name email");
+
+  if (!employee) throw new Error("Invalid email address");
+
+  const token = jwt.sign({ employeeId: employee._id }, process.env.JWTSECRET, {
+    expiresIn: "1h",
+  });
+
+  const resetURL = `${process.env.CLIENT_URL}/reset/password?employee=${employee._id}&verifyToken=${token}`;
+
+  await passwordRecovery({
+    email: employee.email,
+    name: employee.name,
+    resetURL,
+  });
+
+  employee.forgetPasswordToken = token;
+
+  await employee.save();
+
+  return res.status(200).json({
+    success: true,
+    message: "Password reset email sent successfully",
+  });
+});
+
+const resetPassword = catchErrors(async (req, res) => {
+  const { newPassword, confirmPassword, employeeId, forgetPasswordToken } =
+    req.body;
+
+  const employee = await Employee.findById(employeeId);
+
+  if (!employee) throw new Error("Employee not found");
+
+  if (employee.forgetPasswordToken !== forgetPasswordToken)
+    throw new Error("Invalid verify password tokrn");
+
+  if (newPassword !== confirmPassword) throw new Error("Passwords don't match");
+
+  if (await bcrypt.compare(newPassword, employee.password))
+    throw new Error(
+      "The new password cannot be the same as your old password."
+    );
+
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+  employee.password = hashedPassword;
+  employee.forgetPasswordToken = undefined;
+
+  await employee.save();
+
+  return res.status(200).json({
+    success: true,
+    message: "Password set successfully",
+  });
+});
+
+export { login, logout, updatePassword, forgetPassword, resetPassword };

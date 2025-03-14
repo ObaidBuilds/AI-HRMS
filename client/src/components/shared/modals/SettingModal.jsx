@@ -14,11 +14,15 @@ const SettingModal = ({ onClose }) => {
   const [loading, setLoading] = useState(false);
   const [activeSection, setActiveSection] = useState("security");
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit } = useForm();
 
   function onSubmit(credentials) {
-    dispatch(updatePassword(setLoading, credentials));
-    reset();
+    dispatch(updatePassword(setLoading, credentials))
+      .unwrap()
+      .then(() => onClose())
+      .catch((error) => {
+        console.error("Error in reset password:", error);
+      });
   }
 
   return (
