@@ -8,15 +8,15 @@ import bodyParser from "body-parser";
 import { connectDB } from "./config/index.js";
 import role from "./routes/role.routes.js";
 import leave from "./routes/leave.routes.js";
+import payroll from "./routes/payroll.routes.js";
 import inshight from "./routes/insights.routes.js";
 import employee from "./routes/employee.routes.js";
 import feedback from "./routes/feedback.routes.js";
-import authentication from "./routes/authentication.routes.js";
 import complaint from "./routes/complaint.routes.js";
 import attendance from "./routes/attendance.routes.js";
 import department from "./routes/department.routes.js";
 import performance from "./routes/performance.routes.js";
-import payroll from "./routes/payroll.routes.js";
+import authentication from "./routes/authentication.routes.js";
 
 const app = express();
 
