@@ -1,25 +1,21 @@
 import React, { useState } from "react";
 import { useTheme } from "../../../context";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { sections } from "../../../data";
+import { sections, employeeSections } from "../../../data";
 import { updatePassword } from "../../../services/authentication.service";
 import { GiEarthAmerica } from "react-icons/gi";
 import { HiLockClosed } from "react-icons/hi";
 
-const SettingModal = ({ onClose }) => {
-  const dispatch = useDispatch();
-
+const SettingModal = ({ onClose, location = "admin" }) => {
   const { theme, toggleTheme } = useTheme();
   const [loading, setLoading] = useState(false);
   const [activeSection, setActiveSection] = useState("security");
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   function onSubmit(credentials) {
-    dispatch(updatePassword(setLoading, credentials))
-      .unwrap()
-      .then(() => onClose())
+    updatePassword(setLoading, credentials)
+      .then(() => reset())
       .catch((error) => {
         console.error("Error in reset password:", error);
       });
@@ -42,18 +38,31 @@ const SettingModal = ({ onClose }) => {
           {/* Sidebar */}
           <div className="w-full md:w-64 sm:bg-gray-50 p-4 rounded-lg md:block hidden sm:flex justify-center md:justify-start">
             <ul className="flex md:flex-col gap-2 w-full justify-center md:justify-start">
-              {sections.map((section) => (
-                <li
-                  key={section.id}
-                  className={`p-3 text-sm cursor-pointer rounded-lg font-medium text-gray-700 hover:bg-gray-200 transition-all duration-300 ease-in-out ${
-                    activeSection === section.id ? "bg-gray-200" : ""
-                  }`}
-                  onClick={() => setActiveSection(section.id)}
-                >
-                  <i className={`${section.icon} mr-2`}></i>
-                  {section.label}
-                </li>
-              ))}
+              {location === "employee"
+                ? employeeSections.map((section) => (
+                    <li
+                      key={section.id}
+                      className={`p-3 text-sm cursor-pointer rounded-lg font-medium text-gray-700 hover:bg-gray-200 transition-all duration-300 ease-in-out ${
+                        activeSection === section.id ? "bg-gray-200" : ""
+                      }`}
+                      onClick={() => setActiveSection(section.id)}
+                    >
+                      <i className={`${section.icon} mr-2`}></i>
+                      {section.label}
+                    </li>
+                  ))
+                : sections.map((section) => (
+                    <li
+                      key={section.id}
+                      className={`p-3 text-sm cursor-pointer rounded-lg font-medium text-gray-700 hover:bg-gray-200 transition-all duration-300 ease-in-out ${
+                        activeSection === section.id ? "bg-gray-200" : ""
+                      }`}
+                      onClick={() => setActiveSection(section.id)}
+                    >
+                      <i className={`${section.icon} mr-2`}></i>
+                      {section.label}
+                    </li>
+                  ))}
             </ul>
           </div>
 

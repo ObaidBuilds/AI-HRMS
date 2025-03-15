@@ -73,32 +73,36 @@ const sidebarLinks = [
 ];
 
 const navbarLinks = [
-  { name: "Home Page", iconClass: "fa fa-home", link: "/" },
+  { name: "Dashboard Overview", iconClass: "far fa-square", link: "/" },
   {
-    name: "Mark Attendance",
-    iconClass: "fa fa-calendar-check",
+    name: "Mark Daily Attendance",
+    iconClass: "fa-regular fa-calendar-check",
     link: "/attendance/mark",
   },
   {
-    name: "Attendance Tracking",
-    iconClass: "fa fa-calendar-check",
+    name: "View Attendance History",
+    iconClass: "fa-regular fa-clock",
     link: "/attendance",
   },
   {
-    name: "Apply for Leave",
-    iconClass: "fa fa-calendar-check",
+    name: "Apply Leave Requests",
+    iconClass: "fa-regular fa-calendar-minus",
     link: "/leave",
   },
   {
-    name: "Make a Complaint",
-    iconClass: "fa fa-exclamation-circle",
+    name: "Report Workplace Issues",
+    iconClass: "fas fa-circle-exclamation",
     link: "/complaint",
   },
-  { name: "Submit Feedback", iconClass: "fa fa-comment", link: "/feedback" },
   {
-    name: "Account Security",
-    iconClass: "fa fa-shield-alt",
-    link: "/security",
+    name: "Stay Updated on Leave",
+    iconClass: "fa-regular fa-calendar-check",
+    link: "/leave",
+  },
+  {
+    name: "Give Valuable Feedback",
+    iconClass: "fa-regular fa-comments",
+    link: "/feedback",
   },
 ];
 
@@ -187,6 +191,10 @@ const sections = [
   { id: "security", label: "Security", icon: "fas fa-lock" },
 ];
 
+const employeeSections = [
+  { id: "security", label: "Security", icon: "fas fa-lock" },
+];
+
 export {
   sidebarLinks,
   navbarLinks,
@@ -199,4 +207,5 @@ export {
   payrollButtons,
   reports,
   sections,
+  employeeSections,
 };

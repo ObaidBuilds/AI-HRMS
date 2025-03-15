@@ -28,9 +28,11 @@ function HrmsForMetroCashAndCarry() {
 
 function EmployeeRouter() {
   return (
+    <ThemeProvider>
     <Routes>
       <Route path="/*" element={<EmployeeApp />} />
     </Routes>
+    </ThemeProvider>
   );
 }
 

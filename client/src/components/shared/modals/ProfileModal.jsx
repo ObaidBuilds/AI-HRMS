@@ -17,7 +17,7 @@ const ProfileModal = ({
     <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
       <div
         id="modal"
-        className="relative bg-white rounded-lg shadow-lg w-[400px] p-4"
+        className="relative bg-white rounded-lg shadow-lg w-[95%] sm:w-[400px] p-4"
       >
         {/* Edit Icon */}
         <button

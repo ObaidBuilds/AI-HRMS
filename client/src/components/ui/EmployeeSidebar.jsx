@@ -1,4 +1,4 @@
-import { sidebarLinks } from "../../data";
+import { navbarLinks, sidebarLinks } from "../../data";
 import { logout } from "../../services/authentication.service";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,17 +7,24 @@ import Modal from "../shared/modals/Modal";
 import { useTheme } from "../../context";
 import Loader from "../shared/loaders/Loader";
 import SettingModal from "../shared/modals/SettingModal";
+import ProfileModal from "../shared/modals/ProfileModal";
+import { updateProfile } from "../../services/employee.service";
 
-const Sidebar = () => {
+const EmployeeSidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { theme } = useTheme();
   const { loading, user } = useSelector((state) => state.authentication);
 
+  const [file, setFile] = useState(null);
   const [showSidebar, setShowSidebar] = useState(false);
+  const [showButton, setShowButton] = useState(false);
+  const [toggleModal, setToggleModal] = useState(false);
+  const [profileLoading, setProfileLoading] = useState(false);
   const [openSubMenuIndex, setOpenSubMenuIndex] = useState(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showSettingModal, setShowSettingModal] = useState(false);
+  const [imagePreview, setImagePreview] = useState(user.profilePicture);
 
   const toggleSubMenu = (index) =>
     setOpenSubMenuIndex(openSubMenuIndex === index ? null : index);
@@ -34,6 +41,30 @@ const Sidebar = () => {
   const confirmLogout = () => {
     handleLogout();
     setShowConfirmModal(false);
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setFile(file);
+      setImagePreview(URL.createObjectURL(file));
+      setShowButton(true);
+    }
+  };
+
+  const handleClick = async () => {
+    const formData = new FormData();
+    formData.append("profilePicture", file);
+
+    const updatedProfilePicture = await updateProfile(
+      setProfileLoading,
+      formData
+    );
+    if (updatedProfilePicture) {
+      setImagePreview(updatedProfilePicture);
+    }
+    setShowButton(false);
+    setToggleModal(false);
   };
 
   useEffect(() => {
@@ -62,10 +93,13 @@ const Sidebar = () => {
           alt="hamburger"
         />
         <img className="w-[55px]" src="/metro.png" alt="logo" />
-        <div className="w-[35px] h-[35px] border-[2px] border-gray-700 rounded-full overflow-hidden cursor-pointer">
+        <div
+          onClick={() => setToggleModal(true)}
+          className="w-[35px] h-[35px] border-[2px] border-gray-700 rounded-full overflow-hidden cursor-pointer"
+        >
           <img
             className="w-full"
-            src={user.profilePicture || "https://via.placeholder.com/40"}
+            src={imagePreview || "/unknown.jpeg"}
             alt={user?.name}
           />
         </div>
@@ -100,7 +134,7 @@ const Sidebar = () => {
         </div>
 
         <ul className="flex flex-col gap-4 p-4 overflow-y-auto">
-          {sidebarLinks.map((item, index) => (
+          {navbarLinks.map((item, index) => (
             <li
               key={index}
               onClick={() => toggleSubMenu(index)}
@@ -117,44 +151,7 @@ const Sidebar = () => {
                   ></i>
                   <p>{item.name.toUpperCase()}</p>
                 </Link>
-
-                {item.childrens && item.childrens.length > 0 && (
-                  <i
-                    className={`fas text-[0.6rem] text-gray-400 transition-transform ${
-                      openSubMenuIndex === index
-                        ? "fa-chevron-up"
-                        : "fa-chevron-down"
-                    }`}
-                  ></i>
-                )}
               </div>
-
-              {item.childrens &&
-                item.childrens.length > 0 &&
-                openSubMenuIndex === index && (
-                  <ul
-                    key={index}
-                    className={`flex flex-col gap-2 pl-5 p-3 my-2 rounded-lg ${
-                      theme === "light" ? "bg-[#233d64]" : "bg-gray-700"
-                    } dropdown-active`}
-                  >
-                    {item.childrens.map((subLink, subIndex) => (
-                      <Link
-                        key={subIndex}
-                        to={subLink.link}
-                        className="text-[0.82rem]"
-                      >
-                        <li
-                          key={subIndex}
-                          onClick={() => setShowSidebar(false)}
-                          className="hover:text-gray-300 cursor-pointer flex items-center py-[3px]"
-                        >
-                          {subLink.name}
-                        </li>
-                      </Link>
-                    ))}
-                  </ul>
-                )}
             </li>
           ))}
 
@@ -169,7 +166,7 @@ const Sidebar = () => {
             <p className=" text-[0.72rem]">LOGOUT</p>
           </button>
 
-          <div className="w-full bg-[#1d3557] dark:bg-[#182233] rounded-xl relative group">
+          <div className="w-full bg-[#1d3557] dark:bg-[#182233] rounded-xl relative group bottom-0">
             <button
               onClick={() => {
                 setShowSidebar(false);
@@ -180,10 +177,13 @@ const Sidebar = () => {
               <i className="fas fa-cog text-white text-sm"></i>
             </button>
             <div className="flex flex-col items-center gap-3 p-4">
-              <div className="w-[60px] h-[60px] rounded-full overflow-hidden cursor-pointer border-2 border-gray-500 hover:scale-105 transition-all duration-300">
+              <div
+                onClick={() => setToggleModal(true)}
+                className="w-[60px] h-[60px] rounded-full overflow-hidden cursor-pointer border-2 border-gray-500 hover:scale-105 transition-all duration-300"
+              >
                 <img
                   className="w-full h-full object-cover"
-                  src={user.profilePicture || "https://via.placeholder.com/60"}
+                  src={imagePreview || "/unknown.jpeg"}
                   alt="Profile"
                 />
               </div>
@@ -205,10 +205,25 @@ const Sidebar = () => {
       )}
 
       {showSettingModal && (
-        <SettingModal onClose={() => setShowSettingModal(false)} />
+        <SettingModal
+          location={"employee"}
+          onClose={() => setShowSettingModal(false)}
+        />
+      )}
+
+      {toggleModal && (
+        <ProfileModal
+          name={user.name}
+          showButton={showButton}
+          loading={profileLoading}
+          handleClick={handleClick}
+          imagePreview={imagePreview}
+          close={() => setToggleModal(false)}
+          handleFileChange={handleFileChange}
+        />
       )}
     </div>
   );
 };
 
-export default Sidebar;
+export default EmployeeSidebar;

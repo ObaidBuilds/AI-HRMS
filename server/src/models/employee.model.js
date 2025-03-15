@@ -26,7 +26,7 @@ const employeeSchema = new mongoose.Schema(
     },
     profilePicture: {
       type: String,
-      default: "https://via.placeholder.com/45",
+      default: "https://metrohrms.netlify.app/unknown.jpeg",
     },
     qrCode: String,
     phoneNumber: {
