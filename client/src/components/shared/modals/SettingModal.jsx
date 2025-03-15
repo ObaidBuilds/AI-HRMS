@@ -29,7 +29,7 @@ const SettingModal = ({ onClose, location = "admin" }) => {
       >
         <button
           onClick={onClose}
-          className="absolute top-3 sm:top-0 right-3 sm:right-[-2.4rem] w-6 h-6 rounded-full text-gray-600 sm:text-white"
+          className="absolute top-3 sm:top-0 right-3 sm:right-[-2.4rem] w-6 h-6 rounded-full text-gray-600 sm:text-white hidden sm:block"
         >
           <i className="fas fa-times text-sm"></i>
         </button>
