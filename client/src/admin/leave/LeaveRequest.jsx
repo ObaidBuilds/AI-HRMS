@@ -84,8 +84,8 @@ function LeaveRequest() {
                   "Department",
                   "Position",
                   "Leave Type",
-                  "From",
-                  "To",
+                  "From Date",
+                  "To Date",
                   "Duration",
                   "Actions",
                 ].map((header, i) => {
@@ -118,7 +118,7 @@ function LeaveRequest() {
                       {leave.employee.role?.name || "Null"}
                     </td>
                     <td className="py-3 px-4 border-b border-gray-500">
-                      {leave.leaveType}
+                      {leave.leaveType} Leave
                     </td>
                     <td className="py-3 px-4 border-b border-gray-500">
                       {formatDate(leave.fromDate)}

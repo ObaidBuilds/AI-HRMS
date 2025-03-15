@@ -128,9 +128,11 @@ const resetPasswordSchema = z.object({
 });
 
 const feedbackSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
+  rating: z.enum(["1", "2", "3", "4", "5"], {
+    message: "Rating must be between 1 and 5",
+  }),
+  suggestion: z.string().min(2, "Suggestion must be at least 2 characters"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
 });
 
 const complaintSchema = z.object({
@@ -159,12 +161,18 @@ const complaintSchema = z.object({
     .min(10, "Complaint details must be at least 10 characters"),
 });
 
-const leaveSchema = z.object({
-  leaveType: z.string().min(1, "Leave type is required"),
-  duration: z.number().min(1, "Duration must be at least 1 day"),
-  fromDate: z.string().min(1, "From date is required"),
-  toDate: z.string().min(1, "To date is required"),
-});
+const leaveSchema = z
+  .object({
+    leaveType: z.string().min(1, "* Leave type is required"),
+    duration: z.string().min(1, "* Duration must be at least 1 day"),
+    fromDate: z.string().min(1, "* From date is required"),
+    toDate: z.string().min(1, "* To date is required"),
+    description: z.string().optional(),
+  })
+  .refine((data) => new Date(data.fromDate) <= new Date(data.toDate), {
+    message: "* From date cannot be greater than To date",
+    path: ["fromDate"],
+  });
 
 export {
   authenticationSchema,

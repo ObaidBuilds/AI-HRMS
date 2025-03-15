@@ -26,7 +26,7 @@ const Complaint = () => {
 
   return (
     <section className="h-[90vh] sm:h-screen overflow-hidden bg-gray-50">
-      <main className="flex justify-center items-center w-full h-screen text-black font-medium">
+      <main className="flex justify-center items-center w-full h-full text-black font-medium">
         <div className="w-[94%] sm:w-[490px] rounded-2xl border border-gray-200 bg-white">
           <div className="flex flex-col items-center py-8">
             <h1 className="text-[1.3rem] mt-3 font-extrabold flex items-center gap-2">
@@ -44,7 +44,10 @@ const Complaint = () => {
               <select
                 id="select"
                 {...register("complainType")}
-                className="w-full bg-[#EFEFEF] text-center text-sm p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
+                className={`w-full bg-[#EFEFEF] text-center text-sm p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]
+                  ${errors.complainType && "border border-red-500"}
+                  `}
+                disabled={loading}
               >
                 <option value="">--- Select Complaint Type ---</option>
                 <option value="Workplace">Workplace Issue</option>
@@ -55,7 +58,7 @@ const Complaint = () => {
                 <option value="Misconduct">Employee Misconduct</option>
               </select>
               {errors.complainType && (
-                <p className="text-red-500 text-xs mt-1">
+                <p className="text-red-500 text-xs mt-1 ml-3">
                   {errors.complainType.message}
                 </p>
               )}
@@ -68,10 +71,13 @@ const Complaint = () => {
                 placeholder="Complaint Subject"
                 autoComplete="off"
                 {...register("complainSubject")}
-                className="w-full bg-[#EFEFEF] text-sm text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
+                className={`w-full bg-[#EFEFEF] text-sm text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]
+                  ${errors.complainSubject && "border border-red-500"}
+                  `}
+                disabled={loading}
               />
               {errors.complainSubject && (
-                <p className="text-red-500 text-xs mt-1">
+                <p className="text-red-500 text-xs mt-1 ml-3">
                   {errors.complainSubject.message}
                 </p>
               )}
@@ -83,10 +89,13 @@ const Complaint = () => {
                 placeholder="Complaint Details"
                 rows="4"
                 {...register("complaintDetails")}
-                className="w-full bg-[#EFEFEF] text-sm p-[18px] rounded-lg focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
+                className={`w-full bg-[#EFEFEF] text-sm p-[18px] rounded-lg focus:outline focus:outline-2 focus:outline-gray-700 font-[500]
+                  ${errors.complaintDetails && "border border-red-500"}
+                  `}
+                disabled={loading}
               ></textarea>
               {errors.complaintDetails && (
-                <p className="text-red-500 text-xs mt-1">
+                <p className="text-red-500 text-xs mt-1 ml-3">
                   {errors.complaintDetails.message}
                 </p>
               )}

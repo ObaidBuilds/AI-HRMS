@@ -33,7 +33,7 @@ const Feedback = () => {
 
   return (
     <section className="h-[90vh] sm:h-screen overflow-hidden bg-gray-50">
-      <main className="flex justify-center items-center w-full h-screen text-black font-medium">
+      <main className="flex justify-center items-center w-full h-full text-black font-medium">
         <div className="w-[94%] sm:w-[490px] rounded-2xl border border-gray-200  bg-white">
           <div className="flex flex-col items-center py-8">
             <h1 className="text-[1.3rem] mt-3 font-extrabold flex items-center gap-2">
@@ -52,8 +52,11 @@ const Feedback = () => {
               <select
                 id="select"
                 {...register("rating")}
-                className="w-full bg-[#EFEFEF] text-center text-sm p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
+                className={`w-full bg-[#EFEFEF] text-center text-sm p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]
+                  ${errors.rating && "border border-red-500"}
+                  `}
                 required
+                disabled={loading}
               >
                 <option value="">--- Select Rating ---</option>
                 <option value="5">5 stars</option>
@@ -63,7 +66,7 @@ const Feedback = () => {
                 <option value="1">1 star</option>
               </select>
               {errors.rating && (
-                <p className="text-red-500 text-xs mt-1">
+                <p className="text-red-500 text-xs mt-1 ml-3">
                   {errors.rating.message}
                 </p>
               )}
@@ -75,11 +78,14 @@ const Feedback = () => {
                 type="text"
                 {...register("suggestion")}
                 placeholder="Any suggestions?"
-                className="w-full bg-[#EFEFEF] text-sm text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
-                required
+                className={`w-full bg-[#EFEFEF] text-sm text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]
+                  ${errors.suggestion && "border border-red-500"}
+                  `}
+                // required
+                disabled={loading}
               />
               {errors.suggestion && (
-                <p className="text-red-500 text-xs mt-1">
+                <p className="text-red-500 text-xs mt-1 ml-3">
                   {errors.suggestion.message}
                 </p>
               )}
@@ -91,11 +97,14 @@ const Feedback = () => {
                 {...register("description")}
                 placeholder="Write your feedback..."
                 rows="4"
-                className="w-full bg-[#EFEFEF] text-sm p-[18px] rounded-lg focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
+                className={`w-full bg-[#EFEFEF] text-sm p-[18px] rounded-lg focus:outline focus:outline-2 focus:outline-gray-700 font-[500]
+                  ${errors.description && "border border-red-500"}
+                  `}
                 required
+                disabled={loading}
               ></textarea>
               {errors.description && (
-                <p className="text-red-500 text-xs mt-1">
+                <p className="text-red-500 text-xs mt-1 ml-3">
                   {errors.description.message}
                 </p>
               )}

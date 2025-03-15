@@ -60,8 +60,11 @@ const Login = () => {
               <select
                 id="select"
                 {...register("authority")}
-                className="w-full bg-[#EFEFEF] text-center text-sm p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
+                className={`w-full bg-[#EFEFEF] text-center text-sm p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
+                   ${errors.authority && "border border-red-500"}
+                  `}
                 required
+                disabled={loading}
               >
                 <option value="">--- Select Authority ---</option>
                 <option value="admin">Admin</option>
@@ -78,12 +81,15 @@ const Login = () => {
                   {...register("employeeId")}
                   placeholder="Employee ID"
                   autoComplete="off"
-                  className="w-full bg-[#EFEFEF] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
+                  className={`w-full bg-[#EFEFEF] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
+                     ${errors.employeeId && "border border-red-500"}
+                    `}
                   required
+                  disabled={loading}
                 />
               </div>
               {errors.employeeId && (
-                <p className="text-red-500 text-xs pl-3 mt-1">
+                <p className="text-red-500 text-xs pl-3 mt-1 ml-3">
                   {errors.employeeId.message}
                 </p>
               )}
@@ -97,8 +103,11 @@ const Login = () => {
                   type={active ? "text" : "password"}
                   {...register("password")}
                   placeholder="Password"
-                  className="w-full bg-[#EFEFEF] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
+                  className={`w-full bg-[#EFEFEF] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
+                     ${errors.password && "border border-red-500"}
+                    `}
                   required
+                  disabled={loading}
                 />
                 <span
                   className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-700 cursor-pointer"
@@ -112,7 +121,7 @@ const Login = () => {
                 </span>
               </div>
               {errors.password && (
-                <p className="text-red-500 text-xs mt-1 pl-3">
+                <p className="text-red-500 text-xs mt-1 pl-3 ml-3">
                   {errors.password.message}
                 </p>
               )}

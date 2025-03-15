@@ -9,6 +9,7 @@ const initialState = {
   complaints: [],
   loading: false,
   error: null,
+  pagination : null
 };
 
 const complaintsSlice = createSlice({
@@ -25,6 +26,7 @@ const complaintsSlice = createSlice({
       .addCase(getComplaints.fulfilled, (state, action) => {
         state.loading = false;
         state.complaints = action.payload.complaint;
+        state.pagination = action.payload.pagination;
       })
       .addCase(getComplaints.rejected, (state, action) => {
         state.loading = false;

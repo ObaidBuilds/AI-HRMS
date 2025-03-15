@@ -10,7 +10,7 @@ const initialState = {
   leaves: [],
   employeesOnLeaveToday: [],
   loading: false,
-  error: null,
+  error: null
 };
 
 const leavesSlice = createSlice({

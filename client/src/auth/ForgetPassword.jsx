@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const ForgetPassword = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const loading = useSelector((state) => state.authentication.loading);
 
   const {
@@ -53,12 +53,15 @@ const ForgetPassword = () => {
                   {...register("email")}
                   placeholder="Enter you email"
                   autoComplete="off"
-                  className="w-full bg-[#EFEFEF] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
+                  className={`w-full bg-[#EFEFEF] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
+                      ${errors.email && "border border-red-500"}
+                    `}
                   required
+                  disabled={loading}
                 />
               </div>
               {errors.email && (
-                <p className="text-red-500 text-xs pl-3 mt-1">
+                <p className="text-red-500 text-xs pl-3 mt-1 ml-3">
                   {errors.email.message}
                 </p>
               )}
