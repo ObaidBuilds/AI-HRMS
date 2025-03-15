@@ -34,7 +34,7 @@ const MarkAttendance = () => {
   }
 
   return (
-    <section className=" h-[90vh]">
+    <section className="h-[80vh] sm:h-[90vh]">
       <main className="flex justify-center items-center h-full">
         {qrcode ? (
           <div className="flex flex-col justify-center items-center gap-10">

@@ -22,7 +22,7 @@ const EmployeeApp = () => {
       <Suspense fallback={<Loader />}>
         <main
           id="overflow"
-          className="w-full max-h-auto min-h-screen lg:w-[85%] lg:ml-[255px] py-1 sm:px-2 mt-[69px] lg:mt-0"
+          className="w-full lg:w-[85%] lg:ml-[255px] py-1 sm:px-2 mt-[69px] lg:mt-0"
         >
           <Routes>
             {/* <Route path="/" element={<Dashboard />} /> */}
