@@ -127,10 +127,52 @@ const resetPasswordSchema = z.object({
   confirmPassword: z.string().min(6, "Password must be at least 6 characters"),
 });
 
+const feedbackSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+const complaintSchema = z.object({
+  complainType: z
+    .string()
+    .min(1, "Complaint type is required")
+    .refine(
+      (val) =>
+        [
+          "Workplace",
+          "Payroll",
+          "Harassment",
+          "Leave",
+          "Scheduling",
+          "Misconduct",
+        ].includes(val),
+      {
+        message: "Invalid complaint type",
+      }
+    ),
+  complainSubject: z
+    .string()
+    .min(3, "Complaint subject must be at least 3 characters"),
+  complaintDetails: z
+    .string()
+    .min(10, "Complaint details must be at least 10 characters"),
+});
+
+const leaveSchema = z.object({
+  leaveType: z.string().min(1, "Leave type is required"),
+  duration: z.number().min(1, "Duration must be at least 1 day"),
+  fromDate: z.string().min(1, "From date is required"),
+  toDate: z.string().min(1, "To date is required"),
+});
+
 export {
   authenticationSchema,
   createEmployeeSchema,
   forgetPasswordSchema,
   updateEmployeeSchema,
   resetPasswordSchema,
+  feedbackSchema,
+  complaintSchema,
+  leaveSchema,
 };

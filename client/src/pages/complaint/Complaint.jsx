@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { createComplaint } from "../../services/complaint.service";
-import { FaListAlt, FaEnvelope, FaEdit } from "react-icons/fa";
+import { complaintSchema } from "../../validations";
 
 const Complaint = () => {
   const dispatch = useDispatch();
@@ -12,43 +13,35 @@ const Complaint = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: zodResolver(complaintSchema),
+  });
 
   const onSubmit = (data) => {
     dispatch(createComplaint(data))
       .unwrap()
       .then(() => reset())
-      .catch((error) => {
-        console.error("Error creating complaint:", error);
-      });
+      .catch((error) => console.error("Error creating complaint:", error));
   };
 
   return (
-    <div className="h-[90vh] sm:h-screen flex justify-center items-center border border-gray-200">
-      <div id="modal" className="w-[88%] sm:max-w-md rounded-lg bg-white p-8 shadow-2xl sm:shadow-none">
-        {/* Header */}
-        <div className="flex items-center justify-center mb-9">
-          <i className="fas fa-circle-exclamation text-blue-600 text-3xl"></i>
-          <h2 className="ml-2 text-xl font-semibold text-gray-700">
-            Report an Issue
-          </h2>
-        </div>
+    <section className="h-screen overflow-hidden bg-gray-50">
+      <main className="flex justify-center items-center w-full h-screen text-black font-medium">
+        <div className="w-[88%] sm:w-[490px] rounded-2xl border border-gray-200 bg-white">
+          <div className="flex flex-col items-center py-5">
+            <h1 className="text-xl mt-3 font-extrabold">Report an Issue</h1>
+          </div>
 
-        {/* Form */}
-        <form className="text-sm" onSubmit={handleSubmit(onSubmit)}>
-          {/* Complaint Type */}
-          <div className="mb-4">
-            <label className="block font-medium text-gray-600 mb-2">
-              Complaint Type
-            </label>
-            <div className="relative flex items-center">
-              <FaListAlt className="absolute left-3 text-gray-400 text-sm" />
+          <form
+            className="flex flex-col items-center gap-2 pb-8"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            {/* Complaint Type */}
+            <div className="w-[85%] relative">
               <select
-                {...register("complainType", {
-                  required: "Complaint type is required",
-                })}
-                className="pl-10 pr-4 py-2 w-full text-center rounded-lg border bg-white focus:border-blue-500 focus:outline-none"
-                required
+                id="select"
+                {...register("complainType")}
+                className="w-full bg-[#EFEFEF] text-center text-sm p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
               >
                 <option value="">--- Select Complaint Type ---</option>
                 <option value="Workplace">Workplace Issue</option>
@@ -58,78 +51,60 @@ const Complaint = () => {
                 <option value="Scheduling">Scheduling Issue</option>
                 <option value="Misconduct">Employee Misconduct</option>
               </select>
+              {errors.complainType && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.complainType.message}
+                </p>
+              )}
             </div>
-            {errors.complainType && (
-              <p className="mt-2 text-sm text-red-600">
-                {errors.complainType.message}
-              </p>
-            )}
-          </div>
 
-          {/* Complaint Subject */}
-          <div className="mb-4">
-            <label className="block font-medium text-gray-600 mb-2">
-              Complaint Subject
-            </label>
-            <div className="relative flex items-center">
-              <FaEnvelope className="absolute left-3 text-gray-400 text-sm" />
+            {/* Complaint Subject */}
+            <div className="w-[85%]">
               <input
                 type="text"
                 placeholder="Complaint Subject"
                 autoComplete="off"
-                {...register("complainSubject", {
-                  required: "Complaint subject is required",
-                })}
-                className="pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none"
-                required
+                {...register("complainSubject")}
+                className="w-full bg-[#EFEFEF] text-sm text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
               />
+              {errors.complainSubject && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.complainSubject.message}
+                </p>
+              )}
             </div>
-            {errors.complainSubject && (
-              <p className="mt-2 text-sm text-red-600">
-                {errors.complainSubject.message}
-              </p>
-            )}
-          </div>
 
-          {/* Complaint Details */}
-          <div className="mb-4">
-            <label className="block font-medium text-gray-600 mb-2">
-              Complaint Details
-            </label>
-            <div className="relative flex items-center">
-              <FaEdit className="absolute left-3 text-gray-400 text-sm top-3" />
+            {/* Complaint Details */}
+            <div className="w-[85%]">
               <textarea
                 placeholder="Complaint Details"
                 rows="4"
-                {...register("complaintDetails", {
-                  required: "Complaint details are required",
-                })}
-                className="pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none"
-                required
+                {...register("complaintDetails")}
+                className="w-full bg-[#EFEFEF] text-sm p-[18px] rounded-lg focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
               ></textarea>
+              {errors.complaintDetails && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.complaintDetails.message}
+                </p>
+              )}
             </div>
-            {errors.complaintDetails && (
-              <p className="mt-2 text-sm text-red-600">
-                {errors.complaintDetails.message}
-              </p>
-            )}
-          </div>
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-lg bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
-          >
-            {loading ? (
-              <i className="fa fa-spinner fa-spin"></i>
-            ) : (
-              "Submit Complaint"
-            )}
-          </button>
-        </form>
-      </div>
-    </div>
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-[85%] rounded-full bg-blue-600 p-4 text-sm text-white transition hover:bg-blue-700"
+            >
+              {loading ? (
+                <i className="fa fa-spinner fa-spin"></i>
+              ) : (
+                "Submit Complaint"
+              )}
+            </button>
+          </form>
+        </div>
+      </main>
+    </section>
   );
 };
 

@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { createFeedback } from "../../services/feedback.service";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
-import { FaStar, FaComment, FaEdit } from "react-icons/fa"; // Icons for form fields
+import { createFeedback } from "../../services/feedback.service";
+import { feedbackSchema } from "../../validations";
 
 const Feedback = () => {
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.feedback.loading);
   const [rating, setRating] = useState(0);
-  const { loading } = useSelector((state) => state.feedback);
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: zodResolver(feedbackSchema),
+  });
 
   const onSubmit = (data) => {
     dispatch(createFeedback(data))
@@ -28,28 +32,24 @@ const Feedback = () => {
   };
 
   return (
-    <div className="h-[90vh] sm:h-screen flex justify-center items-center">
-      <div id="modal" className="w-[88%] sm:max-w-md rounded-lg bg-white p-8 border border-gray-200 shadow-2xl sm:shadow-none">
-        {/* Header */}
-        <div className="flex items-center justify-center mb-9">
-          <FaStar className="text-blue-600 text-3xl" />
-          <h2 className="ml-2 text-xl font-semibold text-gray-700">
-            Give Feedback
-          </h2>
-        </div>
+    <section className="h-screen overflow-hidden bg-gray-50">
+      <main className="flex justify-center items-center w-full h-screen text-black font-medium">
+        <div className="w-[88%] sm:w-[490px] rounded-2xl border border-gray-200  bg-white">
+          <div className="flex flex-col items-center py-5">
+            <h1 className="text-xl mt-3 font-extrabold">Give Your Feedback</h1>
+          </div>
 
-        {/* Form */}
-        <form className="text-sm" onSubmit={handleSubmit(onSubmit)}>
-          {/* Rating Select */}
-          <div className="mb-4">
-            <label className="block font-medium text-gray-600 mb-2">
-              Rating
-            </label>
-            <div className="relative flex items-center">
-              <FaStar className="absolute left-3 text-gray-400 text-sm" />
+          <form
+            id="feedback-form"
+            className="flex flex-col items-center gap-2 pb-8"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            {/* Rating Select */}
+            <div className="w-[85%] relative">
               <select
-                {...register("rating", { required: "Rating is required" })}
-                className="pl-10 pr-4 py-2 w-full text-center rounded-lg border focus:border-blue-500 focus:outline-none text-sm bg-white"
+                id="select"
+                {...register("rating")}
+                className="w-full bg-[#EFEFEF] text-center text-sm p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
                 required
               >
                 <option value="">--- Select Rating ---</option>
@@ -59,81 +59,61 @@ const Feedback = () => {
                 <option value="2">2 stars</option>
                 <option value="1">1 star</option>
               </select>
+              {errors.rating && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.rating.message}
+                </p>
+              )}
             </div>
-            {errors.rating && (
-              <p className="mt-2 text-sm text-red-600">
-                {errors.rating.message}
-              </p>
-            )}
-          </div>
 
-          {/* Suggestion Input */}
-          <div className="mb-4">
-            <label className="block font-medium text-gray-600 mb-2">
-              Suggestion
-            </label>
-            <div className="relative flex items-center">
-              <FaComment className="absolute left-3 text-gray-400 text-sm" />
+            {/* Suggestion Input */}
+            <div className="w-[85%]">
               <input
-                {...register("suggestion", {
-                  required: "Suggestion is required",
-                })}
                 type="text"
+                {...register("suggestion")}
                 placeholder="Any suggestions?"
-                className="pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none text-sm"
+                className="w-full bg-[#EFEFEF] text-sm text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
                 required
               />
+              {errors.suggestion && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.suggestion.message}
+                </p>
+              )}
             </div>
-            {errors.suggestion && (
-              <p className="mt-2 text-sm text-red-600">
-                {errors.suggestion.message}
-              </p>
-            )}
-          </div>
 
-          {/* Feedback Description */}
-          <div className="mb-4">
-            <label className="block font-medium text-gray-600 mb-2">
-              Feedback Description
-            </label>
-            <div className="relative flex items-center">
-              <FaEdit className="absolute left-3  text-gray-400 text-sm top-3" />
+            {/* Feedback Description */}
+            <div className="w-[85%]">
               <textarea
-                {...register("description", {
-                  required: "Feedback description is required",
-                  maxLength: {
-                    value: 300,
-                    message: "Description cannot exceed 300 characters",
-                  },
-                })}
+                {...register("description")}
                 placeholder="Write your feedback..."
                 rows="4"
-                className="pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none text-sm"
+                className="w-full bg-[#EFEFEF] text-sm p-[18px] rounded-lg focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
                 required
               ></textarea>
+              {errors.description && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.description.message}
+                </p>
+              )}
             </div>
-            {errors.description && (
-              <p className="mt-2 text-sm text-red-600">
-                {errors.description.message}
-              </p>
-            )}
-          </div>
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-lg bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
-          >
-            {loading ? (
-              <i className="fa fa-spinner fa-spin"></i>
-            ) : (
-              "Submit Feedback"
-            )}
-          </button>
-        </form>
-      </div>
-    </div>
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-[85%] rounded-full bg-blue-600 p-4 text-sm text-white transition hover:bg-blue-700"
+            >
+              {loading ? (
+                <i className="fa fa-spinner fa-spin"></i>
+              ) : (
+                "Submit Feedback"
+              )}
+            </button>
+          </form>
+        </div>
+      </main>
+    </section>
   );
 };
 

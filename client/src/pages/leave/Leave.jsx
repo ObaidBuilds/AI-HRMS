@@ -1,9 +1,9 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { createLeave } from "../../services/leave.service";
-import { GiEarthAmerica } from "react-icons/gi"; // Example icon for the header
-import { FaCalendarCheck, FaClock, FaCalendar } from "react-icons/fa"; // Icons for form fields
+import { leaveSchema } from "../../validations";
 
 const Leave = () => {
   const dispatch = useDispatch();
@@ -13,43 +13,35 @@ const Leave = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: zodResolver(leaveSchema),
+  });
 
   const onSubmit = (data) => {
     dispatch(createLeave(data))
       .unwrap()
       .then(() => reset())
-      .catch((error) => {
-        console.error("Error creating leave:", error);
-      });
+      .catch((error) => console.error("Error creating leave:", error));
   };
 
   return (
-    <div className="h-[90vh] sm:h-screen flex justify-center items-center border border-gray-200">
-      <div id="modal" className="w-[88%] sm:max-w-md rounded-lg bg-white p-8 shadow-2xl sm:shadow-none">
-        {/* Header */}
-        <div className="flex items-center justify-center mb-9">
-          <GiEarthAmerica className="text-blue-600 text-3xl" />
-          <h2 className="ml-2 text-xl font-semibold text-gray-700">
-            Apply for Leave
-          </h2>
-        </div>
+    <section className="h-screen overflow-hidden bg-gray-50">
+      <main className="flex justify-center items-center w-full h-screen text-black font-medium">
+        <div className="w-[88%] sm:w-[490px] rounded-2xl border border-gray-200 bg-white">
+          <div className="flex flex-col items-center py-5">
+            <h1 className="text-xl mt-3 font-extrabold">Apply for Leave</h1>
+          </div>
 
-        {/* Form */}
-        <form className="text-sm" onSubmit={handleSubmit(onSubmit)}>
-          {/* Leave Type Select */}
-          <div className="mb-4">
-            <label className="block font-medium text-gray-600 mb-2">
-              Leave Type
-            </label>
-            <div className="relative flex items-center">
-              <FaCalendarCheck className="absolute left-3 text-gray-400 text-sm" />
+          <form
+            className="flex flex-col items-center gap-2 pb-8"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            {/* Leave Type */}
+            <div className="w-[85%] relative">
               <select
-                {...register("leaveType", {
-                  required: "Leave type is required",
-                })}
-                className="pl-10 pr-4 py-2 text-center w-full bg-white rounded-lg border focus:border-blue-500 focus:outline-none"
-                required
+                id="select"
+                {...register("leaveType")}
+                className="w-full bg-[#EFEFEF] text-center text-sm p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
               >
                 <option value="">--- Select Leave Type ---</option>
                 <option value="Sick">Sick Leave</option>
@@ -57,96 +49,72 @@ const Leave = () => {
                 <option value="Vacation">Vacation Leave</option>
                 <option value="Unpaid">Unpaid</option>
               </select>
+              {errors.leaveType && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.leaveType.message}
+                </p>
+              )}
             </div>
-            {errors.leaveType && (
-              <p className="mt-2 text-sm text-red-600">
-                {errors.leaveType.message}
-              </p>
-            )}
-          </div>
 
-          {/* Duration */}
-          <div className="mb-4">
-            <label className="block font-medium text-gray-600 mb-2">
-              Duration (in days)
-            </label>
-            <div className="relative flex items-center">
-              <FaClock className="absolute left-3 text-gray-400 text-sm" />
+            {/* Duration */}
+            <div className="w-[85%]">
               <input
                 type="number"
-                placeholder="Enter duration"
-                {...register("duration", {
-                  required: "Duration is required",
-                  min: { value: 1, message: "Duration must be at least 1 day" },
-                })}
-                className="pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none"
-                required
+                placeholder="Duration (in days)"
+                {...register("duration")}
+                className="w-full bg-[#EFEFEF] text-sm text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
               />
+              {errors.duration && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.duration.message}
+                </p>
+              )}
             </div>
-            {errors.duration && (
-              <p className="mt-2 text-sm text-red-600">
-                {errors.duration.message}
-              </p>
-            )}
-          </div>
 
-          {/* From Date */}
-          <div className="mb-4">
-            <label className="block font-medium text-gray-600 mb-2">
-              From Date
-            </label>
-            <div className="relative flex items-center">
-              <FaCalendar className="absolute left-3 text-gray-400 text-sm" />
+            {/* From Date */}
+            <div className="w-[85%]">
               <input
                 type="date"
-                {...register("fromDate", { required: "From date is required" })}
-                className="pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none"
-                required
+                {...register("fromDate")}
+                className="w-full bg-[#EFEFEF] text-sm text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
               />
+              {errors.fromDate && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.fromDate.message}
+                </p>
+              )}
             </div>
-            {errors.fromDate && (
-              <p className="mt-2 text-sm text-red-600">
-                {errors.fromDate.message}
-              </p>
-            )}
-          </div>
 
-          {/* To Date */}
-          <div className="mb-4">
-            <label className="block font-medium text-gray-600 mb-2">
-              To Date
-            </label>
-            <div className="relative flex items-center">
-              <FaCalendar className="absolute left-3 text-gray-400 text-sm" />
+            {/* To Date */}
+            <div className="w-[85%]">
               <input
                 type="date"
-                {...register("toDate", { required: "To date is required" })}
-                className="pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none"
-                required
+                {...register("toDate")}
+                className="w-full bg-[#EFEFEF] text-sm text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500]"
               />
+              {errors.toDate && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.toDate.message}
+                </p>
+              )}
             </div>
-            {errors.toDate && (
-              <p className="mt-2 text-sm text-red-600">
-                {errors.toDate.message}
-              </p>
-            )}
-          </div>
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full rounded-lg bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
-            disabled={loading}
-          >
-            {loading ? (
-              <i className="fa fa-spinner fa-spin"></i>
-            ) : (
-              "Submit Leave Application"
-            )}
-          </button>
-        </form>
-      </div>
-    </div>
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-[85%] rounded-full bg-blue-600 p-4 text-sm text-white transition hover:bg-blue-700"
+            >
+              {loading ? (
+                <i className="fa fa-spinner fa-spin"></i>
+              ) : (
+                "Submit Leave Application"
+              )}
+            </button>
+          </form>
+        </div>
+      </main>
+    </section>
   );
 };
 
