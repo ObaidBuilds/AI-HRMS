@@ -36,7 +36,7 @@ const PerformanceModal = ({ onClose, performance }) => {
       <form
         id="modal"
         onSubmit={handleSubmit}
-        className="bg-white text-black w-[95%] sm:max-w-xl p-6 border border-gray-300 rounded-lg shadow-xl space-y-5"
+        className="bg-white text-black w-[90%] sm:max-w-xl p-6 border border-gray-300 rounded-lg shadow-xl space-y-5"
       >
         {/* Modal Header */}
         <div className="flex justify-between items-center border-b border-gray-200 pb-3">

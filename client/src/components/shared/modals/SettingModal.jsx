@@ -25,13 +25,13 @@ const SettingModal = ({ onClose, location = "admin" }) => {
     <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
       <div
         id="modal"
-        className="bg-white relative p-2 sm:p-5 rounded-lg w-[95%] sm:w-[800px]"
+        className="bg-white relative p-2 sm:p-5 rounded-lg w-[90%] sm:w-[800px]"
       >
         <button
           onClick={onClose}
-          className="absolute top-3 sm:top-0 right-3 sm:right-[-2.4rem] w-6 h-6 bg-gray-400 rounded-full text-white"
+          className="absolute top-3 sm:top-0 right-3 sm:right-[-2.4rem] w-6 h-6 rounded-full text-gray-600 sm:text-white"
         >
-          <i className="fas fa-times text-xs"></i>
+          <i className="fas fa-times text-sm"></i>
         </button>
 
         <div className="flex flex-col md:flex-row gap-2 ">

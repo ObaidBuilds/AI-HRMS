@@ -82,7 +82,7 @@ const ImportExcelModal = ({ onClose }) => {
     <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
       <div
         id="modal"
-        className="border border-gray-300 dark:border-gray-700 bg-white text-gray-800 p-8 rounded-lg w-[95%] md:w-[550px] shadow-lg relative"
+        className="border border-gray-300 dark:border-gray-700 bg-white text-gray-800 p-8 rounded-lg w-[90%] md:w-[550px] shadow-lg relative"
       >
         <button
           onClick={onClose}
