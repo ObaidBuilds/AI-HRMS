@@ -7,6 +7,7 @@ import Modal from "../shared/modals/Modal";
 import { useTheme } from "../../context";
 import Loader from "../shared/loaders/Loader";
 import SettingModal from "../shared/modals/SettingModal";
+import ProfileModal from "../shared/modals/ProfileModal";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -14,10 +15,15 @@ const Sidebar = () => {
   const { theme } = useTheme();
   const { loading, user } = useSelector((state) => state.authentication);
 
+  const [file, setFile] = useState(null);
+  const [showButton, setShowButton] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
+  const [toggleModal, setToggleModal] = useState(false);
+  const [profileLoading, setProfileLoading] = useState(false);
   const [openSubMenuIndex, setOpenSubMenuIndex] = useState(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showSettingModal, setShowSettingModal] = useState(false);
+  const [imagePreview, setImagePreview] = useState(user.profilePicture);
 
   const toggleSubMenu = (index) =>
     setOpenSubMenuIndex(openSubMenuIndex === index ? null : index);
@@ -34,6 +40,30 @@ const Sidebar = () => {
   const confirmLogout = () => {
     handleLogout();
     setShowConfirmModal(false);
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setFile(file);
+      setImagePreview(URL.createObjectURL(file));
+      setShowButton(true);
+    }
+  };
+
+  const handleClick = async () => {
+    const formData = new FormData();
+    formData.append("profilePicture", file);
+
+    const updatedProfilePicture = await updateProfile(
+      setProfileLoading,
+      formData
+    );
+    if (updatedProfilePicture) {
+      setImagePreview(updatedProfilePicture);
+    }
+    setShowButton(false);
+    setToggleModal(false);
   };
 
   useEffect(() => {
@@ -62,7 +92,10 @@ const Sidebar = () => {
           alt="hamburger"
         />
         <img className="w-[55px]" src="/metro.png" alt="logo" />
-        <div className="w-[35px] h-[35px] border-[2px] border-gray-700 rounded-full overflow-hidden cursor-pointer">
+        <div
+          onClick={() => setToggleModal(true)}
+          className="w-[35px] h-[35px] border-[2px] border-gray-700 rounded-full overflow-hidden cursor-pointer"
+        >
           <img
             className="w-full"
             src={user.profilePicture || "https://via.placeholder.com/40"}
@@ -180,7 +213,10 @@ const Sidebar = () => {
               <i className="fas fa-cog text-white text-sm"></i>
             </button>
             <div className="flex flex-col items-center gap-3 p-4">
-              <div className="w-[60px] h-[60px] rounded-full overflow-hidden cursor-pointer border-2 border-gray-500 hover:scale-105 transition-all duration-300">
+              <div
+                onClick={() => setToggleModal(true)}
+                className="w-[60px] h-[60px] rounded-full overflow-hidden cursor-pointer border-2 border-gray-500 hover:scale-105 transition-all duration-300"
+              >
                 <img
                   className="w-full h-full object-cover"
                   src={user.profilePicture || "https://via.placeholder.com/60"}
@@ -206,6 +242,18 @@ const Sidebar = () => {
 
       {showSettingModal && (
         <SettingModal onClose={() => setShowSettingModal(false)} />
+      )}
+
+      {toggleModal && (
+        <ProfileModal
+          name={user.name}
+          showButton={showButton}
+          loading={profileLoading}
+          handleClick={handleClick}
+          imagePreview={imagePreview}
+          close={() => setToggleModal(false)}
+          handleFileChange={handleFileChange}
+        />
       )}
     </div>
   );
