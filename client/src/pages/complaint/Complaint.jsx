@@ -25,11 +25,14 @@ const Complaint = () => {
   };
 
   return (
-    <section className="h-screen overflow-hidden bg-gray-50">
+    <section className="h-[90vh] sm:h-screen overflow-hidden bg-gray-50">
       <main className="flex justify-center items-center w-full h-screen text-black font-medium">
-        <div className="w-[88%] sm:w-[490px] rounded-2xl border border-gray-200 bg-white">
-          <div className="flex flex-col items-center py-5">
-            <h1 className="text-xl mt-3 font-extrabold">Report an Issue</h1>
+        <div className="w-[94%] sm:w-[490px] rounded-2xl border border-gray-200 bg-white">
+          <div className="flex flex-col items-center py-8">
+            <h1 className="text-[1.3rem] mt-3 font-extrabold flex items-center gap-2">
+              <i className="fas fa-circle-exclamation"></i>
+              Report an Issue
+            </h1>
           </div>
 
           <form
