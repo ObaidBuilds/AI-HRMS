@@ -55,20 +55,13 @@ const ProfileModal = ({
             {name}
           </h2>
         </div>
-        {showButton ? (
+        {showButton && (
           <button
             onClick={handleClick}
             disabled={loading}
             className="text-gray-300 w-full p-4 text-sm font-semibold bg-blue-600 rounded-3xl mt-3 hover:bg-blue-700"
           >
             {loading ? <i className="fas fa-spinner fa-spin"></i> : "Update"}
-          </button>
-        ) : (
-          <button
-            onClick={() => close()}
-            className="text-gray-300 w-full p-4 text-sm font-semibold bg-red-600 rounded-3xl mt-3 hover:bg-red-700"
-          >
-            Cancel
           </button>
         )}
       </div>

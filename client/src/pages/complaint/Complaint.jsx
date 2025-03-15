@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { createComplaint } from "../../services/complaint.service";
-import { FaListAlt, FaEnvelope, FaEdit } from "react-icons/fa"; 
+import { FaListAlt, FaEnvelope, FaEdit } from "react-icons/fa";
 
 const Complaint = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const Complaint = () => {
   };
 
   return (
-    <div className="h-screen flex justify-center items-center">
+    <div className="h-[90vh] sm:h-screen flex justify-center items-center border border-gray-200">
       <div id="modal" className="w-[94%] sm:max-w-md rounded-lg bg-white p-8">
         {/* Header */}
         <div className="flex items-center justify-center mb-9">

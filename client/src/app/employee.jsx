@@ -3,14 +3,12 @@ import Loader from "../components/shared/loaders/Loader";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "../components/shared/error/NotFound";
 import EmployeeSidebar from "../components/ui/EmployeeSidebar";
-import Dashboard from "../admin/dashboard/Dashboard";
 
 const Home = lazy(() => import("../pages/home/Home"));
 const Complaint = lazy(() => import("../pages/complaint/Complaint"));
 const Feedback = lazy(() => import("../pages/feedback/Feedback"));
 const Leave = lazy(() => import("../pages/leave/Leave"));
 const Attendance = lazy(() => import("../pages/attendance/Attendance"));
-const Security = lazy(() => import("../pages/security/Security"));
 const Update = lazy(() => import("../pages/updates/Update"));
 const MarkAttendance = lazy(() => import("../pages/attendance/MarkAttendance"));
 
@@ -34,7 +32,6 @@ const EmployeeApp = () => {
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/attendance" element={<Attendance />} />
             <Route path="/attendance/mark" element={<MarkAttendance />} />
-            <Route path="/security" element={<Security />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           {/* <Footer /> */}

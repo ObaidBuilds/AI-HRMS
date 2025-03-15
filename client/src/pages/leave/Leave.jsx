@@ -25,7 +25,7 @@ const Leave = () => {
   };
 
   return (
-    <div className="h-screen flex justify-center items-center">
+    <div className="h-[90vh] sm:h-screen flex justify-center items-center border border-gray-200">
       <div id="modal" className="w-[94%] sm:max-w-md rounded-lg bg-white p-8">
         {/* Header */}
         <div className="flex items-center justify-center mb-9">

@@ -95,14 +95,14 @@ const navbarLinks = [
     link: "/complaint",
   },
   {
-    name: "Stay Updated on Leave",
-    iconClass: "fa-regular fa-calendar-check",
-    link: "/leave",
-  },
-  {
     name: "Give Valuable Feedback",
     iconClass: "fa-regular fa-comments",
     link: "/feedback",
+  },
+  {
+    name: "Stay Updated or Notices",
+    iconClass: "fa-regular fa-calendar-check",
+    link: "/",
   },
 ];
 

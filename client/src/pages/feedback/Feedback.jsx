@@ -28,8 +28,8 @@ const Feedback = () => {
   };
 
   return (
-    <div className="h-screen flex justify-center items-center">
-      <div id="modal" className="w-[94%] sm:max-w-md rounded-lg bg-white p-8">
+    <div className="h-[90vh] sm:h-screen flex justify-center items-center">
+      <div id="modal" className="w-[94%] sm:max-w-md rounded-lg bg-white p-8 border border-gray-200">
         {/* Header */}
         <div className="flex items-center justify-center mb-9">
           <FaStar className="text-blue-600 text-3xl" />

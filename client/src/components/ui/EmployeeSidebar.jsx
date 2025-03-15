@@ -133,7 +133,7 @@ const EmployeeSidebar = () => {
           </div>
         </div>
 
-        <ul className="flex flex-col gap-4 p-4 overflow-y-auto">
+        <ul className="flex flex-col gap-4 p-4 overflow-y-auto sm:mt-0 mt-3">
           {navbarLinks.map((item, index) => (
             <li
               key={index}
