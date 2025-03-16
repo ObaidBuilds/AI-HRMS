@@ -75,7 +75,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <section className=" text-primary px-2 sm:px-0">
+      <section className=" text-primary px-1 sm:px-0">
         <ChatPanel />
 
         <div className="w-full flex flex-wrap justify-between gap-2">
