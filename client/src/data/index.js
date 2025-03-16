@@ -186,6 +186,40 @@ const reports = [
   },
 ];
 
+const employeeInsights = [
+  {
+    title: "Total Leaves taken",
+    icon: "fas fa-clipboard-list",
+    gradient: "bg-gradient-to-r from-blue-500 to-blue-700",
+  },
+  {
+    title: "Total leave Balance",
+    icon: "fas fa-user-plus",
+    gradient: "bg-gradient-to-r from-green-500 to-green-700",
+  },
+  {
+    title: "Total Feedback Submitted",
+    icon: "fas fa-chart-line",
+    gradient: "bg-gradient-to-r from-purple-500 to-purple-700",
+  },
+  {
+    title: "Performance KPI Score",
+    icon: "fas fa-plane-departure",
+    gradient: "bg-gradient-to-r from-yellow-500 to-yellow-700",
+  },
+
+  {
+    title: "Total Complaints Resolved",
+    icon: "fas fa-chart-line",
+    gradient: "bg-gradient-to-r from-purple-500 to-purple-700",
+  },
+  {
+    title: "Total Attendance Percentage %",
+    icon: "fas fa-clipboard-list",
+    gradient: "bg-gradient-to-r from-blue-500 to-blue-700",
+  },
+];
+
 const sections = [
   { id: "appearance", label: "Appearance", icon: "fas fa-palette" },
   { id: "security", label: "Security", icon: "fas fa-lock" },
@@ -208,4 +242,5 @@ export {
   reports,
   sections,
   employeeSections,
+  employeeInsights,
 };

@@ -34,7 +34,7 @@ const Report = () => {
         {reports.map((report, index) => (
           <div
             key={index}
-            className={`w-full md:w-[24%] ${report.gradient}  text-white rounded-2xl p-5 flex flex-col items-center gap-3 cursor-pointer hover:scale-105 transition-all ease-in-out duration-300`}
+            className={`w-full md:w-[24%] ${report.gradient} text-white rounded-2xl p-5 flex flex-col items-center gap-3 cursor-pointer hover:scale-105 transition-all ease-in-out duration-300`}
           >
             <i className={`${report.icon} text-xl`}></i>
             <h2 className="text-sm font-extrabold">{report.title}</h2>

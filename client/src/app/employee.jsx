@@ -25,7 +25,7 @@ const EmployeeApp = () => {
           className="w-full lg:w-[85%] lg:ml-[255px] py-1 sm:px-2 mt-[69px] lg:mt-0"
         >
           <Routes>
-            {/* <Route path="/" element={<Dashboard />} /> */}
+            <Route path="/" element={<Home />} />
             <Route path="/complaint" element={<Complaint />} />
             <Route path="/update" element={<Update />} />
             <Route path="/leave" element={<Leave />} />
