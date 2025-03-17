@@ -50,7 +50,7 @@ const Login = () => {
           </div>
           {error && (
             <div className="flex justify-center items-center mb-4">
-              <div className="text-sm bg-red-100 text-red-800 w-[98%] sm:w-[80%] p-3 rounded-lg flex gap-3 items-start border border-red-200 shadow-sm border-l-4 border-l-red-500 font-normal">
+              <div className="text-sm bg-red-100 text-red-800 w-[80%] p-3 rounded-lg flex gap-3 items-start border border-red-200 shadow-sm border-l-4 border-l-red-500 font-normal">
                 <i class="fa-solid fa-triangle-exclamation text-red-600 text-lg"></i>
                 <p className="text-[0.82rem]">{error}</p>
               </div>
