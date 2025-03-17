@@ -59,7 +59,7 @@ const AddEmployee = () => {
                       } text-gray-800 dark:text-gray-200`}
                     />
                     {errors.employeeId && (
-                      <p className="text-red-500 text-xs mt-1">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.employeeId.message}
                       </p>
                     )}
@@ -84,7 +84,7 @@ const AddEmployee = () => {
                       } text-gray-800 dark:text-gray-200`}
                     />
                     {errors.name && (
-                      <p className="text-red-500 text-xs mt-1">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.name.message}
                       </p>
                     )}
@@ -115,7 +115,7 @@ const AddEmployee = () => {
                       } text-gray-800 dark:text-gray-200`}
                     />
                     {errors.email && (
-                      <p className="text-red-500 text-xs mt-1">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.email.message}
                       </p>
                     )}
@@ -140,7 +140,7 @@ const AddEmployee = () => {
                       } text-gray-800 dark:text-gray-200`}
                     />
                     {errors.password && (
-                      <p className="text-red-500 text-xs mt-1">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.password.message}
                       </p>
                     )}
@@ -164,7 +164,7 @@ const AddEmployee = () => {
                       } text-gray-800 dark:text-gray-200`}
                     />
                     {errors.dob && (
-                      <p className="text-red-500 text-xs mt-1">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.dob.message}
                       </p>
                     )}
@@ -189,7 +189,7 @@ const AddEmployee = () => {
                       } text-gray-800 dark:text-gray-200`}
                     />
                     {errors.phoneNumber && (
-                      <p className="text-red-500 text-xs mt-1">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.phoneNumber.message}
                       </p>
                     )}
@@ -216,7 +216,7 @@ const AddEmployee = () => {
                       <option value="Female">Female</option>
                     </select>
                     {errors.gender && (
-                      <p className="text-red-500 text-xs mt-1">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.gender.message}
                       </p>
                     )}
@@ -243,7 +243,7 @@ const AddEmployee = () => {
                       <option value="Married">Married</option>
                     </select>
                     {errors.martialStatus && (
-                      <p className="text-red-500 text-xs mt-1">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.martialStatus.message}
                       </p>
                     )}
@@ -278,7 +278,7 @@ const AddEmployee = () => {
                       } text-gray-800 dark:text-gray-200`}
                     />
                     {errors.address?.street && (
-                      <p className="text-red-500 text-Xs">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.address.street.message}
                       </p>
                     )}
@@ -304,7 +304,7 @@ const AddEmployee = () => {
                       } text-gray-800 dark:text-gray-200`}
                     />
                     {errors.address?.city && (
-                      <p className="text-red-500 text-xs">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.address.city.message}
                       </p>
                     )}
@@ -330,7 +330,7 @@ const AddEmployee = () => {
                       } text-gray-800 dark:text-gray-200`}
                     />
                     {errors.address?.state && (
-                      <p className="text-red-500 text-xs">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.address.state.message}
                       </p>
                     )}
@@ -362,7 +362,7 @@ const AddEmployee = () => {
                       } text-gray-800 dark:text-gray-200`}
                     />
                     {errors.address?.postalCode && (
-                      <p className="text-red-500 text-xs">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.address.postalCode.message}
                       </p>
                     )}
@@ -388,7 +388,7 @@ const AddEmployee = () => {
                       } text-gray-800 dark:text-gray-200`}
                     />
                     {errors.address?.country && (
-                      <p className="text-red-500 text-xs">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.address.country.message}
                       </p>
                     )}
@@ -427,7 +427,7 @@ const AddEmployee = () => {
                       ))}
                     </select>
                     {errors.department && (
-                      <p className="text-red-500 text-xs">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.department.message}
                       </p>
                     )}
@@ -458,7 +458,7 @@ const AddEmployee = () => {
                       ))}
                     </select>
                     {errors.role && (
-                      <p className="text-red-500 text-xs">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.role.message}
                       </p>
                     )}
@@ -484,7 +484,7 @@ const AddEmployee = () => {
                       } text-gray-800 dark:text-gray-200`}
                     />
                     {errors.salary && (
-                      <p className="text-red-500 text-xs">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.salary.message}
                       </p>
                     )}
@@ -513,7 +513,7 @@ const AddEmployee = () => {
                       <option value="Night">Night</option>
                     </select>
                     {errors.shift && (
-                      <p className="text-red-500 text-xs">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.shift.message}
                       </p>
                     )}
@@ -541,7 +541,7 @@ const AddEmployee = () => {
                       <option value="Part-Time">Part-Time</option>
                     </select>
                     {errors.employmentType && (
-                      <p className="text-red-500 text-xs">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.employmentType.message}
                       </p>
                     )}
@@ -566,7 +566,7 @@ const AddEmployee = () => {
                       } text-gray-800 dark:text-gray-200`}
                     />
                     {errors.dateOfJoining && (
-                      <p className="text-red-500 text-xs">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.dateOfJoining.message}
                       </p>
                     )}
@@ -595,7 +595,7 @@ const AddEmployee = () => {
                       <option value="Leave">Leave</option>
                     </select>
                     {errors.status && (
-                      <p className="text-red-500 text-xs">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.status.message}
                       </p>
                     )}
@@ -630,7 +630,7 @@ const AddEmployee = () => {
                       } text-gray-800 dark:text-gray-200`}
                     />
                     {errors.bankDetails?.accountNumber && (
-                      <p className="text-red-500 text-xs">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.bankDetails.accountNumber.message}
                       </p>
                     )}
@@ -659,7 +659,7 @@ const AddEmployee = () => {
                       <option value="GOP">GOP</option>
                     </select>
                     {errors.bankDetails?.bankName && (
-                      <p className="text-red-500 text-xs">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.bankDetails.bankName.message}
                       </p>
                     )}
@@ -694,7 +694,7 @@ const AddEmployee = () => {
                       } text-gray-800 dark:text-gray-200`}
                     />
                     {errors.emergencyContact?.name && (
-                      <p className="text-red-500 text-xs">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.emergencyContact.name.message}
                       </p>
                     )}
@@ -724,7 +724,7 @@ const AddEmployee = () => {
                       <option value="Relative">Relative</option>
                     </select>
                     {errors.emergencyContact?.relationship && (
-                      <p className="text-red-500 text-xs">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.emergencyContact.relationship.message}
                       </p>
                     )}
@@ -756,7 +756,7 @@ const AddEmployee = () => {
                       } text-gray-800 dark:text-gray-200`}
                     />
                     {errors.emergencyContact?.phoneNumber && (
-                      <p className="text-red-500 text-xs">
+                      <p className="text-red-500 text-[0.8rem] mt-1">
                         {errors.emergencyContact.phoneNumber.message}
                       </p>
                     )}
@@ -771,7 +771,7 @@ const AddEmployee = () => {
             disabled={loading}
             className="w-full p-4 font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-3xl mb-3"
           >
-            Add Employee
+            Create Employee
           </button>
         </form>
       </section>

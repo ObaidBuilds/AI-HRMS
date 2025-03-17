@@ -89,7 +89,7 @@ const Login = () => {
                 />
               </div>
               {errors.employeeId && (
-                <p className="text-red-500 text-xs pl-3 mt-1 ml-3">
+                <p className="text-red-500 text-[0.8rem] pl-3 mt-1">
                   {errors.employeeId.message}
                 </p>
               )}
@@ -121,7 +121,7 @@ const Login = () => {
                 </span>
               </div>
               {errors.password && (
-                <p className="text-red-500 text-xs mt-1 pl-3 ml-3">
+                <p className="text-red-500 text-[0.8rem] mt-1 pl-3">
                   {errors.password.message}
                 </p>
               )}

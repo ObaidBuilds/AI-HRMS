@@ -52,16 +52,15 @@ const ForgetPassword = () => {
                   type="email"
                   {...register("email")}
                   placeholder="Enter you email"
-                  autoComplete="off"
                   className={`w-full bg-[#EFEFEF] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
                       ${errors.email && "border border-red-500"}
                     `}
-                  required
+                  // required
                   disabled={loading}
                 />
               </div>
               {errors.email && (
-                <p className="text-red-500 text-xs pl-3 mt-1 ml-3">
+                <p className="text-red-500 text-[0.8rem] pl-3 mt-1">
                   {errors.email.message}
                 </p>
               )}

@@ -64,16 +64,14 @@ const ResetPassword = () => {
                   type="password"
                   {...register("newPassword")}
                   placeholder="New password"
-                  autoComplete="off"
                   className={`w-full bg-[#EFEFEF] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
                     ${errors.newPassword && "border border-red-500"}
                     `}
-                  required
                   disabled={loading}
                 />
               </div>
               {errors.newPassword && (
-                <p className="text-red-500 text-xs pl-3 mt-1 ml-3">
+                <p className="text-red-500 text-[0.8rem] pl-3 mt-1">
                   {errors.newPassword.message}
                 </p>
               )}
@@ -87,16 +85,14 @@ const ResetPassword = () => {
                   type="password"
                   {...register("confirmPassword")}
                   placeholder="Confirm password"
-                  autoComplete="off"
                   className={`w-full bg-[#EFEFEF] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
                     ${errors.confirmPassword && "border border-red-500"}
                     `}
-                  required
                   disabled={loading}
                 />
               </div>
               {errors.confirmPassword && (
-                <p className="text-red-500 text-xs pl-3 mt-1 ml-3">
+                <p className="text-red-500 text-[0.8rem] pl-3 mt-1">
                   {errors.confirmPassword.message}
                 </p>
               )}
