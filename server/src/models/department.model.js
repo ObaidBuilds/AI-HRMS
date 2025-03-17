@@ -12,6 +12,10 @@ const departmentSchema = new mongoose.Schema(
       ref: "Employee",
       required: true,
     },
+    description: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
