@@ -5,13 +5,22 @@ import { sections, employeeSections } from "../../../data";
 import { updatePassword } from "../../../services/authentication.service";
 import { GiEarthAmerica } from "react-icons/gi";
 import { HiLockClosed } from "react-icons/hi";
+import { updatePasswordSchema } from "../../../validations";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const SettingModal = ({ onClose, location = "admin" }) => {
   const { theme, toggleTheme } = useTheme();
   const [loading, setLoading] = useState(false);
   const [activeSection, setActiveSection] = useState("security");
 
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(updatePasswordSchema),
+  });
 
   function onSubmit(credentials) {
     updatePassword(setLoading, credentials)
@@ -110,12 +119,18 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                         <HiLockClosed className="absolute left-3 text-gray-400 text-lg" />
                         <input
                           type="password"
-                          className="pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none"
+                          className={`pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none
+                              ${errors.oldPassword && "border border-red-500"}
+                            `}
                           placeholder="Enter your old password"
                           {...register("oldPassword")}
-                          required
                         />
                       </div>
+                      {errors.oldPassword && (
+                        <p className="text-red-500 text-[0.8rem] pl-2 mt-1">
+                          {errors.oldPassword.message}
+                        </p>
+                      )}
                     </div>
 
                     {/* New Password Field */}
@@ -127,12 +142,18 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                         <HiLockClosed className="absolute left-3 text-gray-400 text-lg" />
                         <input
                           type="password"
-                          className="pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none"
+                          className={`pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none
+                              ${errors.newPassword && "border border-red-500"}
+                            `}
                           placeholder="Enter your new password"
                           {...register("newPassword")}
-                          required
                         />
                       </div>
+                      {errors.newPassword && (
+                        <p className="text-red-500 text-[0.8rem] pl-2 mt-1">
+                          {errors.newPassword.message}
+                        </p>
+                      )}
                     </div>
 
                     {/* Confirm Password Field */}
@@ -144,12 +165,21 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                         <HiLockClosed className="absolute left-3 text-gray-400 text-lg" />
                         <input
                           type="password"
-                          className="pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none"
+                          className={`pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none
+                              ${
+                                errors.confirmPassword &&
+                                "border border-red-500"
+                              }
+                            `}
                           placeholder="Confirm your new password"
                           {...register("confirmPassword")}
-                          required
                         />
                       </div>
+                      {errors.confirmPassword && (
+                        <p className="text-red-500 text-[0.8rem] pl-2 mt-1">
+                          {errors.confirmPassword.message}
+                        </p>
+                      )}
                     </div>
 
                     {/* Submit Button */}

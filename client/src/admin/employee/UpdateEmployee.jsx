@@ -97,7 +97,7 @@ const EditEmployee = () => {
               <i class="fas fa-user mr-2"></i>
               Basic Details
             </h4>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 text-[0.82rem]">
               <Controller
                 name="employeeId"
                 control={control}
@@ -291,7 +291,7 @@ const EditEmployee = () => {
               <i class="fas fa-map-marker-alt mr-2"></i>
               Address
             </h4>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 text-[0.82rem]">
               <Controller
                 name="address.street"
                 control={control}
@@ -435,7 +435,7 @@ const EditEmployee = () => {
               <i class="fas fa-briefcase mr-2"></i>
               Department & Role
             </h4>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 text-[0.82rem]">
               <Controller
                 name="department"
                 control={control}
@@ -643,7 +643,7 @@ const EditEmployee = () => {
               <i class="fas fa-university mr-2"></i>
               Bank Details
             </h4>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 text-[0.82rem]">
               <Controller
                 name="bankDetails.accountNumber"
                 control={control}
@@ -707,7 +707,7 @@ const EditEmployee = () => {
               <i class="fas fa-user-shield mr-2"></i>
               Emergency Contact
             </h4>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 text-[0.82rem]">
               <Controller
                 name="emergencyContact.name"
                 control={control}
@@ -801,7 +801,7 @@ const EditEmployee = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full p-4 font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-3xl mb-3"
+            className="w-full p-4 font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-3xl mb-3 transition-all ease-in-out duration-150"
           >
             Update Employee
           </button>

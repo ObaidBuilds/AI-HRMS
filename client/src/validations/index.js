@@ -127,6 +127,21 @@ const resetPasswordSchema = z.object({
   confirmPassword: z.string().min(6, "* Password must be at least 6 characters"),
 });
 
+const updatePasswordSchema = z
+  .object({
+    oldPassword: z.string().min(6, "* Password must be at least 6 characters"),
+    newPassword: z.string().min(6, "* Password must be at least 6 characters"),
+    confirmPassword: z.string().min(6, "* Password must be at least 6 characters"),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "* New password and confirm password must match",
+    path: ["confirmPassword"],
+  })
+  .refine((data) => data.oldPassword !== data.newPassword, {
+    message: "* New password must be different from old password",
+    path: ["newPassword"],
+  });
+
 const feedbackSchema = z.object({
   rating: z.enum(["1", "2", "3", "4", "5"], {
     message: "Rating must be between 1 and 5",
@@ -183,4 +198,5 @@ export {
   feedbackSchema,
   complaintSchema,
   leaveSchema,
+  updatePasswordSchema
 };
