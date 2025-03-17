@@ -29,7 +29,7 @@ const Login = () => {
   return (
     <section className="h-screen overflow-hidden bg-gray-50">
       <main className="flex justify-center items-center w-full h-screen text-black font-medium">
-        <div className="w-[88%] sm:w-[490px] sm:h-[94%] lg:h-[555px] rounded-2xl border border-gray-200 shadow-2xl bg-white">
+        <div className="w-[88%] sm:w-[490px] rounded-2xl border border-gray-200 shadow-2xl bg-white">
           <div className="flex flex-col items-center py-5">
             <div className="sm:w-[140px] w-[120px] h-[120px] sm:h-[140px] bg-[#808080] rounded-full flex items-center justify-center">
               <img
@@ -63,13 +63,17 @@ const Login = () => {
                 className={`w-full bg-[#EFEFEF] text-center text-sm p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
                    ${errors.authority && "border border-red-500"}
                   `}
-                required
                 disabled={loading}
               >
                 <option value="">--- Select Authority ---</option>
                 <option value="admin">Admin</option>
                 <option value="employee">Employee</option>
               </select>
+              {errors.authority && (
+                <p className="text-red-500 text-[0.8rem] pl-3 mt-1">
+                  {errors.authority.message}
+                </p>
+              )}
             </div>
 
             {/* Employee ID */}
@@ -84,7 +88,6 @@ const Login = () => {
                   className={`w-full bg-[#EFEFEF] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
                      ${errors.employeeId && "border border-red-500"}
                     `}
-                  required
                   disabled={loading}
                 />
               </div>
@@ -106,7 +109,6 @@ const Login = () => {
                   className={`w-full bg-[#EFEFEF] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
                      ${errors.password && "border border-red-500"}
                     `}
-                  required
                   disabled={loading}
                 />
                 <span
