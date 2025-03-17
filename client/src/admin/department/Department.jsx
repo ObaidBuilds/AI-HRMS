@@ -20,9 +20,6 @@ const Department = () => {
   return (
     <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen shadow">
       <div>
-        <h1 className="hidden sm:block text-xl font-extrabold mb-5 text-gray-700 border-b pb-2">
-          Departments in Metro Cash & Carry
-        </h1>
         <div className="flex flex-col md:flex-row flex-wrap gap-3">
           {departments.map((department, index) => {
             const color = colors[index % colors.length];
@@ -66,10 +63,6 @@ const Department = () => {
       </div>
 
       <div className="mt-10">
-        <h1 className="hidden sm:block text-xl font-extrabold mb-5 text-gray-700 border-b pb-2">
-          Positions in Metro Cash & Carry
-        </h1>
-
         <div className="flex flex-col md:flex-row flex-wrap gap-3">
           {roles.map((role, index) => {
             const color = colors[index % colors.length];
@@ -77,7 +70,7 @@ const Department = () => {
             return (
               <div
                 key={role.id}
-                className="group flex w-full md:h-[130px] md:w-[49%] bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                className="group flex w-full md:h-[135px] md:w-[49%] bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
               >
                 <div
                   className={`w-[30%] flex items-center justify-center ${color.bg} ${color.darkBg}`}
@@ -97,7 +90,9 @@ const Department = () => {
                   </h1>
 
                   <p className="text-sm font-medium text-gray-500 dark:text-gray-300 mb-3">
-                    {role?.description?.slice(0, 90) + "..."}
+                    {/* {role?.description?.slice(0, 90) + "..."} */}
+                    The Marketing Department is responsible for driving brand
+                    awareness
                   </p>
                 </div>
               </div>
