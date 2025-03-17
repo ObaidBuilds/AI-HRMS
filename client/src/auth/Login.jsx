@@ -56,7 +56,11 @@ const Login = () => {
           >
             {/* Department Select */}
             <div className="w-[85%] relative">
-              <i className="fa fa-building text-sm icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
+              <i
+                className={`fa fa-building text-sm icon absolute left-5  transform -translate-y-1/2 text-gray-700
+                 ${errors.authority ? "top-7" : "top-1/2"}
+                `}
+              ></i>
               <select
                 id="select"
                 {...register("authority")}
