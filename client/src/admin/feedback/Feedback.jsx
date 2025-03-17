@@ -27,7 +27,7 @@ function Feedback() {
     <>
       {loading && <Loader />}
 
-      <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen shadow border border-green-500">
+      <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen shadow">
         <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
           {feedbackButtons.map((filter, i) => (
             <FilterButton
@@ -39,7 +39,7 @@ function Feedback() {
           ))}
         </div>
 
-        <div id="overflow" className="overflow-x-auto min-h-[80vh] border border-red-500">
+        <div id="overflow" className="overflow-x-auto min-h-[90vh]">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="dark:bg-head bg-headLight text-primary">

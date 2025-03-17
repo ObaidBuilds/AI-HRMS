@@ -86,7 +86,7 @@ function Complaint() {
         </div>
 
         {/* Complaints Table */}
-        <div id="overflow" className="overflow-x-auto min-h-[80vh]">
+        <div id="overflow" className="overflow-x-auto min-h-[90vh]">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="dark:bg-head bg-headLight text-primary">
