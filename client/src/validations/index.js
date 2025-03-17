@@ -10,11 +10,16 @@ const authenticationSchema = z.object({
 });
 
 const forgetPasswordSchema = z.object({
-  email: z.string().email("* Invalid email format").nonempty("* Email is required"),
+  email: z
+    .string()
+    .email("* Invalid email format")
+    .nonempty("* Email is required"),
 });
 
 const createEmployeeSchema = z.object({
-  employeeId: z.string().regex(/^\d+$/, "* Employee ID must be a number"),
+  employeeId: z
+    .string()
+    .regex(/^\d{3}$/, "* Employee ID must be exactly 3 digits"),
   name: z.string().min(6, "* Full name must be at least 6 characters"),
   email: z
     .string()
@@ -23,7 +28,10 @@ const createEmployeeSchema = z.object({
   password: z.string().min(6, "* Password must be at least 6 characters"),
   dob: z
     .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, "* Date of Birth must be in YYYY-MM-DD format"),
+    .regex(
+      /^\d{4}-\d{2}-\d{2}$/,
+      "* Date of Birth must be in YYYY-MM-DD format"
+    ),
   phoneNumber: z
     .string()
     .length(11, "* Phone number must be exactly 11 digits")
@@ -69,7 +77,9 @@ const createEmployeeSchema = z.object({
 });
 
 const updateEmployeeSchema = z.object({
-  employeeId: z.string().regex(/^\d+$/, "* Employee ID must be a number"),
+  employeeId: z
+    .string()
+    .regex(/^\d{3}$/, "* Employee ID must be exactly 3 digits"),
   name: z.string().min(6, "* Full name must be at least 6 characters"),
   email: z
     .string()
@@ -77,7 +87,10 @@ const updateEmployeeSchema = z.object({
     .min(6, "* Email must be at least 6 characters"),
   dob: z
     .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, "* Date of Birth must be in YYYY-MM-DD format"),
+    .regex(
+      /^\d{4}-\d{2}-\d{2}$/,
+      "* Date of Birth must be in YYYY-MM-DD format"
+    ),
   phoneNumber: z
     .string()
     .length(11, "* Phone number must be exactly 11 digits")
@@ -124,14 +137,18 @@ const updateEmployeeSchema = z.object({
 
 const resetPasswordSchema = z.object({
   newPassword: z.string().min(6, "* Password must be at least 6 characters"),
-  confirmPassword: z.string().min(6, "* Password must be at least 6 characters"),
+  confirmPassword: z
+    .string()
+    .min(6, "* Password must be at least 6 characters"),
 });
 
 const updatePasswordSchema = z
   .object({
     oldPassword: z.string().min(6, "* Password must be at least 6 characters"),
     newPassword: z.string().min(6, "* Password must be at least 6 characters"),
-    confirmPassword: z.string().min(6, "* Password must be at least 6 characters"),
+    confirmPassword: z
+      .string()
+      .min(6, "* Password must be at least 6 characters"),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     message: "* New password and confirm password must match",
@@ -147,7 +164,9 @@ const feedbackSchema = z.object({
     message: "Rating must be between 1 and 5",
   }),
   suggestion: z.string().min(2, "* Suggestion must be at least 2 characters"),
-  description: z.string().min(10, "* Description must be at least 10 characters"),
+  description: z
+    .string()
+    .min(10, "* Description must be at least 10 characters"),
 });
 
 const complaintSchema = z.object({
@@ -198,5 +217,5 @@ export {
   feedbackSchema,
   complaintSchema,
   leaveSchema,
-  updatePasswordSchema
+  updatePasswordSchema,
 };

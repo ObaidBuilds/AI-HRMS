@@ -14,7 +14,7 @@ const sidebarLinks = [
       { name: "Create Employee", link: "/employee/create" },
     ],
   },
-  { name: "Department & Roles", iconClass: "far fa-building", link: "/" },
+  { name: "Department & Roles", iconClass: "far fa-building", link: "/department" },
   {
     name: "Attendance Management",
     iconClass: "far fa-calendar-check",
