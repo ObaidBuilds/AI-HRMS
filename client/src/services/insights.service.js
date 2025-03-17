@@ -10,10 +10,10 @@ export const getInsights = createAsyncThunk(
       return data.insights;
     } catch (error) {
       console.error(
-        error.response?.data.message || "Client : " + error.message
+        error.response?.data.message ||  error.message
       );
       return rejectWithValue(
-        error.response?.data.message || "Client : " + error.message
+        error.response?.data.message ||  error.message
       );
     }
   }
@@ -28,10 +28,10 @@ export const getUpdates = createAsyncThunk(
       return data.updates;
     } catch (error) {
       console.error(
-        error.response?.data.message || "Client : " + error.message
+        error.response?.data.message ||  error.message
       );
       return rejectWithValue(
-        error.response?.data.message || "Client : " + error.message
+        error.response?.data.message ||  error.message
       );
     }
   }

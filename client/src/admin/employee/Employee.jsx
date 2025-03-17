@@ -13,10 +13,11 @@ import {
 } from "../../services/employee.service";
 import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import ImportExcelModal from "../../components/shared/modals/ImportExcelModal";
+import FetchError from "../../components/shared/error/FetchError";
 
 function Employee() {
   const dispatch = useDispatch();
-  const { employees, pagination, loading } = useSelector(
+  const { employees, pagination, loading, error } = useSelector(
     (state) => state.employee
   );
 
@@ -174,10 +175,7 @@ function Employee() {
           </div>
         </div>
 
-        <div
-          id="overflow"
-          className="overflow-x-auto min-h-[80vh]"
-        >
+        <div id="overflow" className="overflow-x-auto min-h-[80vh]">
           <table className="min-w-full text-left table-auto border-collapse text-[0.83rem] whitespace-nowrap">
             <thead>
               <tr className="bg-headLight dark:bg-head text-primary">
@@ -264,9 +262,10 @@ function Employee() {
                 ))}
             </tbody>
           </table>
-          {!loading && employees.length === 0 && (
+          {!loading && !error && employees.length === 0 && (
             <NoDataMessage message={"No employee found"} />
           )}
+          {error && <FetchError error={error} />}
         </div>
         {!loading && employees.length > 0 && (
           <Pagination {...pagination} onPageChange={goToPage} />

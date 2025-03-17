@@ -8,10 +8,11 @@ import Pagination from "../../components/shared/others/Pagination";
 import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import FilterButton from "../../components/shared/buttons/FilterButton";
 import { feedbackButtons } from "../../data";
+import FetchError from "../../components/shared/error/FetchError";
 
 function Feedback() {
   const dispatch = useDispatch();
-  const { feedbacks, loading, pagination } = useSelector(
+  const { feedbacks, loading, pagination, error } = useSelector(
     (state) => state.feedback
   );
 
@@ -112,9 +113,10 @@ function Feedback() {
             </tbody>
           </table>
 
-          {!loading && feedbacks.length === 0 && (
+          {!loading && !error && feedbacks.length === 0 && (
             <NoDataMessage message={"No feedback found"} />
           )}
+          {error && <FetchError error={error} />}
         </div>
         {!loading && feedbacks.length > 0 && (
           <Pagination

@@ -13,7 +13,8 @@ const initialState = {
   pagination: null,
   employee: null,
   loading: false,
-  error: null,
+  error:
+    "Failed to fetch employee record. Please check your connection or try again later, Please try again later.",
 };
 
 const employeeSlice = createSlice({

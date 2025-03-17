@@ -8,11 +8,14 @@ import {
   getAttendanceList,
   markAttendance,
 } from "../../services/attendance.service";
+import FetchError from "../../components/shared/error/FetchError";
 
 function Attendance() {
   const dispatch = useDispatch();
   const { departments } = useSelector((state) => state.department);
-  const { attendanceList, loading } = useSelector((state) => state.attendance);
+  const { attendanceList, loading, error } = useSelector(
+    (state) => state.attendance
+  );
 
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [selectedDate, setSelectedDate] = useState(
@@ -77,7 +80,7 @@ function Attendance() {
       {loading && <Loader />}
 
       <section className="bg-gray-100 border border-gray-300 dark:border-primary dark:bg-secondary p-3 min-h-screen rounded-lg shadow">
-        <div className="overflow-x-auto mt-3">
+        <div id="overflow" className="overflow-x-auto mt-3">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-headLight dark:bg-head text-primary">
@@ -141,12 +144,7 @@ function Attendance() {
                 </button>
               )}
 
-              {selectedDepartment && (
-                <button className="p-4 rounded-md text-center text-sm font-semibold text-gray-700 dark:text-gray-300">
-                  <i className="fas fa-building mr-2"></i>
-                  Attendance marked for {selectedDate}
-                </button>
-              )}
+              {error && <FetchError error={error} />}
             </div>
           )}
 

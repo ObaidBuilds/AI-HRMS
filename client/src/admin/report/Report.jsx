@@ -59,7 +59,10 @@ const Report = () => {
           </div>
         </div>
 
-        <div className="md:w-1/2 h-full rounded-lg dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary py-4 px-1 ">
+        <div
+          id="overflow"
+          className="md:w-1/2 h-full rounded-lg dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary py-4 px-1 "
+        >
           <h3 className="text-[0.93rem] font-semibold md:mb-3 pl-4 border-b dark:border-gray-600 pb-2">
             Complaint Resolution Rate
           </h3>
@@ -81,7 +84,10 @@ const Report = () => {
       </div>
 
       <div className="flex mt-2 gap-2 sm:gap-1 justify-between md:flex-row flex-col h-auto md:h-[400px] sm:mb-2">
-        <div className="md:w-1/2 h-full rounded-lg dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary  py-4 px-1">
+        <div
+          id="overflow"
+          className="md:w-1/2 h-full rounded-lg dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary  py-4 px-1"
+        >
           <h3 className="text-[0.93rem] font-semibold md:mb-3 pl-4 border-b dark:border-gray-600 pb-2">
             Leave Approval Rejection Rate
           </h3>
@@ -101,7 +107,10 @@ const Report = () => {
           </div>
         </div>
 
-        <div className="md:w-1/2 block h-full w-full rounded-lg  dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary  p-4 overflow-auto ">
+        <div
+          id="overflow"
+          className="md:w-1/2 block h-full w-full rounded-lg  dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary  p-4 overflow-auto "
+        >
           <h3 className="text-[0.93rem] font-semibold mb-4 border-b dark:border-gray-600 pb-2">
             Attendace Overview By Department
           </h3>
@@ -117,7 +126,10 @@ const Report = () => {
       </div>
 
       <div className="flex gap-2 sm:gap-1 justify-between md:flex-row flex-col h-auto md:h-[400px] md:mb-2 mt-2">
-        <div className="md:w-1/2 block h-full w-full rounded-lg  dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary p-4 overflow-auto ">
+        <div
+          id="overflow"
+          className="md:w-1/2 block h-full w-full rounded-lg  dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary p-4 overflow-auto "
+        >
           <h3 className="text-[0.93rem] font-semibold mb-4 border-b dark:border-gray-600 pb-2">
             Performance Overview By Department
           </h3>

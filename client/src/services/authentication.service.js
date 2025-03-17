@@ -8,17 +8,13 @@ export const login = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.post("/auth/login", credentials);
-      console.log();
       if (data.user.remember) localStorage.setItem("session", data.token);
       else sessionStorage.setItem("session", data.token);
       localStorage.setItem("remember", data.user.remember);
       toast.success(data.message);
       return data.user;
     } catch (error) {
-      toast.error(error.response?.data.message || "client : " + error.message);
-      return rejectWithValue(
-        error.response?.data.message || "client : " + error.message
-      );
+      return rejectWithValue(error.response?.data.message || error.message);
     }
   }
 );
@@ -31,7 +27,6 @@ export const forgetPassword = createAsyncThunk(
       const { data } = await axiosInstance.post("/auth/forget/password", email);
       return data.success;
     } catch (error) {
-      toast.error(error.response?.data.message || "client : " + error.message);
       return rejectWithValue(error.response?.data.message);
     }
   }
@@ -47,7 +42,7 @@ export const updatePassword = async (setLoading, credentials) => {
     toast.success(data.message);
     return data.success;
   } catch (error) {
-    toast.error(error.response?.data.message || "client : " + error.message);
+    console.error(error.response?.data.message || error.message);
   } finally {
     setLoading(false);
   }
@@ -62,7 +57,6 @@ export const resetPassword = createAsyncThunk(
       toast.success(data.message);
       return data.success;
     } catch (error) {
-      toast.error(error.response?.data.message || "client : " + error.message);
       return rejectWithValue(error.response?.data.message);
     }
   }
@@ -77,10 +71,8 @@ export const logout = createAsyncThunk(
       toast.success(data.message);
       return data.success;
     } catch (error) {
-      toast.error(error.response?.data.message || "client : " + error.message);
-      return rejectWithValue(
-        error.response?.data.message || "client : " + error.message
-      );
+      toast.error(error.response?.data.message || error.message);
+      return rejectWithValue(error.response?.data.message || error.message);
     }
   }
 );

@@ -8,10 +8,11 @@ import FilterButton from "../../components/shared/buttons/FilterButton";
 import { performanceButtons } from "../../data";
 import { getPerformances } from "../../services/performance.service";
 import { formatDate } from "../../utils";
+import FetchError from "../../components/shared/error/FetchError";
 
 function Perfromance() {
   const dispatch = useDispatch();
-  const { performances, pagination, loading } = useSelector(
+  const { performances, pagination, loading, error } = useSelector(
     (state) => state.performance
   );
 
@@ -153,9 +154,10 @@ function Perfromance() {
             </tbody>
           </table>
 
-          {!loading && performances.length === 0 && (
+          {!loading && !error && performances.length === 0 && (
             <NoDataMessage message={`No performance metrics found`} />
           )}
+          {error && <FetchError error={error} />}
         </div>
         {/* Pagination */}
         {performances.length > 0 && (

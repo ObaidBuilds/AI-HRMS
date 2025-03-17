@@ -39,6 +39,9 @@ const getAttendanceList = catchErrors(async (req, res) => {
     );
   });
 
+  if (employees.length === 0)
+    throw new Error("No employees are there to mark attendance");
+
   res.status(200).json({
     success: true,
     message: "Attendance list fetched",
@@ -260,6 +263,11 @@ const getEmployeeAttendanceByDepartment = catchErrors(async (req, res) => {
     },
     { $sort: { date: -1 } },
   ]);
+
+  if (attendanceRecord.length === 0)
+    throw new Error(
+      "No Attendance record found of the desired department for the selected date"
+    );
 
   return res.status(200).json({
     success: true,

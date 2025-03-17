@@ -22,9 +22,7 @@ export const getAllEmployees = createAsyncThunk(
       const { data } = await axiosInstance.get(`/employees?${queryParams}`);
       return data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data.message || "Client : " + error.message
-      );
+      return rejectWithValue(error.response?.data.message || error.message);
     }
   }
 );
@@ -37,9 +35,7 @@ export const getEmployeeById = createAsyncThunk(
       const { data } = await axiosInstance.get(`/employees/${id}`);
       return data.employee;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data.message || "Client : " + error.message
-      );
+      return rejectWithValue(error.response?.data.message || error.message);
     }
   }
 );
@@ -49,15 +45,13 @@ export const addEmployee = createAsyncThunk(
   "employee/addEmployee",
   async (employee, { rejectWithValue }) => {
     try {
-      console.log(employee)
+      console.log(employee);
       const { data } = await axiosInstance.post("/employees", employee);
       toast.success(data.message);
       return data.employee;
     } catch (error) {
-      toast.error(error.response?.data.message || "Client : " + error.message);
-      return rejectWithValue(
-        error.response?.data.message || "Client : " + error.message
-      );
+      toast.error(error.response?.data.message || error.message);
+      return rejectWithValue(error.response?.data.message || error.message);
     }
   }
 );
@@ -67,14 +61,15 @@ export const bulkUploadEmployees = createAsyncThunk(
   "employee/bulkUploadEmployees",
   async (employeesRecords, { rejectWithValue }) => {
     try {
-      const { data } = await axiosInstance.post("/employees/bulk", employeesRecords);
+      const { data } = await axiosInstance.post(
+        "/employees/bulk",
+        employeesRecords
+      );
       toast.success(data.message);
       return data.employees;
     } catch (error) {
-      toast.error(error.response?.data.message || "Client : " + error.message);
-      return rejectWithValue(
-        error.response?.data.message || "Client : " + error.message
-      );
+      toast.error(error.response?.data.message || error.message);
+      return rejectWithValue(error.response?.data.message || error.message);
     }
   }
 );
@@ -88,10 +83,8 @@ export const editEmployee = createAsyncThunk(
       toast.success(data.message);
       return data.employee;
     } catch (error) {
-      toast.error(error.response?.data.message || "Client : " + error.message);
-      return rejectWithValue(
-        error.response?.data.message || "Client : " + error.message
-      );
+      toast.error(error.response?.data.message || error.message);
+      return rejectWithValue(error.response?.data.message || error.message);
     }
   }
 );
@@ -105,10 +98,8 @@ export const deleteEmployee = createAsyncThunk(
       toast.success(data.message);
       return id;
     } catch (error) {
-      toast.error(error.response?.data.message || "Client : " + error.message);
-      return rejectWithValue(
-        error.response?.data.message || "Client : " + error.message
-      );
+      toast.error(error.response?.data.message || error.message);
+      return rejectWithValue(error.response?.data.message || error.message);
     }
   }
 );
@@ -132,7 +123,7 @@ export const updateProfile = async (setProfileLoading, formData) => {
     toast.success(data.message);
     return data.updatedProfilePicture;
   } catch (error) {
-    toast.error(error.response?.data.message || "Client : " + error.message);
+    toast.error(error.response?.data.message || error.message);
   } finally {
     setProfileLoading(false);
   }

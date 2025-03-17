@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import SheetModal from "../../components/shared/modals/SheetModal";
 import Loader from "../../components/shared/loaders/Loader";
 import { getEmployeeAttendanceByDepartment } from "../../services/attendance.service";
+import FetchError from "../../components/shared/error/FetchError";
 
 function CheckAttendance() {
   const dispatch = useDispatch();
 
   const { departments } = useSelector((state) => state.department);
-  const { attendanceRecord, loading } = useSelector(
+  const { attendanceRecord, loading, error } = useSelector(
     (state) => state.attendance
   );
 
@@ -33,7 +34,7 @@ function CheckAttendance() {
       {loading && <Loader />}
 
       <section className="bg-gray-100 border border-gray-300 dark:border-primary dark:bg-secondary p-3 min-h-screen rounded-lg shadow">
-        <div className="overflow-x-auto mt-3">
+        <div id="overflow" className="overflow-x-auto mt-3">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-headLight dark:bg-head text-primary">
@@ -98,14 +99,7 @@ function CheckAttendance() {
             </div>
           )}
 
-          {selectedDepartment && attendanceRecord.length === 0 && (
-            <div className="flex flex-col items-center justify-center h-[60vh] sm:h-[70vh]">
-              <button className="p-4 rounded-md text-center text-sm font-semibold text-gray-700 dark:text-gray-300">
-                <i className="fas fa-building mr-2"></i>
-                No attendance record found
-              </button>
-            </div>
-          )}
+          {error && <FetchError error={error} />}
         </div>
 
         {showModal && (

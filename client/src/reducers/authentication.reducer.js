@@ -25,6 +25,7 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
+        state.error = null;
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
@@ -38,6 +39,7 @@ const authSlice = createSlice({
       })
       .addCase(forgetPassword.fulfilled, (state, action) => {
         state.loading = false;
+        state.error = null;
       })
       .addCase(forgetPassword.rejected, (state, action) => {
         state.loading = false;
@@ -50,6 +52,7 @@ const authSlice = createSlice({
       })
       .addCase(resetPassword.fulfilled, (state) => {
         state.loading = false;
+        state.error = null;
       })
       .addCase(resetPassword.rejected, (state, action) => {
         state.loading = false;

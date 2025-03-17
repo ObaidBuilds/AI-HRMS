@@ -15,7 +15,7 @@ export const getPerformances = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data.message || "Failed to fetch roles"
+        error.response?.data.message || "Failed to get performance records"
       );
     }
   }

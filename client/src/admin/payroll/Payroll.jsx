@@ -7,11 +7,12 @@ import FilterButton from "../../components/shared/buttons/FilterButton";
 import { payrollButtons } from "../../data";
 import { getAllPayrolls } from "../../services/payroll.service";
 import { formatDate, getMonthAbbreviation } from "../../utils";
+import FetchError from "../../components/shared/error/FetchError";
 
 function Payroll() {
   const dispatch = useDispatch();
 
-  const { payrolls, pagination, loading } = useSelector(
+  const { payrolls, pagination, loading, error } = useSelector(
     (state) => state.payroll
   );
 
@@ -38,10 +39,7 @@ function Payroll() {
           ))}
         </div>
 
-        <div
-          id="overflow"
-          className="overflow-auto min-h-[90vh]"
-        >
+        <div id="overflow" className="overflow-auto min-h-[90vh]">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-headLight dark:bg-head text-primary">
@@ -129,9 +127,10 @@ function Payroll() {
             </tbody>
           </table>
 
-          {!loading && payrolls.length === 0 && (
+          {!loading && !error && payrolls.length === 0 && (
             <NoDataMessage message={"No payroll found"} />
           )}
+          {error && <FetchError error={error} />}
         </div>
         {!loading && payrolls.length > 0 && (
           <Pagination

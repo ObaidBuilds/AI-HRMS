@@ -18,7 +18,7 @@ export const getFeedbacks = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(
         error.response?.data.message ||
-          "Failed to fetch employees on leave today"
+          "Failed to fetch feedbacks"
       );
     }
   }
@@ -36,7 +36,7 @@ export const createFeedback = createAsyncThunk(
       toast.error(error.response?.data.message);
       return rejectWithValue(
         error.response?.data.message ||
-          "Failed to fetch employees on leave today"
+          "Failed to create feedback"
       );
     }
   }

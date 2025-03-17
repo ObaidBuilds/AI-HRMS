@@ -13,10 +13,11 @@ import RemarksModal from "../../components/shared/modals/RemarksModal";
 import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import FilterButton from "../../components/shared/buttons/FilterButton";
 import { complaintButtons } from "../../data";
+import FetchError from "../../components/shared/error/FetchError";
 
 function Complaint() {
   const dispatch = useDispatch();
-  const { complaints, loading, pagination } = useSelector(
+  const { complaints, loading, pagination, error } = useSelector(
     (state) => state.complaint
   );
 
@@ -168,11 +169,12 @@ function Complaint() {
             </tbody>
           </table>
 
-          {!loading && complaints.length === 0 && (
+          {!loading && !error && complaints.length === 0 && (
             <NoDataMessage
               message={`  No ${status.toLowerCase()} complaint found`}
             />
           )}
+          {error && <FetchError error={error} />}
         </div>
 
         {complaints.length > 0 && (

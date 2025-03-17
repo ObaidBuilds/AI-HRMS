@@ -17,7 +17,7 @@ export const getAttendanceList = createAsyncThunk(
       return data.employees;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data.message || "client : " + error.message
+        error.response?.data.message ||  error.message
       );
     }
   }
@@ -39,7 +39,7 @@ export const getEmployeeAttendanceByDepartment = createAsyncThunk(
       return data.attendanceRecord;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data.message || "client : " + error.message
+        error.response?.data.message ||  error.message
       );
     }
   }
@@ -57,7 +57,7 @@ export const markAttendance = createAsyncThunk(
     } catch (error) {
       toast.error(error.response?.data.message || "An error occurred.");
       return rejectWithValue(
-        error.response?.data.message || "client : " + error.message
+        error.response?.data.message ||  error.message
       );
     }
   }
@@ -73,7 +73,7 @@ export const getEmployeeAttendance = createAsyncThunk(
     } catch (error) {
       console.log(error.response?.data.message || "An error occurred.");
       return rejectWithValue(
-        error.response?.data.message || "client : " + error.message
+        error.response?.data.message ||  error.message
       );
     }
   }
@@ -92,7 +92,7 @@ export const generateQRCodeForAttendance = createAsyncThunk(
     } catch (error) {
       toast.error(error.response?.data.message || "An error occurred.");
       return rejectWithValue(
-        error.response?.data.message || "client : " + error.message
+        error.response?.data.message ||  error.message
       );
     }
   }
@@ -113,7 +113,7 @@ export const markAttendanceUsingQrCode = createAsyncThunk(
     } catch (error) {
       toast.error(error.response?.data.message || "An error occurred.");
       return rejectWithValue(
-        error.response?.data.message || "client : " + error.message
+        error.response?.data.message ||  error.message
       );
     }
   }

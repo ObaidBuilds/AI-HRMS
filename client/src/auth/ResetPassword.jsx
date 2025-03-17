@@ -13,7 +13,7 @@ const ResetPassword = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const loading = useSelector((state) => state.authentication.loading);
+  const { loading, error } = useSelector((state) => state.authentication);
 
   const {
     register,
@@ -42,7 +42,7 @@ const ResetPassword = () => {
   return (
     <section className="h-screen overflow-hidden bg-gray-50">
       <main className="flex justify-center items-center w-full h-screen text-gray-900">
-        <div className="w-[88%] sm:w-[490px] sm:h-[94%] lg:h-[360px] rounded-2xl shadow-2xl border border-gray-200 bg-white">
+        <div className="w-[88%] sm:w-[490px]  rounded-2xl shadow-2xl border border-gray-200 bg-white">
           <div className="flex flex-col items-center py-8">
             <h1
               className="text-xl sm:text-2xl mt-3 font-medium"
@@ -51,6 +51,14 @@ const ResetPassword = () => {
               Reset Password! <span className="handshake">🤦‍♂️</span>
             </h1>
           </div>
+          {error && (
+            <div className="flex justify-center items-center mb-4">
+              <div className="text-sm bg-red-100 text-red-800 w-[98%] sm:w-[80%] p-3 rounded-lg flex gap-3 items-start border border-red-200 shadow-sm border-l-4 border-l-red-500 font-normal">
+                <i class="fa-solid fa-triangle-exclamation text-red-600 text-lg"></i>
+                <p className="text-[0.82rem]">{error}</p>
+              </div>
+            </div>
+          )}
           <form
             id="refill"
             className="flex flex-col items-center gap-2 pb-8"

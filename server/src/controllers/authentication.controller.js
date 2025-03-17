@@ -17,7 +17,10 @@ const login = catchErrors(async (req, res) => {
     .populate("department", "name")
     .populate("role", "name");
 
-  if (!employee) throw new Error("Invalid credentials");
+  if (!employee)
+    throw new Error(
+      "Invalid credentials, try again with the correct credentials"
+    );
 
   if (employee?.loggedIn) throw new Error("Account already loggedIn");
 
@@ -26,7 +29,10 @@ const login = catchErrors(async (req, res) => {
 
   const comparePassword = await bcrypt.compare(password, employee.password);
 
-  if (!comparePassword) throw new Error("Invalid credentials");
+  if (!comparePassword)
+    throw new Error(
+      "Invalid credentials, try again with the correct credentials"
+    );
 
   const token = jwt.sign({ employeeId: employee._id }, process.env.JWTSECRET, {
     expiresIn: remember ? "10d" : "1d",
