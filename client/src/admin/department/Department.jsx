@@ -62,7 +62,7 @@ const Department = () => {
         </div>
       </div>
 
-      <div className="mt-10">
+      <div className="mt-5">
         <div className="flex flex-col md:flex-row flex-wrap gap-3">
           {roles.map((role, index) => {
             const color = colors[index % colors.length];
@@ -93,6 +93,10 @@ const Department = () => {
                     {/* {role?.description?.slice(0, 90) + "..."} */}
                     The Marketing Department is responsible for driving brand
                     awareness
+                  </p>
+
+                  <p className="text-[0.85rem] text-gray-600 rounded-lg ">
+                    Total Employees : 20
                   </p>
                 </div>
               </div>
