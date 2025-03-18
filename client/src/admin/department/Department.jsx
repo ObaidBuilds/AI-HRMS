@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaUsers, FaUserTie } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import Loader from "../../components/shared/loaders/Loader";
+import DepartmentModal from "../../components/shared/modals/DepartmentModal";
+import RoleModal from "../../components/shared/modals/RoleModal";
 
 const colors = [
   { bg: "bg-blue-500", darkBg: "dark:bg-blue-600" },
@@ -14,19 +17,33 @@ const colors = [
 ];
 
 const Department = () => {
-  const { departments } = useSelector((state) => state.department);
-  const { roles } = useSelector((state) => state.role);
+  const { departments, loading } = useSelector((state) => state.department);
+  const { roles, loading: roleLoading } = useSelector((state) => state.role);
+
+  const [departmentModal, setDepartmentModal] = useState(null);
+  const [roleModal, setRoleModal] = useState(null);
+  const [action, setAction] = useState("");
+  const [roleAction, setRoleAction] = useState("");
 
   return (
     <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen shadow">
+      {(loading || roleLoading) && <Loader />}
       <div>
+        {/* <button
+          onClick={() => {
+            setAction("create");
+            setDepartmentModal(true);
+          }}
+        >
+          Create
+        </button> */}
         <div className="flex flex-col md:flex-row flex-wrap gap-3">
           {departments.map((department, index) => {
             const color = colors[index % colors.length];
 
             return (
               <div
-                key={department.id}
+                key={department._id}
                 className="group flex w-full md:h-[135px] md:w-[49%] bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
               >
                 <div
@@ -37,7 +54,12 @@ const Department = () => {
 
                 <div className="w-[70%] p-4 relative">
                   <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button>
+                    <button
+                      onClick={() => {
+                        setAction("update");
+                        setDepartmentModal(department);
+                      }}
+                    >
                       <i className="fas fa-pencil-alt text-sm"></i>
                     </button>
                   </div>
@@ -47,9 +69,7 @@ const Department = () => {
                   </h1>
 
                   <p className="text-sm font-medium text-gray-500 dark:text-gray-300 mb-2">
-                    {/* {department?.description?.slice(0, 65) + "..." } */}
-                    The Marketing Department is responsible for driving brand
-                    awareness
+                    {department?.description?.slice(0, 65) + "..."}
                   </p>
 
                   <p className="text-[0.85rem] text-gray-600 rounded-lg ">
@@ -63,13 +83,21 @@ const Department = () => {
       </div>
 
       <div className="mt-5">
+        {/* <button
+          onClick={() => {
+            setRoleAction("create");
+            setRoleModal(true);
+          }}
+        >
+          Create
+        </button> */}
         <div className="flex flex-col md:flex-row flex-wrap gap-3">
           {roles.map((role, index) => {
             const color = colors[index % colors.length];
 
             return (
               <div
-                key={role.id}
+                key={role._id}
                 className="group flex w-full md:h-[135px] md:w-[49%] bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
               >
                 <div
@@ -80,7 +108,12 @@ const Department = () => {
 
                 <div className="w-[70%] p-4 relative">
                   <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button>
+                    <button
+                      onClick={() => {
+                        setRoleAction("update");
+                        setRoleModal(role);
+                      }}
+                    >
                       <i className="fas fa-pencil-alt text-sm"></i>
                     </button>
                   </div>
@@ -90,9 +123,7 @@ const Department = () => {
                   </h1>
 
                   <p className="text-sm font-medium text-gray-500 dark:text-gray-300 mb-3">
-                    {/* {role?.description?.slice(0, 90) + "..."} */}
-                    The Marketing Department is responsible for driving brand
-                    awareness
+                    {role?.description?.slice(0, 65) + "..."}
                   </p>
 
                   <p className="text-[0.85rem] text-gray-600 rounded-lg ">
@@ -104,6 +135,21 @@ const Department = () => {
           })}
         </div>
       </div>
+
+      {departmentModal && (
+        <DepartmentModal
+          action={action}
+          department={departmentModal}
+          onClose={() => setDepartmentModal(null)}
+        />
+      )}
+      {roleModal && (
+        <RoleModal
+          action={roleAction}
+          role={roleModal}
+          onClose={() => setRoleModal(null)}
+        />
+      )}
     </section>
   );
 };

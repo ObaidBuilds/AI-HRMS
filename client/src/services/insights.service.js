@@ -9,12 +9,8 @@ export const getInsights = createAsyncThunk(
       const { data } = await axiosInstance.get("/insights");
       return data.insights;
     } catch (error) {
-      console.error(
-        error.response?.data.message ||  error.message
-      );
-      return rejectWithValue(
-        error.response?.data.message ||  error.message
-      );
+      console.error(error || error.message);
+      return rejectWithValue(error.response?.data.message || error.message);
     }
   }
 );
@@ -27,12 +23,8 @@ export const getUpdates = createAsyncThunk(
       const { data } = await axiosInstance.get("/insights/updates");
       return data.updates;
     } catch (error) {
-      console.error(
-        error.response?.data.message ||  error.message
-      );
-      return rejectWithValue(
-        error.response?.data.message ||  error.message
-      );
+      console.error(error || error.message);
+      return rejectWithValue(error.response?.data.message || error.message);
     }
   }
 );

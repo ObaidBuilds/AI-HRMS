@@ -14,7 +14,7 @@ export const getAllPayrolls = createAsyncThunk(
       const { data } = await axiosInstance.get(`/payrolls?${queryParams}`);
       return data;
     } catch (error) {
-      console.error(error.response?.data.message || "Failed to fetch payroll");
+      console.error(error || "Failed to fetch payroll");
       return rejectWithValue(
         error.response?.data.message || "Failed to fetch payroll"
       );

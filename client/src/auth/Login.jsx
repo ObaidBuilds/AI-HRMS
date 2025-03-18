@@ -8,11 +8,9 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const {  loginError } = useSelector((state) => state.authentication);
+  const { loading, loginError } = useSelector((state) => state.authentication);
 
-  const loading = false
-
-  const [active, setActive] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -22,7 +20,7 @@ const Login = () => {
     resolver: zodResolver(authenticationSchema),
   });
 
-  const handleShowPass = () => setActive(!active);
+  const handleShowPass = () => setShowPassword(!showPassword);
 
   const onSubmit = (credentials) => {
     dispatch(login(credentials));
@@ -116,7 +114,7 @@ const Login = () => {
               <div className="w-full relative">
                 <i className="fas fa-unlock-alt text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
                 <input
-                  type={active ? "text" : "password"}
+                  type={showPassword ? "text" : "password"}
                   {...register("password")}
                   placeholder="Password"
                   className={`w-full bg-[#EFEFEF] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
@@ -128,7 +126,7 @@ const Login = () => {
                   className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-700 cursor-pointer"
                   onClick={handleShowPass}
                 >
-                  {active ? (
+                  {showPassword ? (
                     <i className="fas fa-eye-slash text-sm"></i>
                   ) : (
                     <i className="fas fa-eye text-sm"></i>
