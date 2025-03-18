@@ -39,7 +39,7 @@ const getAllDepartments = catchErrors(async (req, res) => {
 
 const getAllEmployeesForHead = catchErrors(async (req, res) => {
   const employees = await Employee.find({
-    role: "675737af46e3d06759f80750",
+    role: "675dae693158d5ad52e3a647",
   }).select("name");
 
   if (!employees) {
