@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 const ForgetPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error } = useSelector((state) => state.authentication);
+  const { loading, forgetPasswordError } = useSelector((state) => state.authentication);
 
   const {
     register,
@@ -39,11 +39,11 @@ const ForgetPassword = () => {
               Forget Password! <span className="handshake">🤦‍♂️</span>
             </h1>
           </div>
-          {error && (
+          {forgetPasswordError && (
             <div className="flex justify-center items-center mb-4">
               <div className="text-sm bg-red-100 text-red-800 w-[80%] p-3 rounded-lg flex gap-3 items-start border border-red-200 shadow-sm border-l-4 border-l-red-500 font-normal">
                 <i class="fa-solid fa-triangle-exclamation text-red-600 text-lg"></i>
-                <p className="text-[0.82rem]">{error}</p>
+                <p className="text-[0.82rem]">{forgetPasswordError}</p>
               </div>
             </div>
           )}
@@ -68,7 +68,7 @@ const ForgetPassword = () => {
                 />
               </div>
               {errors.email && (
-                <p className="text-red-500 text-[0.8rem] pl-3 mt-1">
+                <p className="text-red-500 text-[0.8rem] pl-3 mt-1 font-normal">
                   {errors.email.message}
                 </p>
               )}

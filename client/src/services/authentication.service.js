@@ -11,6 +11,7 @@ export const login = createAsyncThunk(
       if (data.user.remember) localStorage.setItem("session", data.token);
       else sessionStorage.setItem("session", data.token);
       localStorage.setItem("remember", data.user.remember);
+      localStorage.setItem("loggedInUser", JSON.stringify(data.user));
       toast.success(data.message);
       return data.user;
     } catch (error) {
@@ -33,20 +34,20 @@ export const forgetPassword = createAsyncThunk(
 );
 
 //  Update Password
-export const updatePassword = async (setLoading, credentials) => {
-  setLoading(true);
-  try {
-    const { data } = await axiosInstance.patch("/auth/password/update", {
-      credentials,
-    });
-    toast.success(data.message);
-    return data.success;
-  } catch (error) {
-    console.error(error.response?.data.message || error.message);
-  } finally {
-    setLoading(false);
+export const updatePassword = createAsyncThunk(
+  "auth/updatePassword",
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.patch("/auth/password/update", {
+        credentials,
+      });
+      toast.success(data.message);
+      return data.success;
+    } catch (error) {
+      return rejectWithValue(error.response?.data.message);
+    }
   }
-};
+);
 
 // Set New Password
 export const resetPassword = createAsyncThunk(

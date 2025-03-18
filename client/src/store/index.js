@@ -1,6 +1,4 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 import authentication from "../reducers/authentication.reducer";
 import role from "../reducers/role.reducer";
 import employee from "../reducers/employee.reducer";
@@ -14,12 +12,7 @@ import update from "../reducers/update.reducer";
 import performance from "../reducers/performance.reducer";
 import payroll from "../reducers/payroll.reducer";
 
-const persistConfig = {
-  key: "root",
-  storage,
-  whitelist: ["authentication"],
-};
-
+// Combine reducers
 const rootReducer = combineReducers({
   role,
   update,
@@ -35,17 +28,14 @@ const rootReducer = combineReducers({
   authentication,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
+// Configure the store
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
     }),
   devTools: import.meta.env.VITE_ENV !== "production",
 });
-
-export const persistor = persistStore(store);
 
 export default store;

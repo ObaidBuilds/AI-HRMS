@@ -7,13 +7,15 @@ import { GiEarthAmerica } from "react-icons/gi";
 import { HiLockClosed } from "react-icons/hi";
 import { updatePasswordSchema } from "../../../validations";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useDispatch, useSelector } from "react-redux";
 
 const SettingModal = ({ onClose, location = "admin" }) => {
+  const dispatch = useDispatch();
   const { theme, toggleTheme } = useTheme();
-  const [loading, setLoading] = useState(false);
   const [activeSection, setActiveSection] = useState("security");
-
-  const error = null;
+  const { loading, updatePasswordError } = useSelector(
+    (state) => state.authentication
+  );
 
   const {
     register,
@@ -25,7 +27,8 @@ const SettingModal = ({ onClose, location = "admin" }) => {
   });
 
   function onSubmit(credentials) {
-    updatePassword(setLoading, credentials)
+    dispatch(updatePassword(credentials))
+      .unwrap()
       .then(() => reset())
       .catch((error) => {
         console.error("Error in reset password:", error);
@@ -112,11 +115,13 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                     </h2>
                   </div>
                   <form className="text-sm" onSubmit={handleSubmit(onSubmit)}>
-                    {error && (
+                    {updatePasswordError && (
                       <div className="flex justify-center items-center mb-4">
                         <div className="text-sm bg-red-100 text-red-800 w-full p-3 rounded-lg flex gap-3 items-start border border-red-200 shadow-sm border-l-4 border-l-red-500 font-normal">
                           <i class="fa-solid fa-triangle-exclamation text-red-600 text-lg"></i>
-                          <p className="text-[0.82rem]">{error}</p>
+                          <p className="text-[0.82rem]">
+                            {updatePasswordError}
+                          </p>
                         </div>
                       </div>
                     )}
@@ -137,7 +142,7 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                         />
                       </div>
                       {errors.oldPassword && (
-                        <p className="text-red-500 text-[0.8rem] pl-2 mt-1">
+                        <p className="text-red-500 text-[0.8rem] pl-2 mt-1 font-normal">
                           {errors.oldPassword.message}
                         </p>
                       )}
@@ -160,7 +165,7 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                         />
                       </div>
                       {errors.newPassword && (
-                        <p className="text-red-500 text-[0.8rem] pl-2 mt-1">
+                        <p className="text-red-500 text-[0.8rem] pl-2 mt-1 font-normal">
                           {errors.newPassword.message}
                         </p>
                       )}
@@ -186,7 +191,7 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                         />
                       </div>
                       {errors.confirmPassword && (
-                        <p className="text-red-500 text-[0.8rem] pl-2 mt-1">
+                        <p className="text-red-500 text-[0.8rem] pl-2 mt-1 font-normal">
                           {errors.confirmPassword.message}
                         </p>
                       )}
