@@ -64,7 +64,7 @@ const Department = () => {
                     </button>
                   </div>
 
-                  <h1 className="sm:text-lg font-extrabold text-gray-800 dark:text-white mb-1">
+                  <h1 className="sm:text-lg font-bold text-gray-800 dark:text-white mb-1">
                     {department.name}
                   </h1>
 
@@ -118,7 +118,7 @@ const Department = () => {
                     </button>
                   </div>
 
-                  <h1 className="sm:text-lg font-extrabold text-gray-800 dark:text-white mb-1">
+                  <h1 className="sm:text-lg font-bold text-gray-800 dark:text-white mb-1">
                     {role.name}
                   </h1>
 

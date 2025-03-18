@@ -5,6 +5,7 @@ server/node_modules
 
 # Ignore all .env files
 server/.env
+server/host.env
 server/.vercel
 client/.env
 
