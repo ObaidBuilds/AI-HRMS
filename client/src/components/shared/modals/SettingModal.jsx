@@ -116,7 +116,10 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                   </div>
                   <form className="text-sm" onSubmit={handleSubmit(onSubmit)}>
                     {updatePasswordError && (
-                      <div className="flex justify-center items-center mb-4">
+                      <div
+                        id="modal"
+                        className="flex justify-center items-center mb-4"
+                      >
                         <div className="text-sm bg-red-100 text-red-800 w-full p-3 rounded-lg flex gap-3 items-start border border-red-200 shadow-sm border-l-4 border-l-red-500 font-normal">
                           <i class="fa-solid fa-triangle-exclamation text-red-600 text-lg"></i>
                           <p className="text-[0.82rem]">
