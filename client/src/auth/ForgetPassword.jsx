@@ -83,7 +83,10 @@ const ForgetPassword = () => {
               className="w-[85%] text-[0.9rem] p-[15px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
             >
               {loading ? (
-                <i className="fas fa-spinner fa-spin text-xs"></i>
+                <span className="flex items-center gap-2 justify-center text-[0.8rem]">
+                  <i className="fas fa-spinner fa-spin text-xs"></i>
+                  Submitting
+                </span>
               ) : (
                 "Submit"
               )}
