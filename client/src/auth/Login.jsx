@@ -144,7 +144,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-[85%] text-[0.9rem] p-[15px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
+              className="w-[85%] text-[0.9rem] p-[14px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
             >
               {loading ? (
                 <span className="flex items-center gap-2 justify-center text-[0.8rem]">

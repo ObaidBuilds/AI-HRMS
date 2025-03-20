@@ -62,7 +62,7 @@ const ForgetPassword = () => {
                   type="email"
                   {...register("email")}
                   placeholder="Enter you email"
-                  className={`w-full bg-[#EFEFEF] text-[0.9rem] sm:text-center p-[16px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
+                  className={`w-full bg-[#EFEFEF] text-[0.9rem] sm:text-center p-[15px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
                       ${errors.email && "border border-red-500"}
                     `}
                   // required
@@ -80,7 +80,7 @@ const ForgetPassword = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-[85%] text-[0.9rem] p-[15px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
+              className="w-[85%] text-[0.9rem] p-[13px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
             >
               {loading ? (
                 <span className="flex items-center gap-2 justify-center text-[0.8rem]">
