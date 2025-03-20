@@ -4,7 +4,7 @@ const RemarksModal = ({ onClose, isConfirm }) => {
   const [remarks, setRemarks] = useState("");
 
   return (
-    <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+    <div className="fixed inset-0 z-40 bg-gray-800 bg-opacity-50 flex justify-center items-center">
       <div
         id="modal"
         className="bg-white text-gray-700 p-6 rounded-lg w-[90%] md:w-[550px] max-w-md shadow-lg"

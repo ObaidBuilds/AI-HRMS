@@ -14,7 +14,7 @@ const ProfileModal = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+    <div className="fixed inset-0 z-40 bg-gray-800 bg-opacity-50 flex justify-center items-center">
       <div
         id="modal"
         className="relative bg-white rounded-lg shadow-lg w-[90%] sm:w-[400px] p-4"

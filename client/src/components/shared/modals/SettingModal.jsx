@@ -36,7 +36,7 @@ const SettingModal = ({ onClose, location = "admin" }) => {
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+    <div className="fixed inset-0 z-40 bg-gray-800 bg-opacity-50 flex justify-center items-center">
       <div
         id="modal"
         className="bg-white relative p-2 sm:p-5 rounded-lg w-[90%] sm:w-[800px]"

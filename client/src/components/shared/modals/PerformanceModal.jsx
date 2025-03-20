@@ -32,7 +32,7 @@ const PerformanceModal = ({ onClose, performance }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+    <div className="fixed inset-0 z-40 bg-gray-800 bg-opacity-50 flex justify-center items-center">
       <form
         id="modal"
         onSubmit={handleSubmit}

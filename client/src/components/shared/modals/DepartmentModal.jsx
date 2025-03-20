@@ -51,7 +51,7 @@ const DepartmentModal = ({ action, onClose, department }) => {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+    <div className="fixed inset-0 z-40 bg-gray-800 bg-opacity-50 flex justify-center items-center">
       <form
         id="modal"
         onSubmit={handleSubmit}
@@ -101,7 +101,9 @@ const DepartmentModal = ({ action, onClose, department }) => {
             <option value="">--- Select Head ---</option>
             {heads.length > 0 &&
               heads.map((head) => (
-                <option value={head._id}>{head.name}</option>
+                <option key={head._id} value={head._id}>
+                  {head.name}
+                </option>
               ))}
           </select>
         </div>
