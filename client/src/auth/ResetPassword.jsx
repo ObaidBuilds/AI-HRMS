@@ -55,7 +55,7 @@ const ResetPassword = () => {
           </div>
           {resetPasswordError && (
             <div id="modal" className="flex justify-center items-center mb-4">
-              <div className="text-sm bg-red-100 text-red-800 w-[80%] p-3 rounded-lg flex gap-3 items-start border border-red-200 shadow-sm border-l-4 border-l-red-500 font-normal">
+              <div className="text-[0.9rem] bg-red-100 text-red-800 w-[80%] p-3 rounded-lg flex gap-3 items-start border border-red-200 shadow-sm border-l-4 border-l-red-500 font-normal">
                 <i class="fa-solid fa-triangle-exclamation text-red-600 text-lg"></i>
                 <p className="text-[0.82rem]">{resetPasswordError}</p>
               </div>
@@ -69,12 +69,12 @@ const ResetPassword = () => {
             {/* New Password */}
             <div className="w-[85%]">
               <div className="w-full relative">
-                <i className="fas fa-unlock-alt text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
+                <i className="fas fa-unlock-alt text-[0.9rem] absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
                 <input
                   type="password"
                   {...register("newPassword")}
                   placeholder="New password"
-                  className={`w-full bg-[#EFEFEF] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
+                  className={`w-full bg-[#EFEFEF] text-[0.9rem] sm:text-center p-[16px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
                     ${errors.newPassword && "border border-red-500"}
                     `}
                   disabled={loading}
@@ -90,12 +90,12 @@ const ResetPassword = () => {
             {/* Confirm Password */}
             <div className="w-[85%]">
               <div className="w-full relative">
-                <i className="fas fa-unlock-alt text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
+                <i className="fas fa-unlock-alt text-[0.9rem] absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
                 <input
                   type="password"
                   {...register("confirmPassword")}
                   placeholder="Confirm password"
-                  className={`w-full bg-[#EFEFEF] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
+                  className={`w-full bg-[#EFEFEF] text-[0.9rem] sm:text-center p-[16px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
                     ${errors.confirmPassword && "border border-red-500"}
                     `}
                   disabled={loading}
@@ -112,7 +112,7 @@ const ResetPassword = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-[85%] text-sm p-[18px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
+              className="w-[85%] text-[0.9rem] p-[15px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
             >
               {loading ? (
                 <i className="fas fa-spinner fa-spin text-xs"></i>
@@ -121,11 +121,11 @@ const ResetPassword = () => {
               )}
             </button>
 
-            <div className="text-sm flex items-center gap-2 mt-2 font-medium cursor-pointer">
+            <div className="text-[0.9rem] flex items-center gap-2 mt-2 font-medium cursor-pointer">
               <p>
-                Not found ?{" "}
+                Not found ?
                 <Link to={"/"}>
-                  <span className="text-xs text-red-600 font-semibold">
+                  <span className="text-xs text-red-600 font-semibold pl-1">
                     Go back
                   </span>
                 </Link>

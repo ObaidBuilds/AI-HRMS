@@ -71,7 +71,7 @@ const Login = () => {
               <select
                 id="select"
                 {...register("authority")}
-                className={`w-full bg-[#EFEFEF] text-center text-[0.9rem] p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
+                className={`w-full bg-[#EFEFEF] text-center text-[0.9rem] p-[16px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
                    ${errors.authority && "border border-red-500"}
                   `}
                 disabled={loading}
@@ -96,7 +96,7 @@ const Login = () => {
                   {...register("employeeId")}
                   placeholder="Employee ID"
                   autoComplete="off"
-                  className={`w-full bg-[#EFEFEF] text-[0.9rem] sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
+                  className={`w-full bg-[#EFEFEF] text-[0.9rem] sm:text-center p-[16px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
                      ${errors.employeeId && "border border-red-500"}
                     `}
                   disabled={loading}
@@ -117,7 +117,7 @@ const Login = () => {
                   type={showPassword ? "text" : "password"}
                   {...register("password")}
                   placeholder="Password"
-                  className={`w-full bg-[#EFEFEF] text-[0.9rem] sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
+                  className={`w-full bg-[#EFEFEF] text-[0.9rem] sm:text-center p-[16px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
                      ${errors.password && "border border-red-500"}
                     `}
                   disabled={loading}
@@ -144,7 +144,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-[85%] text-[0.9rem] p-[18px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
+              className="w-[85%] text-[0.9rem] p-[15px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
             >
               {loading ? (
                 <i className="fas fa-spinner fa-spin text-xs"></i>

@@ -57,12 +57,12 @@ const ForgetPassword = () => {
             {/* Employee ID */}
             <div className="w-[85%]">
               <div className="w-full relative">
-                <i className="fa fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-800"></i>
+                <i className="fa fa-user text-[0.9rem] absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-800"></i>
                 <input
                   type="email"
                   {...register("email")}
                   placeholder="Enter you email"
-                  className={`w-full bg-[#EFEFEF] text-sm sm:text-center p-[18px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
+                  className={`w-full bg-[#EFEFEF] text-[0.9rem] sm:text-center p-[16px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
                       ${errors.email && "border border-red-500"}
                     `}
                   // required
@@ -80,7 +80,7 @@ const ForgetPassword = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-[85%] text-sm p-[18px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
+              className="w-[85%] text-[0.9rem] p-[15px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
             >
               {loading ? (
                 <i className="fas fa-spinner fa-spin text-xs"></i>
