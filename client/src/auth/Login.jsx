@@ -64,14 +64,14 @@ const Login = () => {
             {/* Department Select */}
             <div className="w-[85%] relative">
               <i
-                className={`fa fa-building text-[0.9rem] icon absolute left-5  transform -translate-y-1/2 text-gray-700
+                className={`fa fa-building text-sm icon absolute left-5  transform -translate-y-1/2 text-gray-700
                  ${errors.authority ? "top-7" : "top-1/2"}
                 `}
               ></i>
               <select
                 id="select"
                 {...register("authority")}
-                className={`w-full bg-[#EFEFEF] text-center text-[0.9rem] p-[16px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
+                className={`w-full bg-[#EFEFEF] text-center text-sm p-[16px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
                    ${errors.authority && "border border-red-500"}
                   `}
                 disabled={loading}
@@ -90,13 +90,13 @@ const Login = () => {
             {/* Employee ID */}
             <div className="w-[85%]">
               <div className="w-full relative">
-                <i className="fa fa-user text-[0.9rem] absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
+                <i className="fa fa-user text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
                 <input
                   type="text"
                   {...register("employeeId")}
                   placeholder="Employee ID"
                   autoComplete="off"
-                  className={`w-full bg-[#EFEFEF] text-[0.9rem] sm:text-center p-[16px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
+                  className={`w-full bg-[#EFEFEF] text-sm sm:text-center p-[16px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
                      ${errors.employeeId && "border border-red-500"}
                     `}
                   disabled={loading}
@@ -112,12 +112,12 @@ const Login = () => {
             {/* Password */}
             <div className="w-[85%]">
               <div className="w-full relative">
-                <i className="fas fa-unlock-alt text-[0.9rem] absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
+                <i className="fas fa-unlock-alt text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
                 <input
                   type={showPassword ? "text" : "password"}
                   {...register("password")}
                   placeholder="Password"
-                  className={`w-full bg-[#EFEFEF] text-[0.9rem] sm:text-center p-[16px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
+                  className={`w-full bg-[#EFEFEF] text-sm sm:text-center p-[16px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12
                      ${errors.password && "border border-red-500"}
                     `}
                   disabled={loading}
@@ -127,9 +127,9 @@ const Login = () => {
                   onClick={handleShowPass}
                 >
                   {showPassword ? (
-                    <i className="fas fa-eye-slash text-[0.9rem]"></i>
+                    <i className="fas fa-eye-slash text-sm"></i>
                   ) : (
-                    <i className="fas fa-eye text-[0.9rem]"></i>
+                    <i className="fas fa-eye text-sm"></i>
                   )}
                 </span>
               </div>
@@ -144,7 +144,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-[85%] text-[0.9rem] p-[14px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
+              className="w-[85%] text-sm p-[15px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
             >
               {loading ? (
                 <span className="flex items-center gap-2 justify-center text-[0.8rem]">
