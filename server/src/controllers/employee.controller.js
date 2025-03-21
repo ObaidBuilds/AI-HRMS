@@ -281,7 +281,10 @@ const updateProfilePicture = catchErrors(async (req, res) => {
 
   const employee = await Employee.findById(id);
 
-  if (employee.profilePicture) {
+  if (
+    employee.profilePicture ||
+    employee.profilePicture !== "https://metrohrms.netlify.app/unknown.jpeg"
+  ) {
     const publicId = getPublicIdFromUrl(employee.profilePicture);
 
     if (publicId) {

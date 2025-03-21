@@ -107,9 +107,24 @@ const deleteAllPayrollRecords = async () => {
   }
 };
 
+const alterEmployeeData = async () => {
+  await Employee.updateMany(
+    { profilePicture: "https://via.placeholder.com/50" },
+    {
+      $set: {
+        profilePicture:
+          "https://metrohrms.netlify.app/unknown.jpeg",
+      },
+    }
+
+  );
+  console.log("Altered")
+};
+
 export {
   generatePerformanceData,
   deleteAllPerformanceRecords,
   generatePayrollDataForMonths,
-  deleteAllPayrollRecords
+  deleteAllPayrollRecords,
+  alterEmployeeData
 };
