@@ -72,7 +72,7 @@ const Department = () => {
                     {department?.description?.slice(0, 65) + "..."}
                   </p>
 
-                  <p className="text-[0.85rem] text-gray-600 rounded-lg ">
+                  <p className="text-[0.85rem] text-gray-600 dark:text-gray-400 rounded-lg ">
                     {department.head?.name || "No Head Assigned"}
                   </p>
                 </div>
@@ -126,7 +126,7 @@ const Department = () => {
                     {role?.description?.slice(0, 65) + "..."}
                   </p>
 
-                  <p className="text-[0.85rem] text-gray-600 rounded-lg ">
+                  <p className="text-[0.85rem] text-gray-600 dark:text-gray-400 rounded-lg">
                     Total Employees : 20
                   </p>
                 </div>

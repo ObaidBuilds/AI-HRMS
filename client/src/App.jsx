@@ -29,9 +29,9 @@ function HrmsForMetroCashAndCarry() {
 function EmployeeRouter() {
   return (
     <ThemeProvider>
-    <Routes>
-      <Route path="/*" element={<EmployeeApp />} />
-    </Routes>
+      <Routes>
+        <Route path="/*" element={<EmployeeApp />} />
+      </Routes>
     </ThemeProvider>
   );
 }
@@ -53,6 +53,7 @@ function AuthRouter() {
       <Route path="/forget/password" element={<ForgetPassword />} />
       <Route path="/reset/password" element={<ResetPassword />} />
       <Route path="/email/confirmation" element={<EmailConfirmation />} />
+
       <Route path="*" element={<Navigate to={"/"} />} />
     </Routes>
   );

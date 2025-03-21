@@ -13,8 +13,8 @@ const initialState = {
   pagination: null,
   employee: null,
   loading: false,
-  error:
-    "Failed to fetch employee record. Please check your connection or try again later, Please try again later.",
+  formLoading: false,
+  error: null,
 };
 
 const employeeSlice = createSlice({
@@ -54,15 +54,15 @@ const employeeSlice = createSlice({
 
       // Handle addEmployee async action
       .addCase(addEmployee.pending, (state) => {
-        state.loading = true;
+        state.formLoading = true;
         state.error = null;
       })
       .addCase(addEmployee.fulfilled, (state, action) => {
-        state.loading = false;
+        state.formLoading = false;
         state.employees.push(action.payload);
       })
       .addCase(addEmployee.rejected, (state, action) => {
-        state.loading = false;
+        state.formLoading = false;
         state.error = action.payload;
       })
 
@@ -82,11 +82,11 @@ const employeeSlice = createSlice({
 
       // Handle editEmployee async action
       .addCase(editEmployee.pending, (state) => {
-        state.loading = true;
+        state.formLoading = true;
         state.error = null;
       })
       .addCase(editEmployee.fulfilled, (state, action) => {
-        state.loading = false;
+        state.formLoading = false;
         const index = state.employees.findIndex(
           (employee) => employee._id === action.payload._id
         );
@@ -95,7 +95,7 @@ const employeeSlice = createSlice({
         }
       })
       .addCase(editEmployee.rejected, (state, action) => {
-        state.loading = false;
+        state.formLoading = false;
         state.error = action.payload;
       })
 

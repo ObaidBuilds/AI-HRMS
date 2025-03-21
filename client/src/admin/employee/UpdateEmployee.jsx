@@ -16,7 +16,9 @@ const EditEmployee = () => {
 
   const roles = useSelector((state) => state.role.roles);
   const departments = useSelector((state) => state.department.departments);
-  const { loading, employee } = useSelector((state) => state.employee);
+  const { loading, employee, formLoading } = useSelector(
+    (state) => state.employee
+  );
 
   const {
     control,
@@ -800,10 +802,17 @@ const EditEmployee = () => {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || formLoading}
             className="w-full p-4 font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-3xl mb-3 transition-all ease-in-out duration-150"
           >
-            Update Employee
+            {formLoading ? (
+              <span className="flex items-center gap-2 justify-center">
+                <i className="fas fa-spinner fa-spin text-xs"></i>
+                Updating Employee
+              </span>
+            ) : (
+              "Update Employee"
+            )}
           </button>
         </form>
       </section>
