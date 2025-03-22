@@ -66,38 +66,26 @@ async function passwordRecovery({ email, name, resetURL }) {
     email,
     subject: "Metro HRMS - Password Reset Request",
     html: `
-       <div style="font-family: 'Poppins', Arial, sans-serif; max-width: 600px; margin: 30px auto; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); background-color: #ffffff;">
-    <!-- Header Section -->
-    <div style="background-color: #1A1A40; color: #fff; padding: 25px 30px; text-align: center;">
-        <img src="https://metrohrms.netlify.app/metro.png" alt="Metro Logo" style="max-width: 80px; margin-bottom: 15px;">
-        <h2 style="font-size: 24px; font-weight: 700; margin: 0; letter-spacing: -0.5px;">Metro Cash & Carry</h2>
+    <div
+        style="font-family: 'Poppins'; max-width: 480px; width: 100%; margin: 40px auto; background: #2c2c2c; padding: 32px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); text-align: center;">
+        <img src="https://metrohrms.netlify.app/metro.png" alt="Metro Cash & Carry Logo" class="logo"
+            style="width: 120px; margin-bottom: 24px;">
+        <div class="company-name" style="font-size: 16px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">Metro
+            Cash & Carry</div>
+        <h2 style="color: #ffffff; font-weight: 500; font-size: 22px; margin-bottom: 16px;">Password Reset Request</h2>
+        <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">Hello, ${name}</p>
+        <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">We received a request to reset your
+            password for your <span style="color: #007bff; font-weight: 500;">Metro Cash & Carry</span> account. To
+            proceed, please click the button below:</p>
+        <a href=${resetURL} class="button"
+            style="display: inline-block; padding: 12px 28px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 500; margin: 24px 0; transition: background 0.3s ease;">Reset
+            Password</a>
+        <p class="note" style="font-size: 13px; color: #999999; margin-top: 16px;">If you did not request this password
+            reset, you can safely ignore this email. The link will expire in <strong>30 minutes</strong>.</p>
+        <div class="divider" style="width: 100%; height: 1px; background: #444444; margin: 24px 0;"></div>
+        <p class="footer" style="margin-top: 24px; font-size: 12px; color: #999999;">For further assistance, please
+            contact our support team at <br><strong>support@metrocc.com</strong>.</p>
     </div>
-
-    <!-- Main Content Section -->
-    <div style="padding: 30px; color: #333;">
-        <h3 style="font-size: 22px; font-weight: 600; margin-bottom: 15px; color: #1A1A40;">Password Reset Request</h3>
-        <p style="font-size: 16px; color: #555; line-height: 1.6;">Dear <strong style="color: #1A1A40;">${name}</strong>,</p>
-        <p style="font-size: 16px; color: #555; line-height: 1.6;">
-            We received a request to reset your password for Metro HRMS. Click the button below to set a new password.
-        </p>
-        <div style="text-align: center; padding: 25px 0;">
-            <a href="${resetURL}"
-                style="text-decoration: none; background-color: #4CAF50; color: #fff; padding: 15px 30px; font-size: 16px; border-radius: 30px; font-weight: 600; display: inline-block; transition: background-color 0.3s ease;">
-                Reset Password
-            </a>
-        </div>
-        <p style="font-size: 14px; color: #777; text-align: center; margin-top: 10px;">
-            If you did not request this, please ignore this email or contact support.
-        </p>
-    </div>
-
-    <!-- Footer Section -->
-    <div style="background-color: #1A1A40; color: #9e9e9e; text-align: center; padding: 20px;">
-        <p style="font-size: 14px; margin: 0;">Need assistance? Contact HR at <a href="mailto:hr@metrohrms.com"
-                style="color: #4CAF50; text-decoration: none; font-weight: 600;">hr@metrohrms.com</a>.</p>
-        <p style="margin-top: 10px; font-size: 13px;">Metro HRMS &copy; 2024. All Rights Reserved.</p>
-    </div>
-</div>
         `,
   };
 
