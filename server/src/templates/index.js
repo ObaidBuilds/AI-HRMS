@@ -15,45 +15,42 @@ async function notifySubstituteEmployee({
     subject: "Metro Shift Alert",
     text: `Dear ${subsName}, your shift is scheduled on ${shift} as a substitute for ${name} in the ${department} department from ${fromDate} to ${toDate}. Please ensure your presence.`,
     html: `
-     <div style="font-family: 'Poppins', Arial, sans-serif; max-width: 600px; margin: 30px auto; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); background-color: #ffffff;">
-        <!-- Header Section -->
-        <div style="background-color: #1A1A40; color: #fff; padding: 25px 30px; text-align: center;">
-            <img src="https://metrohrms.netlify.app/metro.png" alt="Metro Logo" style="max-width: 80px; margin-bottom: 15px;">
-            <h2 style="font-size: 24px; font-weight: 600; margin: 0;">Metro Cash & Carry</h2>
-        </div>
-    
-        <!-- Main Content Section -->
-        <div style="padding: 30px;">
-            <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #1F1F62;">Shift Assignment Notification</h3>
-            <p style="font-size: 16px; color: #555555; margin-bottom: 15px; line-height: 1.6;">Dear <strong style="color: #1F1F62;">${subsName}</strong>,</p>
-            <p style="font-size: 16px; color: #555555; margin-bottom: 15px; line-height: 1.6;">
-                Your shift is scheduled on <strong style="color: #4CAF50;">${shift}</strong> as a substitute for <strong style="color: #1F1F62;">${name}</strong>
-                in the <strong style="color: #1F1F62;">${department}</strong> department.
-            </p>
-            <p style="font-size: 16px; color: #555555; margin-bottom: 15px; line-height: 1.6;">
-                The shift is from <strong>${fromDate}</strong> to <strong>${toDate}</strong>, with a total duration of <strong>${duration}</strong> days.
-            </p>
-            <p style="font-size: 16px; color: #555555; margin-bottom: 20px; line-height: 1.6;">
-                Please ensure your presence and cooperate with the team to maintain seamless operations.
-            </p>
-    
-            <!-- Call-to-Action Button -->
-            <div style="text-align: center; margin-top: 20px;">
-                <a href="https://metrohrms.netlify.app"
-                    style="text-decoration: none; background-color: #4CAF50; color: #fff; padding: 15px 30px; font-size: 16px; border-radius: 30px; font-weight: 600; display: inline-block; transition: background-color 0.3s ease;">
-                    Visit HRMS Portal
-                </a>
-            </div>
-        </div>
-    
-        <!-- Footer Section -->
-        <div style="background-color: #1A1A40; color: #9e9e9e; text-align: center; padding: 20px; border-top: 1px solid #e0e0e0;">
-            <p style="font-size: 14px; margin: 0;">
-                If you have any questions, please contact HR at
-                <a href="mailto:hr@metrohrms.com" style="color: #4CAF50; text-decoration: none; font-weight: 600;">hr@metrohrms.com</a>.
-            </p>
-            <p style="margin-top: 10px; font-size: 13px;">Metro HRMS &copy; 2024. All Rights Reserved.</p>
-        </div>
+      <div style="font-family: 'Poppins', sans-serif; max-width: 480px; width: 100%; margin: 40px auto; background: #2c2c2c; padding: 32px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); text-align: center;">
+        <!-- Logo -->
+        <img src="https://metrohrms.netlify.app/metro.png" alt="Metro Cash & Carry Logo" style="width: 120px; margin-bottom: 24px; max-width: 100%; height: auto;">
+        
+        <!-- Company Name -->
+        <div style="font-size: 16px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">Metro Cash & Carry</div>
+        
+        <!-- Heading -->
+        <h2 style="color: #ffffff; font-weight: 500; font-size: 22px; margin-bottom: 16px;">Shift Assignment Notification</h2>
+        
+        <!-- Message -->
+        <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">Dear <strong style="color: #007bff;">${subsName}</strong>,</p>
+        <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">
+            Your shift is scheduled on <strong style="color: #4CAF50;">${shift}</strong> as a substitute for <strong style="color: #007bff;">${name}</strong>
+            in the <strong style="color: #007bff;">${department}</strong> department.
+        </p>
+        <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">
+            The shift is from <strong>${fromDate}</strong> to <strong>${toDate}</strong>, with a total duration of <strong>${duration}</strong> days.
+        </p>
+        <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">
+            Please ensure your presence and cooperate with the team to maintain seamless operations.
+        </p>
+        
+        <!-- Call-to-Action Button -->
+        <a href="https://metrohrms.netlify.app" style="display: inline-block; padding: 12px 28px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 500; margin: 24px 0; transition: background 0.3s ease;">
+            Visit HRMS Portal
+        </a>
+        
+        <!-- Note -->
+        <p style="font-size: 13px; color: #999999; margin-top: 16px;">If you have any questions, please contact HR at <strong>hr@metrohrms.com</strong>.</p>
+        
+        <!-- Divider -->
+        <div style="width: 100%; height: 1px; background: #444444; margin: 24px 0;"></div>
+        
+        <!-- Footer -->
+        <p style="margin-top: 24px; font-size: 12px; color: #999999;">Metro HRMS &copy; 2024. All Rights Reserved.</p>
     </div>
       `,
   };
