@@ -3,13 +3,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPassword } from "../services/authentication.service";
 import { resetPasswordSchema } from "../validations";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 
 const ResetPassword = () => {
   const location = useLocation();
   const searchQuery = new URLSearchParams(location.search);
   const forgetPasswordToken = searchQuery.get("verifyToken") || "";
   const employeeId = searchQuery.get("employee") || "";
+
+  if (!employeeId || !forgetPasswordToken) return <Navigate to={"/"} />;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -112,7 +112,7 @@ const forgetPassword = catchErrors(async (req, res) => {
     expiresIn: "1h",
   });
 
-  const resetURL = `${process.env.CLIENT_URL}/reset/password?employee=${employee._id}&verifyToken=${token}`;
+  const resetURL = `${process.env.CLIENT_URL}/reset/password?verifyToken=${token}&employee=${employee._id}`;
 
   await passwordRecovery({
     email: employee.email,
