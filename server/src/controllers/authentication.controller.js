@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 import { catchErrors } from "../utils/index.js";
 import Employee from "../models/employee.model.js";
-import { passwordRecovery } from "../templates/index.js";
+import { passwordRecovery, resetPasswordSuccess } from "../templates/index.js";
 
 const login = catchErrors(async (req, res) => {
   const { employeeId, password, authority, remember } = req.body;
@@ -154,6 +154,8 @@ const resetPassword = catchErrors(async (req, res) => {
   employee.forgetPasswordToken = undefined;
 
   await employee.save();
+
+  await resetPasswordSuccess({ email: employee.email, name: employee.name });
 
   return res.status(200).json({
     success: true,
