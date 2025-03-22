@@ -8,6 +8,7 @@ import { HiLockClosed } from "react-icons/hi";
 import { updatePasswordSchema } from "../../../validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 const SettingModal = ({ onClose, location = "admin" }) => {
   const dispatch = useDispatch();
@@ -29,9 +30,12 @@ const SettingModal = ({ onClose, location = "admin" }) => {
   function onSubmit(credentials) {
     dispatch(updatePassword(credentials))
       .unwrap()
-      .then(() => reset())
+      .then(() => {
+        reset();
+        toast.success("Password updated successfully");
+      })
       .catch((error) => {
-        console.error("Error in reset password:", error);
+        console.error("Error in update password:", error);
       });
   }
 
