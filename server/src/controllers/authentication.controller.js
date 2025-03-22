@@ -86,6 +86,8 @@ const updatePassword = catchErrors(async (req, res) => {
   employee.password = hashedPassword;
   await employee.save();
 
+  await resetPasswordSuccess({ email: employee.email, name: employee.name });
+
   return res.status(200).json({
     success: true,
     message: "Password updated successfully",
