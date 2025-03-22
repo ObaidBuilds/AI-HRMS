@@ -1,4 +1,5 @@
 import Complaint from "../models/complaint.model.js";
+import { complaintRespond } from "../templates/index.js";
 import { catchErrors, myCache } from "../utils/index.js";
 
 const getComplaints = catchErrors(async (req, res) => {
@@ -97,7 +98,10 @@ const respondComplaint = catchErrors(async (req, res) => {
 
   if (!status || !id) throw new Error("All fields are required");
 
-  const complaint = await Complaint.findById(id);
+  const complaint = await Complaint.findById(id).populate(
+    "employee",
+    "name email"
+  );
 
   if (!complaint) throw new Error("Complaint not found");
   if (complaint.status.toLowerCase() === "resolved")
@@ -109,8 +113,15 @@ const respondComplaint = catchErrors(async (req, res) => {
 
   await complaint.save();
 
+  await complaintRespond({
+    email: complaint.employee.email,
+    name: complaint.employee.name,
+    type: complaint.complainType,
+    status: complaint.status,
+  });
+  
   myCache.del("insights");
-
+  
   return res.status(200).json({
     success: true,
     message: `Complaint ${status.toLowerCase()} successfully`,

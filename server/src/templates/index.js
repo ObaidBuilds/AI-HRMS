@@ -124,4 +124,81 @@ async function resetPasswordSuccess({ email, name }) {
   await sendMail(message);
 }
 
-export { notifySubstituteEmployee, passwordRecovery, resetPasswordSuccess };
+async function leaveRespond({ email, name, status, type }) {
+  const message = {
+    email,
+    subject: `Metro HRMS - Leave Request ${status}`,
+    html: `
+          <div
+        style="font-family: 'Poppins'; max-width: 480px; width: 100%; margin: 40px auto; background: #2c2c2c; padding: 32px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); text-align: center;">
+        <img src="https://metrohrms.netlify.app/metro.png" alt="Metro Cash & Carry Logo"
+            style="width: 120px; margin-bottom: 24px; max-width: 100%; height: auto;">
+        <div style="font-size: 16px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">Metro Cash & Carry</div>
+        <h2 style="color: #ffffff; font-weight: 600; font-size: 24px; margin-bottom: 16px;">Leave Request ${status}</h2>
+        <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">Hello <strong
+                style="color: #007bff;">${name}</strong>,</p>
+        <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">
+            Your ${type} leave request has been <strong style="color: #4CAF50;">${status.toLowerCase()}</strong>.
+        </p>
+        <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">
+            Please ensure all your tasks are handed over before your leave begins. Enjoy your time off!
+        </p>
+        <a href="https://metrohrms.netlify.app"
+            style="display: inline-block; padding: 12px 28px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 500; margin: 24px 0; transition: background 0.3s ease;">
+            View Leave Details
+        </a>
+        <p style="font-size: 13px; color: #999999; margin-top: 16px;">
+            If you have any questions, please contact HR at <strong>hr@metrocc.com</strong>.
+        </p>
+        <div style="width: 100%; height: 1px; background: #444444; margin: 24px 0;"></div>
+        <p style="margin-top: 24px; font-size: 12px; color: #999999;">Metro HRMS &copy; 2024. All Rights Reserved.</p>
+    </div>
+            `,
+  };
+
+  await sendMail(message);
+}
+
+async function complaintRespond({ email, name, status, type }) {
+  const message = {
+    email,
+    subject: `Metro HRMS - Complaint ${status}`,
+    html: `
+          <div
+        style="font-family: 'Poppins'; max-width: 480px; width: 100%; margin: 40px auto; background: #2c2c2c; padding: 32px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); text-align: center;">
+        <img src="https://metrohrms.netlify.app/metro.png" alt="Metro Cash & Carry Logo"
+            style="width: 120px; margin-bottom: 24px; max-width: 100%; height: auto;">
+        <div style="font-size: 16px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">Metro Cash & Carry</div>
+        <h2 style="color: #ffffff; font-weight: 600; font-size: 24px; margin-bottom: 16px;">Complaint ${status}</h2>
+        <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">Hello <strong
+                style="color: #007bff;">${name}</strong>,</p>
+        <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">
+            We would like to inform you that your complaint of ${type} issue has been <strong style="color: #4CAF50;">${status.toLowerCase()}</strong>.
+        </p>
+        <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">
+            Thank you for bringing this matter to our attention. If you have any further concerns, please feel free to
+            reach out to us.
+        </p>
+        <a href="https://metrohrms.netlify.app"
+            style="display: inline-block; padding: 12px 28px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 500; margin: 24px 0; transition: background 0.3s ease;">
+            View Complaint Details
+        </a>
+        <p style="font-size: 13px; color: #999999; margin-top: 16px;">
+            If you have any questions, please contact our support team at <strong>support@metrocc.com</strong>.
+        </p>
+        <div style="width: 100%; height: 1px; background: #444444; margin: 24px 0;"></div>
+        <p style="margin-top: 24px; font-size: 12px; color: #999999;">Metro HRMS &copy; 2024. All Rights Reserved.</p>
+    </div>
+              `,
+  };
+
+  await sendMail(message);
+}
+
+export {
+  leaveRespond,
+  passwordRecovery,
+  complaintRespond,
+  resetPasswordSuccess,
+  notifySubstituteEmployee,
+};

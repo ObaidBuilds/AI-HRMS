@@ -2,7 +2,7 @@ import Employee from "../models/employee.model.js";
 import Leave from "../models/leave.model.js";
 import { catchErrors, myCache } from "../utils/index.js";
 import { getSubstitute } from "../predictions/index.js";
-import { notifySubstituteEmployee } from "../templates/index.js";
+import { leaveRespond, notifySubstituteEmployee } from "../templates/index.js";
 
 const getLeaves = catchErrors(async (req, res) => {
   const { status = "pending" } = req.query;
@@ -96,7 +96,7 @@ const respondLeave = catchErrors(async (req, res) => {
   const { id } = req.params;
   const { remarks, status } = req.body;
 
-  const leave = await Leave.findById(id);
+  const leave = await Leave.findById(id).populate("employee", "name email");
 
   if (!leave) throw new Error("Leave not found");
   if (leave.status.toLowerCase() === "rejected")
@@ -159,6 +159,13 @@ const respondLeave = catchErrors(async (req, res) => {
 
     await leave.save();
     await employee.save();
+
+    await leaveRespond({
+      email: leave.employee.email,
+      name: leave.employee.name,
+      type: leave.leaveType,
+      status: leave.status,
+    });
 
     myCache.del("insights");
 
