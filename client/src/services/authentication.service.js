@@ -67,14 +67,16 @@ export const resetPassword = createAsyncThunk(
 );
 
 // Check Reset Password
-export const checkResetPasswordValidity = async ({
-  employeeId,
-  forgetPasswordToken,
-}) => {
+export const checkResetPasswordValidity = async (
+  setLoading,
+  { employeeId, forgetPasswordToken }
+) => {
   const queryParams = new URLSearchParams({
     employeeId: employeeId || "",
     forgetPasswordToken: forgetPasswordToken || "",
   }).toString();
+
+  setLoading(true);
 
   try {
     const { data } = await axiosInstance.get(
@@ -84,6 +86,8 @@ export const checkResetPasswordValidity = async ({
     return data.success;
   } catch (error) {
     return false;
+  } finally {
+    setLoading(false);
   }
 };
 

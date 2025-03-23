@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,14 +7,13 @@ import {
 } from "../services/authentication.service";
 import { resetPasswordSchema } from "../validations";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const ResetPassword = () => {
   const location = useLocation();
   const searchQuery = new URLSearchParams(location.search);
   const forgetPasswordToken = searchQuery.get("verifyToken") || "";
   const employeeId = searchQuery.get("employee") || "";
-
   if (!employeeId || !forgetPasswordToken) return <Navigate to={"/"} />;
 
   const dispatch = useDispatch();
@@ -22,6 +21,7 @@ const ResetPassword = () => {
   const { loading, resetPasswordError } = useSelector(
     (state) => state.authentication
   );
+  const [validateLoading, setLoading] = useState(false);
 
   const {
     register,
@@ -49,7 +49,7 @@ const ResetPassword = () => {
 
   useEffect(() => {
     async function validateResetLink() {
-      const validate = await checkResetPasswordValidity({
+      const validate = await checkResetPasswordValidity(setLoading, {
         employeeId,
         forgetPasswordToken,
       });
@@ -59,6 +59,16 @@ const ResetPassword = () => {
 
     validateResetLink();
   }, [employeeId, forgetPasswordToken, navigate]);
+
+  if (validateLoading)
+    return (
+      <section className="w-full h-[90vh] flex justify-center items-center">
+        <div className="flex items-center gap-2 justify-center text-[0.9rem] font-mono font-medium">
+          <i className="fas fa-spinner fa-spin"></i>
+          Checkign Validity
+        </div>
+      </section>
+    );
 
   return (
     <section className="h-screen overflow-hidden bg-gray-50">
