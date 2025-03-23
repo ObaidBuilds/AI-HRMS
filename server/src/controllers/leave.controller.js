@@ -107,6 +107,12 @@ const respondLeave = catchErrors(async (req, res) => {
     leave.status = "Rejected";
     if (remarks) leave.remarks = remarks;
     await leave.save();
+    await leaveRespond({
+      email: leave.employee.email,
+      name: leave.employee.name,
+      type: leave.leaveType,
+      status: leave.status.slice(0, 1).toUpperCase() + leave.status.slice(1),
+    });
     return res.status(200).json({
       success: true,
       message: "Leave rejected successfully",
@@ -164,7 +170,7 @@ const respondLeave = catchErrors(async (req, res) => {
       email: leave.employee.email,
       name: leave.employee.name,
       type: leave.leaveType,
-      status: leave.status,
+      status: leave.status.slice(0, 1).toUpperCase() + leave.status.slice(1),
     });
 
     myCache.del("insights");
@@ -175,8 +181,6 @@ const respondLeave = catchErrors(async (req, res) => {
       leave,
     });
   }
-
-  throw new Error("Invalid leave status provided");
 });
 
 export { getLeaves, applyLeave, respondLeave, getEmployeesOnLeave };

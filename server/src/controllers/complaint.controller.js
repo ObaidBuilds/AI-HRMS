@@ -117,11 +117,12 @@ const respondComplaint = catchErrors(async (req, res) => {
     email: complaint.employee.email,
     name: complaint.employee.name,
     type: complaint.complainType,
-    status: complaint.status,
+    status:
+      complaint.status.slice(0, 1).toUpperCase() + complaint.status.slice(1)
   });
-  
+
   myCache.del("insights");
-  
+
   return res.status(200).json({
     success: true,
     message: `Complaint ${status.toLowerCase()} successfully`,

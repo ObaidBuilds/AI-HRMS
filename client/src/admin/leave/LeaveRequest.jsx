@@ -35,7 +35,6 @@ function LeaveRequest() {
     dispatch(
       respondToLeaveRequest({ status: "approved", leaveID: selectedLeave })
     );
-
     setToggleRemarkModal(false);
   };
 
@@ -47,11 +46,8 @@ function LeaveRequest() {
           leaveID: selectedLeave,
           remarks,
         })
-      )
-        .unwrap()
-        .then(() => {
-          setToggleRemarkModal(false);
-        });
+      );
+      setToggleRemarkModal(false);
     }
   };
 
