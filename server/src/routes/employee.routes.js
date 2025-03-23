@@ -13,9 +13,9 @@ import { verifyAdminToken, verifyEmployeeToken } from "../middlewares/index.js";
 
 const router = express.Router();
 
-router.post("/bulk", verifyAdminToken, bulkCreateEmployees);
 router.post("/", verifyAdminToken, createEmployee);
 router.get("/", verifyAdminToken, getAllEmployees);
+router.post("/bulk", verifyAdminToken, bulkCreateEmployees);
 router.patch(
   "/profile",
   verifyEmployeeToken,

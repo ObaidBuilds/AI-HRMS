@@ -11,11 +11,11 @@ import { verifyAdminToken } from "../middlewares/index.js";
 
 const router = express.Router();
 
+router.get("/", verifyAdminToken, getAllPayrolls);
 router.post("/", verifyAdminToken, createPayroll);
-router.get("/employee", getPayrollByEmployee);
-router.get("/", getAllPayrolls);
 router.put("/:payrollId", verifyAdminToken, updatePayroll);
 router.patch("/:payrollId/pay", verifyAdminToken, markAsPaid);
+router.get("/employee", verifyAdminToken, getPayrollByEmployee);
 router.get("/history/:employee", verifyAdminToken, getEmployeePayrollHistory);
 
 export default router;

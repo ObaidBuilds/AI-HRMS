@@ -8,8 +8,8 @@ import { verifyAdminToken } from "../middlewares/index.js";
 
 const router = express.Router();
 
-router.patch("/:employeeID", verifyAdminToken, updatePerformance);
 router.get("/", verifyAdminToken, getAllPerformances);
+router.patch("/:employeeID", verifyAdminToken, updatePerformance);
 router.get("/:employeeID", verifyAdminToken, getPerformanceMetricsById);
 
 export default router;

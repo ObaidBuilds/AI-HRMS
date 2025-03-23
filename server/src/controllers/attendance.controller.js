@@ -1,21 +1,15 @@
-import cron from "node-cron";
+import mongoose from "mongoose";
 import cloudinary from "cloudinary";
 import { catchErrors } from "../utils/index.js";
 import Employee from "../models/employee.model.js";
 import Attendance from "../models/attendance.model.js";
 import { myCache, getPublicIdFromUrl } from "../utils/index.js";
 import { decodeQR, generateQrCode, getLocation } from "../utils/index.js";
-import mongoose from "mongoose";
 
 const today = new Date();
 today.setHours(0, 0, 0, 0);
 const tomorrow = new Date(today);
 tomorrow.setDate(today.getDate() + 1);
-
-cron.schedule("0 23 * * *", async () => {
-  //  Run every day at 11:00 PM
-  await markAbsentAtEndOfDay();
-});
 
 const getAttendanceList = catchErrors(async (req, res) => {
   const { department, date } = req.query;
@@ -144,7 +138,7 @@ const genrateQrCodeForAttendance = catchErrors(async (req, res) => {
   });
 });
 
-const markAbsentAtEndOfDay = async () => {
+const markAbsentAtEndOfDay = catchErrors(async (req, res) => {
   const employees = await Employee.find();
 
   for (const employee of employees) {
@@ -162,8 +156,11 @@ const markAbsentAtEndOfDay = async () => {
     }
   }
 
-  console.log("Absent employees have been marked for today.");
-};
+  return res.json({
+    success: true,
+    message: "Absent employees marked successfully.",
+  });
+});
 
 const getEmployeeAttendance = catchErrors(async (req, res) => {
   const employeeID = req.user;
@@ -412,13 +409,14 @@ const calculateAverageAttendance = async (employeeId) => {
 };
 
 export {
-  getAttendanceList,
   markAttendance,
+  getAttendanceList,
+  markAbsentAtEndOfDay,
   getEmployeeAttendance,
   markAttendanceByQrCode,
-  getDepartmentAttendancePercentage,
-  getMonthlyAttendancePercentage,
   genrateQrCodeForAttendance,
   calculateAverageAttendance,
+  getMonthlyAttendancePercentage,
+  getDepartmentAttendancePercentage,
   getEmployeeAttendanceByDepartment,
 };
