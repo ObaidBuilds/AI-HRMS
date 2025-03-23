@@ -23,7 +23,7 @@ function getLocation(latitude, longitude) {
     latitude,
     longitude,
   });
-  console.log(distance)
+  console.log(distance);
   return distance;
 }
 
@@ -131,6 +131,15 @@ const decodeQR = async (URL) => {
   }
 };
 
+const formatDate = (date) => {
+  if (!date) return "";
+  const d = new Date(date);
+  const day = d.getDate();
+  const month = d.toLocaleString("en-US", { month: "short" });
+  const year = d.getFullYear();
+  return `${day} ${month}, ${year}`;
+};
+
 export {
   catchErrors,
   myCache,
@@ -139,4 +148,5 @@ export {
   getPublicIdFromUrl,
   getLocation,
   decodeQR,
+  formatDate,
 };

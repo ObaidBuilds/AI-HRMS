@@ -30,10 +30,7 @@ const SettingModal = ({ onClose, location = "admin" }) => {
   function onSubmit(credentials) {
     dispatch(updatePassword(credentials))
       .unwrap()
-      .then(() => {
-        reset();
-        toast.success("Password updated successfully");
-      })
+      .then(() => reset())
       .catch((error) => {
         console.error("Error in update password:", error);
       });

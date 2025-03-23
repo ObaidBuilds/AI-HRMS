@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const InvalidResetLink = () => {
   return (
@@ -9,10 +10,17 @@ const InvalidResetLink = () => {
           src="/verify.avif"
           alt="verify_email"
         />
-        <div className="flex items-center mt-4 sm:w-[400px]">
+        <div className="flex flex-col justify-center items-center sm:w-[400px]">
           <p className="font-semibold text-gray-800 text-center text-[0.9rem]">
-          Oops! This reset link has expired or is invalid. Try requesting a new one.
+            Oops! This reset link has expired or is invalid. Try requesting a
+            new one.
           </p>
+          <Link
+            to="/"
+            className="inline-block px-7 py-3 bg-blue-500 text-white text-sm font-medium rounded-md transition duration-300 hover:bg-blue-600 mt-6"
+          >
+            Back to Login Page
+          </Link>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import Employee from "../models/employee.model.js";
 import Leave from "../models/leave.model.js";
-import { catchErrors, myCache } from "../utils/index.js";
+import { catchErrors, formatDate, myCache } from "../utils/index.js";
 import { getSubstitute } from "../predictions/index.js";
 import { leaveRespond, notifySubstituteEmployee } from "../templates/index.js";
 
@@ -142,13 +142,6 @@ const respondLeave = catchErrors(async (req, res) => {
     });
 
     if (substituteData.availability) {
-      const formattedToDate = new Date(leave.toDate)
-        .toISOString()
-        .split("T")[0];
-      const formattedFromDate = new Date(leave.fromDate)
-        .toISOString()
-        .split("T")[0];
-
       leave.substitute = substituteData.id;
 
       await notifySubstituteEmployee({
@@ -157,8 +150,8 @@ const respondLeave = catchErrors(async (req, res) => {
         name: employee.name,
         shift: employee.shift,
         department: employee.department.name,
-        toDate: formattedToDate,
-        fromDate: formattedFromDate,
+        toDate: formatDate(leave.toDate),
+        fromDate: formatDate(leave.fromDate),
         duration: leave.duration,
       });
     }
