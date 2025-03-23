@@ -54,7 +54,10 @@ export const resetPassword = createAsyncThunk(
   "auth/resetPassword",
   async (credentials, { rejectWithValue }) => {
     try {
-      const { data } = await axiosInstance.patch("/auth/password", credentials);
+      const { data } = await axiosInstance.patch(
+        "/auth/reset/password",
+        credentials
+      );
       toast.success(data.message);
       return data.success;
     } catch (error) {
@@ -62,6 +65,27 @@ export const resetPassword = createAsyncThunk(
     }
   }
 );
+
+// Check Reset Password
+export const checkResetPasswordValidity = async ({
+  employeeId,
+  forgetPasswordToken,
+}) => {
+  const queryParams = new URLSearchParams({
+    employeeId: employeeId || "",
+    forgetPasswordToken: forgetPasswordToken || "",
+  }).toString();
+
+  try {
+    const { data } = await axiosInstance.get(
+      `/auth/reset/password/validate?${queryParams}`
+    );
+
+    return data.success;
+  } catch (error) {
+    return false;
+  }
+};
 
 // Logout
 export const logout = createAsyncThunk(

@@ -6,6 +6,7 @@ import * as bcrypt from "bcrypt";
 import { catchErrors } from "../utils/index.js";
 import Employee from "../models/employee.model.js";
 import { passwordRecovery, resetPasswordSuccess } from "../templates/index.js";
+import mongoose from "mongoose";
 
 const login = catchErrors(async (req, res) => {
   const { employeeId, password, authority, remember } = req.body;
@@ -165,4 +166,30 @@ const resetPassword = catchErrors(async (req, res) => {
   });
 });
 
-export { login, logout, updatePassword, forgetPassword, resetPassword };
+const checkResetPasswordValidity = catchErrors(async (req, res) => {
+  const { employeeId, forgetPasswordToken } = req.query;
+
+  if (!mongoose.Types.ObjectId.isValid(employeeId))
+    throw new Error("Invalid reset password link");
+
+  const employee = await Employee.findById(employeeId);
+
+  if (!employee) throw new Error("Invalid reset password link");
+
+  if (employee.forgetPasswordToken !== forgetPasswordToken)
+    throw new Error("Invalid or expired reset password link");
+
+  return res.status(200).json({
+    success: true,
+    message: "Valid reset password link",
+  });
+});
+
+export {
+  login,
+  logout,
+  updatePassword,
+  forgetPassword,
+  resetPassword,
+  checkResetPasswordValidity,
+};

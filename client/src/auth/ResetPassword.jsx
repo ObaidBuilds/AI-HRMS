@@ -1,9 +1,13 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
-import { resetPassword } from "../services/authentication.service";
+import {
+  checkResetPasswordValidity,
+  resetPassword,
+} from "../services/authentication.service";
 import { resetPasswordSchema } from "../validations";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const ResetPassword = () => {
   const location = useLocation();
@@ -42,6 +46,19 @@ const ResetPassword = () => {
         console.error("Error in reset:", error);
       });
   };
+
+  useEffect(() => {
+    async function validateResetLink() {
+      const validate = await checkResetPasswordValidity({
+        employeeId,
+        forgetPasswordToken,
+      });
+
+      if (!validate) navigate("/reset/password/invalid");
+    }
+
+    validateResetLink();
+  }, [employeeId, forgetPasswordToken, navigate]);
 
   return (
     <section className="h-screen overflow-hidden bg-gray-50">

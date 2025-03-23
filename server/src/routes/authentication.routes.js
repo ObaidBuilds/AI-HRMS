@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  checkResetPasswordValidity,
   forgetPassword,
   login,
   logout,
@@ -14,6 +15,8 @@ router.post("/login", login);
 router.get("/logout", verifyEmployeeToken, logout);
 router.patch("/password/update", verifyEmployeeToken, updatePassword);
 router.post("/forget/password", forgetPassword);
-router.patch("/password", resetPassword);
+router.patch("/reset/password", resetPassword);
+router.get("/reset/password/validate", checkResetPasswordValidity);
+
 
 export default router;

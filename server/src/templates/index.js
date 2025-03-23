@@ -12,7 +12,7 @@ async function notifySubstituteEmployee({
 }) {
   const message = {
     email,
-    subject: "Metro Shift Alert",
+    subject: "Metro HRMS - Shift Alert",
     text: `Dear ${subsName}, your shift is scheduled on ${shift} as a substitute for ${name} in the ${department} department from ${fromDate} to ${toDate}. Please ensure your presence.`,
     html: `
       <div style="font-family: 'Poppins', sans-serif; max-width: 480px; width: 100%; margin: 40px auto; background: #2c2c2c; padding: 32px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); text-align: center;">
@@ -92,7 +92,7 @@ async function passwordRecovery({ email, name, resetURL }) {
 async function resetPasswordSuccess({ email, name }) {
   const message = {
     email,
-    subject: "Metro HRMS - Password Reset Successfully",
+    subject: "Metro HRMS - Password Updated Successfully",
     html: `
        <div
         style="font-family: 'Poppins'; max-width: 480px; width: 100%; margin: 40px auto; background: #2c2c2c; padding: 32px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); text-align: center;">

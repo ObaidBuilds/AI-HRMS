@@ -13,6 +13,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import ForgetPassword from "./auth/ForgetPassword";
 import EmailConfirmation from "./auth/EmailConfirmation";
 import ResetPassword from "./auth/ResetPassword";
+import InvalidResetLink from "./auth/InvalidResetLink";
 
 function HrmsForMetroCashAndCarry() {
   const { user } = useSelector((state) => state.authentication);
@@ -53,7 +54,7 @@ function AuthRouter() {
       <Route path="/forget/password" element={<ForgetPassword />} />
       <Route path="/reset/password" element={<ResetPassword />} />
       <Route path="/email/confirmation" element={<EmailConfirmation />} />
-
+      <Route path="/reset/password/invalid" element={<InvalidResetLink />} />
       <Route path="*" element={<Navigate to={"/"} />} />
     </Routes>
   );
