@@ -63,7 +63,29 @@ app.use("/api/complaints", complaint);
 app.use("/api/payrolls", payroll);
 
 app.get("/", (req, res) => {
-  res.send("HRMS For Metro");
+  const html = `
+  <div
+   style="font-family: 'Poppins', system-ui; max-width: 480px; width: 100%; margin: 40px auto; background: #2c2c2c; padding: 32px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); text-align: center;">
+   <img src="http://metrohrms.netlify.app/metro.png" alt="Metro Cash & Carry Logo"
+       style="width: 120px; margin-bottom: 24px; max-width: 100%; height: auto;">
+   <div style="font-size: 16px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">Metro Cash & Carry</div>
+   <h2 style="color: #ffffff; font-weight: 600; font-size: 22px; margin-bottom: 16px;">Welcome to Metro HRMS</h2>
+    <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 16px 0;">
+          Manage employees, track attendance, automate payroll, streamlime recruitment process and improve workforce efficiency with AI-powered insights.
+      </p>
+   <a href="${process.env.CLIENT_URL}"
+       style="display: inline-block; padding: 12px 28px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 500; margin: 24px 0; transition: background 0.3s ease;">
+      Visit Metro HRMS Portal
+   </a>
+   <p style="font-size: 13px; color: #999999; margin-top: 16px;">
+       If you did not update your password, please contact our support team at <strong>support@metrocc.com</strong>
+       immediately.
+   </p>
+   <div style="width: 100%; height: 1px; background: #444444; margin: 24px 0;"></div>
+   <p style="margin-top: 24px; font-size: 12px; color: #999999;">Metro HRMS &copy; 2024. All Rights Reserved.</p>
+</div>`;
+
+  res.send(html);
 });
 
 const port = process.env.PORT || 4000;
@@ -76,7 +98,6 @@ connectDB()
   .catch((err) => {
     console.error(err.message);
   });
-
 
 app.use((err, req, res, next) => {
   const message = err || "Internal server error";
