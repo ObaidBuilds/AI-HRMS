@@ -74,14 +74,10 @@ app.get("/", (req, res) => {
           Manage employees, track attendance, automate payroll, streamlime recruitment process and improve workforce efficiency with AI-powered insights.
       </p>
    <a href="${process.env.CLIENT_URL}"
-       style="display: inline-block; padding: 12px 28px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 500; margin: 24px 0; transition: background 0.3s ease;">
+       style="display: inline-block; padding: 12px 28px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 500; margin: 20px 0; transition: background 0.3s ease;">
       Visit Metro HRMS Portal
    </a>
-   <p style="font-size: 13px; color: #999999; margin-top: 16px;">
-       If you did not update your password, please contact our support team at <strong>support@metrocc.com</strong>
-       immediately.
-   </p>
-   <div style="width: 100%; height: 1px; background: #444444; margin: 24px 0;"></div>
+   <div style="width: 100%; height: 1px; background: #444444; margin: 15px 0;"></div>
    <p style="margin-top: 24px; font-size: 12px; color: #999999;">Metro HRMS &copy; 2024. All Rights Reserved.</p>
 </div>`;
 
