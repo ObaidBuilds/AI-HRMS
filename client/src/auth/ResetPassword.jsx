@@ -65,7 +65,7 @@ const ResetPassword = () => {
       <section className="w-full h-[90vh] flex justify-center items-center">
         <div className="flex items-center gap-2 justify-center text-[0.9rem] font-mono font-medium">
           <i className="fas fa-spinner fa-spin"></i>
-          Checkign Validity
+          Checking Validity
         </div>
       </section>
     );

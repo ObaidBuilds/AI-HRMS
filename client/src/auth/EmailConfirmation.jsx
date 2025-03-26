@@ -11,7 +11,7 @@ const EmailConfirmation = () => {
           alt="verify_email"
         />
         <div className="flex flex-col justify-center items-center sm:w-[400px]">
-          <p className="font-semibold text-gray-800 text-center text-[0.9rem]">
+          <p className="font-medium text-gray-800 text-center text-[0.9rem]">
             A password reset link has been sent to your email. Follow the
             instructions to reset password
           </p>
