@@ -2,11 +2,11 @@
     <a href="https://metrohrms.netlify.app">
   <img src="https://metrohrms.netlify.app/metro.png" width="128px" />
     </a>
-    <h2>AI-Driven Human Resource Management ( HRMS ⚡ )</h2>
+    <h2><i>AI-Driven Human Resource Management ( HRMS ⚡ )</i></h2>
     <p align="center">
-         <p>Streamlining HR Operations | AI-Powered Insights</p>
+         <p><i>Streamlining HR Operations | AI-Powered Insights</i></p>
     </p>
-    
+
 
 ```
  Give a Star ⭐️ & Fork to this project ... Happy coding! 🤩`
@@ -16,32 +16,32 @@
 
 </div>
 
-**🚀 Self-hosted Version** : [*click here*](https://metrohrms.netlify.app)
+***Self-hosted Version*** : [_click here_](https://metrohrms.netlify.app)
 
-## *Features* :
+## _Features_ :
 
-- *Employee Management*  
+- _Employee Management_
 
-- *Attendance & Time Tracking (QR Code-based)*  
+- _Attendance & Time Tracking (QR Code-based)_
 
-- *Leave Management (AI Shift Assignments)*  
+- _Leave Management (AI Shift Assignments)_
 
-- *Payroll Management*
+- _Payroll Management_
 
-- *Recruitment Management*  
+- _Recruitment Management_
 
-- *Performance Management*  
+- _Performance Management_
 
-- *Complaint Management* 
+- _Complaint Management_
 
-- *Feedback Management (AI Sentiment Analysis)*  
+- _Feedback Management (AI Sentiment Analysis)_
 
-- *Reports & Analytics (Attendance, Leave, Complaints)*  
+- _Reports & Analytics (Attendance, Leave, Complaints)_
 
-## *Tech Stack* :
+## _Tech Stack_ :
 
-- *MERN Stack ( MongoDB / Express.js / React.js / Node.js )*
+- _MERN Stack ( MongoDB / Express.js / React.js / Node.js )_
 
-- *Redux for State Management*  
+- _Redux for State Management_
 
-- *AI Integration with Gemini*  
+- _AI Integration with Gemini_
