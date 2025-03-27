@@ -16,9 +16,9 @@
 
 </div>
 
-**🚀 Self-hosted Version** : [click here](https://metrohrms.netlify.app)
+**🚀 Self-hosted Version** : [*click here*](https://metrohrms.netlify.app)
 
-## Features :
+## *Features* :
 
 - *Employee Management*  
 
@@ -38,7 +38,7 @@
 
 - *Reports & Analytics (Attendance, Leave, Complaints)*  
 
-## Tech Stack :
+## *Tech Stack* :
 
 - *MERN Stack ( MongoDB / Express.js / React.js / Node.js )*
 
