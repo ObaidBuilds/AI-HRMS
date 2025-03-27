@@ -23,21 +23,30 @@ The AI-Driven HRMS is a robust HR management system for Metro Cash & Carry, buil
 
 Employee Management
 
-Attendance Management  (QR Code-based)
+Attendance & Time Tracking
+ (QR Code-based)
+
+Leave Management
+ (AI Shift Assignments)
 
 Payroll Management
 
 Recruitment Management
 
-Leave Management (AI Shift Assignments)
-
 Performance Management
 
 Complaint Management
 
-Feedback Management (AI Sentiment Analysis)
+Feedback Management
+ (AI Sentiment Analysis)
 
-🛠 **Tech Stack:**  
-🚀 MERN Stack (MongoDB / Express.js / React.js / Node.js)   
+Reports & Analytics
+ (Attendance, Leave, Complaints)
+
+## Features :
+
+🚀 MERN Stack (MongoDB / Express.js / React.js / Node.js)  
+
 ⚡ Redux for State Management  
+
 🤖 AI Integration with Gemini  
