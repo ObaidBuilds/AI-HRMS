@@ -12,7 +12,7 @@
  Give a Star ⭐️ & Fork to this project ... Happy coding! 🤩`
 ```
 
-The AI-Driven HRMS is a robust HR management system, built on the MERN stack. It integrates AI for sentiment analysis, automated scheduling, and a Gemini-powered chatbo
+*The AI-Driven HRMS is a robust HR management system, built on the MERN stack. It integrates AI for sentiment analysis, automated scheduling, and a Gemini-powered chatbot*
 
 </div>
 
