@@ -2,7 +2,7 @@
     <a href="https://www.idurarapp.com/">
   <img src="https://metrohrms.netlify.app/metro.png" width="128px" />
     </a>
-    <h1>AI-Driven HRMS for Metro Cash & Carry</h1>
+    <h1>AI-Driven Human Resource Management System ( HRMS )</h1>
     <p align="center">
          <p>Streamlining HR Operations | AI-Powered Insights</p>
     </p>
@@ -12,12 +12,11 @@
  Give a Star ⭐️ & Fork to this project ... Happy coding! 🤩`
 ```
 
-The AI-Driven HRMS is a robust HR management system for Metro Cash & Carry, built on the MERN stack. It integrates AI for sentiment analysis, automated scheduling, and a Gemini-powered chatbo
+The AI-Driven HRMS is a robust HR management system, built on the MERN stack. It integrates AI for sentiment analysis, automated scheduling, and a Gemini-powered chatbo
 
 </div>
 
-**🚀 Self-hosted Version** : [https://metrohrms.netlify.app](https://metrohrms.netlify.app)
-
+**🚀 Self-hosted Version** : [https://hrms.netlify.app](https://metrohrms.netlify.app)
 
 ## Features :
 
@@ -43,7 +42,7 @@ Feedback Management
 Reports & Analytics
  (Attendance, Leave, Complaints)
 
-## Features :
+## Tech Stack :
 
 🚀 MERN Stack (MongoDB / Express.js / React.js / Node.js)  
 
