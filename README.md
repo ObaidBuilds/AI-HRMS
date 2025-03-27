@@ -2,8 +2,8 @@
     <a href="https://metrohrms.netlify.app">
   <img src="https://metrohrms.netlify.app/metro.png" width="128px" />
     </a>
-    <h1 style="font-family: Poppins;">AI-Driven HR Management System ( HRMS )</h1>
-    <p align="center" style="font-family: Poppins;">
+    <h1>AI-Driven HR Management System ( HRMS )</h1>
+    <p align="center">
          <p>Streamlining HR Operations | AI-Powered Insights</p>
     </p>
     
@@ -16,7 +16,7 @@ The AI-Driven HRMS is a robust HR management system, built on the MERN stack. It
 
 </div>
 
-**🚀 Self-hosted Version** : [https://hrms.netlify.app](https://metrohrms.netlify.app)
+**🚀 Self-hosted Version** : [click here](https://metrohrms.netlify.app)
 
 ## Features :
 
