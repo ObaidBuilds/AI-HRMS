@@ -12,7 +12,7 @@
  Give a Star ⭐️ & Fork to this project ... Happy coding! 🤩`
 ```
 
-The AI-Driven HRMS is a comprehensive Human Resource Management System designed for Metro Cash & Carry. Built on the advanced MERN stack (MongoDB / Express.js / React.js / Node.js), it leverages AI for sentiment analysis, automated scheduling, and a chatbot using ( GEMINI )
+The AI-Driven HRMS is a robust HR management system for Metro Cash & Carry, built on the MERN stack. It integrates AI for sentiment analysis, automated scheduling, and a Gemini-powered chatbo
 
 </div>
 
