@@ -40,8 +40,8 @@ The AI-Driven HRMS is a robust HR management system, built on the MERN stack. It
 
 ## Tech Stack :
 
-🚀 MERN Stack (MongoDB / Express.js / React.js / Node.js)  
+- *🚀 MERN Stack (MongoDB / Express.js / React.js / Node.js)*
 
-⚡ Redux for State Management  
+- *⚡ Redux for State Management*  
 
-🤖 AI Integration with Gemini  
+- *🤖 AI Integration with Gemini*  
