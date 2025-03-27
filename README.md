@@ -2,7 +2,7 @@
     <a href="https://metrohrms.netlify.app">
   <img src="https://metrohrms.netlify.app/metro.png" width="128px" />
     </a>
-    <h2>AI-Driven Human Resource Management System ( HRMS )</h2>
+    <h2>AI-Driven Human Resource Management ( HRMS ⚡ )</h2>
     <p align="center">
          <p>Streamlining HR Operations | AI-Powered Insights</p>
     </p>
@@ -40,8 +40,8 @@
 
 ## Tech Stack :
 
-- *🚀 MERN Stack ( MongoDB / Express.js / React.js / Node.js )*
+- *MERN Stack ( MongoDB / Express.js / React.js / Node.js )*
 
-- *⚡ Redux for State Management*  
+- *Redux for State Management*  
 
-- *🤖 AI Integration with Gemini*  
+- *AI Integration with Gemini*  
