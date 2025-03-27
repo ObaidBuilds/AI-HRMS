@@ -2,8 +2,8 @@
     <a href="https://metrohrms.netlify.app">
   <img src="https://metrohrms.netlify.app/metro.png" width="128px" />
     </a>
-    <h1 style="font-family:Poppins;">AI-Driven HR Management System ( HRMS )</h1>
-    <p align="center">
+    <h1 style="font-family: Poppins;">AI-Driven HR Management System ( HRMS )</h1>
+    <p align="center" style="font-family: Poppins;">
          <p>Streamlining HR Operations | AI-Powered Insights</p>
     </p>
     
