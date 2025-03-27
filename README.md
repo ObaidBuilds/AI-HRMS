@@ -2,7 +2,7 @@
     <a href="https://metrohrms.netlify.app">
   <img src="https://metrohrms.netlify.app/metro.png" width="128px" />
     </a>
-    <h2>AI-Driven HR Management System ( HRMS )</h2>
+    <h2>AI-Driven Human Resource Management System ( HRMS )</h2>
     <p align="center">
          <p>Streamlining HR Operations | AI-Powered Insights</p>
     </p>
@@ -22,9 +22,9 @@ The AI-Driven HRMS is a robust HR management system, built on the MERN stack. It
 
 - *Employee Management*  
 
-- *Attendance & Time Tracking* (QR Code-based)  
+- *Attendance & Time Tracking (QR Code-based)*  
 
-- *Leave Management* (AI Shift Assignments)  
+- *Leave Management (AI Shift Assignments)*  
 
 - *Payroll Management*
 
@@ -34,13 +34,13 @@ The AI-Driven HRMS is a robust HR management system, built on the MERN stack. It
 
 - *Complaint Management* 
 
-- *Feedback Management* (AI Sentiment Analysis)  
+- *Feedback Management (AI Sentiment Analysis)*  
 
-- *Reports & Analytics* (Attendance, Leave, Complaints)  
+- *Reports & Analytics (Attendance, Leave, Complaints)*  
 
 ## Tech Stack :
 
-- *🚀 MERN Stack (MongoDB / Express.js / React.js / Node.js)*
+- *🚀 MERN Stack ( MongoDB / Express.js / React.js / Node.js )*
 
 - *⚡ Redux for State Management*  
 
