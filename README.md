@@ -2,7 +2,7 @@
     <a href="https://metrohrms.netlify.app">
   <img src="https://metrohrms.netlify.app/metro.png" width="128px" />
     </a>
-    <h1><i>AI-Driven Human Resource Management ( HRMS ⚡ )</i></h1>
+    <h1><i>AI-Driven Human Resource Management ⚡</i></h1>
     <p align="center">
          <p><i>Streamlining HR Operations | AI-Powered Insights</i></p>
     </p>
