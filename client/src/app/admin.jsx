@@ -29,6 +29,7 @@ const PostJob = lazy(() => import("../admin/recruitment/PostJob"));
 const Performance = lazy(() => import("../admin/performance/Performance"));
 const Report = lazy(() => import("../admin/report/Report"));
 const Payroll = lazy(() => import("../admin/payroll/Payroll"));
+const Mail = lazy(() => import("../admin/mail/Mail"));
 
 const AdminApp = () => {
   const dispatch = useDispatch();
@@ -72,6 +73,7 @@ const AdminApp = () => {
             <Route path="/feedbacks" element={<Feedback />} />
             <Route path="/complaints" element={<Complaint />} />
             <Route path="/complaints" element={<Complaint />} />
+            <Route path="/mails" element={<Mail />} />
             <Route path="/reports" element={<Report />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -65,6 +65,12 @@ const sidebarLinks = [
     childrens: [],
   },
   {
+    name: "Employee Emails",
+    iconClass: "far fa-envelope",
+    link: "/mails",
+    childrens: [],
+  },  
+  {
     name: "Reports & Analytics",
     iconClass: "far fa-chart-bar",
     link: "/reports",
