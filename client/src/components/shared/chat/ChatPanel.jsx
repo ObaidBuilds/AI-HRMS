@@ -1,6 +1,6 @@
-import {  useRef, useEffect, useState } from "react";
 import Message from "./Message";
 import { IoMdSend } from "react-icons/io";
+import { useRef, useEffect, useState } from "react";
 import { BsEmojiSmile, BsPaperclip } from "react-icons/bs";
 import { FaPaperPlane, FaEllipsisV, FaArrowLeft } from "react-icons/fa";
 
@@ -11,23 +11,16 @@ const ChatPanel = ({ selectedEmployee, message, setMessage, onBack }) => {
   useEffect(() => {
     if (selectedEmployee) {
       const demoMessages = [
-        { id: 1, text: "Hi there!", time: "10:30 AM", isSender: false },
+        {
+          id: 1,
+          text: "Hello! How can I help !",
+          time: "10:30 AM",
+          isSender: false,
+        },
         {
           id: 2,
           text: "Hello! How are you?",
           time: "10:32 AM",
-          isSender: true,
-        },
-        {
-          id: 3,
-          text: "I'm doing well, thanks for asking. How about you?",
-          time: "10:33 AM",
-          isSender: false,
-        },
-        {
-          id: 4,
-          text: "Pretty good! Just working on some projects.",
-          time: "10:35 AM",
           isSender: true,
         },
       ];
@@ -123,22 +116,22 @@ const ChatPanel = ({ selectedEmployee, message, setMessage, onBack }) => {
           </div>
 
           <div className="p-2 sm:p-3 border-t dark:border-gray-700 bg-white dark:bg-gray-800">
-            <div className="flex items-center gap-1 sm:gap-2">
+            <div className="flex items-center gap-1">
               <button className="p-1 sm:p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                <BsEmojiSmile className="text-sm sm:text-base" />
+                <BsEmojiSmile className="text-base" />
               </button>
               <button className="p-1 sm:p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                <BsPaperclip className="text-sm sm:text-base" />
+                <BsPaperclip className="text-base" />
               </button>
               <input
-                className="flex-1 p-1.5 sm:p-2 text-sm sm:text-[0.92rem] border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:focus:ring-blue-500"
+                className="flex-1 p-3 text-sm sm:text-[0.92rem] border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:focus:ring-blue-500"
                 placeholder="Type a message..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
               />
               <button
-                className="p-1.5 sm:p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors dark:bg-blue-600 dark:hover:bg-blue-700"
+                className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors dark:bg-blue-600 dark:hover:bg-blue-700"
                 onClick={handleSendMessage}
               >
                 <IoMdSend className="text-sm sm:text-base" />

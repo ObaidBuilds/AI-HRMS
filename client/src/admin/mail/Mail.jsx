@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import ContactItem from "../../components/shared/chat/ContactItem";
 import ChatPanel from "../../components/shared/chat/ChatPanel";
+import ContactItem from "../../components/shared/chat/ContactItem";
 
 const employees = [
   {
@@ -68,7 +68,7 @@ const Mail = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100 dark:bg-gray-900 text-sm sm:text-[0.92rem]">
+    <div className="flex h-[92vh] sm:h-[98vh] bg-gray-100 dark:bg-gray-900 text-sm sm:text-[0.92rem]">
       <div
         className={`${
           showContacts ? "flex" : "hidden"
