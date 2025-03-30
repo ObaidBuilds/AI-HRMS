@@ -46,7 +46,7 @@ const employees = [
   },
 ];
 
-const Mail = () => {
+const Communication = () => {
   const [message, setMessage] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [showContacts, setShowContacts] = useState(true);
@@ -118,4 +118,4 @@ const Mail = () => {
   );
 };
 
-export default Mail;
+export default Communication;

@@ -29,7 +29,7 @@ const PostJob = lazy(() => import("../admin/recruitment/PostJob"));
 const Performance = lazy(() => import("../admin/performance/Performance"));
 const Report = lazy(() => import("../admin/report/Report"));
 const Payroll = lazy(() => import("../admin/payroll/Payroll"));
-const Mail = lazy(() => import("../admin/mail/Mail"));
+const Mail = lazy(() => import("../admin/mail/Communication"));
 
 const AdminApp = () => {
   const dispatch = useDispatch();
