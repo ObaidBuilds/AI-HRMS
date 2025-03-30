@@ -1,7 +1,7 @@
 const InfoCard = ({ detail }) => {
   return (
     <div className="w-full flex-grow relative md:w-[32.8%] h-[158px] rounded-lg dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary p-4 shadow">
-      <h3 className="font-semibold text-[1.05rem] sm:text-[0.95rem] mb-3 flex items-center gap-3">
+      <h3 className="font-semibold text-[1.03rem] sm:text-[0.95rem] mb-3 flex items-center gap-3">
         {detail.title}
       </h3>
       <p className="md:text-2xl font-bold text-[1.4rem]">
