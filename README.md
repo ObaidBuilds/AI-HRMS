@@ -34,6 +34,8 @@
 
 - _Complaint Management_
 
+ - _Communication Management_
+
 - _Feedback Management ( AI Sentiment Analysis )_
 
 - _Reports & Analytics ( Attendance, Leave, Complaints )_
