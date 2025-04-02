@@ -66,7 +66,7 @@ const ChatPanel = ({ selectedEmployee, message, setMessage, onBack }) => {
   };
 
   return (
-    <div className="flex-1 flex flex-col border-l dark:border-gray-700 bg-white dark:bg-gray-900">
+    <div className="w-full flex-1 flex flex-col bg-white dark:bg-gray-900">
       {selectedEmployee ? (
         <>
           <div className="p-2 sm:p-3 border-b dark:border-gray-700 flex items-center justify-between bg-gray-50 dark:bg-gray-800">
@@ -124,7 +124,7 @@ const ChatPanel = ({ selectedEmployee, message, setMessage, onBack }) => {
                 <BsPaperclip className="text-base" />
               </button>
               <input
-                className="flex-1 p-3 text-sm sm:text-[0.92rem] border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:focus:ring-blue-500"
+                className="flex-1 w-[100px] p-3 text-sm sm:text-[0.92rem] border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:focus:ring-blue-500"
                 placeholder="Type a message..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}

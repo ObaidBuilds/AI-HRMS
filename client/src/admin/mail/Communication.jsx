@@ -69,14 +69,14 @@ const Communication = () => {
   };
 
   return (
-    <div className="flex h-[92vh] sm:h-[98vh] bg-gray-100 dark:bg-gray-900 text-sm sm:text-[0.92rem] overflow-y-hidden">
+    <div className="flex h-[92vh] rounded-lg sm:h-[99vh] bg-gray-100 dark:bg-gray-900 text-sm sm:text-[0.92rem] overflow-y-hidden">
       <div
         className={`${
           showContacts ? "flex" : "hidden"
-        } lg:flex flex-col w-1/3 border-r dark:border-gray-700 bg-white dark:bg-gray-800`}
+        } lg:flex flex-col w-1/3 bg-white dark:bg-gray-800`}
       >
         <div className="p-3">
-          <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-800 dark:text-gray-100">
+          <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-800 dark:text-gray-100 p-3">
             Messages
           </h2>
           <div className="relative mb-3 sm:mb-4">
