@@ -2,7 +2,7 @@ import Message from "./Message";
 import { IoMdSend } from "react-icons/io";
 import { useRef, useEffect, useState } from "react";
 import { BsEmojiSmile, BsPaperclip } from "react-icons/bs";
-import { FaPaperPlane, FaEllipsisV, FaArrowLeft } from "react-icons/fa";
+import { FaPaperPlane, FaArrowLeft } from "react-icons/fa";
 
 const ChatPanel = ({ selectedEmployee, message, setMessage, onBack }) => {
   const [messages, setMessages] = useState([]);
@@ -69,7 +69,7 @@ const ChatPanel = ({ selectedEmployee, message, setMessage, onBack }) => {
     <div className="w-full flex-1 flex flex-col bg-white dark:bg-gray-900">
       {selectedEmployee ? (
         <>
-          <div className="p-2 sm:p-3 border-b dark:border-gray-700 flex items-center justify-between bg-gray-50 dark:bg-gray-800">
+          <div className="p-2 sm:p-3 border-b dark:border-gray-700 flex items-center justify-between bg-gray-50 dark:bg-gray-800 fixed w-full sm:top-0">
             <div className="flex items-center gap-2 sm:gap-3">
               <button
                 className="lg:hidden p-1 sm:p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
@@ -98,12 +98,9 @@ const ChatPanel = ({ selectedEmployee, message, setMessage, onBack }) => {
                 </p>
               </div>
             </div>
-            <button className="p-1 sm:p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-              <FaEllipsisV className="text-sm sm:text-base" />
-            </button>
           </div>
 
-          <div className="flex-1 p-2 pt-5 sm:p-4 overflow-y-auto bg-gray-50 dark:bg-gray-900">
+          <div className="flex-1 p-2 mt-16 sm:p-4 overflow-y-auto bg-gray-50 dark:bg-gray-900">
             {messages.map((msg) => (
               <Message
                 key={msg.id}
