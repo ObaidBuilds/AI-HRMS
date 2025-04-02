@@ -112,7 +112,7 @@ const ChatPanel = ({ selectedEmployee, message, setMessage, onBack }) => {
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="p-2 sm:p-3 border-t dark:border-gray-700 bg-white dark:bg-gray-800">
+          <div className="p-2 sm:p-3 border-t dark:border-gray-700 bg-white dark:bg-gray-800 fixed w-full lg:w-[700px] bottom-0">
             <div className="flex items-center gap-1">
               <button className="p-1 sm:p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
                 <BsEmojiSmile className="text-base" />

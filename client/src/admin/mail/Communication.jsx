@@ -78,7 +78,7 @@ const Communication = () => {
       >
         <div className="p-3">
           <h2 className="text-lg sm:text-xl font-bold mb-2 sm:mb-4 text-gray-800 dark:text-gray-100 p-2">
-            Messages
+            Contacts
           </h2>
           <div className="relative mb-3 sm:mb-4">
             <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 text-sm sm:text-base" />
