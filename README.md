@@ -20,6 +20,8 @@
 
 ## _Features_ :
 
+- _Roubust Authentication_
+  
 - _Employee Management_
 
 - _Attendance & Time Tracking ( QR Code-based )_
