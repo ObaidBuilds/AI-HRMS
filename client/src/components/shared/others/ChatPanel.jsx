@@ -102,7 +102,7 @@ const ChatPanel = () => {
       </button>
 
       <div
-        className={`fixed z-50 sm:top-0 sm:right-0 w-[98%] sm:w-[400px] h-[60vh] sm:h-screen ${
+        className={`fixed z-50 top-0 right-0 w-full sm:w-[400px] h-[70vh] sm:h-screen ${
           theme === "light"
             ? "bg-gradient-to-r from-[#0a2540] to-[#1d3557]"
             : "bg-gradient-to-br from-[#1E293B] to-[#334155]"
