@@ -70,7 +70,7 @@ const Communication = () => {
   };
 
   return (
-    <div className="flex h-[88vh] rounded-lg sm:h-[99vh] bg-gray-100 dark:bg-gray-900 text-sm sm:text-[0.92rem] overflow-y-hidden">
+    <div className="flex h-[92vh] rounded-lg sm:h-[99vh] bg-gray-100 dark:bg-gray-900 text-sm sm:text-[0.92rem] overflow-y-hidden">
       <div
         className={`${
           showContacts ? "flex" : "hidden"
