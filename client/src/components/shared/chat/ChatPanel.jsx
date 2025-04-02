@@ -103,7 +103,7 @@ const ChatPanel = ({ selectedEmployee, message, setMessage, onBack }) => {
             </button>
           </div>
 
-          <div className="flex-1 p-2 sm:p-4 overflow-y-auto bg-gray-50 dark:bg-gray-900">
+          <div className="flex-1 p-2 pt-5 sm:p-4 overflow-y-auto bg-gray-50 dark:bg-gray-900">
             {messages.map((msg) => (
               <Message
                 key={msg.id}
@@ -140,7 +140,7 @@ const ChatPanel = ({ selectedEmployee, message, setMessage, onBack }) => {
           </div>
         </>
       ) : (
-        <div className="w-full flex items-center justify-center flex-1 text-gray-500 dark:text-gray-400 p-4 text-center">
+        <div className="w-full sm:flex items-center justify-center flex-1 text-gray-500 dark:text-gray-400 p-4 text-center hidden">
           <div className="max-w-xs">
             <div className="mx-auto w-16 h-16 sm:w-20 sm:h-20 bg-gray-200 dark:bg-gray-700 rounded-full mb-3 sm:mb-4 flex items-center justify-center">
               <FaPaperPlane className="text-xl sm:text-2xl text-gray-400 dark:text-gray-500" />

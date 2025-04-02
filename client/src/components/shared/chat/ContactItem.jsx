@@ -1,3 +1,5 @@
+
+
 const ContactItem = ({ employee, isSelected, onSelect }) => (
   <div
     className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all ${
@@ -27,7 +29,7 @@ const ContactItem = ({ employee, isSelected, onSelect }) => (
         <p className="text-xs mt-0.5 text-gray-500 dark:text-gray-300 truncate">
           {employee.designation}
         </p>
-        <p className="text-[0.7rem] sm:text-xs text-gray-400 dark:text-gray-300 sm:block hidden">
+        <p className="text-[0.7rem] pr-3 sm:pr-0 sm:text-xs text-gray-400 dark:text-gray-300">
           ~ {employee.lastSeen}
         </p>
       </div>
