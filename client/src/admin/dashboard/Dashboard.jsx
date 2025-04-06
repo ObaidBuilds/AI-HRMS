@@ -70,8 +70,9 @@ const Dashboard = () => {
     (item) => item.attendancePercentage
   );
 
-  if (loading || !insights) return <ComponentLoader />;
   if (error) return <Error />;
+  if (loading || !insights) return <ComponentLoader />;
+
 
   return (
     <>
