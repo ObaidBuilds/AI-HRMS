@@ -6,7 +6,7 @@ import ContactItem from "../../components/shared/chat/ContactItem";
 const employees = [
   {
     id: 1,
-    name: "John Doe",
+    name: "Obaid Ali",
     designation: "Manager",
     profilePic: "https://randomuser.me/api/portraits/men/1.jpg",
     status: "online",
@@ -14,7 +14,7 @@ const employees = [
   },
   {
     id: 2,
-    name: "Jane Smith",
+    name: "Noman Rehan",
     designation: "Supervisor",
     profilePic: "https://randomuser.me/api/portraits/women/1.jpg",
     status: "online",
@@ -22,7 +22,7 @@ const employees = [
   },
   {
     id: 3,
-    name: "David Lee",
+    name: "Mujtaba Abid",
     designation: "Developer",
     profilePic: "https://randomuser.me/api/portraits/men/2.jpg",
     status: "offline",
@@ -30,7 +30,7 @@ const employees = [
   },
   {
     id: 4,
-    name: "Sarah Johnson",
+    name: "Mohsin Khan",
     designation: "Designer",
     profilePic: "https://randomuser.me/api/portraits/women/2.jpg",
     status: "online",
@@ -38,7 +38,7 @@ const employees = [
   },
   {
     id: 5,
-    name: "Michael Brown",
+    name: "Qaim Ali",
     designation: "QA Engineer",
     profilePic: "https://randomuser.me/api/portraits/men/3.jpg",
     status: "offline",

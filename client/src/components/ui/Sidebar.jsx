@@ -116,7 +116,7 @@ const Sidebar = () => {
       >
         <div className="p-3 mt-3 sm:mt-5 flex justify-between lg:justify-center items-center space-x-2 px-7 animate-float">
           <div className="flex flex-col items-center">
-            <img className="w-[55px]" src="/metro.png" alt="logo" />
+            <img className="w-[65px] rounded-md" src="/images.png" alt="logo" />
             <h1
               className="text-center mt-1 text-base"
               style={{ fontFamily: "Bruno Ace, sans-serif" }}
