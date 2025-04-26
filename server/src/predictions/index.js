@@ -85,14 +85,15 @@ function getSentimentAnalysis(rating) {
   }
 }
 
-async function getAnswerFromChatbot(prompt){
-  const leaves = await Leave.find().populate("employee", "name").lean();
-  const feedbacks = await Feedback.find().populate("employee", "name").lean();
-  const performances = await Performance.find()
-    .populate("employee", "name")
-    .lean();
-  const employees = await Employee.find().populate("department role").lean();
-  const complaints = await Complaint.find().populate("employee", "name").lean();
+async function getAnswerFromChatbot(prompt) {
+  const [leaves, feedbacks, performances, employees, complaints] =
+    await Promise.all([
+      Leave.find().populate("employee", "name").lean(),
+      Feedback.find().populate("employee", "name").lean(),
+      Performance.find().populate("employee", "name").lean(),
+      Employee.find().populate("department role").lean(),
+      Complaint.find().populate("employee", "name").lean(),
+    ]);
 
   const formattedPrompt = `
   **Admin Query:** "${prompt}"
@@ -137,7 +138,9 @@ async function getAnswerFromChatbot(prompt){
       (per, index) =>
         `${index + 1}. **Name:** ${per.employee.name} | **KPI Score:** ${
           per.kpiScore
-        } | **Rating:** ${per.rating} | **Attendance Percentage:** ${per.kpis.attendance}`
+        } | **Rating:** ${per.rating} | **Attendance Percentage:** ${
+          per.kpis.attendance
+        }`
     )
     .join("\n")}
   
@@ -182,7 +185,7 @@ async function getAnswerFromChatbot(prompt){
 
   const response = await getPredictionFromGeminiAI(formattedPrompt);
 
-  return response || "⚠️ Failed to generate response, Try again later"
+  return response || "⚠️ Failed to generate response, Try again later";
 }
 
 export { getSubstitute, getSentimentAnalysis, getAnswerFromChatbot };

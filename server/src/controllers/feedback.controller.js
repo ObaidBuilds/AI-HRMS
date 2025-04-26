@@ -6,8 +6,18 @@ import { getSentimentAnalysis } from "../predictions/index.js";
 const getFeedbacks = catchErrors(async (req, res) => {
   const { review, page = 1, limit = 15 } = req.query;
 
-  const query = {};
+  const cacheKey = `feedbacks:${review || "all"}:page${page}:limit${limit}`;
 
+  const cachedData = myCache.get(cacheKey);
+  if (cachedData) {
+    return res.status(200).json({
+      success: true,
+      message: "Feedback fetched successfully (from cache)",
+      ...cachedData,
+    });
+  }
+
+  const query = {};
   if (review) query.review = { $regex: review, $options: "i" };
 
   const pageNumber = Math.max(parseInt(page), 1);
@@ -31,14 +41,13 @@ const getFeedbacks = catchErrors(async (req, res) => {
     })
     .skip(skip)
     .limit(limitNumber)
-    .sort({ createdAt: -1 });
+    .sort({ createdAt: -1 })
+    .lean();
 
   const totalFeedbacks = await Feedback.countDocuments(query);
   const totalPages = Math.ceil(totalFeedbacks / limitNumber);
 
-  return res.status(200).json({
-    success: true,
-    message: "Feedback fetched successfully",
+  const responseData = {
     feedback,
     pagination: {
       currentPage: pageNumber,
@@ -46,6 +55,14 @@ const getFeedbacks = catchErrors(async (req, res) => {
       totalFeedbacks,
       limit: limitNumber,
     },
+  };
+
+  myCache.set(cacheKey, responseData);
+
+  return res.status(200).json({
+    success: true,
+    message: "Feedback fetched successfully",
+    ...responseData,
   });
 });
 
@@ -77,6 +94,12 @@ const createFeedback = catchErrors(async (req, res) => {
   });
 
   myCache.del("insights");
+  const cacheKeys = myCache.keys();
+  cacheKeys.forEach((key) => {
+    if (key.startsWith("feedbacks:")) {
+      myCache.del(key);
+    }
+  });
 
   return res.status(200).json({
     success: true,

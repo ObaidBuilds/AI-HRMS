@@ -84,7 +84,7 @@ app.get("/", (req, res) => {
   res.send(html);
 });
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 connectDB()
   .then(() => {
     app.listen(port, () => {

@@ -12,6 +12,15 @@ import {
 } from "./performance.controller.js";
 import { createPayrollForEmployee } from "./payroll.controller.js";
 
+const clearEmployeeCache = () => {
+  const cacheKeys = myCache.keys();
+  cacheKeys.forEach((key) => {
+    if (key.startsWith("employees:")) {
+      myCache.del(key);
+    }
+  });
+};
+
 const bulkCreateEmployees = catchErrors(async (req, res) => {
   const employeesRecords = req.body;
 
@@ -52,6 +61,8 @@ const bulkCreateEmployees = catchErrors(async (req, res) => {
   })
     .populate("department", "name")
     .populate("role", "name");
+
+  clearEmployeeCache();
 
   return res.status(201).json({
     success: true,
@@ -133,6 +144,8 @@ const createEmployee = catchErrors(async (req, res) => {
 
   await addPerformanceWithKPI(employee._id);
   await createPayrollForEmployee({ employee });
+  clearEmployeeCache();
+
   return res.status(201).json({
     success: true,
     message: "Employee created successfully",
@@ -143,8 +156,20 @@ const createEmployee = catchErrors(async (req, res) => {
 const getAllEmployees = catchErrors(async (req, res) => {
   const { role, name, department, status, page = 1, limit = 15 } = req.query;
 
-  const query = {};
+  const cacheKey = `employees:${role || "all"}:${name || "all"}:${
+    department || "all"
+  }:${status || "all"}:page${page}:limit${limit}`;
 
+  const cachedData = myCache.get(cacheKey);
+  if (cachedData) {
+    return res.status(200).json({
+      success: true,
+      message: "Employees fetched successfully (from cache)",
+      ...cachedData,
+    });
+  }
+
+  const query = {};
   if (role) query.role = role;
   if (status) query.status = status;
   if (department) query.department = department;
@@ -159,14 +184,13 @@ const getAllEmployees = catchErrors(async (req, res) => {
     .populate("role", "name")
     .select("-password")
     .skip(skip)
-    .limit(limitNumber);
+    .limit(limitNumber)
+    .lean();
 
   const totalEmployees = await Employee.countDocuments(query);
   const totalPages = Math.ceil(totalEmployees / limitNumber);
 
-  return res.status(200).json({
-    success: true,
-    message: "Employees fetched successfully",
+  const responseData = {
     employees,
     pagination: {
       currentPage: pageNumber,
@@ -174,6 +198,14 @@ const getAllEmployees = catchErrors(async (req, res) => {
       totalEmployees,
       limit: limitNumber,
     },
+  };
+
+  myCache.set(cacheKey, responseData);
+
+  return res.status(200).json({
+    success: true,
+    message: "Employees fetched successfully",
+    ...responseData,
   });
 });
 
@@ -204,6 +236,7 @@ const deleteEmployee = catchErrors(async (req, res) => {
   await deletePerformance(id);
 
   myCache.del("insights");
+  clearEmployeeCache();
 
   return res.status(200).json({
     success: true,
@@ -266,6 +299,7 @@ const updateEmployee = catchErrors(async (req, res) => {
   );
 
   myCache.del("insights");
+  clearEmployeeCache();
 
   return res.status(200).json({
     success: true,

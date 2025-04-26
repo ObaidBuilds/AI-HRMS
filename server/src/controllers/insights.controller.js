@@ -22,68 +22,103 @@ const getInsights = catchErrors(async (req, res) => {
       insights: cachedInsights,
     });
   }
+
   const today = new Date();
 
-  const totalEmployees = await Employee.countDocuments();
-  const totalDepartments = await Department.countDocuments();
-  const totalComplaints = await Complaint.find({
-    status: "Pending",
-  }).countDocuments();
-  const departmentAttandancePercent = await getDepartmentAttendancePercentage();
-  const overallAttendancePercentage = await getMonthlyAttendancePercentage();
-  const totalMaleEmployees = await Employee.countDocuments({ gender: "Male" });
-  const pendingLeaves = await Leave.find({
-    status: "Pending",
-  }).countDocuments();
-  const employeesOnLeave = await Leave.find({
-    status: "Approved",
-    $or: [
-      { fromDate: { $lte: today }, toDate: { $gte: today } },
-      { fromDate: { $lte: today }, toDate: null },
-    ],
-  }).countDocuments();
+  // Group all parallel queries together
+  const [
+    totalEmployees,
+    totalDepartments,
+    { pendingComplaints: totalComplaints, allComplaints: totalAllComplaints },
+    departmentAttandancePercent,
+    overallAttendancePercentage,
+    totalMaleEmployees,
+    pendingLeaves,
+    employeesOnLeave,
+    feedbackResult,
+    totalLeaves,
+    { rejectedLeaves, approvedLeaves },
+    { resolvedComplaints, closedComplaints },
+  ] = await Promise.all([
+    // Basic counts
+    Employee.countDocuments(),
+    Department.countDocuments(),
 
-  const feedbacks = await Feedback.aggregate([
-    {
-      $group: {
-        _id: null,
-        avgRating: { $avg: "$rating" },
+    // Complaints counts
+    (async () => {
+      const [pendingComplaints, allComplaints] = await Promise.all([
+        Complaint.countDocuments({ status: "Pending" }),
+        Complaint.countDocuments(),
+      ]);
+      return { pendingComplaints, allComplaints };
+    })(),
+
+    // Attendance percentages
+    getDepartmentAttendancePercentage(),
+    getMonthlyAttendancePercentage(),
+
+    // Employee demographics
+    Employee.countDocuments({ gender: "Male" }),
+
+    // Leave status counts
+    Leave.countDocuments({ status: "Pending" }),
+    Leave.countDocuments({
+      status: "Approved",
+      $or: [
+        { fromDate: { $lte: today }, toDate: { $gte: today } },
+        { fromDate: { $lte: today }, toDate: null },
+      ],
+    }),
+
+    // Feedback aggregation
+    Feedback.aggregate([
+      {
+        $group: {
+          _id: null,
+          avgRating: { $avg: "$rating" },
+        },
       },
-    },
+    ]),
+
+    // Total leaves
+    Leave.countDocuments(),
+
+    // Leave status counts
+    (async () => {
+      const [rejected, approved] = await Promise.all([
+        Leave.countDocuments({ status: { $regex: "rejected", $options: "i" } }),
+        Leave.countDocuments({ status: { $regex: "approved", $options: "i" } }),
+      ]);
+      return { rejectedLeaves: rejected, approvedLeaves: approved };
+    })(),
+
+    // Complaint resolutions
+    (async () => {
+      const [resolved, closed] = await Promise.all([
+        Complaint.countDocuments({
+          status: { $regex: "resolved", $options: "i" },
+        }),
+        Complaint.countDocuments({
+          status: { $regex: "closed", $options: "i" },
+        }),
+      ]);
+      return { resolvedComplaints: resolved, closedComplaints: closed };
+    })(),
   ]);
 
-  const sentimentAnalysis = getSentimentAnalysis(feedbacks[0]?.avgRating || 0);
+  const sentimentAnalysis = getSentimentAnalysis(
+    feedbackResult[0]?.avgRating || 0
+  );
 
-  const totalLeaves = await Leave.countDocuments();
-
-  const rejectedLeaves = await Leave.countDocuments({
-    status: { $regex: "rejected", $options: "i" },
-  });
-
-  const approvedLeaves = await Leave.countDocuments({
-    status: { $regex: "approved", $options: "i" },
-  });
-
+  // Calculate rates
   const leaveRejectionRate =
     totalLeaves > 0 ? (rejectedLeaves / totalLeaves) * 100 : 0;
   const leaveApprovalRate =
     totalLeaves > 0 ? (approvedLeaves / totalLeaves) * 100 : 0;
-
-  const totalAllComplaints = await Complaint.countDocuments();
-
-  const resolvedComplaints = await Complaint.countDocuments({
-    status: { $regex: "resolved", $options: "i" },
-  });
-
-  const closedComplaints = await Complaint.countDocuments({
-    status: { $regex: "closed", $options: "i" },
-  });
-
   const complaintResolutionRate =
     totalAllComplaints > 0
       ? (resolvedComplaints / totalAllComplaints) * 100
       : 0;
-
   const complaintCloseRate =
     totalAllComplaints > 0 ? (closedComplaints / totalAllComplaints) * 100 : 0;
 

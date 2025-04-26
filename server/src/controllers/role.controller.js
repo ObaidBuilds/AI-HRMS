@@ -10,6 +10,7 @@ const createRole = catchErrors(async (req, res) => {
   const role = await Role.create({ name, description });
 
   myCache.del("insights");
+  myCache.del("role");
 
   return res.status(201).json({
     success: true,
@@ -21,16 +22,32 @@ const createRole = catchErrors(async (req, res) => {
 const getAllRoles = catchErrors(async (req, res) => {
   const { name } = req.query;
 
-  const query = {};
+  const cacheKey = name ? `role:${name.toLowerCase()}` : "role:all";
 
+  const cachedRoles = myCache.get(cacheKey);
+  if (cachedRoles) {
+    return res.status(200).json({
+      success: true,
+      message: "Roles fetched successfully (from cache)",
+      role: cachedRoles,
+    });
+  }
+
+  const query = {};
   if (name) query.name = { $regex: name, $options: "i" };
 
-  const role = await Role.find(query);
+  const roles = await Role.find(query).lean();
 
-  return res.status(201).json({
+  if (!roles || roles.length === 0) {
+    throw new Error("No roles found");
+  }
+
+  myCache.set(cacheKey, roles);
+
+  return res.status(200).json({
     success: true,
-    message: "Roles fetched successfuly",
-    role,
+    message: "Roles fetched successfully",
+    role: roles,
   });
 });
 
@@ -63,6 +80,7 @@ const deleteRole = catchErrors(async (req, res) => {
   await Role.findByIdAndDelete(id);
 
   myCache.del("insights");
+  myCache.del("department");
 
   return res.status(201).json({
     success: true,
@@ -83,6 +101,7 @@ const updateRole = catchErrors(async (req, res) => {
   );
 
   myCache.del("insights");
+  myCache.del("department");
 
   return res.status(201).json({
     success: true,
