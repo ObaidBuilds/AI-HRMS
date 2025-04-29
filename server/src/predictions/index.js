@@ -115,7 +115,8 @@ async function getAnswerFromChatbot(prompt) {
   ### Response Guidelines:
   - If the prompt is a **greeting**, e.g HI or Hello respond  **only**  how may i assist you (with an emoji).  
   - If the prompt is a **farewell**, say goodbye in a professional and friendly manner (with an emoji).   
-  
+  - If the query is irrelevant to the system, Respond with: "This seems unrelated to the system. Could you clarify or ask a relevant question?"
+
   ---
   
   ### HRMS Data Analysis:
