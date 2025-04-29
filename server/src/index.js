@@ -17,6 +17,7 @@ import attendance from "./routes/attendance.routes.js";
 import department from "./routes/department.routes.js";
 import performance from "./routes/performance.routes.js";
 import authentication from "./routes/authentication.routes.js";
+import { startHrmsApplication } from "./seeders/index.js";
 
 const app = express();
 
@@ -94,6 +95,8 @@ connectDB()
   .catch((err) => {
     console.error(err.message);
   });
+
+// startHrmsApplication();
 
 app.use((err, req, res, next) => {
   const message = err || "Internal server error";

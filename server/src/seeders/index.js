@@ -1,7 +1,74 @@
+import Role from "../models/role.model.js";
+import Payroll from "../models/payroll.model.js";
 import Employee from "../models/employee.model.js";
 import Performance from "../models/performance.model.js";
+import Department from "../models/department.model.js";
 import { calculateAverageAttendance } from "../controllers/attendance.controller.js";
-import Payroll from "../models/payroll.model.js";
+
+const startHrmsApplication = async () => {
+  try {
+    // First create the role
+    const role = await Role.create({
+      name: "Supervisor",
+      description: "Dummy data entry of position by seeder function",
+    });
+
+    // Create the employee without department first
+    const employee = await Employee.create({
+      employeeId: "000",
+      name: "Admin User",
+      dob: "1990-05-15T00:00:00.000Z",
+      email: "admin@gmail.com",
+      password: "$2b$10$k.1v4SeBsR.UYT4chI/O8OTkK5CO.MilaR8yCACtodqTZKm429rWG",
+      profilePicture: "https://metrohrms.netlify.app/unknown.jpeg",
+      qrCode: "",
+      phoneNumber: "+1234567890",
+      address: {
+        street: "Kachupura",
+        city: "Lahore",
+        state: "Punjab",
+        postalCode: "10001",
+        country: "Pakistan",
+      },
+      role: role._id,
+      department: "681146faec6adc26293c7466",
+      dateOfJoining: "2020-01-10T00:00:00.000Z",
+      gender: "Male",
+      martialStatus: "Married",
+      employmentType: "Full-Time",
+      shift: "Morning",
+      status: "Active",
+      salary: 75000,
+      bankDetails: {
+        accountNumber: "123456789012",
+        bankName: "Example Bank",
+      },
+      emergencyContact: {
+        name: "Dummy User",
+        relationship: "Spouse",
+        phoneNumber: "+1987654321",
+      },
+      leaveBalance: 15,
+      admin: true,
+      forgetPasswordToken: null,
+    });
+
+    const department = await Department.create({
+      name: "Marketing",
+      description: "Dummy data entry of department by seeder function",
+      head: employee._id,
+    });
+
+    await Employee.findByIdAndUpdate(employee._id, {
+      department: department._id,
+    });
+
+    console.log("HRMS is ready to run, Have a nice day.");
+  } catch (error) {
+    console.error("Error setting up HRMS:", error);
+    process.exit(1);
+  }
+};
 
 const generateRandomKPI = () => ({
   attendance: 0,
@@ -94,10 +161,6 @@ const generatePayrollDataForMonths = async (months = 6) => {
   }
 };
 
-// Run Seeder
-const monthsToGenerate = 2;
-// generatePayrollDataForMonths(monthsToGenerate);
-
 const deleteAllPayrollRecords = async () => {
   try {
     await Payroll.deleteMany({});
@@ -112,13 +175,11 @@ const alterEmployeeData = async () => {
     { profilePicture: "https://via.placeholder.com/50" },
     {
       $set: {
-        profilePicture:
-          "https://metrohrms.netlify.app/unknown.jpeg",
+        profilePicture: "https://metrohrms.netlify.app/unknown.jpeg",
       },
     }
-
   );
-  console.log("Altered")
+  console.log("Altered");
 };
 
 export {
@@ -126,5 +187,6 @@ export {
   deleteAllPerformanceRecords,
   generatePayrollDataForMonths,
   deleteAllPayrollRecords,
-  alterEmployeeData
+  alterEmployeeData,
+  startHrmsApplication,
 };
