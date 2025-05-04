@@ -6,13 +6,16 @@ import Loader from "../../components/shared/loaders/Loader";
 import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import FilterButton from "../../components/shared/buttons/FilterButton";
 import { employeesOnLeaveButtons } from "../../data";
+import FetchError from "../../components/shared/error/FetchError";
 
 function EmployeeOnLeave() {
   const dispatch = useDispatch();
 
-  const { employeesOnLeaveToday = [], loading } = useSelector(
-    (state) => state.leave
-  );
+  const {
+    employeesOnLeaveToday = [],
+    loading,
+    error,
+  } = useSelector((state) => state.leave);
   const [status, setStatus] = useState("Present");
 
   useEffect(() => {
@@ -103,9 +106,10 @@ function EmployeeOnLeave() {
                 ))}
             </tbody>
           </table>
-          {!loading && employeesOnLeaveToday.length === 0 && (
+          {!loading && !error && employeesOnLeaveToday.length === 0 && (
             <NoDataMessage message={`No employees on leave for ${status}.`} />
           )}
+          {error && <FetchError error={error} />}
         </div>
       </section>
     </>

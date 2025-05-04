@@ -45,14 +45,16 @@ const login = catchErrors(async (req, res) => {
     success: true,
     message: "Logged in successfuly 🔑",
     token,
+    remember,
     user: {
+      _id: employee._id,
+      employeeId: employee.employeeId,
       name: employee.name,
       email: employee.email,
       department: employee.department,
       position: employee.role,
       profilePicture: employee.profilePicture,
       authority: authority.toLowerCase(),
-      remember,
     },
   });
 });
@@ -185,11 +187,42 @@ const checkResetPasswordValidity = catchErrors(async (req, res) => {
   });
 });
 
+const validateAuthority = catchErrors(async (req, res) => {
+  const { employeeId, authority, session } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(employeeId)) {
+    throw new Error("Invalid employee ID format");
+  }
+
+  const employee = await Employee.findById(employeeId);
+  if (!employee) throw new Error("Unauthorized access");
+
+  const decoded = jwt.verify(session, process.env.JWTSECRET);
+  const sessionUser = await Employee.findById(decoded.employeeId);
+  if (!sessionUser) throw new Error("Unauthorized access");
+
+  const requestedAdmin = authority === "admin";
+
+  if (!employee.admin && requestedAdmin) {
+    throw new Error("Unauthorized access");
+  }
+
+  if (sessionUser._id.toString() !== employeeId) {
+    throw new Error("Session mismatch");
+  }
+
+  return res.status(200).json({
+    success: true,
+    message: "Authority validated successfully",
+  });
+});
+
 export {
   login,
   logout,
   updatePassword,
   forgetPassword,
   resetPassword,
+  validateAuthority,
   checkResetPasswordValidity,
 };

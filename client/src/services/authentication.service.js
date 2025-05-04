@@ -8,10 +8,14 @@ export const login = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.post("/auth/login", credentials);
-      if (data.user.remember) localStorage.setItem("session", data.token);
-      else sessionStorage.setItem("session", data.token);
-      localStorage.setItem("remember", data.user.remember);
-      localStorage.setItem("loggedInUser", JSON.stringify(data.user));
+      if (data.user.remember) {
+        localStorage.setItem("session", data.token);
+        localStorage.setItem("loggedInUser", JSON.stringify(data.user));
+      } else {
+        sessionStorage.setItem("session", data.token);
+        sessionStorage.setItem("loggedInUser", JSON.stringify(data.user));
+      }
+      localStorage.setItem("remember", data.remember);
       toast.success(data.message);
       return data.user;
     } catch (error) {
@@ -88,6 +92,25 @@ export const checkResetPasswordValidity = async (
     return false;
   } finally {
     setLoading(false);
+  }
+};
+
+// Check Reset Password
+export const checkAuthorityValidity = async (
+  employeeId,
+  authority,
+  session
+) => {
+  try {
+    const { data } = await axiosInstance.post("/auth/authority/check", {
+      employeeId,
+      authority,
+      session,
+    });
+
+    return data.success;
+  } catch (error) {
+    return false;
   }
 };
 

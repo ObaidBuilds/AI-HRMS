@@ -12,10 +12,11 @@ import Modal from "../../components/shared/modals/Modal";
 import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import FilterButton from "../../components/shared/buttons/FilterButton";
 import { leaveRequestButtons } from "../../data";
+import FetchError from "../../components/shared/error/FetchError";
 
 function LeaveRequest() {
   const dispatch = useDispatch();
-  const { leaves = [], loading } = useSelector((state) => state.leave);
+  const { leaves = [], loading, error } = useSelector((state) => state.leave);
   const [status, setStatus] = useState("Pending");
   const [selectedLeave, setSelectedLeave] = useState(null);
   const [toggleModal, setToggleModal] = useState(false);
@@ -145,11 +146,12 @@ function LeaveRequest() {
                 ))}
             </tbody>
           </table>
-          {!loading && leaves.length === 0 && (
+          {!loading && !error && leaves.length === 0 && (
             <NoDataMessage
               message={`  No ${status.toLowerCase()} leave found`}
             />
           )}
+          {error && <FetchError error={error} />}
         </div>
       </section>
 

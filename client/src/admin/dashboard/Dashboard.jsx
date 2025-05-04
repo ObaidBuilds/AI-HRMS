@@ -5,6 +5,7 @@ import PieChart from "../../components/shared/charts/Pie";
 import BarGraph from "../../components/shared/charts/BarGraph";
 import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
 import ChatPanel from "../../components/shared/others/ChatPanel";
+import FetchError from "../../components/shared/error/FetchError";
 import Error from "../../components/shared/error/Error";
 
 const Dashboard = () => {
@@ -71,7 +72,7 @@ const Dashboard = () => {
     (item) => item.attendancePercentage
   );
 
-  if (error) return <Error />;
+  if (error) return <Error error={error} />;
   if (loading || !insights) return <ComponentLoader />;
 
   return (

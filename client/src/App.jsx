@@ -4,9 +4,9 @@ import AdminApp from "./app/admin";
 import useGetToken from "./hooks";
 import EmployeeApp from "./app/employee";
 import { Toaster } from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ThemeProvider } from "./context";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Loader from "./components/shared/loaders/Loader";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Navigate, Route, Routes } from "react-router-dom";
@@ -14,15 +14,45 @@ import ForgetPassword from "./auth/ForgetPassword";
 import EmailConfirmation from "./auth/EmailConfirmation";
 import ResetPassword from "./auth/ResetPassword";
 import InvalidResetLink from "./auth/InvalidResetLink";
+import { checkAuthorityValidity } from "./services/authentication.service";
+import ComponentLoader from "./components/shared/loaders/ComponentLoader";
+import { clearState } from "./reducers/authentication.reducer";
 
 function HrmsForMetroCashAndCarry() {
-  const { user } = useSelector((state) => state.authentication);
   const token = useGetToken();
+  const dispatch = useDispatch();
+  const [isValid, setIsValid] = useState(null);
+  const { user } = useSelector((state) => state.authentication);
 
-  if (!(user && token)) return <AuthRouter />;
+  useEffect(() => {
+    const validate = async () => {
+      if (user && token) {
+        const result = await checkAuthorityValidity(
+          user._id,
+          user.authority,
+          token
+        );
+        setIsValid(result);
+      } else {
+        setIsValid(false);
+      }
+    };
 
-  if (user.authority === "admin") return <AdminRouter />;
-  else if (user.authority === "employee") return <EmployeeRouter />;
+    validate();
+  }, [user, token]);
+
+  useEffect(() => {
+    if (isValid === false) {
+      dispatch(clearState());
+    }
+  }, [isValid, dispatch]);
+
+  if (isValid === null) return <ComponentLoader />;
+
+  if (!isValid) return <AuthRouter />;
+
+  if (user?.authority === "admin") return <AdminRouter />;
+  if (user?.authority === "employee") return <EmployeeRouter />;
 
   return <AuthRouter />;
 }

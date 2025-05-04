@@ -7,8 +7,14 @@ import {
   updatePassword,
 } from "../services/authentication.service";
 
+function remember() {
+  return localStorage.getItem("remember") === "true";
+}
+
 const initialState = {
-  user: JSON.parse(localStorage.getItem("loggedInUser")) || null,
+  user: remember()
+    ? JSON.parse(localStorage.getItem("loggedInUser"))
+    : JSON.parse(sessionStorage.getItem("loggedInUser")) || null,
   loading: false,
   loginError: null,
   forgetPasswordError: null,
@@ -19,7 +25,21 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    clearState: (state) => {
+      state.loading = false;
+      state.user = null;
+
+      if (remember()) {
+        localStorage.removeItem("session");
+        localStorage.removeItem("loggedInUser");
+        localStorage.removeItem("remember");
+      } else {
+        sessionStorage.removeItem("session");
+        sessionStorage.removeItem("loggedInUser");
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Handling login
@@ -83,11 +103,15 @@ const authSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.loading = false;
         state.user = null;
-        localStorage.removeItem("loggedInUser");
-        localStorage.getItem("remember")
-          ? localStorage.removeItem("session")
-          : sessionStorage.removeItem("session");
-        localStorage.removeItem("remember");
+
+        if (remember()) {
+          localStorage.removeItem("session");
+          localStorage.removeItem("loggedInUser");
+          localStorage.removeItem("remember");
+        } else {
+          sessionStorage.removeItem("session");
+          sessionStorage.removeItem("loggedInUser");
+        }
       })
       .addCase(logout.rejected, (state, action) => {
         state.loading = false;
@@ -97,3 +121,4 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
+export const { clearState } = authSlice.actions;

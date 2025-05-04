@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Loader from "../../components/shared/loaders/Loader";
 import DepartmentModal from "../../components/shared/modals/DepartmentModal";
 import RoleModal from "../../components/shared/modals/RoleModal";
+import FetchError from "../../components/shared/error/FetchError";
 
 const colors = [
   { bg: "bg-blue-500", darkBg: "dark:bg-blue-600" },
@@ -17,13 +18,17 @@ const colors = [
 ];
 
 const Department = () => {
-  const { departments, loading } = useSelector((state) => state.department);
+  const { departments, loading, error } = useSelector(
+    (state) => state.department
+  );
   const { roles, loading: roleLoading } = useSelector((state) => state.role);
 
   const [departmentModal, setDepartmentModal] = useState(null);
   const [roleModal, setRoleModal] = useState(null);
   const [action, setAction] = useState("");
   const [roleAction, setRoleAction] = useState("");
+
+  if (error) return <FetchError error={error} />;
 
   return (
     <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen shadow">
