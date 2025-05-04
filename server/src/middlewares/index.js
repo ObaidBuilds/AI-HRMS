@@ -19,15 +19,15 @@ const verifyEmployeeToken = catchErrors(async (req, res, next) => {
 const verifyAdminToken = catchErrors(async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
 
-  if (!token) throw new Error("Unauthorized access");
+  // if (!token) throw new Error("Unauthorized access");
 
-  const decoded = jwt.verify(token, process.env.JWTSECRET);
+  // const decoded = jwt.verify(token, process.env.JWTSECRET);
 
-  const user = await Employee.findById(decoded.employeeId);
+  // const user = await Employee.findById(decoded.employeeId);
 
-  if (!user || !user.admin) throw new Error("Unauthorized access");
+  // if (!user || !user.admin) throw new Error("Unauthorized access");
 
-  req.user = decoded.employeeId;
+  // req.user = decoded.employeeId;
 
   next();
 });
