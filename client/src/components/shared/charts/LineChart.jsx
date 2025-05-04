@@ -43,7 +43,7 @@ const LineChart = ({ label, title, chartData }) => {
     datasets: [
       {
         label: label,
-        data:  [10, 30, 40, 20, 50, 34, 20, 60, 65, 76, 50, 40],
+        data:  [10, 30, 40, 25, 40, 74, 20, 60, 65, 76, 50, 40],
         fill: true,
         backgroundColor: "rgba(54, 162, 235, 0.2)",
         borderColor: "rgba(54, 162, 235, 1)",

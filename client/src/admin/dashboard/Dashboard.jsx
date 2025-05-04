@@ -48,6 +48,7 @@ const Dashboard = () => {
         0
       )
     : 0;
+
   const femalePercentage = insights?.totalEmployees
     ? (
         (insights?.totalFemaleEmployees / insights?.totalEmployees) *
@@ -72,7 +73,6 @@ const Dashboard = () => {
 
   if (error) return <Error />;
   if (loading || !insights) return <ComponentLoader />;
-
 
   return (
     <>
