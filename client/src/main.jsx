@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
-createRoot(document.getElementById("root")).render(
+createRoot(document.getElementById("hrms")).render(
   <BrowserRouter>
     <Provider store={store}>
         <RootApp />
