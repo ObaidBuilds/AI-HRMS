@@ -22,6 +22,22 @@ const storage = new CloudinaryStorage({
   },
 });
 
-const upload = multer({ storage });
+const resumeStorage = new CloudinaryStorage({
+  cloudinary:cloudinary.v2,
+  params: (req, file) => {
+    const ext = file.originalname.split(".").pop();
+    const name = file.originalname.split(".")[0].replace(/\s+/g, "_");
+    return {
+      folder: "resumes",
+      resource_type: "raw",
+      allowed_formats: ["pdf", "doc", "docx"],
+      public_id: name,
+      format: ext,
+    };
+  },
+});
 
-export { connectDB, upload };
+const upload = multer({ storage });
+const uploadResume = multer({ storage: resumeStorage });
+
+export { connectDB, upload, uploadResume };

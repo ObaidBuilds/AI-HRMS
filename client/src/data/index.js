@@ -149,6 +149,13 @@ const feedbackButtons = [
   { label: "Negative Feedbacks", value: "negative", icon: "fa-thumbs-down" },
 ];
 
+const recruitmentButtons = [
+  { label: "All Recuitments", value: "", icon: "fa-solid fa-briefcase" },
+  { label: "Open Recuitments", value: "open", icon: "fa-solid fa-door-open" },
+  { label: "Closed Recuitments", value: "closed", icon: "fa-solid fa-lock" },
+  { label: "Paused Recuitments", value: "paused", icon: "fa-solid fa-pause" },
+];
+
 const performanceButtons = [
   { label: "All Metrices", value: "", icon: "fa-globe" },
   { label: "Good metrices", value: "good", icon: "fa-thumbs-up" },
@@ -253,4 +260,5 @@ export {
   sections,
   employeeSections,
   employeeInsights,
+  recruitmentButtons
 };

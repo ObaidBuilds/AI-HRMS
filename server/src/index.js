@@ -19,6 +19,7 @@ import attendance from "./routes/attendance.routes.js";
 import department from "./routes/department.routes.js";
 import performance from "./routes/performance.routes.js";
 import authentication from "./routes/authentication.routes.js";
+import recruitment from "./routes/recruitment.routes.js";
 
 const app = express();
 
@@ -68,6 +69,7 @@ app.use("/api/leaves", leave);
 app.use("/api/feedbacks", feedback);
 app.use("/api/complaints", complaint);
 app.use("/api/payrolls", payroll);
+app.use("/api/recruitment", recruitment);
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "welcome.html"));

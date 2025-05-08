@@ -11,6 +11,7 @@ import complaint from "../reducers/complaint.reducer";
 import update from "../reducers/update.reducer";
 import performance from "../reducers/performance.reducer";
 import payroll from "../reducers/payroll.reducer";
+import recruitment from "../reducers/recruitment.reducer";
 
 // Combine reducers
 const rootReducer = combineReducers({
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   department,
   attendance,
   performance,
+  recruitment,
   authentication,
 });
 
