@@ -1,8 +1,7 @@
+import React from "react";
 
 const JobApplications = () => {
-  return (
-    <div>JobApplications</div>
-  )
-}
+  return <div>JobApplications</div>;
+};
 
-export default JobApplications
+export default JobApplications;

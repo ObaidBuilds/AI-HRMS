@@ -22,21 +22,16 @@ const PostJob = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-40 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+    <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen shadow flex justify-center items-center">
       <div
         id="overflow"
-        className="w-[90%] sm:max-w-lg h-[500px] overflow-auto"
+        className="w-[97%] sm:max-w-xl"
       >
         <div id="modal" className="bg-white rounded-lg overflow-hidden">
           <form onSubmit={handleSubmit(onSubmit)} className="p-8 space-y-4">
             {/* Modal Header */}
             <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-              <h2 className="font-bold text-gray-600 text-[0.95rem]">
-                Post New Job Opening
-              </h2>
-              <button className="text-gray-500 hover:text-gray-700 text-sm">
-                <i className="fas fa-times"></i>
-              </button>
+              <h2 className="font-bold text-gray-600">Post New Job Opening</h2>
             </div>
 
             {/* Grid Row 1 */}
@@ -275,7 +270,7 @@ const PostJob = () => {
           </form>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -2,21 +2,23 @@ import "typeface-poppins";
 import Login from "./auth/Login";
 import AdminApp from "./app/admin";
 import useGetToken from "./hooks";
+import { ThemeProvider } from "./context";
 import EmployeeApp from "./app/employee";
 import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { ThemeProvider } from "./context";
-import { Suspense, useEffect, useState } from "react";
-import Loader from "./components/shared/loaders/Loader";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import Loader from "./components/shared/loaders/Loader";
 import { Navigate, Route, Routes } from "react-router-dom";
-import ForgetPassword from "./auth/ForgetPassword";
-import EmailConfirmation from "./auth/EmailConfirmation";
-import ResetPassword from "./auth/ResetPassword";
-import InvalidResetLink from "./auth/InvalidResetLink";
+import { lazy, Suspense, useEffect, useState } from "react";
+import { clearState } from "./reducers/authentication.reducer";
 import { checkAuthorityValidity } from "./services/authentication.service";
 import ComponentLoader from "./components/shared/loaders/ComponentLoader";
-import { clearState } from "./reducers/authentication.reducer";
+
+const Career = lazy(() => import("./careers/Career"));
+const ForgetPassword = lazy(() => import("./auth/ForgetPassword"));
+const EmailConfirmation = lazy(() => import("./auth/EmailConfirmation"));
+const ResetPassword = lazy(() => import("./auth/ResetPassword"));
+const InvalidResetLink = lazy(() => import("./auth/InvalidResetLink"));
 
 function HrmsForMetroCashAndCarry() {
   const token = useGetToken();
@@ -81,6 +83,7 @@ function AuthRouter() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
+      <Route path="/careers" element={<Career />} />
       <Route path="/forget/password" element={<ForgetPassword />} />
       <Route path="/reset/password" element={<ResetPassword />} />
       <Route path="/email/confirmation" element={<EmailConfirmation />} />

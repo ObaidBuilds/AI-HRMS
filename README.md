@@ -24,9 +24,9 @@
   
 - _Employee Management_
 
-- _Attendance & Time Tracking | QR Code-based _
+- _Attendance & Time Tracking | QR Code-based_ 
 
-- _Leave Management | AI Shift Assignments _
+- _Leave Management | AI Shift Assignments_ 
 
 - _Payroll Management_
 
@@ -38,9 +38,9 @@
 
  - _Communication Management_
 
-- _Feedback Management | AI Sentiment Analysis _
+- _Feedback Management | AI Sentiment Analysis_
 
-- _Reports & Analytics | Attendance, Leave, Complaints _
+- _Reports & Analytics | Attendance, Leave, Complaints_
 
 ## _Tech Stack_ :
 

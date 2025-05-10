@@ -16,10 +16,8 @@ function JobOpenings() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   useEffect(() => {
-    dispatch(getJobOpenings());
+    dispatch(getJobOpenings(reviewFilter));
   }, [reviewFilter]);
-
-  console.log(jobs);
 
   return (
     <>

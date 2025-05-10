@@ -41,7 +41,12 @@ const createJob = catchErrors(async (req, res) => {
 });
 
 const getAllJobs = catchErrors(async (req, res) => {
-  const jobs = await Recruitment.find()
+  const { status } = req.query;
+
+  const query = {};
+  if (status) query.status = { $regex: status, $options: "i" };
+
+  const jobs = await Recruitment.find(query)
     .populate([
       { path: "department", select: "name" },
       { path: "role", select: "name" },
@@ -94,6 +99,9 @@ const createApplicant = catchErrors(async (req, res) => {
 
   const job = await Recruitment.findById(req.params.id);
   if (!job) throw new Error("Job not found");
+
+  if (job.deadline < Date.now())
+    throw new Error("Job expired, deadline reached");
 
   job.applicants.push({
     name,

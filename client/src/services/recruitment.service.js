@@ -22,9 +22,10 @@ export const createJob = createAsyncThunk(
 // Fetch Roles
 export const getJobOpenings = createAsyncThunk(
   "recruitment/getJobPenings",
-  async (_, { rejectWithValue }) => {
+  async (status, { rejectWithValue }) => {
+    // console.log(status)
     try {
-      const { data } = await axiosInstance.get("/recruitment");
+      const { data } = await axiosInstance.get(`/recruitment?status=${status}`);
       return data.jobs;
     } catch (error) {
       return rejectWithValue(
