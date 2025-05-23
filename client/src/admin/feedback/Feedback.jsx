@@ -71,16 +71,16 @@ function Feedback() {
                     className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
                   >
                     <td className="py-3 px-4 border-b border-secondary">
-                      {feedback.employee.employeeId}
+                      {feedback?.employee?.employeeId || "Null"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {feedback.employee.name}
+                      {feedback?.employee?.name || "Null"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {feedback.employee.department?.name || "Null"}
+                      {feedback?.employee?.department?.name || "Null"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {feedback.employee.role?.name || "Null"}
+                      {feedback?.employee?.role?.name || "Null"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
                       {feedback.review}
