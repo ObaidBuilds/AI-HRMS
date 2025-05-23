@@ -41,10 +41,14 @@ const createJob = catchErrors(async (req, res) => {
 });
 
 const getAllJobs = catchErrors(async (req, res) => {
-  const { status } = req.query;
+  const { status, deadline } = req.query;
 
   const query = {};
   if (status) query.status = { $regex: status, $options: "i" };
+  if (deadline) {
+    const deadlineDate = new Date(deadline);
+    query.deadline = { $gte: deadlineDate };
+  }
 
   const jobs = await Recruitment.find(query)
     .populate([
@@ -56,6 +60,39 @@ const getAllJobs = catchErrors(async (req, res) => {
   return res.status(200).json({
     success: true,
     jobs,
+  });
+});
+
+const getJobApplications = catchErrors(async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.query;
+
+  const job = await Recruitment.findById(id).populate([
+    { path: "department", select: "name" },
+    { path: "role", select: "name" },
+  ]);
+
+  if (!job) {
+    return res.status(404).json({
+      success: false,
+      message: "Job not found",
+    });
+  }
+
+  let applicants = job.applicants;
+
+  if (status) {
+    applicants = applicants.filter(
+      (applicant) => applicant.status?.toLowerCase() === status.toLowerCase()
+    );
+  }
+
+  applicants.sort((a, b) => new Date(b.appliedAt) - new Date(a.appliedAt));
+
+  return res.status(200).json({
+    success: true,
+    message: "Applicants fetch successfully",
+    applicants,
   });
 });
 
@@ -94,7 +131,7 @@ const updateJobStatus = catchErrors(async (req, res) => {
 const createApplicant = catchErrors(async (req, res) => {
   const { name, email, phone, coverLetter } = req.body;
 
-  if (!name || !email || !req.file)
+  if (!name || !email || !phone || !req.file)
     throw new Error("Please provide all application field");
 
   const job = await Recruitment.findById(req.params.id);
@@ -114,9 +151,15 @@ const createApplicant = catchErrors(async (req, res) => {
 
   return res.status(201).json({
     success: true,
-    message: "Applicant sent successfully",
-    job,
+    message: "Application sent successfully",
   });
 });
 
-export { createJob, createApplicant, updateJobStatus, getAllJobs, getJobById };
+export {
+  createJob,
+  createApplicant,
+  updateJobStatus,
+  getAllJobs,
+  getJobById,
+  getJobApplications,
+};

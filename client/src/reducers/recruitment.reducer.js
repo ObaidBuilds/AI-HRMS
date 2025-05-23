@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createJob, getJobOpenings } from "../services/recruitment.service";
+import {
+  createJob,
+  createJobApplication,
+  getJobApplicants,
+  getJobOpenings,
+} from "../services/recruitment.service";
 
 const initialState = {
   jobs: [],
@@ -28,6 +33,19 @@ const recruitmentSlice = createSlice({
         state.error = action.payload || "Failed to create job";
       })
 
+      // Handling the createJobApplication action
+      .addCase(createJobApplication.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createJobApplication.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(createJobApplication.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to create application";
+      })
+
       // Handling the getJobOpenings action
       .addCase(getJobOpenings.pending, (state) => {
         state.loading = true;
@@ -40,6 +58,19 @@ const recruitmentSlice = createSlice({
       .addCase(getJobOpenings.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Failed to fetch job";
+      })
+      // Handling the getJobApplicants action
+      .addCase(getJobApplicants.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getJobApplicants.fulfilled, (state, action) => {
+        state.jobApplications = action.payload;
+        state.loading = false;
+      })
+      .addCase(getJobApplicants.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to fetch applications";
       });
   },
 });

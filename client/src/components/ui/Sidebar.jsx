@@ -8,6 +8,7 @@ import { useTheme } from "../../context";
 import Loader from "../shared/loaders/Loader";
 import SettingModal from "../shared/modals/SettingModal";
 import ProfileModal from "../shared/modals/ProfileModal";
+import { updateProfile } from "../../services/employee.service";
 
 const Sidebar = () => {
   const dispatch = useDispatch();

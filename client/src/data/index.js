@@ -52,7 +52,6 @@ const sidebarLinks = [
     iconClass: "far fa-address-card",
     childrens: [
       { name: "Job Openings", link: "/recruitment" },
-      { name: "Candidate Applications", link: "/recruitment/applications" },
       { name: "Post New Job", link: "/recruitment/create" },
     ],
   },
@@ -156,6 +155,28 @@ const recruitmentButtons = [
   { label: "Paused Recuitments", value: "paused", icon: "fa-solid fa-pause" },
 ];
 
+const applicantsButtons = [
+  {
+    label: "All Applicants",
+    value: "",
+    icon: "fa-solid fa-users",
+  },
+  {
+    label: "Interviewed Applicants",
+    value: "interview",
+    icon: "fa-solid fa-handshake",
+  },
+  {
+    label: "Hired Applicants",
+    value: "hired",
+    icon: "fa-solid fa-user-tie",
+  },
+  {
+    label: "Rejected Applicants",
+    value: "rejected",
+    icon: "fa-solid fa-user-xmark",
+  },
+];
 const performanceButtons = [
   { label: "All Metrices", value: "", icon: "fa-globe" },
   { label: "Good metrices", value: "good", icon: "fa-thumbs-up" },
@@ -260,5 +281,6 @@ export {
   sections,
   employeeSections,
   employeeInsights,
-  recruitmentButtons
+  recruitmentButtons,
+  applicantsButtons,
 };

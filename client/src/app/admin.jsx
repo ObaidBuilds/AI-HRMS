@@ -66,7 +66,7 @@ const AdminApp = () => {
             <Route path="/performances" element={<Performance />} />
             <Route path="/recruitment" element={<JobOpenings />} />
             <Route
-              path="/recruitment/applications"
+              path="/applications/:id"
               element={<JobApplications />}
             />
             <Route path="/recruitment/create" element={<PostJob />} />

@@ -1,4 +1,4 @@
-import { navbarLinks, sidebarLinks } from "../../data";
+import { navbarLinks } from "../../data";
 import { logout } from "../../services/authentication.service";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";

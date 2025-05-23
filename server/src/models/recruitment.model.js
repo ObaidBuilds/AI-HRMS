@@ -21,7 +21,6 @@ const applicantSchema = new mongoose.Schema({
     enum: ["Applied", "Under Review", "Interview", "Rejected", "Hired"],
     default: "Applied",
   },
-  notes: [String],
 });
 
 const jobSchema = new mongoose.Schema({

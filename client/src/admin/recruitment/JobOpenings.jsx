@@ -7,6 +7,7 @@ import { recruitmentButtons } from "../../data";
 import FetchError from "../../components/shared/error/FetchError";
 import { getJobOpenings } from "../../services/recruitment.service";
 import { formatDate } from "../../utils";
+import { Link } from "react-router-dom";
 
 function JobOpenings() {
   const dispatch = useDispatch();
@@ -16,8 +17,10 @@ function JobOpenings() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   useEffect(() => {
-    dispatch(getJobOpenings(reviewFilter));
+    dispatch(getJobOpenings({ status: reviewFilter, deadline: "" }));
   }, [reviewFilter]);
+
+  console.log(jobs);
 
   return (
     <>
@@ -41,13 +44,13 @@ function JobOpenings() {
               <tr className="dark:bg-head bg-headLight text-primary">
                 {[
                   "Title",
-                  "Department",
                   "Position",
                   "Salary",
                   "Type",
                   "Description",
-                  "Status",
                   "Deadline",
+                  "Applicants",
+                  "Status",
                   "Action",
                 ].map((header, index) => (
                   <th
@@ -68,9 +71,6 @@ function JobOpenings() {
                   >
                     <td className="py-3 px-4 border-b border-secondary">
                       {job.title}
-                    </td>
-                    <td className="py-3 px-4 border-b border-secondary">
-                      {job.department.name}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
                       {job.role.name}
@@ -98,8 +98,30 @@ function JobOpenings() {
                         </div>
                       )}
                     </td>
+                    <td className="py-3 px-4 border-b border-secondary">
+                      {formatDate(job.deadline)}
+                    </td>
 
-                    <td className="py-3 px-4 border-b border-secondary font-semibold">
+                    <td className="py-3 px-6 border-b border-secondary">
+                      {job?.applicants?.length > 0 ? (
+                        <Link
+                          to={`/applications/${job._id}`}
+                          className="text-blue-500 hover:text-blue-700 underline"
+                        >
+                          {job.applicants.length} Applic..
+                          {job.applicants.length > 1 ? "s" : ""}
+                        </Link>
+                      ) : (
+                        <span
+                          className="text-gray-400"
+                          title="No applicants yet"
+                        >
+                          0 Applic..
+                        </span>
+                      )}
+                    </td>
+
+                    <td className="py-3 border-b border-secondary font-semibold">
                       <span
                         className={`inline-flex items-center px-8 py-1 text-xs font-semibold text-white rounded-full  bg-gradient-to-r ${
                           job.status === "Open"
@@ -113,9 +135,6 @@ function JobOpenings() {
                       </span>
                     </td>
 
-                    <td className="py-3 px-4 border-b border-secondary">
-                      {formatDate(job.deadline)}
-                    </td>
                     <td className="pl-7 px-4 border-b border-secondary">
                       <button>
                         <i className="fa-solid fa-sliders"></i>
