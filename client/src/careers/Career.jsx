@@ -23,7 +23,6 @@ const Career = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Enhanced Hero Section */}
       <div className="relative h-[570px] bg-gray-900 flex items-center justify-center">
         <nav className="w-full h-[80px] flex justify-between items-center fixed top-0 left-0 z-50 px-3 sm:px-14">
           <div className="pt-5 pl-7">
@@ -32,10 +31,9 @@ const Career = () => {
 
           <div></div>
         </nav>
-        {/* Stronger black overlay */}
-        <div className="absolute z-40 inset-0 bg-black opacity-55"></div>
 
-        {/* Background image */}
+        <div className="absolute z-40 inset-0 bg-black opacity-60"></div>
+
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -44,13 +42,12 @@ const Career = () => {
           }}
         ></div>
 
-        {/* Hero content with enhanced styling */}
         <div className="relative z-50 text-center px-4 mx-auto text-white mt-10 sm:mt-6">
           <div className="mb-8">
             <span className="inline-block bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-full mb-4">
               We're Hiring
             </span>
-            <h1 className="text-[2rem] sm:text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
+            <h1 className="text-[2rem] sm:text-4xl md:text-5xl font-extrabold my-3 sm:my-5 leading-tight">
               Build Your Career <br /> With Us
             </h1>
             <p className="text-lg sm:text-xl mb-8 max-w-3xl mx-auto opacity-90">
@@ -58,7 +55,7 @@ const Career = () => {
               industry. Discover exciting opportunities that match your skills.
             </p>
           </div>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+          <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-10 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
             Explore Open Positions
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +72,6 @@ const Career = () => {
           </button>
         </div>
 
-        {/* Scrolling indicator */}
         <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
           <div className="animate-bounce">
             <svg
@@ -97,7 +93,10 @@ const Career = () => {
 
       {/* Jobs Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div
+          id="jobs"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+        >
           {jobs.map((job) => (
             <div
               key={job._id}
