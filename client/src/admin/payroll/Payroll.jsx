@@ -73,10 +73,10 @@ function Payroll() {
                     className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
                   >
                     <td className="py-3 px-4 border-b border-secondary">
-                      EMP {payroll.employee.employeeId}
+                      EMP {payroll?.employee?.employeeId || "Null"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {payroll.employee.name}
+                      {payroll?.employee?.name || "Null"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
                       {getMonthAbbreviation(payroll.month)}, {payroll.year}
