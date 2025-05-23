@@ -11,6 +11,7 @@ client/.env
 
 # Ignore client-specific files
 client/format.json
+client/employees.xlsx
 
 # Ignore server-specific files
 server/src/uploads
