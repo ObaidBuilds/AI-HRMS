@@ -248,7 +248,7 @@ const SettingModal = ({ onClose, location = "admin" }) => {
               {activeSection === "profile" && (
                 <div>
                   <div className="p-6 border-b dark:border-gray-700">
-                    <div className="sm:mt-6 flex flex-col sm:flex-row items-start gap-6">
+                    <div className="sm:mt-2 flex flex-col sm:flex-row items-start gap-6">
                       <div
                         className="relative group"
                         onMouseEnter={() => setIsHovering(true)}
