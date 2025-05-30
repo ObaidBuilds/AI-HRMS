@@ -259,6 +259,7 @@ const employeeInsights = [
 ];
 
 const sections = [
+  { id: "profile", label: "Profile", icon: "fas fa-user-circle" },
   { id: "appearance", label: "Appearance", icon: "fas fa-palette" },
   { id: "security", label: "Security", icon: "fas fa-lock" },
 ];

@@ -3,20 +3,28 @@ import { useTheme } from "../../../context";
 import { useForm } from "react-hook-form";
 import { sections, employeeSections } from "../../../data";
 import { updatePassword } from "../../../services/authentication.service";
-import { GiEarthAmerica } from "react-icons/gi";
-import { HiLockClosed } from "react-icons/hi";
+import { HiOutlineKey } from "react-icons/hi";
+import { HiOutlineLockClosed } from "react-icons/hi";
 import { updatePasswordSchema } from "../../../validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
-import toast from "react-hot-toast";
+import ButtonLoader from "../loaders/ButtonLoader";
+import { FiEdit2, FiUser, FiMail, FiUpload } from "react-icons/fi";
 
 const SettingModal = ({ onClose, location = "admin" }) => {
   const dispatch = useDispatch();
   const { theme, toggleTheme } = useTheme();
-  const [activeSection, setActiveSection] = useState("security");
-  const { loading, updatePasswordError } = useSelector(
+  const [isHovering, setIsHovering] = useState(false);
+  const [activeSection, setActiveSection] = useState("profile");
+  const { loading, updatePasswordError, user } = useSelector(
     (state) => state.authentication
   );
+  const [formData, setFormData] = useState({
+    username: user.name,
+    email: user.email,
+    profilePicture: user.profilePicture,
+  });
+  const [preview, setPreview] = useState(formData.profilePicture);
 
   const {
     register,
@@ -27,6 +35,11 @@ const SettingModal = ({ onClose, location = "admin" }) => {
     resolver: zodResolver(updatePasswordSchema),
   });
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   function onSubmit(credentials) {
     dispatch(updatePassword(credentials))
       .unwrap()
@@ -36,8 +49,20 @@ const SettingModal = ({ onClose, location = "admin" }) => {
       });
   }
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prev) => ({ ...prev, profilePicture: reader.result }));
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
-    <div className="fixed inset-0 z-40 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+    <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
       <div
         id="modal"
         className="bg-white relative p-2 sm:p-5 rounded-lg w-[90%] sm:w-[800px]"
@@ -110,7 +135,7 @@ const SettingModal = ({ onClose, location = "admin" }) => {
               {activeSection === "security" && (
                 <div className="w-[99%] sm:max-w-md rounded-lg bg-white p-8">
                   <div className="flex items-center justify-center mb-9">
-                    <GiEarthAmerica className="text-blue-600 text-4xl" />
+                    <HiOutlineKey className="text-blue-600 text-4xl" />
                     <h2 className="ml-2 text-xl font-semibold text-gray-700">
                       Update Password
                     </h2>
@@ -135,10 +160,10 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                         Old Password
                       </label>
                       <div className="relative flex items-center">
-                        <HiLockClosed className="absolute left-3 text-gray-400 text-lg" />
+                        <HiOutlineLockClosed className="absolute left-3 text-gray-400 text-lg" />
                         <input
                           type="password"
-                          className={`pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none
+                          className={`pl-10 pr-4 py-3 w-full rounded-lg border
                               ${errors.oldPassword && "border border-red-500"}
                             `}
                           placeholder="Enter your old password"
@@ -158,10 +183,10 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                         New Password
                       </label>
                       <div className="relative flex items-center">
-                        <HiLockClosed className="absolute left-3 text-gray-400 text-lg" />
+                        <HiOutlineLockClosed className="absolute left-3 text-gray-400 text-lg" />
                         <input
                           type="password"
-                          className={`pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none
+                          className={`pl-10 pr-4 py-3 w-full rounded-lg border
                               ${errors.newPassword && "border border-red-500"}
                             `}
                           placeholder="Enter your new password"
@@ -181,10 +206,10 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                         Confirm Password
                       </label>
                       <div className="relative flex items-center">
-                        <HiLockClosed className="absolute left-3 text-gray-400 text-lg" />
+                        <HiOutlineLockClosed className="absolute left-3 text-gray-400 text-lg" />
                         <input
                           type="password"
-                          className={`pl-10 pr-4 py-2 w-full rounded-lg border focus:border-blue-500 focus:outline-none
+                          className={`pl-10 pr-4 py-3 w-full rounded-lg border
                               ${
                                 errors.confirmPassword &&
                                 "border border-red-500"
@@ -203,16 +228,133 @@ const SettingModal = ({ onClose, location = "admin" }) => {
 
                     {/* Submit Button */}
                     <button
+                      disabled={loading}
                       type="submit"
-                      className="w-full rounded-lg bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
+                      className="w-full rounded-lg bg-blue-600 px-4 py-3 text-white transition hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed flex justify-center items-center"
                     >
                       {loading ? (
-                        <i className="fa fa-spinner fa-spin"></i>
+                        <span className="flex items-center justify-center">
+                          <ButtonLoader />
+                          Updating
+                        </span>
                       ) : (
                         "Update Password"
                       )}
                     </button>
                   </form>
+                </div>
+              )}
+
+              {activeSection === "profile" && (
+                <div>
+                  <div className="p-6 border-b dark:border-gray-700">
+                    <div className="mt-6 flex flex-col sm:flex-row items-start gap-6">
+                      <div
+                        className="relative group"
+                        onMouseEnter={() => setIsHovering(true)}
+                        onMouseLeave={() => setIsHovering(false)}
+                      >
+                        <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-600 relative">
+                          <img
+                            src={
+                              preview || "https://avatar.vercel.sh/placeholder"
+                            }
+                            alt="Profile"
+                            className="w-full h-full object-cover"
+                          />
+                          {isHovering && (
+                            <div className="absolute inset-0 bg-black/50 flex items-center justify-center transition-opacity">
+                              <FiUpload className="text-white text-xl" />
+                            </div>
+                          )}
+                        </div>
+                        <label
+                          htmlFor="file-input"
+                          className={`absolute -bottom-2 -right-2 rounded-full p-2 cursor-pointer transition-all ${
+                            "light" === "dark"
+                              ? "bg-gray-700 hover:bg-gray-600"
+                              : "bg-white hover:bg-gray-100"
+                          } shadow-md`}
+                        >
+                          <FiEdit2 className="text-blue-500" size={16} />
+                        </label>
+                        <input
+                          id="file-input"
+                          type="file"
+                          accept="image/*"
+                          onChange={handleFileChange}
+                          className="hidden"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                          {user.name}
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                          {user.email}
+                        </p>
+                        <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
+                          JPG, GIF or PNG. Max size of 2MB
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-6 space-y-6">
+                    <div>
+                      <label
+                        htmlFor="username"
+                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                      >
+                        Username
+                      </label>
+                      <div className="relative rounded-md shadow-sm">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <FiUser className="h-5 w-5 text-gray-400 dark:text-gray-500" />
+                        </div>
+                        <input
+                          type="text"
+                          id="username"
+                          name="username"
+                          value={formData.username}
+                          onChange={handleChange}
+                          className={`block w-full pl-10 pr-3 py-2.5 rounded-md border ${
+                            "light" === "dark"
+                              ? "bg-gray-700 border-gray-600 text-white focus:ring-blue-500 focus:border-blue-500"
+                              : "bg-white border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
+                          } placeholder-gray-400 sm:text-sm`}
+                          placeholder="Your username"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                      >
+                        Email address
+                      </label>
+                      <div className="relative rounded-md shadow-sm">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <FiMail className="h-5 w-5 text-gray-400 dark:text-gray-500" />
+                        </div>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          className={`block w-full pl-10 pr-3 py-2.5 rounded-md border ${
+                            "light" === "dark"
+                              ? "bg-gray-700 border-gray-600 text-white focus:ring-blue-500 focus:border-blue-500"
+                              : "bg-white border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
+                          } placeholder-gray-400 sm:text-sm`}
+                          placeholder="your@email.com"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>

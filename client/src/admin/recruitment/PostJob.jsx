@@ -23,10 +23,7 @@ const PostJob = () => {
 
   return (
     <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen shadow flex justify-center items-center">
-      <div
-        id="overflow"
-        className="w-[97%] sm:max-w-xl"
-      >
+      <div id="overflow" className="w-[97%] sm:max-w-xl">
         <div id="modal" className="bg-white rounded-lg overflow-hidden">
           <form onSubmit={handleSubmit(onSubmit)} className="p-8 space-y-4">
             {/* Modal Header */}
@@ -255,12 +252,12 @@ const PostJob = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full text-[0.9rem] bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-medium py-4 px-6 rounded-full shadow-sm hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center justify-center"
+                className="w-full text-[0.9rem] bg-blue-600 hover:bg-blue-700 text-white font-medium py-4 px-6 rounded-full shadow-sm hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center justify-center disabled:cursor-not-allowed disabled:bg-blue-400"
               >
                 {loading ? (
                   <>
                     <ButtonLoader />
-                    <span className="ml-2">Posting Job...</span>
+                    <span className="ml-2">Posting Job</span>
                   </>
                 ) : (
                   "Post Job"

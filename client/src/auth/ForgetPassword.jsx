@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { forgetPassword, login } from "../services/authentication.service";
 import { forgetPasswordSchema } from "../validations";
 import { Link, useNavigate } from "react-router-dom";
+import ButtonLoader from "../components/shared/loaders/ButtonLoader";
 
 const ForgetPassword = () => {
   const dispatch = useDispatch();
@@ -80,11 +81,11 @@ const ForgetPassword = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-[85%] text-sm p-[15px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300"
+              className="w-[85%] text-sm p-[15px] bg-green-500 text-white rounded-full font-medium hover:bg-gray-500 transition duration-300 disabled:bg-green-400 disabled:cursor-not-allowed"
             >
               {loading ? (
-                <span className="flex items-center gap-2 justify-center text-[0.8rem]">
-                  <i className="fas fa-spinner fa-spin text-xs"></i>
+                <span className="flex items-center justify-center text-[0.8rem]">
+                 <ButtonLoader />
                   Submitting
                 </span>
               ) : (

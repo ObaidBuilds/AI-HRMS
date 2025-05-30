@@ -4,6 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import Loader from "../../components/shared/loaders/Loader";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createEmployeeSchema } from "../../validations";
+import ButtonLoader from "../../components/shared/loaders/ButtonLoader";
 
 const AddEmployee = () => {
   const dispatch = useDispatch();
@@ -769,11 +770,11 @@ const AddEmployee = () => {
           <button
             type="submit"
             disabled={loading || formLoading}
-            className="w-full p-4 font-semibold text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-3xl mb-3 transition-all ease-in-out duration-150"
+            className="w-full p-4 font-semibold text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-3xl mb-3 transition-all ease-in-out duration-150 disabled:bg-blue-400 disabled:cursor-not-allowed"
           >
             {formLoading ? (
               <span className="flex items-center gap-2 justify-center">
-                <i className="fas fa-spinner fa-spin text-xs"></i>
+                <ButtonLoader />
                 Creating Employee
               </span>
             ) : (
