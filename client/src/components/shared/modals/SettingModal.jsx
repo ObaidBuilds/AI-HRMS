@@ -69,7 +69,7 @@ const SettingModal = ({ onClose, location = "admin" }) => {
       >
         <button
           onClick={onClose}
-          className="absolute top-3 sm:top-0 right-3 sm:right-[-2.4rem] w-6 h-6 rounded-full text-gray-600 sm:text-white hidden sm:block"
+          className="absolute top-3 sm:top-0 right-3 sm:right-[-2.4rem] w-6 h-6 rounded-full text-gray-600 sm:text-white "
         >
           <i className="fas fa-times text-sm"></i>
         </button>
@@ -248,7 +248,7 @@ const SettingModal = ({ onClose, location = "admin" }) => {
               {activeSection === "profile" && (
                 <div>
                   <div className="p-6 border-b dark:border-gray-700">
-                    <div className="mt-6 flex flex-col sm:flex-row items-start gap-6">
+                    <div className="sm:mt-6 flex flex-col sm:flex-row items-start gap-6">
                       <div
                         className="relative group"
                         onMouseEnter={() => setIsHovering(true)}
