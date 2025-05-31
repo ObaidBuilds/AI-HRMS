@@ -102,7 +102,7 @@ const ChatPanel = () => {
       </button>
 
       <div
-        className={`fixed z-50 top-0 right-0 w-full sm:w-[400px] h-screen ${
+        className={`fixed z-50 top-0 right-0 w-[75%] sm:w-[400px] h-[100dvh] sm:h-screen ${
           theme === "light"
             ? "bg-gradient-to-r from-[#0a2540] to-[#1d3557]"
             : "bg-gradient-to-br from-[#1E293B] to-[#334155]"
@@ -172,7 +172,7 @@ const ChatPanel = () => {
             <input
               type="text"
               placeholder="Type a message..."
-              className="w-full bg-gray-900 text-[0.92rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-500 font-[500] pl-12 text-white"
+              className="w-full bg-gray-900 text-[0.92rem] sm:text-center p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12 text-white disabled:bg-gray-800 disabled:cursor-not-allowed"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               disabled={loading}
