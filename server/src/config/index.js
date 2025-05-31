@@ -1,6 +1,7 @@
 import multer from "multer";
 import mongoose from "mongoose";
 import cloudinary from "cloudinary";
+import { v4 as uuidv4 } from "uuid";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 
 const connectDB = async () => {
@@ -23,16 +24,33 @@ const storage = new CloudinaryStorage({
 });
 
 const resumeStorage = new CloudinaryStorage({
-  cloudinary:cloudinary.v2,
+  cloudinary: cloudinary.v2,
   params: (req, file) => {
-    const ext = file.originalname.split(".").pop();
-    const name = file.originalname.split(".")[0].replace(/\s+/g, "_");
+    const parsedName = path.parse(file.originalname);
+    const sanitizedName = parsedName.name
+      .replace(/\s+/g, "_")
+      .replace(/[^a-zA-Z0-9_-]/g, "");
+    const extension = parsedName.ext.substring(1).toLowerCase();
+
+    const uniqueId = uuidv4().substring(0, 6);
+
     return {
       folder: "resumes",
       resource_type: "raw",
       allowed_formats: ["pdf", "doc", "docx"],
-      public_id: name,
-      format: ext,
+      public_id: `${sanitizedName}_${uniqueId}`,
+      format: extension,
+      transformation: [
+        {
+          flags: "attachment:inline",
+          quality: "auto:best",
+          fetch_format: "auto",
+        },
+      ],
+      max_file_size: 5242880,
+      invalidate: true,
+      type: "authenticated",
+      disposition: "inline",
     };
   },
 });
