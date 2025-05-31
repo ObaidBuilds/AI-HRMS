@@ -19,10 +19,10 @@ const Career = () => {
     );
   }, [dispatch]);
 
-  if (loading) return <Loader />;
-
   return (
     <div className="min-h-screen">
+      {loading && <Loader />}
+
       {/* Hero Section */}
       <div className="relative h-[570px] bg-gray-900 flex items-center justify-center">
         <nav className="w-full h-[80px] flex justify-between items-center fixed top-0 left-0 z-50 px-3 sm:px-14">
