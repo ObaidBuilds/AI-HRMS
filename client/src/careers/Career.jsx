@@ -46,7 +46,7 @@ const Career = () => {
             <span className="inline-block bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-full mb-4">
               We're Hiring
             </span>
-            <h1 className="text-[2.1rem] md:text-5xl font-bold my-3 sm:my-5 leading-tight">
+            <h1 className="text-[2rem] md:text-[3rem] font-extrabold my-3 sm:my-4 leading-tight">
               Build Your Career <br /> With Us
             </h1>
             <p className="text-[1.1rem] sm:text-xl mb-8 max-w-3xl mx-auto opacity-90">
