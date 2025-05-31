@@ -10,7 +10,13 @@ import {
   addPerformanceWithKPI,
   deletePerformance,
 } from "./performance.controller.js";
-import { createPayrollForEmployee } from "./payroll.controller.js";
+import {
+  createPayrollForEmployee,
+  deletePayroll,
+} from "./payroll.controller.js";
+import { deleteFeedback } from "./feedback.controller.js";
+import { deleteComplaint } from "./complaint.controller.js";
+import { deleteLeave } from "./leave.controller.js";
 
 const clearEmployeeCache = () => {
   const cacheKeys = myCache.keys();
@@ -233,7 +239,13 @@ const deleteEmployee = catchErrors(async (req, res) => {
 
   await Employee.findByIdAndDelete(id);
 
-  await deletePerformance(id);
+  await Promise.all([
+    deleteLeave(id),
+    deletePayroll(id),
+    deleteFeedback(id),
+    deleteComplaint(id),
+    deletePerformance(id),
+  ]);
 
   myCache.del("insights");
   clearEmployeeCache();
@@ -308,16 +320,19 @@ const updateEmployee = catchErrors(async (req, res) => {
   });
 });
 
-const updateProfilePicture = catchErrors(async (req, res) => {
+const updateProfile = catchErrors(async (req, res) => {
   const id = req.user;
+  const { name, email } = req.body;
 
-  if (!req.file) throw new Error("Please provide profile pic");
+  if (!name || !email) throw new Error("Please provide all fields");
 
   const employee = await Employee.findById(id);
 
-  if (employee.profilePicture !== `${process.env.CLIENT_URL}/unknown.jpeg`) {
+  if (
+    req.file &&
+    employee.profilePicture !== `${process.env.CLIENT_URL}/unknown.jpeg`
+  ) {
     const publicId = getPublicIdFromUrl(employee.profilePicture);
-
     if (publicId) {
       const res = await cloudinary.v2.uploader.destroy(`uploads/${publicId}`);
 
@@ -325,13 +340,25 @@ const updateProfilePicture = catchErrors(async (req, res) => {
     } else throw new Error("Invalid Cloudinary id");
   }
 
-  employee.profilePicture = req.file.path;
+  employee.name = name;
+  employee.email = email;
+  if (req.file) employee.profilePicture = req.file.path;
+
   await employee.save();
 
   return res.status(200).json({
     success: true,
     message: "Profile picture updated",
-    updatedProfilePicture: employee.profilePicture,
+    updatedProfile: {
+      _id: employee._id,
+      employeeId: employee.employeeId,
+      name: employee.name,
+      email: employee.email,
+      department: employee.department,
+      position: employee.role,
+      profilePicture: employee.profilePicture,
+      authority: employee.admin ? "admin" : "employee",
+    },
   });
 });
 
@@ -341,6 +368,6 @@ export {
   getEmployeeById,
   deleteEmployee,
   updateEmployee,
-  updateProfilePicture,
+  updateProfile,
   bulkCreateEmployees,
 };

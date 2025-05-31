@@ -145,12 +145,23 @@ const getEmployeePayrollHistory = catchErrors(async (req, res) => {
   });
 });
 
+const deletePayroll = async (employee) => {
+  if (!employee) throw new Error("Please provide employee Id");
+
+  const payroll = await Payroll.deleteOne({ employee });
+
+  if (payroll.deletedCount) return;
+
+  return "Payroll deleted successfuly";
+};
+
 export {
+  markAsPaid,
+  deletePayroll,
   createPayroll,
-  getPayrollByEmployee,
   getAllPayrolls,
   updatePayroll,
-  markAsPaid,
+  getPayrollByEmployee,
   getEmployeePayrollHistory,
   createPayrollForEmployee,
 };

@@ -118,7 +118,7 @@ const respondComplaint = catchErrors(async (req, res) => {
     name: complaint.employee.name,
     type: complaint.complainType,
     status:
-      complaint.status.slice(0, 1).toUpperCase() + complaint.status.slice(1)
+      complaint.status.slice(0, 1).toUpperCase() + complaint.status.slice(1),
   });
 
   myCache.del("insights");
@@ -130,8 +130,19 @@ const respondComplaint = catchErrors(async (req, res) => {
   });
 });
 
+const deleteComplaint = async (employee) => {
+  if (!employee) throw new Error("Please provide employee Id");
+
+  const complaint = await Complaint.deleteOne({ employee });
+
+  if (complaint.deletedCount) return;
+
+  return "Complaint deleted successfuly";
+};
+
 export {
   getComplaints,
+  deleteComplaint,
   createComplaint,
   respondComplaint,
   assignComplaintForResolution,

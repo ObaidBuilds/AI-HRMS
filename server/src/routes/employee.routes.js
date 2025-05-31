@@ -5,7 +5,7 @@ import {
   getEmployeeById,
   deleteEmployee,
   updateEmployee,
-  updateProfilePicture,
+  updateProfile,
   bulkCreateEmployees,
 } from "../controllers/employee.controller.js";
 import { upload } from "../config/index.js";
@@ -20,7 +20,7 @@ router.patch(
   "/profile",
   verifyEmployeeToken,
   upload.single("profilePicture"),
-  updateProfilePicture
+  updateProfile
 );
 router.get("/:id", verifyEmployeeToken, getEmployeeById);
 router.delete("/:id", verifyAdminToken, deleteEmployee);

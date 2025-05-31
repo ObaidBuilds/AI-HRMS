@@ -108,4 +108,15 @@ const createFeedback = catchErrors(async (req, res) => {
   });
 });
 
-export { getFeedbacks, createFeedback };
+const deleteFeedback = async (employee) => {
+  if (!employee) throw new Error("Please provide employee Id");
+
+  const feedback = await Feedback.deleteOne({ employee });
+
+  if (feedback.deletedCount) return;
+
+  return "Feedback deleted successfuly";
+};
+
+
+export { getFeedbacks, createFeedback, deleteFeedback };

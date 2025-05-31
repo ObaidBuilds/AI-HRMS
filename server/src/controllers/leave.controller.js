@@ -176,4 +176,20 @@ const respondLeave = catchErrors(async (req, res) => {
   }
 });
 
-export { getLeaves, applyLeave, respondLeave, getEmployeesOnLeave };
+const deleteLeave = async (employee) => {
+  if (!employee) throw new Error("Please provide employee Id");
+
+  const leave = await Leave.deleteOne({ employee });
+
+  if (leave.deletedCount) return;
+
+  return "Leave deleted successfuly";
+};
+
+export {
+  getLeaves,
+  applyLeave,
+  deleteLeave,
+  respondLeave,
+  getEmployeesOnLeave,
+};
