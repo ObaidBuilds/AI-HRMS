@@ -24,19 +24,19 @@ const JobApplicationModal = ({ jobId, setJobId, loading }) => {
     if (data.resume && data.resume[0]) {
       formData.append("resume", data.resume[0]);
     }
-    console.log(formData)
+    console.log(formData);
 
     dispatch(createJobApplication({ jobId, application: formData }))
       .unwrap()
       .then(() => {
         reset();
         setJobId(null);
-      })
+      });
   };
 
   return (
     <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-      <div id="overflow" className="w-[95%] sm:max-w-xl">
+      <div id="overflow" className="w-[90%] sm:max-w-xl">
         <div id="modal" className="bg-white rounded-lg overflow-hidden">
           <form onSubmit={handleSubmit(onSubmit)} className="p-8 space-y-4">
             {/* Modal Header */}
@@ -188,12 +188,12 @@ const JobApplicationModal = ({ jobId, setJobId, loading }) => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full text-[0.9rem] bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-medium py-4 px-6 rounded-full shadow-sm hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center justify-center"
+                className="w-full text-[0.9rem] bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-medium py-4 px-6 rounded-full shadow-sm hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center justify-center"
               >
                 {loading ? (
                   <>
                     <ButtonLoader />
-                    <span className="ml-2">Submitting...</span>
+                    <span>Submitting...</span>
                   </>
                 ) : (
                   "Submit Application"

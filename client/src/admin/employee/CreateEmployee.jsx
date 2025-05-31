@@ -767,20 +767,22 @@ const AddEmployee = () => {
             </div>
           </div>
 
-          <button
-            type="submit"
-            disabled={loading || formLoading}
-            className="w-full p-4 font-semibold text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-3xl mb-3 transition-all ease-in-out duration-150 disabled:bg-blue-400 disabled:cursor-not-allowed"
-          >
-            {formLoading ? (
-              <span className="flex items-center gap-2 justify-center">
-                <ButtonLoader />
-                Creating Employee
-              </span>
-            ) : (
-              "Create Employee"
-            )}
-          </button>
+          <div className="flex justify-center items-center w-full">
+            <button
+              type="submit"
+              disabled={loading || formLoading}
+              className="w-[95%] sm:w-[98%] p-4 font-semibold text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-3xl mb-3 transition-all ease-in-out duration-150 disabled:bg-blue-400 disabled:cursor-not-allowed"
+            >
+              {formLoading ? (
+                <span className="flex items-center gap-2 justify-center">
+                  <ButtonLoader />
+                  Creating Employee
+                </span>
+              ) : (
+                "Create Employee"
+              )}
+            </button>
+          </div>
         </form>
       </section>
     </>

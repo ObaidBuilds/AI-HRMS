@@ -39,6 +39,17 @@ const authSlice = createSlice({
         sessionStorage.removeItem("loggedInUser");
       }
     },
+
+    updateProfileState: (state, action) => {
+      state.loading = false;
+      state.user = action.payload;
+
+      if (remember()) {
+        localStorage.setItem("loggedInUser", JSON.stringify(action.payload));
+      } else {
+        sessionStorage.setItem("loggedInUser", JSON.stringify(action.payload));
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -121,4 +132,4 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
-export const { clearState } = authSlice.actions;
+export const { clearState, updateProfileState } = authSlice.actions;

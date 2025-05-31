@@ -7,8 +7,8 @@ const ProfileModal = ({
   showButton,
   loading,
   handleClick,
-  close,
 }) => {
+  
   const handleEditImage = () => {
     document.getElementById("fileInput").click();
   };

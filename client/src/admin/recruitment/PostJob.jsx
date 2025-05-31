@@ -257,7 +257,7 @@ const PostJob = () => {
                 {loading ? (
                   <>
                     <ButtonLoader />
-                    <span className="ml-2">Posting Job</span>
+                    <span>Posting Job</span>
                   </>
                 ) : (
                   "Post Job"

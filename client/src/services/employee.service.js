@@ -121,7 +121,7 @@ export const updateProfile = async (setProfileLoading, formData) => {
       }
     );
     toast.success(data.message);
-    return data.updatedProfilePicture;
+    return data.updatedProfile;
   } catch (error) {
     toast.error(error.response?.data.message || error.message);
   } finally {

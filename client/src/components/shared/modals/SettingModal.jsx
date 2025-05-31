@@ -10,17 +10,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonLoader from "../loaders/ButtonLoader";
 import { FiEdit2, FiUser, FiMail, FiUpload } from "react-icons/fi";
+import { updateProfile } from "../../../services/employee.service";
+import { updateProfileState } from "../../../reducers/authentication.reducer";
 
 const SettingModal = ({ onClose, location = "admin" }) => {
   const dispatch = useDispatch();
   const { theme, toggleTheme } = useTheme();
   const [isHovering, setIsHovering] = useState(false);
   const [activeSection, setActiveSection] = useState("profile");
+  const [profileLoading, setProfileLoading] = useState(false);
   const { loading, updatePasswordError, user } = useSelector(
     (state) => state.authentication
   );
   const [formData, setFormData] = useState({
-    username: user.name,
+    name: user.name,
     email: user.email,
     profilePicture: user.profilePicture,
   });
@@ -49,15 +52,24 @@ const SettingModal = ({ onClose, location = "admin" }) => {
       });
   }
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData((prev) => ({ ...prev, profilePicture: reader.result }));
-        setPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+      setPreview(URL.createObjectURL(file));
+      setFormData((prev) => ({ ...prev, profilePicture: file }));
+    }
+  };
+
+  const handleProfileSubmit = async () => {
+    const formDataReq = new FormData();
+    formDataReq.append("name", formData.name);
+    formDataReq.append("email", formData.email);
+    formDataReq.append("profilePicture", formData.profilePicture);
+
+    const updatedProfile = await updateProfile(setProfileLoading, formData);
+
+    if (updatedProfile) {
+      dispatch(updateProfileState(updatedProfile));
     }
   };
 
@@ -270,11 +282,7 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                         </div>
                         <label
                           htmlFor="file-input"
-                          className={`absolute -bottom-2 -right-2 rounded-full p-2 cursor-pointer transition-all ${
-                            "light" === "dark"
-                              ? "bg-gray-700 hover:bg-gray-600"
-                              : "bg-white hover:bg-gray-100"
-                          } shadow-md`}
+                          className="absolute -bottom-2 -right-2 rounded-full p-2 cursor-pointer transition-all bg-white hover:bg-gray-100 shadow-md"
                         >
                           <FiEdit2 className="text-blue-500" size={16} />
                         </label>
@@ -314,15 +322,11 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                         </div>
                         <input
                           type="text"
-                          id="username"
-                          name="username"
-                          value={formData.username}
+                          id="name"
+                          name="name"
+                          value={formData.name}
                           onChange={handleChange}
-                          className={`block w-full pl-10 pr-3 py-2.5 rounded-md border ${
-                            "light" === "dark"
-                              ? "bg-gray-700 border-gray-600 text-white focus:ring-blue-500 focus:border-blue-500"
-                              : "bg-white border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
-                          } placeholder-gray-400 sm:text-sm`}
+                          className="block w-full pl-10 pr-3 py-2.5 rounded-md border bg-white border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400 sm:text-sm"
                           placeholder="Your username"
                         />
                       </div>
@@ -345,15 +349,29 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                           name="email"
                           value={formData.email}
                           onChange={handleChange}
-                          className={`block w-full pl-10 pr-3 py-2.5 rounded-md border ${
-                            "light" === "dark"
-                              ? "bg-gray-700 border-gray-600 text-white focus:ring-blue-500 focus:border-blue-500"
-                              : "bg-white border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
-                          } placeholder-gray-400 sm:text-sm`}
+                          className="block w-full pl-10 pr-3 py-2.5 rounded-md border
+                               bg-white border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500
+                           placeholder-gray-400 sm:text-sm"
                           placeholder="your@email.com"
                         />
                       </div>
                     </div>
+
+                    {/* Submit Button */}
+                    <button
+                      disabled={profileLoading}
+                      onClick={handleProfileSubmit}
+                      className="w-full rounded-lg bg-blue-600 px-4 py-3 text-white transition hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed flex justify-center items-center"
+                    >
+                      {profileLoading ? (
+                        <span className="flex items-center justify-center">
+                          <ButtonLoader />
+                          Updating
+                        </span>
+                      ) : (
+                        "Update Profile"
+                      )}
+                    </button>
                   </div>
                 </div>
               )}
