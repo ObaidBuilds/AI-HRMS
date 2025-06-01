@@ -102,7 +102,7 @@ export const checkAuthorityValidity = async (
   session
 ) => {
   try {
-    const { data } = await axiosInstance.post("/auth/authority/check", {
+    const { data } = await axiosInstance.post("/auth/authority/validate", {
       employeeId,
       authority,
       session,
