@@ -26,7 +26,7 @@
 
 - _Attendance & Time Tracking | QR Code-based_ 
 
-- _Leave Management | AI Shift Assignments_ 
+- _Leave Management | AI Substitue Assignment_ 
 
 - _Payroll Management_
 
@@ -36,15 +36,13 @@
 
 - _Complaint Management_
 
- - _Communication Management_
-
 - _Feedback Management | AI Sentiment Analysis_
 
 - _Reports & Analytics | Attendance, Leave, Complaints_
 
 ## _Tech Stack_ :
 
-- _MERN Stack _
+- _MERN Stack_
 
 - _Redux for State Management_
 
