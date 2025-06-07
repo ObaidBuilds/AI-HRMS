@@ -16,7 +16,7 @@ const startHrmsApplication = async () => {
     // Create the employee without department first
     const employee = await Employee.create({
       employeeId: "000",
-      name: "Admin User",
+      name: "Admin",
       dob: "1990-05-15T00:00:00.000Z",
       email: "admin@gmail.com",
       password: "$2b$10$k.1v4SeBsR.UYT4chI/O8OTkK5CO.MilaR8yCACtodqTZKm429rWG",

@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "setup": "node src/setup/index.js"
   },
   "license": "ISC",
   "author": "Obaid Ali Siddiqui",

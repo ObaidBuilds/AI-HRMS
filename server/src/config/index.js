@@ -15,6 +15,17 @@ const connectDB = async () => {
   }
 };
 
+const disConnectDB = async () => {
+  try {
+     await mongoose.disconnect();
+
+    console.log(`MongoDB DisConnected`);
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    process.exit(1);
+  }
+};
+
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary.v2,
   params: {
@@ -58,4 +69,4 @@ const resumeStorage = new CloudinaryStorage({
 const upload = multer({ storage });
 const uploadResume = multer({ storage: resumeStorage });
 
-export { connectDB, upload, uploadResume };
+export { connectDB, disConnectDB, upload, uploadResume };
