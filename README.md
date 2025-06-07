@@ -34,10 +34,18 @@
 
 ## _Standout Features_ :
 
-- _AI Substitute Assignment in Leave Management which automatically assigns substitutes during employee leave, significantly reducing manual workload._ 
-- _QR Code-Based Attendance, Employees generate QR codes to mark attendance, with GPS validation ensuring presence at the workplace._
-- _AI Sentiment Analysis which analyzes employee feedback to gauge satisfaction and identify areas for improvement._ 
-- _GEMINI Powered chatbot which provides instant, intelligent responses to admin queries, enabling quick and easy access to important data._ 
+- _AI Substitute Assignment in Leave Management_ 
+- _AI Sentiment Analysis in Feedback Management_._ 
+- _QR Code-Based GPS Verification Attendance System._
+- _GEMINI-Powered Chatbot Providing Instant Responses_ 
+
+## _Impact or Outcomes_ :
+
+- _Faster Decision-Making_
+- _Reduced Manual Workload_
+- _Improved Attendance Accuracy_
+- _Enhanced Employee Satisfaction_
+
 
 ## _Tech Stack_ :
 
