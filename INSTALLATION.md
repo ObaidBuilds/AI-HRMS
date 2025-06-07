@@ -33,6 +33,7 @@ npm run setup
 ## _Environment Variables_ :
 
 - _In the server and client folder, rename the .env.example file to .env:_
+- _Fill in all the required environment variables for proper configuration._
 
 ## _Running the Project_ :
 
