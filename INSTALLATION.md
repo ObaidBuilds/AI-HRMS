@@ -1,7 +1,7 @@
 ## _Prerequisites_ :
  
 - _Node.js and npm must be installed on your machine_
-- _You can installed it from Node.js official website_
+- _You can install them from the [Node.js Official Website](https://nodejs.org/)_
 
 ## _Installation Steps_ :
 
@@ -23,12 +23,12 @@ npm install
 
 ## _Initial Project Setup_ :
 
-- _In the server folder, run the setup command to seed the database with an initial employee_
+- _In the server folder, run the setup command to seed the database with an initial data_
 ```bash
 npm run setup
 ```
-- _This will create an employee with ID: 000 Password: password_
-- _You can use these credentials to log in to the application._
+- _This will create an employee with ID: 000 & Password: password_
+- _You can use these credentials to log in to the hrms application._
 
 ## _Environment Variables_ :
 
@@ -36,7 +36,7 @@ npm run setup
 
 ## _Running the Project_ :
 
-- _Start the client and server applications as needed._
+- _Start the client and server of the application as needed._
 ```bash
 # In client/
 npm run dev
