@@ -50,6 +50,6 @@
 
 ## _Tech Stack_ :
 
-- _MERN Stack_
+- _MERN Stack for Development_
 - _Redux for State Management_
 - _AI Integration with Gemini_
