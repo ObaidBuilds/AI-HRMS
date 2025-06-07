@@ -17,33 +17,30 @@
 </div>
 
 ***Self-hosted Version*** : [_click here_](https://metrohrms.netlify.app)
+***Installation Guide*** : [_click here_](https://github.com/WhatsWrongOB/AI-HRMS/blob/main/INSTALLATION.md)
 
-## _Features_ :
+## _Key Features_ :
 
 - _Robust Authentication_
-  
 - _Employee Management_
-
-- _Attendance & Time Tracking | QR Code-based_ 
-
-- _Leave Management | AI Substitue Assignment_ 
-
+- _Attendance Management_ 
+- _Leave Management_ 
 - _Payroll Management_
-
 - _Recruitment Management_
-
 - _Performance Management_
-
 - _Complaint Management_
+- _Feedback Management_
+- _Reports & Analytics_
 
-- _Feedback Management | AI Sentiment Analysis_
+## _Standout Features_ :
 
-- _Reports & Analytics | Attendance, Leave, Complaints_
+- _AI Substitute Assignment in Leave Management which automatically assigns substitutes during employee leave, significantly reducing manual workload._ 
+- _QR Code-Based Attendance, Employees generate QR codes to mark attendance, with GPS validation ensuring presence at the workplace._
+- _AI Sentiment Analysis which analyzes employee feedback to gauge satisfaction and identify areas for improvement._ 
+- _GEMINI Powered chatbot which provides instant, intelligent responses to admin queries, enabling quick and easy access to important data._ 
 
 ## _Tech Stack_ :
 
 - _MERN Stack_
-
 - _Redux for State Management_
-
 - _AI Integration with Gemini_
