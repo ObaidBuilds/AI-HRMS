@@ -34,10 +34,10 @@
 
 ## _Standout Features_ :
 
-- _AI Substitute Assignment in Leave Management_ 
-- _AI Sentiment Analysis in Feedback Management_._ 
-- _QR Code-Based GPS Verification Attendance System._
-- _GEMINI-Powered Chatbot Providing Instant Responses_ 
+- _AI Sentiment Analysis_
+- _AI Substitute Assignment_ 
+- _QR Code-Based Attendance_
+- _GEMINI-Powered Chatbot_ 
 
 ## _Impact or Outcomes_ :
 
