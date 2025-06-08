@@ -44,7 +44,7 @@ const getAllDepartments = catchErrors(async (req, res) => {
 
   if (!department) throw new Error("No departments found");
 
-  return res.status(201).json({
+  return res.status(200).json({
     success: true,
     message: "Departments fetched successfully",
     department,
@@ -56,7 +56,7 @@ const getAllEmployeesForHead = catchErrors(async (req, res) => {
 
   if (employees.length === 0) throw new Error("No employee found");
 
-  return res.status(201).json({
+  return res.status(200).json({
     success: true,
     message: "Employees fetched successfully",
     employees,
@@ -70,7 +70,7 @@ const getDepartmentById = catchErrors(async (req, res) => {
 
   const department = await Department.findById(id).populate("head");
 
-  return res.status(201).json({
+  return res.status(200).json({
     success: true,
     message: "Department fetched successfuly",
     department,
@@ -84,7 +84,7 @@ const getDepartmentEmployees = catchErrors(async (req, res) => {
 
   const department = await Department.findById(id).populate("head", "name");
 
-  return res.status(201).json({
+  return res.status(200).json({
     success: true,
     message: "Department fetched successfuly",
     department,
@@ -101,7 +101,7 @@ const deleteDepartment = catchErrors(async (req, res) => {
   myCache.del("insights");
   myCache.del("department");
 
-  return res.status(201).json({
+  return res.status(200).json({
     success: true,
     message: "Department deleted successfuly",
   });
@@ -122,7 +122,7 @@ const updateDepartment = catchErrors(async (req, res) => {
   myCache.del("insights");
   myCache.del("department");
 
-  return res.status(201).json({
+  return res.status(200).json({
     success: true,
     message: "Department updated successfuly",
     department,

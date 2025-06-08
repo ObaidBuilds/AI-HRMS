@@ -41,7 +41,7 @@ const login = catchErrors(async (req, res) => {
 
   await employee.save();
 
-  return res.status(201).json({
+  return res.status(200).json({
     success: true,
     message: "Logged in successfuly 🔑",
     token,

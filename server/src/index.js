@@ -8,18 +8,21 @@ import { fileURLToPath } from "url";
 import cloudinary from "cloudinary";
 import bodyParser from "body-parser";
 import { connectDB } from "./config/index.js";
-import role from "./routes/role.routes.js";
-import leave from "./routes/leave.routes.js";
-import payroll from "./routes/payroll.routes.js";
-import employee from "./routes/employee.routes.js";
-import feedback from "./routes/feedback.routes.js";
-import inshight from "./routes/insights.routes.js";
-import complaint from "./routes/complaint.routes.js";
-import attendance from "./routes/attendance.routes.js";
-import department from "./routes/department.routes.js";
-import performance from "./routes/performance.routes.js";
-import authentication from "./routes/authentication.routes.js";
-import recruitment from "./routes/recruitment.routes.js";
+import {
+  role,
+  leave,
+  payroll,
+  employee,
+  feedback,
+  inshight,
+  complaint,
+  attendance,
+  department,
+  performance,
+  recruitment,
+  authentication,
+} from "./routes/index.routes.js";
+import { swaggerUi, swaggerSpec } from "./doc/index.js";
 
 const app = express();
 
@@ -31,10 +34,7 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.static(path.join(__dirname, "public")));
 
-const allowedOrigins = [
-  "http://localhost:8000",
-  "https://metrohrms.netlify.app",
-];
+const allowedOrigins = [process.env.CLIENT_URL];
 
 app.use(
   cors({
@@ -59,17 +59,19 @@ cloudinary.v2.config({
 });
 
 app.use("/api/roles", role);
-app.use("/api/employees", employee);
-app.use("/api/departments", department);
-app.use("/api/auth", authentication);
-app.use("/api/attendance", attendance);
-app.use("/api/performance", performance);
-app.use("/api/insights", inshight);
 app.use("/api/leaves", leave);
-app.use("/api/feedbacks", feedback);
-app.use("/api/complaints", complaint);
 app.use("/api/payrolls", payroll);
+app.use("/api/insights", inshight);
+app.use("/api/employees", employee);
+app.use("/api/feedbacks", feedback);
+app.use("/api/auth", authentication);
+app.use("/api/complaints", complaint);
+app.use("/api/attendance", attendance);
+app.use("/api/departments", department);
+app.use("/api/performance", performance);
 app.use("/api/recruitment", recruitment);
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "welcome.html"));
@@ -85,6 +87,12 @@ connectDB()
   .catch((err) => {
     console.error(err.message);
   });
+
+app.use((req, res, next) => {
+  const error = new Error("404 Endpoint Not Found");
+  error.status = 404;
+  next(error.message);
+});
 
 app.use((err, req, res, next) => {
   const message = err || "Internal server error";

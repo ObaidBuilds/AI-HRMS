@@ -1,7 +1,7 @@
-import Employee from "../models/employee.model.js";
 import Leave from "../models/leave.model.js";
-import { catchErrors, formatDate, myCache } from "../utils/index.js";
+import Employee from "../models/employee.model.js";
 import { getSubstitute } from "../predictions/index.js";
+import { catchErrors, formatDate, myCache } from "../utils/index.js";
 import { leaveRespond, notifySubstituteEmployee } from "../templates/index.js";
 
 const getLeaves = catchErrors(async (req, res) => {

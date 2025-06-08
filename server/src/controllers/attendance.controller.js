@@ -193,7 +193,7 @@ const getEmployeeAttendance = catchErrors(async (req, res) => {
   ).length;
   const attendancePercentage = (presentDays / totalDays) * 100;
 
-  return res.status(201).json({
+  return res.status(200).json({
     success: true,
     message: "Attendance fetched successfully",
     attendance: {

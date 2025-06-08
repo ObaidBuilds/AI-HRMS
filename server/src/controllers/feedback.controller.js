@@ -1,6 +1,5 @@
 import Feedback from "../models/feedback.model.js";
 import { catchErrors, myCache } from "../utils/index.js";
-import getPredictionFromGeminiAI from "../gemini/index.js";
 import { getSentimentAnalysis } from "../predictions/index.js";
 
 const getFeedbacks = catchErrors(async (req, res) => {
@@ -73,17 +72,10 @@ const createFeedback = catchErrors(async (req, res) => {
   if (!employee || !description || !rating)
     throw new Error("All fields are required");
 
-  const prompt = `
-  Given the user's feedback description, determine if the sentiment is positive or negative. 
-  The rating should be considered as an additional indicator. 
-  Feedback Description: "${description}" 
-  Please respond with only one word which is "Positive" , "Negative" or "Neutral".
-`;
-
-  let review;
-  review = await getPredictionFromGeminiAI(prompt);
-
-  if (!review) review = getSentimentAnalysis(parseInt(rating));
+  const review = await getSentimentAnalysis(
+    description,
+    parseInt(rating)
+  );
 
   const feedback = await Feedback.create({
     employee,
@@ -101,7 +93,7 @@ const createFeedback = catchErrors(async (req, res) => {
     }
   });
 
-  return res.status(200).json({
+  return res.status(201).json({
     success: true,
     message: "Feedback created successfully",
     feedback,
@@ -117,6 +109,5 @@ const deleteFeedback = async (employee) => {
 
   return "Feedback deleted successfuly";
 };
-
 
 export { getFeedbacks, createFeedback, deleteFeedback };

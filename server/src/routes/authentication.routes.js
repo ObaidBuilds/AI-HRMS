@@ -20,5 +20,4 @@ router.get("/logout", verifyEmployeeToken, logout);
 router.get("/reset/password/validate", checkResetPasswordValidity);
 router.patch("/password/update", verifyEmployeeToken, updatePassword);
 
-
 export default router;
