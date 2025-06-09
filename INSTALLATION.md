@@ -3,17 +3,6 @@
   <img src="https://metrohrms.netlify.app/metro.png" width="128px" />
     </a>
     <h1><i>AI-Driven Human Resource Management ⚡</i></h1>
-    <p align="center">
-         <p><i>Streamlining HR Operations | AI-Powered Insights</i></p>
-    </p>
-
-
-```
- Give a Star ⭐️ & Fork to this project ... Happy coding! 🤩`
-```
-
-*The AI-Driven HRMS is a robust HR management system, built on the MERN stack. It integrates AI for sentiment analysis, automated substitute assignment, and a Gemini-powered chatbot*
-
 </div>
 
 ## _Prerequisites_ :
