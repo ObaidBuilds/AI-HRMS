@@ -1,8 +1,7 @@
-<div align="center">
+<div>
     <a href="https://metrohrms.netlify.app">
   <img src="https://metrohrms.netlify.app/metro.png" width="128px" />
     </a>
-    <h1><i>AI-Driven Human Resource Management ⚡</i></h1>
 </div>
 
 ## _Prerequisites_ :
