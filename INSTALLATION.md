@@ -27,6 +27,11 @@ cd server
 npm install
 ```
 
+## _Environment Variables_ :
+
+- _In the server and client folder, rename the .env.example file to .env:_
+- _Fill in all the required environment variables for proper configuration._
+
 ## _Initial Project Setup_ :
 
 - _In the server folder, run the setup command to seed the database with an initial data_
@@ -35,11 +40,6 @@ npm run setup
 ```
 - _This will create an employee with ID: 000 & Password: password_
 - _You can use these credentials to log in to the hrms application._
-
-## _Environment Variables_ :
-
-- _In the server and client folder, rename the .env.example file to .env:_
-- _Fill in all the required environment variables for proper configuration._
 
 ## _Running the Project_ :
 
