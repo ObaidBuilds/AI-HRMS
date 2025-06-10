@@ -31,6 +31,28 @@ npm install
 
 - _In the server and client folder, rename the .env.example file to .env:_
 - _Fill in all the required environment variables for proper configuration._
+```bash
+# In client .env
+VITE_URL=
+VITE_ENV=
+
+# In server .env/
+PORT=
+JWTSECRET=
+CLIENT_URL=
+SERVER_URL=
+MONGO_URI=
+SMTP_HOST=
+SMTP_PORT=
+SMTP_USER=
+SMTP_PASS=
+GEMINI=
+LATITUDE=
+LONGITUDE=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+```
 
 ## _Initial Project Setup_ :
 
