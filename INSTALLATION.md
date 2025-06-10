@@ -36,7 +36,7 @@ npm install
 VITE_URL=
 VITE_ENV=
 
-# In server .env/
+# In server .env
 PORT=
 JWTSECRET=
 CLIENT_URL=
