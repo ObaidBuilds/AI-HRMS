@@ -6,7 +6,6 @@ import BarGraph from "../../components/shared/charts/BarGraph";
 import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
 import ChatPanel from "../../components/shared/others/ChatPanel";
 import FetchError from "../../components/shared/error/FetchError";
-import Error from "../../components/shared/error/Error";
 
 const Dashboard = () => {
   const { insights, loading, error } = useSelector((state) => state.insight);
@@ -72,7 +71,7 @@ const Dashboard = () => {
     (item) => item.attendancePercentage
   );
 
-  if (error) return <Error error={error} />;
+  if (error) return <FetchError error={error} />;
   if (loading || !insights) return <ComponentLoader />;
 
   return (
