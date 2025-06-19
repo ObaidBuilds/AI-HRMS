@@ -139,7 +139,9 @@ const getInsights = catchErrors(async (req, res) => {
     complaintCloseRate,
   };
 
-  myCache.set(cacheKey, insights);
+  // myCache.set(cacheKey, insights);
+  myCache.set(cacheKey, JSON.parse(JSON.stringify(insights)));
+
 
   return res.status(200).json({
     success: true,
