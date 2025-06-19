@@ -177,7 +177,7 @@ function Employee() {
 
         <div
           id="overflow"
-          className="overflow-x-auto min-h-[90vh] sm:min-h-[80vh]"
+          className="overflow-x-auto sm:min-h-[80vh]"
         >
           <table className="min-w-full text-left table-auto border-collapse text-[0.83rem] whitespace-nowrap">
             <thead>
