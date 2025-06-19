@@ -40,7 +40,7 @@ function Feedback() {
           ))}
         </div>
 
-        <div id="overflow" className="overflow-x-auto min-h-[90vh]">
+        <div id="overflow" className="overflow-x-auto min-h-[90vh] sm:min-h-[80vh]">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="dark:bg-head bg-headLight text-primary">
