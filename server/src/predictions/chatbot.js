@@ -45,11 +45,11 @@ async function getAnswerFromChatbot(prompt) {
     ${employees
       .map(
         (emp, index) =>
-          `${index + 1}. **Name:** ${emp.name} | **Department:** ${
-            emp.department.name
-          } | **Role:** ${emp.role.name} | **Salary:** ${
-            emp.salary
-          } | **Admin:** ${emp.admin}`
+          `${index + 1}. **Name:** ${emp?.name} | **Department:** ${
+            emp?.department?.name
+          } | **Role:** ${emp?.role?.name} | **Salary:** ${
+            emp?.salary
+          } | **Admin:** ${emp?.admin}`
       )
       .join("\n")}
     
@@ -57,10 +57,10 @@ async function getAnswerFromChatbot(prompt) {
     ${performances
       .map(
         (per, index) =>
-          `${index + 1}. **Name:** ${per.employee.name} | **KPI Score:** ${
+          `${index + 1}. **Name:** ${per?.employee?.name} | **KPI Score:** ${
             per.kpiScore
-          } | **Rating:** ${per.rating} | **Attendance Percentage:** ${
-            per.kpis.attendance
+          } | **Rating:** ${per?.rating} | **Attendance Percentage:** ${
+            per?.kpis.attendance
           }`
       )
       .join("\n")}
@@ -69,10 +69,10 @@ async function getAnswerFromChatbot(prompt) {
     ${leaves
       .map(
         (leave, index) =>
-          `${index + 1}. **Name:** ${leave.employee.name} | **Type:** ${
-            leave.leaveType
-          } | **Date:** ${leave.fromDate} - ${leave.toDate} | **Status:** ${
-            leave.status
+          `${index + 1}. **Name:** ${leave?.employee?.name} | **Type:** ${
+            leave?.leaveType
+          } | **Date:** ${leave?.fromDate} - ${leave?.toDate} | **Status:** ${
+            leave?.status
           }`
       )
       .join("\n")}
@@ -82,9 +82,9 @@ async function getAnswerFromChatbot(prompt) {
     ${complaints
       .map(
         (com, index) =>
-          `${index + 1}. **Name:** ${com.employee.name} | **Complaint Type:** ${
-            com.leaveType
-          } | **Status:** ${com.status}`
+          `${index + 1}. **Name:** ${com?.employee?.name} | **Complaint Type:** ${
+            com?.leaveType
+          } | **Status:** ${com?.status}`
       )
       .join("\n")}
     **All Complaint Types:** Workplace, Payroll, Leave, Harassment, Scheduling, Misconduct  
@@ -93,9 +93,9 @@ async function getAnswerFromChatbot(prompt) {
     ${feedbacks
       .map(
         (feed, index) =>
-          `${index + 1}. **Name:** ${feed.employee.name} | **Review:** ${
-            feed.review
-          } | **Rating:** ${feed.rating} | **Suggestion:** ${feed.suggestion}`
+          `${index + 1}. **Name:** ${feed?.employee?.name} | **Review:** ${
+            feed?.review
+          } | **Rating:** ${feed?.rating} | **Suggestion:** ${feed?.suggestion}`
       )
       .join("\n")}
     
