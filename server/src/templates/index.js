@@ -228,6 +228,43 @@ async function inviteForInterviewMail({
   await sendMail(message);
 }
 
+async function thankYouForApplying({ 
+  email, 
+  candidateName, 
+  jobTitle,
+}) {
+  const message = {
+    email,
+    subject: "Metro HRMS - Thank You for Your Application",
+    html: `
+     <div style="font-family: 'Poppins', system-ui; max-width: 480px; width: 100%; margin: 40px auto; background: #2c2c2c; padding: 32px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); text-align: center;">
+    <img src="http://metrohrms.netlify.app/metro.png" alt="Metro Cash & Carry Logo" style="width: 120px; margin-bottom: 24px; max-width: 100%; height: auto;">
+    <div style="font-size: 16px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">Metro Cash & Carry</div>
+    <h2 style="color: #ffffff; font-weight: 500; font-size: 22px; margin-bottom: 16px;">Thank You for Applying</h2>
+    <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">Dear <strong style="color: #007bff;">${candidateName}</strong>,</p>
+    <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">
+      We appreciate your application for the <strong>${jobTitle}</strong> position at Metro Cash & Carry.
+    </p>
+    
+    <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">
+      Our team is currently reviewing all applications. If your qualifications match our requirements,
+      we'll contact you within the next 7-10 business days.
+    </p>
+
+    <a href="${process.env.CLIENT_URL}/careers" style="display: inline-block; padding: 12px 28px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 500; margin: 24px 0; transition: background 0.3s ease;">
+      View Other Opportunities
+    </a>
+
+    <div style="width: 100%; height: 1px; background: #444444; margin: 14px 0;"></div>
+    <p style="margin-top: 24px; font-size: 12px; color: #999999;">Metro HRMS &copy; 2024. All Rights Reserved.</p>
+  </div>
+    `,
+    text: `Dear ${candidateName},\n\nThank you for applying to the ${jobTitle} position at Metro Cash & Carry.\n\nOur team is reviewing applications and will contact you within 7-10 business days if your qualifications match our needs.\n\nFor questions about your application:\n${contactPerson}\n${contactEmail}\n\nView other opportunities: ${process.env.CLIENT_URL}\n\nBest regards,\nMetro HRMS Team`
+  };
+
+  await sendMail(message);
+}
+
 export {
   leaveRespond,
   passwordRecovery,
@@ -235,4 +272,5 @@ export {
   resetPasswordSuccess,
   notifySubstituteEmployee,
   inviteForInterviewMail,
+  thankYouForApplying
 };

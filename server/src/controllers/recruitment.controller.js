@@ -1,6 +1,9 @@
 import Recruitment from "../models/recruitment.model.js";
 import { catchErrors } from "../utils/index.js";
-import { inviteForInterviewMail } from "../templates/index.js";
+import {
+  inviteForInterviewMail,
+  thankYouForApplying,
+} from "../templates/index.js";
 
 const createJob = catchErrors(async (req, res) => {
   const postedBy = req.user;
@@ -149,6 +152,12 @@ const createApplicant = catchErrors(async (req, res) => {
     coverLetter,
   });
   await job.save();
+
+  await thankYouForApplying({
+    email,
+    candidateName: name,
+    jobTitle: job.title,
+  });
 
   return res.status(201).json({
     success: true,
