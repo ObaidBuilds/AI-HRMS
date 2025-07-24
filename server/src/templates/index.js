@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import { sendMail } from "../utils/index.js";
+import { formatDate, formatTime, sendMail } from "../utils/index.js";
 
 async function notifySubstituteEmployee({
   email,
@@ -183,10 +183,56 @@ async function complaintRespond({ email, name, status, type }) {
   await sendMail(message);
 }
 
+async function inviteForInterviewMail({
+  email,
+  candidateName,
+  jobTitle,
+  interviewDate,
+  interviewTime,
+  contactPerson = "hr@metrocc.com",
+}) {
+  const message = {
+    email,
+    subject: "Metro HRMS - Interview Invitation",
+    html: `
+        <div style="font-family: 'Poppins', system-ui; max-width: 480px; width: 100%; margin: 40px auto; background: #2c2c2c; padding: 32px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); text-align: center;">
+          <img src="http://metrohrms.netlify.app/metro.png" alt="Metro Cash & Carry Logo" style="width: 120px; margin-bottom: 24px; max-width: 100%; height: auto;">
+          <div style="font-size: 16px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">Metro Cash & Carry</div>
+          <h2 style="color: #ffffff; font-weight: 500; font-size: 22px; margin-bottom: 16px;">Interview Invitation</h2>
+          <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">Dear <strong style="color: #007bff;">${candidateName}</strong>,</p>
+          <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">
+            Thank you for applying to the <strong>${jobTitle}</strong> position at Metro Cash & Carry.
+            We're pleased to invite you for an interview on:
+          </p>
+          
+          <div style="background: #3a3a3a; border-radius: 8px; padding: 16px; margin: 20px 0; text-align: center;">
+            <div style="color: #ffffff; font-size: 18px; font-weight: 500;">${formatDate(
+              interviewDate
+            )}, ${formatTime(interviewTime)}</div>
+          </div>
+  
+          <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">
+            Please confirm your attendance by replying to this email. For any queries, contact ${contactPerson}.
+          </p>
+  
+          <p style="font-size: 13px; color: #999999; margin-top: 16px;">
+            We look forward to meeting you!
+          </p>
+          <div style="width: 100%; height: 1px; background: #444444; margin: 24px 0;"></div>
+          <p style="margin-top: 24px; font-size: 12px; color: #999999;">Metro HRMS &copy; 2024. All Rights Reserved.</p>
+        </div>
+      `,
+    text: `Dear ${candidateName},\n\nYou've been invited for an interview for ${jobTitle} position on ${interviewDate} at ${interviewTime}.\n\nPlease confirm your attendance. For queries, contact ${contactPerson}.\n\nBest regards,\nMetro HRMS Team`,
+  };
+
+  await sendMail(message);
+}
+
 export {
   leaveRespond,
   passwordRecovery,
   complaintRespond,
   resetPasswordSuccess,
   notifySubstituteEmployee,
+  inviteForInterviewMail,
 };

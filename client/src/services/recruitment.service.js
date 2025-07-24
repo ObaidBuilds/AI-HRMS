@@ -21,6 +21,26 @@ export const createJob = createAsyncThunk(
   }
 );
 
+// Update Job
+export const updateJob = createAsyncThunk(
+  "recruitment/updateJob",
+  async ({ id, job }, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.patch(
+        `/recruitment/${id}/status`,
+        job
+      );
+      toast.success(data.message);
+      return data.job;
+    } catch (error) {
+      toast.error(error.response.data.message);
+      return rejectWithValue(
+        error.response?.data.message || "Failed to create jobs"
+      );
+    }
+  }
+);
+
 // Create Job
 export const createJobApplication = createAsyncThunk(
   "recruitment/createJobApplication",
@@ -40,6 +60,26 @@ export const createJobApplication = createAsyncThunk(
       );
 
       toast.success(data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      return rejectWithValue(
+        error.response?.data.message || "Failed to create jobs"
+      );
+    }
+  }
+);
+
+// Update Application
+export const updateApplication = createAsyncThunk(
+  "recruitment/updateApplication",
+  async ({ jobId, applicantId, application }, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.patch(
+        `/recruitment/${jobId}/applicants/${applicantId}/status`,
+        application
+      );
+      toast.success(data.message);
+      return data.applicant;
     } catch (error) {
       toast.error(error.response.data.message);
       return rejectWithValue(
@@ -85,6 +125,26 @@ export const getJobApplicants = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(
         error.response?.data.message || "Failed to fetch jobs"
+      );
+    }
+  }
+);
+
+// Create Job
+export const inviteForInterview = createAsyncThunk(
+  "recruitment/inviteForInterview",
+  async ({ jobId, interviewDetails, applicationId }, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.post(
+        `/recruitment/${jobId}/applicants/${applicationId}/invite`,
+         interviewDetails 
+      );
+      toast.success(data.message);
+      return data.applicant;
+    } catch (error) {
+      toast.error(error.response.data.message);
+      return rejectWithValue(
+        error.response?.data.message || "Failed to create jobs"
       );
     }
   }

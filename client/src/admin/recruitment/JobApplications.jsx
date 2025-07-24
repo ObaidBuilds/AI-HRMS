@@ -8,6 +8,8 @@ import { useParams } from "react-router-dom";
 import { formatDate } from "../../utils";
 import FilterButton from "../../components/shared/buttons/FilterButton";
 import { applicantsButtons } from "../../data";
+import ApplicationModal from "../../components/shared/modals/ApplicantionModal";
+import InviteModal from "../../components/shared/modals/InviteModal";
 
 function JobApplications() {
   const { id } = useParams();
@@ -18,8 +20,23 @@ function JobApplications() {
 
   const [reviewFilter, setReviewFilter] = useState("");
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [toggleModal, setToggleModal] = useState(false);
+  const [toggleInviteModal, setToggleInviteModal] = useState(false);
+  const [selectedApplication, setSelectedApplication] = useState(null);
 
-  console.log(jobApplications);
+  function handleClick(application) {
+    if (application) {
+      setToggleModal(true);
+      setSelectedApplication(application);
+    }
+  }
+
+  function handleInvite(application) {
+    if (application) {
+      setToggleInviteModal(true);
+      setSelectedApplication(application);
+    }
+  }
 
   useEffect(() => {
     dispatch(getJobApplicants({ status: reviewFilter, jobId: id }));
@@ -47,7 +64,7 @@ function JobApplications() {
                 {[
                   "Name",
                   "Email",
-                  "Phone",
+                  // "Phone",
                   "Resume",
                   "Cover letter",
                   "Status",
@@ -76,9 +93,9 @@ function JobApplications() {
                     <td className="py-3 px-4 border-b border-secondary">
                       {applicant.email}
                     </td>
-                    <td className="py-3 px-4 border-b border-secondary">
+                    {/* <td className="py-3 px-4 border-b border-secondary">
                       {applicant.phone}
-                    </td>
+                    </td> */}
 
                     <td className="py-3 px-4 border-b border-secondary text-blue-500 underline">
                       <a
@@ -105,17 +122,48 @@ function JobApplications() {
                         </div>
                       )}
                     </td>
-                    <td className="py-3 px-4 border-b border-secondary">
-                      {applicant.status}
+
+                    <td className="py-3 border-b border-secondary font-semibold">
+                      <span
+                        className={`inline-flex items-center px-4 py-1 text-xs font-semibold text-white rounded-full bg-gradient-to-r ${
+                          applicant.status === "Applied"
+                            ? "from-blue-400 to-blue-500"
+                            : applicant.status === "Under Review"
+                            ? "from-purple-400 to-purple-500"
+                            : applicant.status === "Interview"
+                            ? "from-indigo-400 to-indigo-500"
+                            : applicant.status === "Hired"
+                            ? "from-green-400 to-green-500"
+                            : "from-red-400 to-red-500"
+                        }`}
+                      >
+                        {applicant.status}
+                      </span>
                     </td>
+
                     <td className="py-3 px-4 border-b border-secondary">
                       {formatDate(applicant.appliedAt)}
                     </td>
 
-                    <td className="pl-7 px-4 border-b border-secondary">
-                      <button>
+                    <td className="pl-5 px-4 border-b border-secondary">
+                      <button
+                        onClick={() => handleClick(applicant)}
+                        title="Update Status"
+                      >
                         <i className="fa-solid fa-sliders"></i>
                       </button>
+
+                      {applicant.status !== "Hired" &&
+                        applicant.status !== "Rejected" &&
+                        applicant.status !== "Interview" && (
+                          <button
+                            onClick={() => handleInvite(applicant)}
+                            className="text-blue-500 hover:text-blue-700 transition-colors ml-3"
+                            title="Invite to Interview"
+                          >
+                            <i className="fa-solid fa-calendar-plus"></i>
+                          </button>
+                        )}
                     </td>
                   </tr>
                 ))}
@@ -125,8 +173,25 @@ function JobApplications() {
           {!loading && !error && jobApplications.length === 0 && (
             <NoDataMessage message={`No ${reviewFilter} applicant found`} />
           )}
+
           {error && <FetchError error={error} />}
         </div>
+
+          {toggleModal && (
+            <ApplicationModal
+              onClose={() => setToggleModal(false)}
+              jobId={id}
+              application={selectedApplication}
+            />
+          )}
+
+          {toggleInviteModal && (
+            <InviteModal
+              onClose={() => setToggleInviteModal(false)}
+              jobId={id}
+              application={selectedApplication}
+            />
+          )}
       </section>
     </>
   );

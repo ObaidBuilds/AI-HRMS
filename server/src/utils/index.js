@@ -140,6 +140,15 @@ const formatDate = (date) => {
   return `${day} ${month}, ${year}`;
 };
 
+function formatTime(time24) {
+  const [hours, minutes] = time24.split(':');
+  
+  const hoursNum = parseInt(hours, 10);
+  const period = hoursNum >= 12 ? 'PM' : 'AM';
+  const hours12 = hoursNum % 12 || 12; 
+  return `${hours12}:${minutes} ${period}`;
+}
+
 export {
   catchErrors,
   myCache,
@@ -149,4 +158,5 @@ export {
   getLocation,
   decodeQR,
   formatDate,
+  formatTime
 };

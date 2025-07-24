@@ -8,6 +8,7 @@ import FetchError from "../../components/shared/error/FetchError";
 import { getJobOpenings } from "../../services/recruitment.service";
 import { formatDate } from "../../utils";
 import { Link } from "react-router-dom";
+import JobOpeningModal from "../../components/shared/modals/JobOpeningModal";
 
 function JobOpenings() {
   const dispatch = useDispatch();
@@ -15,12 +16,19 @@ function JobOpenings() {
 
   const [reviewFilter, setReviewFilter] = useState("");
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [toggleModal, setToggleModal] = useState(false);
+  const [setSelectedJob, setsetSelectedJob] = useState(null);
+
+  function handleClick(job) {
+    if (job) {
+      setToggleModal(true);
+      setsetSelectedJob(job);
+    }
+  }
 
   useEffect(() => {
     dispatch(getJobOpenings({ status: reviewFilter, deadline: "" }));
   }, [reviewFilter]);
-
-  console.log(jobs);
 
   return (
     <>
@@ -136,7 +144,9 @@ function JobOpenings() {
                     </td>
 
                     <td className="pl-7 px-4 border-b border-secondary">
-                      <button>
+                      <button
+                        title="Update Job"
+                      onClick={() => handleClick(job)}>
                         <i className="fa-solid fa-sliders"></i>
                       </button>
                     </td>
@@ -150,6 +160,13 @@ function JobOpenings() {
           )}
           {error && <FetchError error={error} />}
         </div>
+
+        {toggleModal && (
+          <JobOpeningModal
+            onClose={() => setToggleModal(false)}
+            job={setSelectedJob}
+          />
+        )}
       </section>
     </>
   );

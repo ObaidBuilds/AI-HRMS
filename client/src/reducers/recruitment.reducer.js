@@ -4,6 +4,9 @@ import {
   createJobApplication,
   getJobApplicants,
   getJobOpenings,
+  inviteForInterview,
+  updateApplication,
+  updateJob,
 } from "../services/recruitment.service";
 
 const initialState = {
@@ -29,6 +32,27 @@ const recruitmentSlice = createSlice({
         state.loading = false;
       })
       .addCase(createJob.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to create job";
+      })
+
+      // Handling the updateJob action
+      .addCase(updateJob.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateJob.fulfilled, (state, action) => {
+        const updatedJob = [...state.jobs];
+        const findIndex = updatedJob.findIndex(
+          (job) => job._id == action.payload._id
+        );
+        if (findIndex !== -1) {
+          updatedJob[findIndex] = action.payload;
+          state.jobs = updatedJob;
+        }
+        state.loading = false;
+      })
+      .addCase(updateJob.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Failed to create job";
       })
@@ -59,6 +83,7 @@ const recruitmentSlice = createSlice({
         state.loading = false;
         state.error = action.payload || "Failed to fetch job";
       })
+
       // Handling the getJobApplicants action
       .addCase(getJobApplicants.pending, (state) => {
         state.loading = true;
@@ -71,6 +96,48 @@ const recruitmentSlice = createSlice({
       .addCase(getJobApplicants.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Failed to fetch applications";
+      })
+
+      // Handling the updateApplication action
+      .addCase(updateApplication.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateApplication.fulfilled, (state, action) => {
+        const updatedApplication = [...state.jobApplications];
+        const findIndex = updatedApplication.findIndex(
+          (applicant) => applicant._id == action.payload._id
+        );
+        if (findIndex !== -1) {
+          updatedApplication[findIndex] = action.payload;
+          state.jobApplications = updatedApplication;
+        }
+        state.loading = false;
+      })
+      .addCase(updateApplication.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to update applications";
+      })
+
+      // Handling the inviteForInterview action
+      .addCase(inviteForInterview.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(inviteForInterview.fulfilled, (state, action) => {
+        const updatedApplication = [...state.jobApplications];
+        const findIndex = updatedApplication.findIndex(
+          (applicant) => applicant._id == action.payload._id
+        );
+        if (findIndex !== -1) {
+          updatedApplication[findIndex] = action.payload;
+          state.jobApplications = updatedApplication;
+        }
+        state.loading = false;
+      })
+      .addCase(inviteForInterview.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to invite for interview";
       });
   },
 });

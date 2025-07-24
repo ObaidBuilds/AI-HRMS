@@ -19,14 +19,14 @@ function Perfromance() {
   const [status, setStatus] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const [toggleModal, settoggleModal] = useState(false);
+  const [toggleModal, setToggleModal] = useState(false);
   const [selectedPerformance, setSelectedPerformance] = useState(null);
 
   const goToPage = (page) => setCurrentPage(page);
 
   function handleClick(performance) {
     if (performance) {
-      settoggleModal(true);
+      setToggleModal(true);
       setSelectedPerformance(performance);
     }
   }
@@ -170,7 +170,7 @@ function Perfromance() {
 
         {toggleModal && (
           <PerfromanceModal
-            onClose={() => settoggleModal(false)}
+            onClose={() => setToggleModal(false)}
             performance={selectedPerformance}
           />
         )}

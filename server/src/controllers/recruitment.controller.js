@@ -1,5 +1,6 @@
 import Recruitment from "../models/recruitment.model.js";
 import { catchErrors } from "../utils/index.js";
+import { inviteForInterviewMail } from "../templates/index.js";
 
 const createJob = catchErrors(async (req, res) => {
   const postedBy = req.user;
@@ -110,12 +111,12 @@ const getJobById = catchErrors(async (req, res) => {
 });
 
 const updateJobStatus = catchErrors(async (req, res) => {
-  const { status } = req.body;
+  const { status, deadline } = req.body;
   if (!status) throw new Error("Status is required");
 
   const job = await Recruitment.findByIdAndUpdate(
     req.params.id,
-    { status },
+    { status, deadline },
     { new: true }
   );
 
@@ -155,6 +156,60 @@ const createApplicant = catchErrors(async (req, res) => {
   });
 });
 
+const updateApplicationStatus = catchErrors(async (req, res) => {
+  const { jobId, applicantId } = req.params;
+  const { status } = req.body;
+
+  if (!status) throw new Error("Status is required");
+
+  const job = await Recruitment.findById(jobId);
+  if (!job) throw new Error("Job not found");
+
+  const applicant = job.applicants.id(applicantId);
+  if (!applicant) throw new Error("Applicant not found");
+
+  applicant.status = status;
+  applicant.updatedAt = new Date();
+
+  await job.save();
+
+  return res.status(200).json({
+    success: true,
+    message: "Applicant status updated successfully",
+    applicant,
+  });
+});
+
+const inviteForInterview = catchErrors(async (req, res) => {
+  const { jobId, applicantId } = req.params;
+  const { interviewDate, interviewTime } = req.body;
+
+  const job = await Recruitment.findById(jobId);
+  if (!job) throw new Error("Job not found");
+
+  const applicant = job.applicants.id(applicantId);
+  if (!applicant) throw new Error("Applicant not found");
+
+  await inviteForInterviewMail({
+    email: applicant.email,
+    candidateName: applicant.name,
+    jobTitle: job.title,
+    interviewDate,
+    interviewTime,
+  });
+
+  applicant.status = "Interview";
+  applicant.updatedAt = new Date();
+
+  await job.save();
+
+  return res.status(200).json({
+    success: true,
+    message: "Interview invited successfully",
+    applicant,
+  });
+});
+
 export {
   createJob,
   createApplicant,
@@ -162,4 +217,6 @@ export {
   getAllJobs,
   getJobById,
   getJobApplications,
+  updateApplicationStatus,
+  inviteForInterview,
 };
