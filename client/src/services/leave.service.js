@@ -20,10 +20,10 @@ export const getLeavesByStatus = createAsyncThunk(
 // Fetch Employees on Leave Today
 export const getEmployeesOnLeave = createAsyncThunk(
   "leaves/getEmployeesOnLeaveToday",
-  async (status, { rejectWithValue }) => {
+  async (date, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.get(
-        `/leaves/employee?date=${status}`
+        `/leaves/employee?date=${date}`
       );
       return data.leaves;
     } catch (error) {

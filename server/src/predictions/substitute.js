@@ -55,7 +55,7 @@ async function getSubstitute({ department, shift }) {
       throw new Error("Incomplete JSON data from AI response.");
     }
 
-    console.log("AI Suggested sustitute employee");
+    console.log("AI Suggested sustitute employee", suggestedEmployee);
   } catch (error) {
     console.error("Error with AI prediction or parsing:", error.message);
 

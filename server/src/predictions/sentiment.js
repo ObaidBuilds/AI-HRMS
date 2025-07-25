@@ -10,7 +10,6 @@ function fallbackSentimentAnalysis(rating) {
 async function getSentimentAnalysis(description, rating) {
   const prompt = `
   Given user feedback: "${description}"
-  And rating: ${rating}
   Classify sentiment as one of "Positive", "Negative", or "Neutral" (single word only).
   `;
 

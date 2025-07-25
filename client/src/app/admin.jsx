@@ -29,7 +29,7 @@ const JobOpenings = lazy(() => import("../admin/recruitment/JobOpenings"));
 const PostJob = lazy(() => import("../admin/recruitment/PostJob"));
 const Performance = lazy(() => import("../admin/performance/Performance"));
 const Report = lazy(() => import("../admin/report/Report"));
-// const Payroll = lazy(() => import("../admin/payroll/Payroll"));
+const Payroll = lazy(() => import("../admin/payroll/Payroll"));
 // const Mail = lazy(() => import("../admin/mail/Communication"));
 
 const AdminApp = () => {
@@ -65,12 +65,9 @@ const AdminApp = () => {
             <Route path="/leave/active" element={<EmployeeOnLeave />} />
             <Route path="/performances" element={<Performance />} />
             <Route path="/recruitment" element={<JobOpenings />} />
-            <Route
-              path="/applications/:id"
-              element={<JobApplications />}
-            />
+            <Route path="/applications/:id" element={<JobApplications />} />
             <Route path="/recruitment/create" element={<PostJob />} />
-            {/* <Route path="/payrolls" element={<Payroll />} /> */}
+            <Route path="/payrolls" element={<Payroll />} />
             <Route path="/feedbacks" element={<Feedback />} />
             <Route path="/feedbacks" element={<Feedback />} />
             <Route path="/complaints" element={<Complaint />} />

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getEmployeesOnLeave } from "../../services/leave.service";
 import { useSelector, useDispatch } from "react-redux";
-import { formatDate } from "../../utils";
+import { convertDate, formatDate } from "../../utils";
 import Loader from "../../components/shared/loaders/Loader";
 import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import FilterButton from "../../components/shared/buttons/FilterButton";
@@ -20,12 +20,12 @@ function EmployeeOnLeave() {
 
   useEffect(() => {
     const dateMapping = {
-      yesterday: new Date(new Date().setDate(new Date().getDate() - 1)),
-      present: new Date(),
-      tomorrow: new Date(new Date().setDate(new Date().getDate() + 1)),
+      Yesterday: new Date(new Date().setDate(new Date().getDate() - 1)),
+      Present: new Date(),
+      Tomorrow: new Date(new Date().setDate(new Date().getDate() + 1)),
     };
 
-    dispatch(getEmployeesOnLeave(formatDate(dateMapping[status])));
+    dispatch(getEmployeesOnLeave(convertDate(dateMapping[status])));
   }, [status, dispatch]);
 
   return (
@@ -88,7 +88,7 @@ function EmployeeOnLeave() {
                       {leave.employee.role?.name || "Null"}
                     </td>
                     <td className="py-3 px-4 border-b border-gray-500">
-                      {leave.substitute.name}
+                      {leave?.substitute?.name || "Not Found"}
                     </td>
                     <td className="py-3 px-4 border-b border-gray-500">
                       {leave.leaveType}

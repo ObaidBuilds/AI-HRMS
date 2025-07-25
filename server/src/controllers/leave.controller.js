@@ -141,8 +141,11 @@ const respondLeave = catchErrors(async (req, res) => {
       shift: employee.shift,
     });
 
+    let subsMsg = "";
+
     if (substituteData.availability) {
       leave.substitute = substituteData.id;
+      subsMsg = "Substitute assigned";
 
       await notifySubstituteEmployee({
         email: substituteData.email,
@@ -154,6 +157,8 @@ const respondLeave = catchErrors(async (req, res) => {
         fromDate: formatDate(leave.fromDate),
         duration: leave.duration,
       });
+    } else {
+      subsMsg = "Substitute not found";
     }
 
     await leave.save();
@@ -170,10 +175,44 @@ const respondLeave = catchErrors(async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "Leave approved successfully",
+      message: `Leave approved successfully - ${subsMsg}`,
       leave,
     });
   }
+});
+
+const assignSustitute = catchErrors(async (req, res) => {
+  const { id } = req.params;
+  const { employee } = req.body;
+
+  if (!employee) throw new Error("Substitue required");
+
+  const leave = await Leave.findById(id);
+  const substitute = await Employee.findById(employee);
+
+  const isOnLeave = await Leave.findOne({
+    employee: substitute._id,
+    status: "Approved",
+    fromDate: { $lte: leave.toDate },
+    toDate: { $gte: leave.fromDate },
+  });
+  
+  if (isOnLeave)
+    throw new Error("Substitute employee is on leave during this period");
+
+  const updatedLeave = await Leave.findByIdAndUpdate(
+    id,
+    { substitute: employee },
+    { new: true }
+  ).populate("substitute", "name");
+
+  myCache.del("insights");
+
+  return res.status(201).json({
+    success: true,
+    message: "Leave applied successfully",
+    leave: updatedLeave,
+  });
 });
 
 const deleteLeave = async (employee) => {
@@ -186,10 +225,23 @@ const deleteLeave = async (employee) => {
   return "Leave deleted successfuly";
 };
 
+async function getEmployeeLeaveStatus(employeeId, date = new Date()) {
+  const activeLeave = await Leave.findOne({
+    employee: employeeId,
+    status: "Approved",
+    fromDate: { $lte: date },
+    toDate: { $gte: date },
+  });
+
+  return activeLeave ? "On Leave" : "Active";
+}
+
 export {
   getLeaves,
   applyLeave,
   deleteLeave,
   respondLeave,
+  assignSustitute,
   getEmployeesOnLeave,
+  getEmployeeLeaveStatus,
 };

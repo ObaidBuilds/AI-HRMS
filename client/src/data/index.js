@@ -35,12 +35,12 @@ const sidebarLinks = [
       { name: "On-Leave Employees", link: "/leave/active" },
     ],
   },
-  // {
-  //   name: "Payroll Processing",
-  //   iconClass: "far fa-file-alt",
-  //   link: "/payrolls",
-  //   childrens: [],
-  // },
+  {
+    name: "Payroll Processing",
+    iconClass: "far fa-file-alt",
+    link: "/payrolls",
+    childrens: [],
+  },
   {
     name: "Performance Reviews",
     iconClass: "fas fa-chart-line",

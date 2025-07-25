@@ -16,7 +16,7 @@ import {
 } from "./payroll.controller.js";
 import { deleteFeedback } from "./feedback.controller.js";
 import { deleteComplaint } from "./complaint.controller.js";
-import { deleteLeave } from "./leave.controller.js";
+import { deleteLeave, getEmployeeLeaveStatus } from "./leave.controller.js";
 
 const clearEmployeeCache = () => {
   const cacheKeys = myCache.keys();
@@ -177,7 +177,7 @@ const getAllEmployees = catchErrors(async (req, res) => {
 
   const query = {};
   if (role) query.role = role;
-  if (status) query.status = status;
+  if (status && status !== "On Leave") query.status = status;
   if (department) query.department = department;
   if (name) query.name = { $regex: name, $options: "i" };
 
@@ -185,13 +185,25 @@ const getAllEmployees = catchErrors(async (req, res) => {
   const limitNumber = Math.max(parseInt(limit), 1);
   const skip = (pageNumber - 1) * limitNumber;
 
-  const employees = await Employee.find(query)
+  let employees = await Employee.find(query)
     .populate("department", "name")
     .populate("role", "name")
     .select("-password")
     .skip(skip)
     .limit(limitNumber)
     .lean();
+
+  employees = await Promise.all(employees.map(async (emp) => {
+    const leaveStatus = await getEmployeeLeaveStatus(emp._id);
+    return {
+      ...emp,
+      status: leaveStatus === "On Leave" ? "On Leave" : emp.status
+    };
+  }));
+
+  if (status === "On Leave") {
+    employees = employees.filter(emp => emp.status === "On Leave");
+  }
 
   const totalEmployees = await Employee.countDocuments(query);
   const totalPages = Math.ceil(totalEmployees / limitNumber);
