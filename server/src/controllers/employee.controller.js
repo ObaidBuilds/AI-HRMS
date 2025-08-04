@@ -160,7 +160,7 @@ const createEmployee = catchErrors(async (req, res) => {
 });
 
 const getAllEmployees = catchErrors(async (req, res) => {
-  const { role, name, department, status, page = 1, limit = 15 } = req.query;
+  const { role, name, department, status, page = 1, limit = 12 } = req.query;
 
   const cacheKey = `employees:${role || "all"}:${name || "all"}:${
     department || "all"

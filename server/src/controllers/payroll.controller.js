@@ -40,7 +40,7 @@ const createPayroll = catchErrors(async (req, res) => {
 });
 
 const getAllPayrolls = catchErrors(async (req, res) => {
-  const { page = 1, limit = 15, employee, month, year } = req.query;
+  const { page = 1, limit = 12, employee, month, year } = req.query;
 
   const query = {};
 

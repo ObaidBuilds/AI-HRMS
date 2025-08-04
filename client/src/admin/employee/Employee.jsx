@@ -127,7 +127,7 @@ function Employee() {
     <>
       {loading && <Loader />}
 
-      <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen shadow">
+      <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-[80vh] shadow">
         <div className="relative flex gap-1 items-center justify-between py-1 sm:px-3 mb-3">
           {!(
             filters.status ||

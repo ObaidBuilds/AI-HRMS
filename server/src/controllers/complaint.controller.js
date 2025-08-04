@@ -3,7 +3,7 @@ import { complaintRespond } from "../templates/index.js";
 import { catchErrors, myCache } from "../utils/index.js";
 
 const getComplaints = catchErrors(async (req, res) => {
-  const { status, page = 1, limit = 10 } = req.query;
+  const { status, page = 1, limit = 12 } = req.query;
 
   const query = {};
 

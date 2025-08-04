@@ -3,7 +3,7 @@ import { catchErrors, myCache } from "../utils/index.js";
 import { getSentimentAnalysis } from "../predictions/index.js";
 
 const getFeedbacks = catchErrors(async (req, res) => {
-  const { review, page = 1, limit = 15 } = req.query;
+  const { review, page = 1, limit = 12 } = req.query;
 
   const cacheKey = `feedbacks:${review || "all"}:page${page}:limit${limit}`;
 
