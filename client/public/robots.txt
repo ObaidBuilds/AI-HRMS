@@ -1,3 +1,3 @@
 User-agent: *
 Disallow: /private/
-Sitemap: https://metrohrms.netlify.app/sitemap.xml
+Sitemap: https://metrohrms.site/sitemap.xml
