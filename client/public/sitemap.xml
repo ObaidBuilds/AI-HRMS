@@ -1,85 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Admin Panel Routes -->
+
   <url>
-    <loc>https://metrohrms.netlify.app/</loc>
-    <lastmod>2025-02-02</lastmod>
+    <loc>https://metrohrms.site/</loc>
+    <lastmod>2025-08-04</lastmod>
     <priority>1.00</priority>
   </url>
+
   <url>
-    <loc>https://metrohrms.netlify.app/employees</loc>
-    <lastmod>2025-02-02</lastmod>
+    <loc>https://metrohrms.site/careers</loc>
+    <lastmod>2025-08-04</lastmod>
     <priority>0.80</priority>
   </url>
-  <url>
-    <loc>https://metrohrms.netlify.app/employee/create</loc>
-    <lastmod>2025-02-02</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://metrohrms.netlify.app/attendance</loc>
-    <lastmod>2025-02-02</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://metrohrms.netlify.app/leaves</loc>
-    <lastmod>2025-02-02</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://metrohrms.netlify.app/leave/active</loc>
-    <lastmod>2025-02-02</lastmod>
-    <priority>0.80</priority>
-  </url>
-    <url>
-    <loc>https://metrohrms.netlify.app/performances</loc>
-    <lastmod>2025-02-02</lastmod>
-    <priority>0.80</priority>
-  </url>
-    <url>
-    <loc>https://metrohrms.netlify.app/payrolls</loc>
-    <lastmod>2025-02-02</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://metrohrms.netlify.app/feedbacks</loc>
-    <lastmod>2025-02-02</lastmod>
-    <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://metrohrms.netlify.app/complaints</loc>
-    <lastmod>2025-02-02</lastmod>
-    <priority>0.70</priority>
-  </url>
-  <!-- Employee Panel Routes -->
-  <url>
-    <loc>https://metrohrms.netlify.app/complaint</loc>
-    <lastmod>2025-02-02</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://metrohrms.netlify.app/update</loc>
-    <lastmod>2025-02-02</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://metrohrms.netlify.app/leave</loc>
-    <lastmod>2025-02-02</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://metrohrms.netlify.app/feedback</loc>
-    <lastmod>2025-02-02</lastmod>
-    <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://metrohrms.netlify.app/security</loc>
-    <lastmod>2025-02-02</lastmod>
-    <priority>0.70</priority>
-  </url>
-  <!-- Not Found Pages -->
-  <url>
-    <loc>https://metrohrms.netlify.app/*</loc>
-    <lastmod>2025-02-02</lastmod>
-    <priority>0.50</priority>
-  </url>
+
 </urlset>
