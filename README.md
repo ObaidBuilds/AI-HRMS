@@ -1,6 +1,6 @@
 <div align="center">
-    <a href="https://metrohrms.netlify.app">
-  <img src="https://metrohrms.netlify.app/metro.png" width="128px" />
+    <a href="https://metrohrms.site">
+  <img src="https://metrohrms.site/metro.png" width="128px" />
     </a>
     <h1><i>AI-Driven Human Resource Management ⚡</i></h1>
     <p align="center">
@@ -16,7 +16,7 @@
 
 </div>
 
-***Self-hosted Version*** : [_click here_](https://metrohrms.netlify.app)
+***Self-hosted Version*** : [_click here_](https://metrohrms.site)
 
 ***Installation Guide*** : [_click here_](https://github.com/WhatsWrongOB/AI-HRMS/blob/main/INSTALLATION.md)
 
