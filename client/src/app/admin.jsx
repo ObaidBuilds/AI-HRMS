@@ -44,13 +44,13 @@ const AdminApp = () => {
   return (
     <div
       id="transition"
-      className="min-h-screen max-h-auto text-gray-800 bg-gray-200 dark:text-gray-200 dark:bg-primary flex justify-between relative"
+      className="text-gray-800 bg-gray-200 dark:text-gray-200 dark:bg-primary flex justify-between relative"
     >
       <Sidebar />
       <Suspense fallback={<Loader />}>
         <main
           id="overflow"
-          className="w-full max-h-auto sm:min-h-screen lg:w-[85%] lg:ml-[255px] py-1 sm:px-2 mt-[69px] lg:mt-0"
+          className="w-full lg:w-[85%] lg:ml-[255px] py-1 sm:px-2 mt-[69px] lg:mt-0"
         >
           <Routes>
             <Route path="/" element={<Dashboard />} />

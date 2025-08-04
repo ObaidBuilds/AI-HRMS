@@ -127,7 +127,7 @@ function Employee() {
     <>
       {loading && <Loader />}
 
-      <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-[80vh] sm:min-h-screen shadow">
+      <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-[90vh] sm:min-h-screen shadow">
         <div className="relative flex gap-1 items-center justify-between py-1 sm:px-3 mb-3">
           {!(
             filters.status ||
@@ -175,10 +175,7 @@ function Employee() {
           </div>
         </div>
 
-        <div
-          id="overflow"
-          className="overflow-x-auto min-h-[74vh] sm:min-h-[78vh]"
-        >
+        <div id="overflow" className="overflow-x-auto min-h-[74vh] sm:min-h-[80vh]">
           <table className="min-w-full text-left table-auto border-collapse text-[0.83rem] whitespace-nowrap">
             <thead>
               <tr className="bg-headLight dark:bg-head text-primary">
@@ -270,6 +267,7 @@ function Employee() {
           )}
           {error && <FetchError error={error} />}
         </div>
+        
         {!loading && employees.length > 0 && (
           <Pagination {...pagination} onPageChange={goToPage} />
         )}
