@@ -27,7 +27,7 @@ function Payroll() {
     <>
       {loading && <Loader />}
 
-      <section className="bg-gray-100 dark:bg-secondary max-h-auto min-h-screen p-3 sm:p-4 rounded-lg shadow">
+      <section className="bg-gray-100 dark:bg-secondary max-h-auto sm:min-h-screen p-3 sm:p-4 rounded-lg shadow">
         <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
           {payrollButtons.map((filter, i) => (
             <FilterButton
@@ -41,7 +41,7 @@ function Payroll() {
 
         <div
           id="overflow"
-          className="overflow-auto min-h-[70vh] sm:min-h-[78vh] lg:w-[95%]"
+          className="overflow-auto min-h-[74vh] sm:min-h-[80vh] lg:w-[95%]"
         >
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>

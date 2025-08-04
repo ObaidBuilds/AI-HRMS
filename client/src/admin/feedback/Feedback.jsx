@@ -28,7 +28,7 @@ function Feedback() {
     <>
       {loading && <Loader />}
 
-      <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-[90vh] sm:min-h-screen shadow">
+      <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg sm:min-h-screen shadow">
         <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
           {feedbackButtons.map((filter, i) => (
             <FilterButton
@@ -121,6 +121,7 @@ function Feedback() {
           )}
           {error && <FetchError error={error} />}
         </div>
+        
         {!loading && feedbacks.length > 0 && (
           <Pagination
             currentPage={currentPage}
