@@ -33,7 +33,7 @@ function LeaveRequest() {
   };
 
   const isConfirm = () => {
-    setToggleRemarkModal(false);
+    setToggleModal(false);
     dispatch(
       respondToLeaveRequest({ status: "approved", leaveID: selectedLeave })
     );

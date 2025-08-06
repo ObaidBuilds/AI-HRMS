@@ -18,8 +18,8 @@ const Dashboard = () => {
     },
     {
       id: 2,
-      title: "Total Department",
-      stats: insights?.totalDepartments,
+      title: "Job Applications",
+      stats: insights?.jobApplications,
     },
     {
       id: 3,

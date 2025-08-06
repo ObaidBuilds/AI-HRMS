@@ -22,9 +22,7 @@ export const getEmployeesOnLeave = createAsyncThunk(
   "leaves/getEmployeesOnLeaveToday",
   async (date, { rejectWithValue }) => {
     try {
-      const { data } = await axiosInstance.get(
-        `/leaves/employee?date=${date}`
-      );
+      const { data } = await axiosInstance.get(`/leaves/employee?date=${date}`);
       return data.leaves;
     } catch (error) {
       return rejectWithValue(
@@ -61,6 +59,28 @@ export const respondToLeaveRequest = createAsyncThunk(
         remarks,
         status,
       });
+      toast.success(data.message);
+      return data.leave;
+    } catch (error) {
+      toast.success(error.response?.data.message);
+      return rejectWithValue(
+        error.response?.data.message || "Failed to respond to leave request"
+      );
+    }
+  }
+);
+
+// Assign Substitute
+export const assignSustitute = createAsyncThunk(
+  "leaves/assignSustitute",
+  async ({ leaveId, employee }, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.patch(
+        `/leaves/${leaveId}/substitute`,
+        {
+          employee,
+        }
+      );
       toast.success(data.message);
       return data.leave;
     } catch (error) {

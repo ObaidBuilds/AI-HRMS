@@ -20,7 +20,7 @@ const DepartmentModal = ({ action, onClose, department }) => {
     if (action === "update" && department) {
       setFormData({
         name: department.name || "",
-        head: department.head._id || "",
+        head: department?.head?._id || "",
         description:
           department.description ||
           "The Marketing Department is responsible for driving brand awareness",

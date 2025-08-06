@@ -7,16 +7,23 @@ import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import FilterButton from "../../components/shared/buttons/FilterButton";
 import { employeesOnLeaveButtons } from "../../data";
 import FetchError from "../../components/shared/error/FetchError";
+import SubstituteModal from "../../components/shared/modals/SubstituteModal";
 
 function EmployeeOnLeave() {
   const dispatch = useDispatch();
 
-  const {
-    employeesOnLeaveToday = [],
-    loading,
-    error,
-  } = useSelector((state) => state.leave);
+  const { employeesOnLeaveToday, loading, error } = useSelector(
+    (state) => state.leave
+  );
+
   const [status, setStatus] = useState("Present");
+  const [toggleModal, setToggleModal] = useState(false);
+  const [selectedLeave, setSelectedLeave] = useState(null);
+
+  function handleSubstituteAssign(id) {
+    setSelectedLeave(id);
+    setToggleModal(true);
+  }
 
   useEffect(() => {
     const dateMapping = {
@@ -53,13 +60,12 @@ function EmployeeOnLeave() {
                 {[
                   "Emp ID",
                   "Name",
-                  "Department",
-                  "Position",
                   "Substitute",
                   "Leave Type",
                   "From",
                   "To",
-                  "Duration",
+                  // "Duration",
+                  "Action",
                 ].map((header, i) => (
                   <th
                     key={i}
@@ -72,10 +78,10 @@ function EmployeeOnLeave() {
               </tr>
             </thead>
             <tbody className="text-[0.83rem]">
-              {employeesOnLeaveToday &&
+              {employeesOnLeaveToday.length > 0 &&
                 employeesOnLeaveToday.map((leave, index) => (
                   <tr
-                    key={index}
+                    key={leave._id}
                     className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
                   >
                     <td className="py-3 px-4 border-b border-gray-500">
@@ -83,12 +89,6 @@ function EmployeeOnLeave() {
                     </td>
                     <td className="py-3 px-4 border-b border-gray-500">
                       {leave.employee.name}
-                    </td>
-                    <td className="py-3 px-4 border-b border-gray-500">
-                      {leave.employee.department?.name || "Null"}
-                    </td>
-                    <td className="py-3 px-4 border-b border-gray-500">
-                      {leave.employee.role?.name || "Null"}
                     </td>
                     <td className="py-3 px-4 border-b border-gray-500">
                       {leave?.substitute?.name || "Not Found"}
@@ -102,8 +102,16 @@ function EmployeeOnLeave() {
                     <td className="py-3 px-4 border-b border-gray-500">
                       {formatDate(leave.toDate)}
                     </td>
-                    <td className="py-3 px-4 border-b border-gray-500">
+                    {/* <td className="py-3 px-4 border-b border-gray-500">
                       {leave.duration} days
+                    </td> */}
+                    <td className="py-3 pl-8 border-b border-gray-500">
+                      <button
+                        onClick={() => handleSubstituteAssign(leave._id)}
+                        title="Assign Substitute"
+                      >
+                        <i className="fa-solid fa-sliders"></i>
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -114,6 +122,13 @@ function EmployeeOnLeave() {
           )}
           {error && <FetchError error={error} />}
         </div>
+
+        {toggleModal && (
+          <SubstituteModal
+            leaveId={selectedLeave}
+            onClose={() => setToggleModal(false)}
+          />
+        )}
       </section>
     </>
   );

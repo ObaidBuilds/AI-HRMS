@@ -52,7 +52,7 @@ const getAllDepartments = catchErrors(async (req, res) => {
 });
 
 const getAllEmployeesForHead = catchErrors(async (req, res) => {
-  const employees = await Employee.find().select("name");
+  const employees = await Employee.find({ status: "Active" }).select("name");
 
   if (employees.length === 0) throw new Error("No employee found");
 

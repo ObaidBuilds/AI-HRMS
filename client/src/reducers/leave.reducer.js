@@ -4,13 +4,14 @@ import {
   getEmployeesOnLeave,
   respondToLeaveRequest,
   createLeave,
+  assignSustitute,
 } from "../services/leave.service";
 
 const initialState = {
   leaves: [],
   employeesOnLeaveToday: [],
   loading: false,
-  error: null
+  error: null,
 };
 
 const leavesSlice = createSlice({
@@ -80,6 +81,28 @@ const leavesSlice = createSlice({
       .addCase(createLeave.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Failed to create leave";
+      })
+
+      // Handling assignSubstitute action
+      .addCase(assignSustitute.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(assignSustitute.fulfilled, (state, action) => {
+        const updatedLeave = [...state.employeesOnLeaveToday];
+        const findIndex = updatedLeave.findIndex(
+          (leave) => leave._id == action.payload._id
+        );
+        if (findIndex !== -1) {
+          updatedLeave[findIndex] = action.payload;
+          state.employeesOnLeaveToday = updatedLeave;
+        }
+        state.loading = false;
+      })
+
+      .addCase(assignSustitute.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to assign substitute";
       });
   },
 });

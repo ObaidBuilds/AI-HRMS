@@ -10,6 +10,7 @@ import {
   getMonthlyAttendancePercentage,
 } from "./attendance.controller.js";
 import { getSentimentAnalysis } from "../predictions/index.js";
+import Recruitment from "../models/recruitment.model.js";
 
 const getInsights = catchErrors(async (req, res) => {
   const cacheKey = "insights";
@@ -28,7 +29,6 @@ const getInsights = catchErrors(async (req, res) => {
   // Group all parallel queries together
   const [
     totalEmployees,
-    totalDepartments,
     { pendingComplaints: totalComplaints, allComplaints: totalAllComplaints },
     departmentAttandancePercent,
     overallAttendancePercentage,
@@ -39,10 +39,10 @@ const getInsights = catchErrors(async (req, res) => {
     totalLeaves,
     { rejectedLeaves, approvedLeaves },
     { resolvedComplaints, closedComplaints },
+    jobApplications,
   ] = await Promise.all([
     // Basic counts
     Employee.countDocuments(),
-    Department.countDocuments(),
 
     // Complaints counts
     (async () => {
@@ -104,6 +104,21 @@ const getInsights = catchErrors(async (req, res) => {
       ]);
       return { resolvedComplaints: resolved, closedComplaints: closed };
     })(),
+
+    // Job Applications
+    (async () => {
+      const result = await Recruitment.aggregate([
+        { $unwind: "$applicants" },
+        { $match: { "applicants.status": "Applied" } },
+        { $count: "totalApplied" },
+      ]);
+
+      if (result.length === 0) {
+        return 0;
+      }
+
+      return result[0].totalApplied;
+    })(),
   ]);
 
   const sentimentAnalysis = getSentimentAnalysis(
@@ -124,7 +139,6 @@ const getInsights = catchErrors(async (req, res) => {
 
   const insights = {
     totalEmployees,
-    totalDepartments,
     totalComplaints,
     pendingLeaves,
     employeesOnLeave,
@@ -137,11 +151,11 @@ const getInsights = catchErrors(async (req, res) => {
     leaveApprovalRate,
     complaintResolutionRate,
     complaintCloseRate,
+    jobApplications,
   };
 
   // myCache.set(cacheKey, insights);
   myCache.set(cacheKey, JSON.parse(JSON.stringify(insights)));
-
 
   return res.status(200).json({
     success: true,

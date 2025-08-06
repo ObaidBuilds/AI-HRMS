@@ -196,7 +196,7 @@ const assignSustitute = catchErrors(async (req, res) => {
     fromDate: { $lte: leave.toDate },
     toDate: { $gte: leave.fromDate },
   });
-  
+
   if (isOnLeave)
     throw new Error("Substitute employee is on leave during this period");
 
@@ -204,7 +204,33 @@ const assignSustitute = catchErrors(async (req, res) => {
     id,
     { substitute: employee },
     { new: true }
-  ).populate("substitute", "name");
+  )
+    .populate({
+      path: "employee",
+      select: "name employeeId department role shift",
+      populate: [
+        {
+          path: "department",
+          select: "name",
+        },
+        {
+          path: "role",
+          select: "name",
+        },
+      ],
+    })
+    .populate("substitute", "name");
+
+  await notifySubstituteEmployee({
+    email: substitute.email,
+    subsName: substitute.name,
+    name: updatedLeave.employee.name,
+    shift: updatedLeave.employee.shift,
+    department: updatedLeave.employee.department.name,
+    toDate: formatDate(leave.toDate),
+    fromDate: formatDate(leave.fromDate),
+    duration: leave.duration,
+  });
 
   myCache.del("insights");
 
