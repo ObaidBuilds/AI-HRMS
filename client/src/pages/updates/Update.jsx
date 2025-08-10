@@ -15,7 +15,7 @@ function Update() {
   return (
     <>
       {loading && <Loader />}
-      <section className="bg-gray-100 border border-gray-300 dark:border-primary dark:bg-secondary p-3 min-h-screen rounded-lg shadow">
+      <section className="bg-gray-100 border border-gray-300 dark:border-primary dark:bg-secondary p-3 h-[90vh] sm:min-h-screen rounded-lg shadow">
         <div className="flex justify-center items-center text-white">
           <div className="w-full rounded-2xl p-2">
             <div

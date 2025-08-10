@@ -275,9 +275,12 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                             className="w-full h-full object-cover"
                           />
                           {isHovering && (
-                            <div className="absolute inset-0 bg-black/50 flex items-center justify-center transition-opacity">
+                            <label
+                              htmlFor="file-input"
+                              className="absolute inset-0 bg-black/50 flex items-center justify-center transition-opacity cursor-pointer"
+                            >
                               <FiUpload className="text-white text-xl" />
-                            </div>
+                            </label>
                           )}
                         </div>
                         <label
@@ -302,7 +305,7 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                           {user.email}
                         </p>
                         <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
-                          JPG, GIF or PNG. Max size of 2MB
+                          JPG or PNG. Max size of 2MB
                         </p>
                       </div>
                     </div>

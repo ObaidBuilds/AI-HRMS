@@ -1,84 +1,54 @@
-import React, { useEffect } from "react";
+import React from "react";
 import LineChart from "../../components/shared/charts/LineChart";
-import { useDispatch, useSelector } from "react-redux";
-import { getEmployeeInsights } from "../../services/insights.service";
+import { useSelector } from "react-redux";
 import FetchError from "../../components/shared/error/FetchError";
 import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
+import InfoCard from "../../components/shared/cards/InfoCard";
 
 const Home = () => {
-  const dispatch = useDispatch();
   const { employeeInsights, loading, error } = useSelector(
     (state) => state.insight
   );
 
-  const attendanceByMonth = employeeInsights?.attendance?.map((item) => {
+  const attendanceByMonth = employeeInsights?.attendanceRecord?.map((item) => {
     return item.attendancePercentage;
   });
 
   const employeeInsightsData = [
     {
       title: "Leaves Taken",
-      value: employeeInsights?.leavesTaken,
-      icon: "fas fa-clipboard-list",
-      gradient: "bg-gradient-to-r from-blue-500 to-blue-700",
+      stats: employeeInsights?.leavesTaken,
     },
     {
       title: "Leave Balance",
-      value: employeeInsights?.leaveBalance,
-      icon: "fas fa-user-plus",
-      gradient: "bg-gradient-to-r from-green-500 to-green-700",
+      stats: employeeInsights?.leaveBalance,
     },
     {
       title: "Feedbacks",
-      value: employeeInsights?.feedbackSubmitted,
-      icon: "fas fa-comment-alt",
-      gradient: "bg-gradient-to-r from-purple-500 to-purple-700",
-    },
-    {
-      title: "KPI Score",
-      value: `${employeeInsights?.performance?.kpiScore}%`,
-      icon: "fas fa-star",
-      gradient: "bg-gradient-to-r from-yellow-500 to-yellow-700",
+      stats: employeeInsights?.feedbackSubmitted,
     },
     {
       title: "Complaintss",
-      value: employeeInsights?.complaintResolved,
-      icon: "fas fa-check-circle",
-      gradient: "bg-gradient-to-r from-red-500 to-red-700",
+      stats: employeeInsights?.complaintResolved,
+    },
+    {
+      title: "KPI Score",
+      stats: `${employeeInsights?.kpiScore}%`,
     },
     {
       title: "Attendance",
-      value: `${employeeInsights?.performance?.kpis?.attendance}%`,
-      icon: "fas fa-calendar-check",
-      gradient: "bg-gradient-to-r from-indigo-500 to-indigo-700",
+      stats: `${employeeInsights?.attendancePercentage}%`,
     },
   ];
-
-  useEffect(() => {
-    dispatch(getEmployeeInsights());
-  }, []);
 
   if (error) return <FetchError error={error} />;
   if (loading || !employeeInsights) return <ComponentLoader />;
 
   return (
-    <section className="py-1 px-1 sm:px-0 bg-gray-200">
-      <div className="w-full flex flex-wrap gap-2 bg-gray-50 dark:bg-secondary p-3 rounded-lg">
+    <section className="px-1 sm:px-0 bg-gray-200">
+      <div className="w-full flex flex-wrap gap-2 dark:bg-secondary rounded-lg">
         {employeeInsightsData.map((report, index) => (
-          <div
-            key={index}
-            className={`${report.gradient} w-[99%] sm:w-[48.9%] md:w-[32.5%] text-white rounded-xl py-5 p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1`}
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-base sm:text-[0.93rem] font-semibold">{report.title}</p>
-                <p className="text-2xl font-bold mt-3">{report.value}</p>
-              </div>
-              <div className="p-2 rounded-full bg-white bg-opacity-20">
-                <i className={`${report.icon} text-lg`}></i>
-              </div>
-            </div>
-          </div>
+          <InfoCard detail={report} key={index} />
         ))}
       </div>
 

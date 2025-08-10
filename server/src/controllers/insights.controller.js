@@ -191,11 +191,9 @@ const getEmployeeInsights = catchErrors(async (req, res) => {
     leavesTaken,
     complaintResolved,
     feedbackSubmitted,
-    attendance: attendancePercentageByMonth,
-    performance: {
-      kpiScore: performanceRecord?.kpiScore.toFixed(2) || 0,
-      kpis: performanceRecord?.kpis || [],
-    },
+    attendanceRecord: attendancePercentageByMonth,
+    kpiScore: performanceRecord?.kpiScore.toFixed(2) || 0,
+    attendancePercentage: performanceRecord?.kpis.attendance || [],
   };
 
   return res.status(200).json({

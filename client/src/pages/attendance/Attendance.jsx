@@ -9,6 +9,10 @@ const Attendance = () => {
   const attendance = useSelector((state) => state.attendance);
   const [filteredAttendance, setFilteredAttendance] = useState([]);
 
+  const { attendancePercentage } = useSelector(
+    (state) => state.insight.employeeInsights
+  );
+
   useEffect(() => {
     dispatch(getEmployeeAttendance());
   }, [dispatch]);
@@ -19,18 +23,10 @@ const Attendance = () => {
     }
   }, [attendance]);
 
-  const calculateAttendancePercentage = () => {
-    const total = filteredAttendance.length;
-    const present = filteredAttendance.filter(
-      (item) => item.status === "Present"
-    ).length;
-    return total === 0 ? 0 : ((present / total) * 100).toFixed(2);
-  };
-
   return (
     <>
       {attendance.loading && <Loader />}
-      <section className="bg-gray-100 border border-gray-300 dark:border-primary dark:bg-secondary p-3 min-h-screen rounded-lg shadow">
+      <section className="bg-gray-100 border border-gray-300 dark:border-primary dark:bg-secondary p-3 h-[90vh] sm:min-h-screen rounded-lg shadow">
         <div className="flex justify-center items-center text-white">
           <div className="w-full rounded-2xl p-2">
             <div
@@ -112,7 +108,7 @@ const Attendance = () => {
             <div className="mt-2 bg-headLight border border-gray-200 p-7 rounded-lg text-center text-gray-200">
               <h2 className="text-lg font-semibold">Average Percentage</h2>
               <p className="text-2xl font-bold mt-3">
-                {calculateAttendancePercentage()} %
+                {attendancePercentage} %
               </p>
             </div>
           </div>
