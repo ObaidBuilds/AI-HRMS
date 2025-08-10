@@ -4,15 +4,16 @@ import { catchErrors } from "../utils/index.js";
 import Employee from "../models/employee.model.js";
 import Feedback from "../models/feedback.model.js";
 import Complaint from "../models/complaint.model.js";
-import Department from "../models/department.model.js";
 import {
   getDepartmentAttendancePercentage,
+  getEmployeeAttendanceByMonth,
   getMonthlyAttendancePercentage,
 } from "./attendance.controller.js";
 import { getSentimentAnalysis } from "../predictions/index.js";
 import Recruitment from "../models/recruitment.model.js";
+import Performance from "../models/performance.model.js";
 
-const getInsights = catchErrors(async (req, res) => {
+const getAdminInsights = catchErrors(async (req, res) => {
   const cacheKey = "insights";
 
   const cachedInsights = myCache.get(cacheKey);
@@ -164,4 +165,44 @@ const getInsights = catchErrors(async (req, res) => {
   });
 });
 
-export { getInsights };
+const getEmployeeInsights = catchErrors(async (req, res) => {
+  const employee = req.user;
+
+  if (!employee) throw new Error("Employee ID is required");
+
+  const [
+    performanceRecord,
+    employeeData,
+    leavesTaken,
+    complaintResolved,
+    feedbackSubmitted,
+    attendancePercentageByMonth,
+  ] = await Promise.all([
+    Performance.findOne({ employee }).select("kpiScore kpis"),
+    Employee.findById(employee).select("leaveBalance"),
+    Complaint.find({ employee, status: "Approved" }).countDocuments(),
+    Complaint.find({ employee, status: "Resolved" }).countDocuments(),
+    Feedback.find({ employee }).countDocuments(),
+    getEmployeeAttendanceByMonth(employee, new Date().getFullYear()),
+  ]);
+
+  const insights = {
+    leaveBalance: employeeData?.leaveBalance || 0,
+    leavesTaken,
+    complaintResolved,
+    feedbackSubmitted,
+    attendance: attendancePercentageByMonth,
+    performance: {
+      kpiScore: performanceRecord?.kpiScore.toFixed(2) || 0,
+      kpis: performanceRecord?.kpis || [],
+    },
+  };
+
+  return res.status(200).json({
+    success: true,
+    message: "Insights fetched successfully",
+    insights,
+  });
+});
+
+export { getAdminInsights, getEmployeeInsights };

@@ -35,7 +35,7 @@ const Attendance = () => {
           <div className="w-full rounded-2xl p-2">
             <div
               id="overflow"
-              className="overflow-auto bg-gray-100 shadow h-[80vh] sm:h-[89vh] mt-2"
+              className="overflow-auto bg-gray-100 shadow h-[71vh] mt-2"
             >
               <table className="min-w-full table-auto text-sm text-white whitespace-nowrap">
                 <thead>

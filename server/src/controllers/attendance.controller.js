@@ -111,7 +111,7 @@ const genrateQrCodeForAttendance = catchErrors(async (req, res) => {
   const id = req.user;
   const { latitude, longitude } = req.body;
 
-  console.log(latitude, longitude)
+  console.log(latitude, longitude);
 
   const isPresent = await Attendance.findOne({
     employee: id,
@@ -410,6 +410,55 @@ const calculateAverageAttendance = async (employeeId) => {
   return attendancePercentage.toFixed(2);
 };
 
+const getEmployeeAttendanceByMonth = async (employeeId, year) => {
+  if (!employeeId) throw new Error("Employee ID is required");
+
+  const queryYear = year || new Date().getFullYear();
+
+  const attendanceData = await Attendance.aggregate([
+    {
+      $match: {
+        employee: new mongoose.Types.ObjectId(employeeId),
+        date: {
+          $gte: new Date(`${queryYear}-01-01`),
+          $lte: new Date(`${queryYear}-12-31`),
+        },
+      },
+    },
+    {
+      $group: {
+        _id: { $month: "$date" },
+        totalRecords: { $sum: 1 },
+        totalPresent: {
+          $sum: { $cond: [{ $eq: ["$status", "Present"] }, 1, 0] },
+        },
+      },
+    },
+    {
+      $project: {
+        month: "$_id",
+        _id: 0,
+        attendancePercentage: {
+          $multiply: [{ $divide: ["$totalPresent", "$totalRecords"] }, 100],
+        },
+      },
+    },
+    { $sort: { month: 1 } },
+  ]);
+
+  const formattedData = Array.from({ length: 12 }, (_, i) => {
+    const monthData = attendanceData.find((data) => data.month === i + 1);
+    return {
+      month: new Date(0, i).toLocaleString("default", { month: "long" }),
+      attendancePercentage: monthData
+        ? parseFloat(monthData.attendancePercentage.toFixed(2))
+        : 0,
+    };
+  });
+
+  return formattedData;
+};
+
 export {
   markAttendance,
   getAttendanceList,
@@ -418,6 +467,7 @@ export {
   markAttendanceByQrCode,
   genrateQrCodeForAttendance,
   calculateAverageAttendance,
+  getEmployeeAttendanceByMonth,
   getMonthlyAttendancePercentage,
   getDepartmentAttendancePercentage,
   getEmployeeAttendanceByDepartment,

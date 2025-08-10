@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUpdates } from "../../services/insights.service";
 import Loader from "../../components/shared/loaders/Loader";
+import { formatDate } from "../../utils";
 
 function Update() {
   const dispatch = useDispatch();
@@ -14,20 +15,14 @@ function Update() {
   return (
     <>
       {loading && <Loader />}
-      <div className="w-full rounded-2xl sm:h-auto py-8 flex flex-col justify-center items-center">
-        <div className="w-full">
-          {/* <div className="text-center mb-4">
-            <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
-              Notice Board
-            </h1>
-          </div> */}
-
-          <section className="mt-2 sm:p-4 flex flex-col items-center justify-center rounded-lg">
+      <section className="bg-gray-100 border border-gray-300 dark:border-primary dark:bg-secondary p-3 min-h-screen rounded-lg shadow">
+        <div className="flex justify-center items-center text-white">
+          <div className="w-full rounded-2xl p-2">
             <div
               id="overflow"
-              className="overflow-auto rounded-lg w-[96%] sm:w-[90%] h-[55vh] bg-gray-100"
+              className="overflow-auto bg-gray-100 shadow h-[71vh] mt-2"
             >
-              <table className="min-w-full  text-left table-auto border-collapse text-sm whitespace-nowrap">
+              <table className="min-w-full table-auto text-sm text-white whitespace-nowrap">
                 <thead>
                   <tr className="text-gray-200 bg-headLight">
                     {[
@@ -57,19 +52,19 @@ function Update() {
                         <td className="py-3 px-4 border-b border-gray-500">
                           {update.leaveType ? "Leave" : "Complaint"}
                         </td>
-                        <td className="py-3 px-4 border-b border-gray-500">
+                        <td className="py-3 px-4 text-center border-b border-gray-500">
                           {update.leaveType
-                            ? update.remarks
-                            : update.complainSubject}
+                            ? update.remarks.slice(0, 10) + "..."
+                            : update.complainSubject.slice(0, 10) + "..."}
                         </td>
-                        <td className="py-3 px-4 border-b border-gray-500">
+                        <td className="py-3 px-4 text-center border-b border-gray-500">
                           {update.leaveType
                             ? update.status === "Approved"
                               ? "Leave Approved"
                               : update.status === "Rejected"
                               ? "Leave Rejected"
                               : "Leave Pending"
-                            : update.complaintDetails.slice(0, 20) + "..."}
+                            : update.complaintDetails.slice(0, 15) + "..."}
                         </td>
                         <td
                           className={`py-3 px-4 border-b border-gray-500 font-bold ${
@@ -82,17 +77,17 @@ function Update() {
                               : "text-blue-400"
                           }`}
                         >
-                          {update.status.toUpperCase()}
+                          {update.status}
                         </td>
                         <td className="py-3 px-4 border-b border-gray-500">
                           {update.leaveType
-                            ? new Date(update.fromDate).toLocaleDateString()
-                            : new Date(update.createdAt).toLocaleDateString()}
+                            ? formatDate(update.fromDate)
+                            : formatDate(update.createdAt)}
                         </td>
-                        <td className="py-3 px-4 border-b border-gray-500 text-green-600 font-semibold">
+                        <td className="py-3 px-4 text-center border-b border-gray-500">
                           {update.leaveType
-                            ? update.remarks.toUpperCase()
-                            : update.remarks.toUpperCase()}
+                            ? update.remarks.slice(0, 10)
+                            : "--"}
                         </td>
                       </tr>
                     ))}
@@ -108,15 +103,18 @@ function Update() {
                 </div>
               )}
             </div>
-            <div className="w-[95%] sm:w-[90%] mt-2 bg-headLight p-7 rounded-lg text-center">
+
+            <div className="mt-2 bg-headLight border border-gray-200 p-7 rounded-lg text-center text-gray-200">
               <h2 className="text-lg font-semibold text-white">
                 Total Updates
               </h2>
-              <p className="text-2xl font-bold mt-3">{updates.length}</p>
+              <p className="text-2xl font-bold mt-3 text-white">
+                {updates.length}
+              </p>
             </div>
-          </section>
+          </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }
