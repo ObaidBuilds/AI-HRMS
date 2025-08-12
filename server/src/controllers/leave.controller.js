@@ -3,6 +3,7 @@ import Employee from "../models/employee.model.js";
 import { getSubstitute } from "../predictions/index.js";
 import { catchErrors, formatDate, myCache } from "../utils/index.js";
 import { leaveRespond, notifySubstituteEmployee } from "../templates/index.js";
+import Payroll from "../models/payroll.model.js";
 
 const getLeaves = catchErrors(async (req, res) => {
   const { status = "pending" } = req.query;
@@ -131,9 +132,33 @@ const respondLeave = catchErrors(async (req, res) => {
 
     if (employee.leaveBalance >= leave.duration) {
       employee.leaveBalance -= leave.duration;
-      leave.remarks = `${leave.duration} days deducted from leave balance.`;
+      leave.remarks = `${leave.duration} days deducted.`;
     } else {
-      leave.remarks = `Pay deducted for ${leave.duration} days.`;
+      const fromDate = new Date(leave.fromDate);
+
+      const year = fromDate.getFullYear();
+
+      const month = fromDate.getMonth() + 1;
+
+      const payrollData = await Payroll.findOne({
+        employee: leave.employee,
+        year,
+        month,
+      });
+
+      // const dailySalary = payrollData.baseSalary / 30;
+      // const deductionAmount = dailySalary * leave.duration;
+
+      const deductionAmount = 1000 * leave.duration;
+
+      payrollData.deductions += deductionAmount;
+      payrollData.netSalary -= deductionAmount;
+
+      await payrollData.save();
+
+      leave.remarks = `Pay deducted for ${
+        leave.duration
+      } days (${deductionAmount.toFixed(2)}.`;
     }
 
     const substituteData = await getSubstitute({

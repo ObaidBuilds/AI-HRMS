@@ -11,8 +11,8 @@ import {
   deletePerformance,
 } from "./performance.controller.js";
 import {
-  createPayrollForEmployee,
   deletePayroll,
+  generateEmployeeYearlyPayroll,
 } from "./payroll.controller.js";
 import { deleteFeedback } from "./feedback.controller.js";
 import { deleteComplaint } from "./complaint.controller.js";
@@ -149,7 +149,7 @@ const createEmployee = catchErrors(async (req, res) => {
   });
 
   await addPerformanceWithKPI(employee._id);
-  await createPayrollForEmployee({ employee });
+  await generateEmployeeYearlyPayroll(employee);
   clearEmployeeCache();
 
   return res.status(201).json({
@@ -193,16 +193,18 @@ const getAllEmployees = catchErrors(async (req, res) => {
     .limit(limitNumber)
     .lean();
 
-  employees = await Promise.all(employees.map(async (emp) => {
-    const leaveStatus = await getEmployeeLeaveStatus(emp._id);
-    return {
-      ...emp,
-      status: leaveStatus === "On Leave" ? "On Leave" : emp.status
-    };
-  }));
+  employees = await Promise.all(
+    employees.map(async (emp) => {
+      const leaveStatus = await getEmployeeLeaveStatus(emp._id);
+      return {
+        ...emp,
+        status: leaveStatus === "On Leave" ? "On Leave" : emp.status,
+      };
+    })
+  );
 
   if (status === "On Leave") {
-    employees = employees.filter(emp => emp.status === "On Leave");
+    employees = employees.filter((emp) => emp.status === "On Leave");
   }
 
   const totalEmployees = await Employee.countDocuments(query);

@@ -1,19 +1,6 @@
+import Employee from "../models/employee.model.js";
 import Payroll from "../models/payroll.model.js";
 import { catchErrors } from "../utils/index.js";
-
-async function createPayrollForEmployee({ employee }) {
-  await Payroll.create({
-    employee: employee._id,
-    month: 2,
-    year: 2025,
-    baseSalary: employee.salary,
-    allowances: 0,
-    deductions: 0,
-    bonuses: 0,
-    netSalary: employee.salary,
-    isPaid: false,
-  });
-}
 
 const createPayroll = catchErrors(async (req, res) => {
   const { employee, month, year, baseSalary, allowances, deductions, bonuses } =
@@ -40,12 +27,13 @@ const createPayroll = catchErrors(async (req, res) => {
 });
 
 const getAllPayrolls = catchErrors(async (req, res) => {
-  const { page = 1, limit = 12, employee, month, year } = req.query;
+  const { page = 1, limit = 12, employee, month, year, isPaid } = req.query;
 
   const query = {};
 
   if (year) query.year = year;
   if (month) query.month = month;
+  if (isPaid) query.isPaid = isPaid;
   if (employee) query.employee = employee;
 
   const pageNumber = Math.max(parseInt(page), 1);
@@ -95,10 +83,15 @@ const getPayrollByEmployee = catchErrors(async (req, res) => {
 
 const updatePayroll = catchErrors(async (req, res) => {
   const { payrollId } = req.params;
-  const { allowances, deductions, bonuses } = req.body;
+  const { allowances, bonuses, deductions } = req.body;
 
-  const payroll = await Payroll.findById(payrollId);
+  const payroll = await Payroll.findById(payrollId).populate(
+    "employee",
+    "employeeId name"
+  );
   if (!payroll) throw new Error("Payroll record not found");
+
+  if (payroll.isPaid) throw new Error("Payroll already paid, can't update");
 
   payroll.allowances = allowances ?? payroll.allowances;
   payroll.deductions = deductions ?? payroll.deductions;
@@ -116,17 +109,20 @@ const updatePayroll = catchErrors(async (req, res) => {
 const markAsPaid = catchErrors(async (req, res) => {
   const { payrollId } = req.params;
 
-  const payroll = await Payroll.findById(payrollId);
+  const payroll = await Payroll.findById(payrollId).populate(
+    "employee",
+    "employeeId name"
+  );
   if (!payroll) throw new Error("Payroll record not found");
 
-  payroll.isPaid = true;
+  payroll.isPaid = !payroll.isPaid;
   payroll.paymentDate = new Date();
 
   await payroll.save();
 
   return res.status(200).json({
     success: true,
-    message: "Payroll marked as paid",
+    message: "Payroll marked status updated",
     payroll,
   });
 });
@@ -148,11 +144,58 @@ const getEmployeePayrollHistory = catchErrors(async (req, res) => {
 const deletePayroll = async (employee) => {
   if (!employee) throw new Error("Please provide employee Id");
 
-  const payroll = await Payroll.deleteOne({ employee });
+  const payroll = await Payroll.deleteMany({ employee });
 
   if (payroll.deletedCount) return;
 
   return "Payroll deleted successfuly";
+};
+
+const generateEmployeeYearlyPayroll = async (
+  employeeId,
+  year = new Date().getFullYear()
+) => {
+  try {
+    const currentYear = new Date().getFullYear();
+    if (year < 2024 || year > currentYear + 1) {
+      throw new Error(`Year must be between 2000 and ${currentYear + 1}`);
+    }
+
+    const employee = await Employee.findById(employeeId);
+    if (!employee) throw new Error("Employee not found");
+
+    const existingRecords = await Payroll.countDocuments({
+      employee: employeeId,
+      year,
+    });
+    if (existingRecords > 0) {
+      return;
+    }
+
+    const baseSalary = employee.salary || 30000;
+    const payrollData = [];
+
+    for (let month = 1; month <= 12; month++) {
+      payrollData.push({
+        employee: employee._id,
+        month,
+        year,
+        baseSalary,
+        allowances: 0,
+        deductions: 0,
+        bonuses: 0,
+        netSalary: baseSalary,
+        isPaid: false,
+        paymentDate: null,
+      });
+    }
+
+    await Payroll.insertMany(payrollData);
+
+    return { success: true, recordsCreated: 12 };
+  } catch (error) {
+    throw error;
+  }
 };
 
 export {
@@ -163,5 +206,5 @@ export {
   updatePayroll,
   getPayrollByEmployee,
   getEmployeePayrollHistory,
-  createPayrollForEmployee,
+  generateEmployeeYearlyPayroll,
 };

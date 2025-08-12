@@ -5,9 +5,11 @@ import Pagination from "../../components/shared/others/Pagination";
 import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import FilterButton from "../../components/shared/buttons/FilterButton";
 import { payrollButtons } from "../../data";
-import { getAllPayrolls } from "../../services/payroll.service";
+import { getAllPayrolls, markAsPaid } from "../../services/payroll.service";
 import { formatDate, getMonthAbbreviation } from "../../utils";
 import FetchError from "../../components/shared/error/FetchError";
+import Modal from "../../components/shared/modals/Modal";
+import PayrollModal from "../../components/shared/modals/PayrollModal";
 
 function Payroll() {
   const dispatch = useDispatch();
@@ -17,17 +19,39 @@ function Payroll() {
   );
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedId, setSelectedId] = useState(null);
   const [payrollFilter, setPayrollFilter] = useState("");
+  const [selectedPayroll, setSelectedPayroll] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [togglePayrollModal, setTogglePayrollModal] = useState(false);
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+
+  const handleMarkAsPaid = () => {
+    dispatch(markAsPaid(selectedId));
+  };
+
+  const confirmMarkAsPaid = () => {
+    handleMarkAsPaid();
+    setSelectedId(null);
+    setShowConfirmModal(false);
+  };
 
   useEffect(() => {
-    dispatch(getAllPayrolls({ currentPage }));
-  }, [currentPage]);
+    dispatch(
+      getAllPayrolls({
+        currentPage,
+        isPaid:
+          payrollFilter === "paid" ? true : payrollFilter === "" ? "" : false,
+        month: selectedMonth,
+      })
+    );
+  }, [currentPage, payrollFilter, selectedMonth]);
 
   return (
     <>
       {loading && <Loader />}
 
-      <section className="bg-gray-100 dark:bg-secondary max-h-auto sm:min-h-screen p-3 sm:p-4 rounded-lg shadow">
+      <section className="bg-gray-100 dark:bg-secondary max-h-auto sm:min-h-screen p-3 sm:p-4 rounded-lg shadow lg:w-[95%]">
         <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
           {payrollButtons.map((filter, i) => (
             <FilterButton
@@ -37,11 +61,29 @@ function Payroll() {
               filter={filter}
             />
           ))}
+          <select
+            value={selectedMonth}
+            onChange={(e) => setSelectedMonth(e.target.value)}
+            className="hidden w-[200px] bg-transparent sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-sm font-semibold border py-1 px-5 rounded-3xl transition-all ease-in-out duration-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          >
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+          </select>
         </div>
 
         <div
           id="overflow"
-          className="overflow-auto min-h-[74vh] sm:min-h-[80vh] lg:w-[95%]"
+          className="overflow-auto min-h-[74vh] sm:min-h-[80vh]"
         >
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
@@ -88,16 +130,16 @@ function Payroll() {
                       RS - {payroll.baseSalary}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      RS - {payroll.allowances}
+                      RS - {payroll.allowances.toFixed(2)}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      RS - {payroll.deductions}
+                      RS - {payroll.deductions.toFixed(0)}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      RS - {payroll.bonuses}
+                      RS - {payroll.bonuses.toFixed(0)}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      RS - {payroll.netSalary}
+                      RS - {payroll.netSalary.toFixed(0)}
                     </td>
 
                     <td className="pl-7 border-b border-secondary font-semibold">
@@ -114,15 +156,28 @@ function Payroll() {
                     <td className="pl-7 px-4 border-b border-secondary">
                       {formatDate(payroll.paymentDate) || "Pending"}
                     </td>
-                    <td className="py-3 px-4 border-b border-secondary flex items-center gap-3">
-                      <button className="text-blue-500" title="Salary Paid">
-                        <i className="fa-solid fa-circle-check"></i>
-                      </button>
-                      <button className="text-green-500 hover:text-green-400">
+                    <td className="py-3 justify-center border-b border-secondary flex items-center gap-3">
+                      {/* {!payroll.isPaid && ( */}
+                        <button
+                          onClick={() => {
+                            setSelectedId(payroll._id);
+                            setShowConfirmModal(true);
+                          }}
+                          className="text-blue-500"
+                          title="Salary Paid"
+                        >
+                          <i className="fa-solid fa-circle-check"></i>
+                        </button>
+                      {/* )} */}
+                      <button
+                        onClick={() => {
+                          setSelectedPayroll(payroll);
+                          setTogglePayrollModal(true);
+                        }}
+                        title="Edit Payroll"
+                        className="text-green-500 hover:text-green-400"
+                      >
                         <i className="fa-solid fa-edit"></i>
-                      </button>
-                      <button className="text-red-500 hover:text-red-400">
-                        <i className="fa-solid fa-trash"></i>
                       </button>
                     </td>
                   </tr>
@@ -140,6 +195,21 @@ function Payroll() {
             currentPage={currentPage}
             totalPages={pagination?.totalPages}
             onPageChange={setCurrentPage}
+          />
+        )}
+
+        {showConfirmModal && (
+          <Modal
+            onClose={() => setShowConfirmModal(false)}
+            action="mark as paid"
+            isConfirm={confirmMarkAsPaid}
+          />
+        )}
+
+        {togglePayrollModal && (
+          <PayrollModal
+            payroll={selectedPayroll}
+            onClose={() => setTogglePayrollModal(false)}
           />
         )}
       </section>

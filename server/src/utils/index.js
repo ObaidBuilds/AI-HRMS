@@ -149,6 +149,24 @@ function formatTime(time24) {
   return `${hours12}:${minutes} ${period}`;
 }
 
+const getMonthName = (month) => {
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  return months[month - 1];
+};
+
 export {
   catchErrors,
   myCache,
@@ -158,5 +176,6 @@ export {
   getLocation,
   decodeQR,
   formatDate,
-  formatTime
+  formatTime,
+  getMonthName
 };

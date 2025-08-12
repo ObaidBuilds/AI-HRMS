@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.get("/", verifyAdminToken, getAllPayrolls);
 router.post("/", verifyAdminToken, createPayroll);
-router.put("/:payrollId", verifyAdminToken, updatePayroll);
+router.patch("/:payrollId", verifyAdminToken, updatePayroll);
 router.patch("/:payrollId/pay", verifyAdminToken, markAsPaid);
 router.get("/employee", verifyAdminToken, getPayrollByEmployee);
 router.get("/history/:employee", verifyAdminToken, getEmployeePayrollHistory);

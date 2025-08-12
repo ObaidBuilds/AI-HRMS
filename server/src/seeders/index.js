@@ -4,6 +4,7 @@ import Employee from "../models/employee.model.js";
 import Performance from "../models/performance.model.js";
 import Department from "../models/department.model.js";
 import { calculateAverageAttendance } from "../controllers/attendance.controller.js";
+import { getMonthName } from "../utils/index.js";
 
 const startHrmsApplication = async () => {
   try {
@@ -117,10 +118,61 @@ const deleteAllPerformanceRecords = async () => {
   }
 };
 
-const generatePayrollDataForMonths = async (months = 6) => {
+const generatePayrollDataForMonths = async (month) => {
   try {
-    const employees = await Employee.find();
+    if (month < 1 || month > 12) {
+      throw new Error("Month must be between 1 (January) and 12 (December).");
+    }
 
+    const employees = await Employee.find();
+    if (!employees.length) {
+      console.log("No employees found.");
+      return;
+    }
+
+    const currentYear = new Date().getFullYear();
+    const payrollData = [];
+
+    for (const employee of employees) {
+      const baseSalary = employee.salary || 30000;
+      const allowances = 0;
+      const deductions = 0;
+      const bonuses = 0;
+      const netSalary = baseSalary;
+
+      payrollData.push({
+        employee: employee._id,
+        month: month,
+        year: currentYear,
+        baseSalary,
+        allowances,
+        deductions,
+        bonuses,
+        netSalary,
+        isPaid: false,
+        paymentDate: null,
+      });
+    }
+
+    await Payroll.insertMany(payrollData);
+    console.log(
+      `Generated payroll data for ${getMonthName(month)} ${currentYear} for ${
+        employees.length
+      } employees.`
+    );
+  } catch (error) {
+    console.error("Error generating payroll data:", error);
+  }
+};
+
+const generatePayrollDataForYear = async (year) => {
+  try {
+    const currentYear = new Date().getFullYear();
+    if (year < 2024 || year > currentYear + 1) {
+      throw new Error(`Year must be between 2000 and ${currentYear + 1}.`);
+    }
+
+    const employees = await Employee.find();
     if (!employees.length) {
       console.log("No employees found.");
       return;
@@ -129,35 +181,30 @@ const generatePayrollDataForMonths = async (months = 6) => {
     const payrollData = [];
 
     for (const employee of employees) {
-      for (let i = 0; i < months; i++) {
-        const date = new Date();
-        date.setMonth(date.getMonth() - i);
+      const baseSalary = employee.salary || 30000;
 
-        const baseSalary = employee.salary || 30000;
-        const allowances = Math.floor(baseSalary * 0.1);
-        const deductions = Math.floor(baseSalary * 0.05);
-        const bonuses = Math.random() > 0.8 ? Math.floor(baseSalary * 0.15) : 0;
-        const netSalary = baseSalary + allowances + bonuses - deductions;
-
+      for (let month = 1; month <= 12; month++) {
         payrollData.push({
           employee: employee._id,
-          month: date.getMonth() + 1,
-          year: date.getFullYear(),
+          month: month,
+          year: year,
           baseSalary,
-          allowances,
-          deductions,
-          bonuses,
-          netSalary,
-          isPaid: Math.random() > 0.5,
-          paymentDate: Math.random() > 0.5 ? date : null,
+          allowances: 0,
+          deductions: 0,
+          bonuses: 0,
+          netSalary: baseSalary,
+          isPaid: false,
+          paymentDate: null,
         });
       }
     }
 
     await Payroll.insertMany(payrollData);
-    console.log(`Payroll records added for the last ${months} months.`);
+    console.log(
+      `Generated payroll data for all 12 months of ${year} for ${employees.length} employees.`
+    );
   } catch (error) {
-    console.error("Error generating payroll data:", error);
+    console.error("Error generating yearly payroll data:", error);
   }
 };
 
@@ -183,10 +230,11 @@ const alterEmployeeData = async () => {
 };
 
 export {
-  generatePerformanceData,
-  deleteAllPerformanceRecords,
-  generatePayrollDataForMonths,
-  deleteAllPayrollRecords,
   alterEmployeeData,
   startHrmsApplication,
+  generatePerformanceData,
+  deleteAllPayrollRecords,
+  generatePayrollDataForYear,
+  deleteAllPerformanceRecords,
+  generatePayrollDataForMonths,
 };

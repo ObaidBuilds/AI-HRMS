@@ -188,7 +188,6 @@ const payrollButtons = [
   { label: "All Payrolls", value: "", icon: "fa-globe" },
   { label: "Paid payrolls", value: "paid", icon: "fa-thumbs-up" },
   { label: "Pending payrolls", value: "pending", icon: "fa-hand-paper" },
-  { label: "Failed payrolls", value: "failed", icon: "fa-thumbs-down" },
 ];
 
 const navLinks = [
