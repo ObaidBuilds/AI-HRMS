@@ -2,7 +2,7 @@ import BarGraph from "../../components/shared/charts/BarGraph";
 import PieChart from "../../components/shared/charts/Pie";
 import LineChart from "../../components/shared/charts/LineChart";
 import { useSelector } from "react-redux";
-import { reports } from "../../data";
+// import { reports } from "../../data";
 
 const Report = () => {
   const {
@@ -30,7 +30,7 @@ const Report = () => {
 
   return (
     <section className="py-1 px-1 sm:px-0">
-      <div className="w-full flex flex-wrap gap-2 bg-gray-50 dark:bg-secondary p-3 rounded-lg">
+      {/* <div className="w-full flex flex-wrap gap-2 bg-gray-50 dark:bg-secondary p-3 rounded-lg">
         {reports.map((report, index) => (
           <div
             key={index}
@@ -40,7 +40,7 @@ const Report = () => {
             <h2 className="text-sm font-extrabold">{report.title}</h2>
           </div>
         ))}
-      </div>
+      </div> */}
 
       <div className="flex gap-2 sm:gap-1 justify-between md:flex-row flex-col h-auto md:h-[400px] mt-2">
         <div
