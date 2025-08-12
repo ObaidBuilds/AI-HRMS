@@ -145,7 +145,7 @@ function JobApplications() {
                       {formatDate(applicant.appliedAt)}
                     </td>
 
-                    <td className="pl-5 px-4 border-b border-secondary">
+                    <td className="pl-5 px-4 text-center border-b border-secondary">
                       <button
                         onClick={() => handleClick(applicant)}
                         title="Update Status"
