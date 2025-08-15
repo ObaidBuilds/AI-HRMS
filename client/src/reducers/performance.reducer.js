@@ -29,7 +29,7 @@ const performanceSlice = createSlice({
       })
       .addCase(getPerformances.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch performance";
+        state.error = action.payload;
       })
 
       // Handling the updatePerformance action
@@ -50,7 +50,7 @@ const performanceSlice = createSlice({
       })
       .addCase(updatePerformance.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to update perfromance";
+        state.error = action.payload;
       });
   },
 });

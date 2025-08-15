@@ -57,7 +57,6 @@ const DepartmentModal = ({ action, onClose, department }) => {
         onSubmit={handleSubmit}
         className="bg-white text-black w-[90%] sm:max-w-xl p-6 border border-gray-300 rounded-lg shadow-xl space-y-5"
       >
-        {/* Modal Header */}
         <div className="flex justify-between items-center border-b border-gray-200 pb-3">
           <h2 className="font-bold text-gray-600">
             {action === "create" ? "Create" : "Update"} Department
@@ -71,7 +70,6 @@ const DepartmentModal = ({ action, onClose, department }) => {
           </button>
         </div>
 
-        {/* Department name */}
         <div className="w-full">
           <div className="w-full relative">
             <i className="fa fa-calendar text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-700"></i>
@@ -87,7 +85,6 @@ const DepartmentModal = ({ action, onClose, department }) => {
           </div>
         </div>
 
-        {/* Head Dropdown */}
         <div className="w-full relative">
           <i className="fa fa-building-columns text-sm icon absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600"></i>
           <select
@@ -108,7 +105,6 @@ const DepartmentModal = ({ action, onClose, department }) => {
           </select>
         </div>
 
-        {/* Description Textarea */}
         <div className="w-full">
           <textarea
             name="description"
@@ -121,7 +117,6 @@ const DepartmentModal = ({ action, onClose, department }) => {
           />
         </div>
 
-        {/* Submit Button */}
         <div className="w-full flex justify-end">
           <button
             type="submit"

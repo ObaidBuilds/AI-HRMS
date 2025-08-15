@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  getAllEmployees,
-  getEmployeeById,
   addEmployee,
   editEmployee,
   deleteEmployee,
+  getAllEmployees,
+  getEmployeeById,
   bulkUploadEmployees,
 } from "../services/employee.service";
 

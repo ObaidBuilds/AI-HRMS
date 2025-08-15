@@ -1,14 +1,15 @@
 import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { forgetPasswordSchema } from "../validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
-import { forgetPassword, login } from "../services/authentication.service";
-import { forgetPasswordSchema } from "../validations";
-import { Link, useNavigate } from "react-router-dom";
 import ButtonLoader from "../components/shared/loaders/ButtonLoader";
+import { forgetPassword, login } from "../services/authentication.service";
 
 const ForgetPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const { loading, forgetPasswordError } = useSelector(
     (state) => state.authentication
   );
@@ -85,7 +86,7 @@ const ForgetPassword = () => {
             >
               {loading ? (
                 <span className="flex items-center justify-center text-[0.8rem]">
-                 <ButtonLoader />
+                  <ButtonLoader />
                   Submitting
                 </span>
               ) : (

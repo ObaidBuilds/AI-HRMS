@@ -228,11 +228,7 @@ async function inviteForInterviewMail({
   await sendMail(message);
 }
 
-async function thankYouForApplying({ 
-  email, 
-  candidateName, 
-  jobTitle,
-}) {
+async function thankYouForApplying({ email, candidateName, jobTitle }) {
   const message = {
     email,
     subject: "Metro HRMS - Thank You for Your Application",
@@ -259,7 +255,7 @@ async function thankYouForApplying({
     <p style="margin-top: 24px; font-size: 12px; color: #999999;">Metro HRMS &copy; 2024. All Rights Reserved.</p>
   </div>
     `,
-    text: `Dear ${candidateName},\n\nThank you for applying to the ${jobTitle} position at Metro Cash & Carry.\n\nOur team is reviewing applications and will contact you within 7-10 business days if your qualifications match our needs.\n\nView other opportunities: ${process.env.CLIENT_URL}\n\nBest regards,\nMetro HRMS Team`
+    text: `Dear ${candidateName},\n\nThank you for applying to the ${jobTitle} position at Metro Cash & Carry.\n\nOur team is reviewing applications and will contact you within 7-10 business days if your qualifications match our needs.\n\nView other opportunities: ${process.env.CLIENT_URL}\n\nBest regards,\nMetro HRMS Team`,
   };
 
   await sendMail(message);
@@ -269,8 +265,8 @@ export {
   leaveRespond,
   passwordRecovery,
   complaintRespond,
+  thankYouForApplying,
   resetPasswordSuccess,
-  notifySubstituteEmployee,
   inviteForInterviewMail,
-  thankYouForApplying
+  notifySubstituteEmployee,
 };

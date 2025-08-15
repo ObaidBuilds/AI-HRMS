@@ -26,12 +26,11 @@ export const updatePerformance = createAsyncThunk(
   "performance/updatePerformance",
   async ({ id, performance }, { rejectWithValue }) => {
     try {
-      console.log(id, performance);
-
       const { data } = await axiosInstance.patch(
         `/performance/${id}`,
         performance
       );
+      toast.success(data.message);
       return data.performance;
     } catch (error) {
       toast.error(error.response?.data.message);

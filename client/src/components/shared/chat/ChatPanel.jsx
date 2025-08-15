@@ -98,9 +98,9 @@ const ChatPanel = ({ selectedEmployee, message, setMessage, onBack }) => {
                 </p>
               </div>
             </div>
-              <button className="pr-3 text-sm text-gray-600">
-                <FaEllipsisV/>
-              </button>
+            <button className="pr-3 text-sm text-gray-600">
+              <FaEllipsisV />
+            </button>
           </div>
 
           <div

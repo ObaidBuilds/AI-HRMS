@@ -1,13 +1,16 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import { complaintTypes } from "../../constants";
+import { complaintSchema } from "../../validations";
+import { useSelector, useDispatch } from "react-redux";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createComplaint } from "../../services/complaint.service";
-import { complaintSchema } from "../../validations";
 
 const Complaint = () => {
   const dispatch = useDispatch();
+
   const { loading } = useSelector((state) => state.complaint);
+
   const {
     register,
     handleSubmit,
@@ -39,7 +42,6 @@ const Complaint = () => {
             className="flex flex-col items-center gap-2 pb-8"
             onSubmit={handleSubmit(onSubmit)}
           >
-            {/* Complaint Type */}
             <div className="w-[85%] relative">
               <select
                 id="select"
@@ -49,13 +51,11 @@ const Complaint = () => {
                   `}
                 disabled={loading}
               >
-                <option value="">--- Select Complaint Type ---</option>
-                <option value="Workplace">Workplace Issue</option>
-                <option value="Payroll">Payroll Issue</option>
-                <option value="Harassment">Harassment</option>
-                <option value="Leave">Leave Dispute</option>
-                <option value="Scheduling">Scheduling Issue</option>
-                <option value="Misconduct">Employee Misconduct</option>
+                {complaintTypes.map((type) => (
+                  <option key={type.value} value={type.value}>
+                    {type.label}
+                  </option>
+                ))}
               </select>
               {errors.complainType && (
                 <p className="text-red-500 text-xs mt-1 ml-3">
@@ -64,7 +64,6 @@ const Complaint = () => {
               )}
             </div>
 
-            {/* Complaint Subject */}
             <div className="w-[85%]">
               <input
                 type="text"
@@ -83,7 +82,6 @@ const Complaint = () => {
               )}
             </div>
 
-            {/* Complaint Details */}
             <div className="w-[85%]">
               <textarea
                 placeholder="Complaint Details"
@@ -101,7 +99,6 @@ const Complaint = () => {
               )}
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}

@@ -1,13 +1,16 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createLeave } from "../../services/leave.service";
 import { leaveSchema } from "../../validations";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useSelector, useDispatch } from "react-redux";
+import { createLeave } from "../../services/leave.service";
+import { leaveTypes } from "../../constants";
 
 const Leave = () => {
   const dispatch = useDispatch();
+
   const { loading } = useSelector((state) => state.leave);
+
   const {
     register,
     handleSubmit,
@@ -39,7 +42,6 @@ const Leave = () => {
             className="flex flex-col items-center gap-2 pb-8"
             onSubmit={handleSubmit(onSubmit)}
           >
-            {/* Leave Type */}
             <div className="w-[85%] relative">
               <select
                 id="select"
@@ -49,11 +51,11 @@ const Leave = () => {
                 }`}
                 disabled={loading}
               >
-                <option value="">--- Select Leave Type ---</option>
-                <option value="Sick">Sick Leave</option>
-                <option value="Casual">Casual Leave</option>
-                <option value="Vacation">Vacation Leave</option>
-                <option value="Unpaid">Unpaid</option>
+                {leaveTypes.map((leave) => (
+                  <option key={leave.value} value={leave.value}>
+                    {leave.label}
+                  </option>
+                ))}
               </select>
               {errors.leaveType && (
                 <p className="text-red-500 text-xs mt-1 ml-3">
@@ -62,7 +64,6 @@ const Leave = () => {
               )}
             </div>
 
-            {/* Duration */}
             <div className="w-[85%]">
               <input
                 type="number"
@@ -80,7 +81,6 @@ const Leave = () => {
               )}
             </div>
 
-            {/* From Date */}
             <div className="w-[85%]">
               <input
                 type="text"
@@ -102,7 +102,6 @@ const Leave = () => {
               )}
             </div>
 
-            {/* To Date */}
             <div className="w-[85%]">
               <input
                 type="text"
@@ -124,7 +123,6 @@ const Leave = () => {
               )}
             </div>
 
-            {/* Leave Description */}
             <div className="w-[85%]">
               <textarea
                 {...register("description")}
@@ -142,7 +140,6 @@ const Leave = () => {
               )}
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}

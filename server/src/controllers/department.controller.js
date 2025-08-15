@@ -1,7 +1,7 @@
 import { myCache } from "../utils/index.js";
 import { catchErrors } from "../utils/index.js";
-import Department from "../models/department.model.js";
 import Employee from "../models/employee.model.js";
+import Department from "../models/department.model.js";
 
 const createDepartment = catchErrors(async (req, res) => {
   const { name, head, description } = req.body;
@@ -133,8 +133,8 @@ export {
   createDepartment,
   getAllDepartments,
   getDepartmentById,
-  getDepartmentEmployees,
   deleteDepartment,
   updateDepartment,
   getAllEmployeesForHead,
+  getDepartmentEmployees,
 };

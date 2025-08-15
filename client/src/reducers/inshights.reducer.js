@@ -25,7 +25,7 @@ const insightSlice = createSlice({
       })
       .addCase(getInsights.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch insights";
+        state.error = action.payload;
       })
 
       // Handling the getEmployeeInsights action
@@ -39,7 +39,7 @@ const insightSlice = createSlice({
       })
       .addCase(getEmployeeInsights.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch employee insights";
+        state.error = action.payload;
       });
   },
 });

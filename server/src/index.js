@@ -23,11 +23,11 @@ import {
   authentication,
 } from "./routes/index.routes.js";
 import { swaggerUi, swaggerSpec } from "./doc/index.js";
-import {
-  deleteAllPayrollRecords,
-  generatePayrollDataForMonths,
-  generatePayrollDataForYear,
-} from "./seeders/index.js";
+// import {
+//   deleteAllPayrollRecords,
+//   generatePayrollDataForMonths,
+//   generatePayrollDataForYear,
+// } from "./seeders/index.js";
 
 const app = express();
 

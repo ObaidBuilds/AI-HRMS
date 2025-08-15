@@ -1,10 +1,10 @@
-import { lazy, Suspense, useEffect } from "react";
-import Sidebar from "../components/ui/Sidebar";
-import Loader from "../components/shared/loaders/Loader";
-import { Route, Routes } from "react-router-dom";
-import NotFound from "../components/shared/error/NotFound";
-import { getRoles } from "../services/role.service";
 import { useDispatch } from "react-redux";
+import Sidebar from "../components/ui/Sidebar";
+import { lazy, Suspense, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import { getRoles } from "../services/role.service";
+import Loader from "../components/shared/loaders/Loader";
+import NotFound from "../components/shared/error/NotFound";
 import { getInsights } from "../services/insights.service";
 import { getDepartments } from "../services/department.service";
 
@@ -30,14 +30,13 @@ const PostJob = lazy(() => import("../admin/recruitment/PostJob"));
 const Performance = lazy(() => import("../admin/performance/Performance"));
 const Report = lazy(() => import("../admin/report/Report"));
 const Payroll = lazy(() => import("../admin/payroll/Payroll"));
-// const Mail = lazy(() => import("../admin/mail/Communication"));
 
 const AdminApp = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getInsights());
     dispatch(getRoles());
+    dispatch(getInsights());
     dispatch(getDepartments());
   }, []);
 
@@ -71,11 +70,9 @@ const AdminApp = () => {
             <Route path="/feedbacks" element={<Feedback />} />
             <Route path="/feedbacks" element={<Feedback />} />
             <Route path="/complaints" element={<Complaint />} />
-            {/* <Route path="/mails" element={<Mail />} /> */}
             <Route path="/reports" element={<Report />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          {/* <Footer /> */}
         </main>
       </Suspense>
     </div>

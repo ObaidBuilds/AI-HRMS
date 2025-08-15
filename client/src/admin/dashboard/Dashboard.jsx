@@ -1,41 +1,21 @@
 import { useSelector } from "react-redux";
-import InfoCard from "../../components/shared/cards/InfoCard";
-import LineChart from "../../components/shared/charts/LineChart";
 import PieChart from "../../components/shared/charts/Pie";
+import InfoCard from "../../components/shared/cards/InfoCard";
 import BarGraph from "../../components/shared/charts/BarGraph";
-import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
+import LineChart from "../../components/shared/charts/LineChart";
 import ChatPanel from "../../components/shared/others/ChatPanel";
 import FetchError from "../../components/shared/error/FetchError";
+import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
 
 const Dashboard = () => {
   const { insights, loading, error } = useSelector((state) => state.insight);
 
   const infoCardData = [
-    {
-      id: 1,
-      title: "Total Employees",
-      stats: insights?.totalEmployees,
-    },
-    {
-      id: 2,
-      title: "Job Applications",
-      stats: insights?.jobApplications,
-    },
-    {
-      id: 3,
-      title: "Pending Complaints",
-      stats: insights?.totalComplaints,
-    },
-    {
-      id: 4,
-      title: "Pending Leaves",
-      stats: insights?.pendingLeaves,
-    },
-    {
-      id: 5,
-      title: "Emp on Leaves Today",
-      stats: insights?.employeesOnLeave,
-    },
+    { id: 1, title: "Total Employees", stats: insights?.totalEmployees },
+    { id: 2, title: "Job Applications", stats: insights?.jobApplications },
+    { id: 3, title: "Pending Complaints", stats: insights?.totalComplaints },
+    { id: 4, title: "Pending Leaves", stats: insights?.pendingLeaves },
+    { id: 5, title: "Emp on Leaves Today", stats: insights?.employeesOnLeave },
     {
       id: 6,
       title: "AI Sentiment Analysis",

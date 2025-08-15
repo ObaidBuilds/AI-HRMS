@@ -1,15 +1,15 @@
-import BarGraph from "../../components/shared/charts/BarGraph";
-import PieChart from "../../components/shared/charts/Pie";
-import LineChart from "../../components/shared/charts/LineChart";
-import { useSelector } from "react-redux";
 // import { reports } from "../../data";
+import { useSelector } from "react-redux";
+import PieChart from "../../components/shared/charts/Pie";
+import BarGraph from "../../components/shared/charts/BarGraph";
+import LineChart from "../../components/shared/charts/LineChart";
 
 const Report = () => {
   const {
-    leaveRejectionRate,
     leaveApprovalRate,
-    complaintResolutionRate,
+    leaveRejectionRate,
     complaintCloseRate,
+    complaintResolutionRate,
     departmentAttandancePercent,
     overallAttendancePercentage,
   } = useSelector((state) => state.insight.insights);
@@ -73,10 +73,10 @@ const Report = () => {
                   category1: "Resolved",
                   category2: "Closed",
                 }}
+                data2={complaintCloseRate}
+                data1={complaintResolutionRate}
                 label="Complaint Handling Efficiency (%)"
                 title="Employee Complaint Resolution Summary"
-                data1={complaintResolutionRate}
-                data2={complaintCloseRate}
               />
             </div>
           </div>
@@ -98,10 +98,10 @@ const Report = () => {
                   category1: "Approved",
                   category2: "Rejected",
                 }}
-                label="Leave Approval vs Rejection (%)"
-                title="Leave Request Analysis"
                 data1={leaveApprovalRate}
                 data2={leaveRejectionRate}
+                title="Leave Request Analysis"
+                label="Leave Approval vs Rejection (%)"
               />
             </div>
           </div>
@@ -153,8 +153,8 @@ const Report = () => {
           <div className="w-full pt-5 pr-6">
             <LineChart
               label="Perfromance Percentage"
-              title="Monthly Performance Percentage"
               chartData={attendancePercentage}
+              title="Monthly Performance Percentage"
             />
           </div>
         </div>

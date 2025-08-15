@@ -1,9 +1,9 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import SheetModal from "../../components/shared/modals/SheetModal";
 import Modal from "../../components/shared/modals/Modal";
 import Loader from "../../components/shared/loaders/Loader";
+import SheetModal from "../../components/shared/modals/SheetModal";
 import {
   getAttendanceList,
   markAttendance,
@@ -12,18 +12,19 @@ import FetchError from "../../components/shared/error/FetchError";
 
 function Attendance() {
   const dispatch = useDispatch();
+
   const { departments } = useSelector((state) => state.department);
   const { attendanceList, loading, error } = useSelector(
     (state) => state.attendance
   );
 
+  const [showModal, setShowModal] = useState(false);
+  const [attendanceRecord, setAttendanceRecord] = useState([]);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split("T")[0]
   );
-  const [showModal, setShowModal] = useState(false);
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [attendanceRecord, setAttendanceRecord] = useState([]);
 
   const handleModalSubmit = (e) => {
     e.preventDefault();
@@ -161,21 +162,21 @@ function Attendance() {
 
         {showModal && (
           <SheetModal
-            onClose={() => setShowModal(false)}
             departments={departments}
-            setSelectedDate={setSelectedDate}
             selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            onClose={() => setShowModal(false)}
+            handleModalSubmit={handleModalSubmit}
             selectedDepartment={selectedDepartment}
             setSelectedDepartment={setSelectedDepartment}
-            handleModalSubmit={handleModalSubmit}
           />
         )}
 
         {showConfirmModal && (
           <Modal
-            onClose={() => setShowConfirmModal(false)}
             action="submit"
             isConfirm={confirmAttendanceSubmit}
+            onClose={() => setShowConfirmModal(false)}
           />
         )}
       </section>

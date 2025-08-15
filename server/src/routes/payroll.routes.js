@@ -1,10 +1,10 @@
 import express from "express";
 import {
-  createPayroll,
-  getPayrollByEmployee,
-  updatePayroll,
   markAsPaid,
+  createPayroll,
+  updatePayroll,
   getAllPayrolls,
+  getPayrollByEmployee,
   getEmployeePayrollHistory,
 } from "../controllers/payroll.controller.js";
 import { verifyAdminToken } from "../middlewares/index.js";

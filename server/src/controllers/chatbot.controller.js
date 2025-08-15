@@ -1,5 +1,5 @@
-import { getAnswerFromChatbot } from "../predictions/index.js";
 import { catchErrors } from "../utils/index.js";
+import { getAnswerFromChatbot } from "../predictions/index.js";
 
 const answerAdminQuery = catchErrors(async (req, res) => {
   const { prompt } = req.body;

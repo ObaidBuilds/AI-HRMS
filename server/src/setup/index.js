@@ -1,5 +1,5 @@
-import { connectDB, disConnectDB } from "../config/index.js";
 import Employee from "../models/employee.model.js";
+import { connectDB, disConnectDB } from "../config/index.js";
 import { startHrmsApplication } from "../seeders/index.js";
 
 async function setUpHrmsApplication() {

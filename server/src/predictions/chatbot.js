@@ -1,9 +1,9 @@
-import getPredictionFromGeminiAI from "../gemini/index.js";
+import Leave from "../models/leave.model.js";
+import Feedback from "../models/feedback.model.js";
 import Employee from "../models/employee.model.js";
 import Complaint from "../models/complaint.model.js";
-import Leave from "../models/leave.model.js";
 import Performance from "../models/performance.model.js";
-import Feedback from "../models/feedback.model.js";
+import getPredictionFromGeminiAI from "../gemini/index.js";
 
 async function getAnswerFromChatbot(prompt) {
   const [leaves, feedbacks, performances, employees, complaints] =
@@ -82,9 +82,11 @@ async function getAnswerFromChatbot(prompt) {
     ${complaints
       .map(
         (com, index) =>
-          `${index + 1}. **Name:** ${com?.employee?.name} | **Complaint Type:** ${
-            com?.leaveType
-          } | **Status:** ${com?.status}`
+          `${index + 1}. **Name:** ${
+            com?.employee?.name
+          } | **Complaint Type:** ${com?.leaveType} | **Status:** ${
+            com?.status
+          }`
       )
       .join("\n")}
     **All Complaint Types:** Workplace, Payroll, Leave, Harassment, Scheduling, Misconduct  

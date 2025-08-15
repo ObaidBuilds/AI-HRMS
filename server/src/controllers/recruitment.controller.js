@@ -1,5 +1,5 @@
-import Recruitment from "../models/recruitment.model.js";
 import { catchErrors } from "../utils/index.js";
+import Recruitment from "../models/recruitment.model.js";
 import {
   inviteForInterviewMail,
   thankYouForApplying,
@@ -221,11 +221,11 @@ const inviteForInterview = catchErrors(async (req, res) => {
 
 export {
   createJob,
-  createApplicant,
-  updateJobStatus,
   getAllJobs,
   getJobById,
+  updateJobStatus,
+  createApplicant,
   getJobApplications,
-  updateApplicationStatus,
   inviteForInterview,
+  updateApplicationStatus,
 };

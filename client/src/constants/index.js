@@ -234,19 +234,212 @@ const employeeSections = [
   { id: "security", label: "Security", icon: "fas fa-lock" },
 ];
 
+const colors = [
+  { bg: "bg-blue-500", darkBg: "dark:bg-blue-600" },
+  { bg: "bg-purple-500", darkBg: "dark:bg-purple-600" },
+  { bg: "bg-yellow-500", darkBg: "dark:bg-yellow-600" },
+  { bg: "bg-indigo-500", darkBg: "dark:bg-indigo-600" },
+  { bg: "bg-pink-500", darkBg: "dark:bg-pink-600" },
+  { bg: "bg-teal-500", darkBg: "dark:bg-teal-600" },
+  { bg: "bg-red-500", darkBg: "dark:bg-red-600" },
+  { bg: "bg-green-500", darkBg: "dark:bg-green-600" },
+];
+
+const checkAttendanceHead = [
+  "EMP ID",
+  "Name",
+  "Department",
+  "Position",
+  "Date",
+  "Status",
+];
+
+const complaintHead = [
+  "Emp ID",
+  "Name",
+  "Department",
+  "Position",
+  "Complaint Type",
+  "Complaint Details",
+  "Date",
+  "Actions",
+];
+
+const empoyeeHead = [
+  "Employee ID",
+  "Name",
+  "Department",
+  "Position",
+  "Status",
+  "Contact Info",
+  "Actions",
+];
+
+const feedbackHead = [
+  "Emp ID",
+  "Name",
+  "Department",
+  "Position",
+  "AI Review",
+  "Description",
+  "Date",
+  "Rating",
+];
+
+const payrollHead = [
+  "EMP ID",
+  "Name",
+  "Date",
+  "Base Salary",
+  "Allowances",
+  "Detuctions",
+  "Bonuses",
+  "Net Salary",
+  "Payment Status",
+  "Payment Date",
+  "Actions",
+];
+
+const perfromceHead = [
+  "Name",
+  "Position",
+  "Attendance",
+  "Rating",
+  "Feedback",
+  "KPI Score",
+  "Last Updated",
+  "Actions",
+];
+
+const jobApplicationHead = [
+  "Name",
+  "Email",
+  // "Phone",
+  "Resume",
+  "Cover letter",
+  "Status",
+  "Applied At",
+  "Action",
+];
+
+const jobOpeningHead = [
+  "Title",
+  "Position",
+  "Salary",
+  "Type",
+  "Description",
+  "Deadline",
+  "Applicants",
+  "Status",
+  "Action",
+];
+
+const leaveHead = [
+  "Emp ID",
+  "Name",
+  "Department",
+  "Position",
+  "Leave Type",
+  "From Date",
+  "To Date",
+  "Duration",
+  "Actions",
+];
+
+const leaveEmpoyeeHead = [
+  "Emp ID",
+  "Name",
+  "Substitute",
+  "Leave Type",
+  "From",
+  "To",
+  // "Duration",
+  "Action",
+];
+
+const updateHead = [
+  "Type",
+  "Subject",
+  "Description",
+  "Status",
+  "Date",
+  "Remarks",
+];
+
+const complaintTypes = [
+  { value: "", label: "--- Select Complaint Type ---" },
+  { value: "Workplace", label: "Workplace Issue" },
+  { value: "Payroll", label: "Payroll Issue" },
+  { value: "Harassment", label: "Harassment" },
+  { value: "Leave", label: "Leave Dispute" },
+  { value: "Scheduling", label: "Scheduling Issue" },
+  { value: "Misconduct", label: "Employee Misconduct" },
+];
+
+const leaveTypes = [
+  { value: "", label: "--- Select Leave Type ---" },
+  { value: "Sick", label: "Sick Leave" },
+  { value: "Casual", label: "Casual Leave" },
+  { value: "Vacation", label: "Vacation Leave" },
+  { value: "Unpaid", label: "Unpaid Leave" },
+];
+
+const months = [
+  { value: "1", name: "January" },
+  { value: "2", name: "February" },
+  { value: "3", name: "March" },
+  { value: "4", name: "April" },
+  { value: "5", name: "May" },
+  { value: "6", name: "June" },
+  { value: "7", name: "July" },
+  { value: "8", name: "August" },
+  { value: "9", name: "September" },
+  { value: "10", name: "October" },
+  { value: "11", name: "November" },
+  { value: "12", name: "December" },
+];
+
+const jobStatus = [
+  { value: "", label: "--- Select Status ---" },
+  { value: "Applied", label: "Applied" },
+  { value: "Under Review", label: "Under Review" },
+  { value: "Interview", label: "Interview" },
+  { value: "Rejected", label: "Rejected" },
+  { value: "Hired", label: "Hired" },
+];
+
+const statuses = ["Active", "Inactive", "Leave"];
+
 export {
-  sidebarLinks,
-  navbarLinks,
-  complaintButtons,
-  leaveRequestButtons,
-  employeesOnLeaveButtons,
-  feedbackButtons,
-  navLinks,
-  performanceButtons,
-  payrollButtons,
+  colors,
+  months,
   reports,
+  navLinks,
   sections,
+  statuses,
+  jobStatus,
+  leaveHead,
+  leaveTypes,
+  updateHead,
+  payrollHead,
+  empoyeeHead,
+  navbarLinks,
+  sidebarLinks,
+  feedbackHead,
+  perfromceHead,
+  complaintHead,
+  payrollButtons,
+  jobOpeningHead,
+  complaintTypes,
+  feedbackButtons,
+  complaintButtons,
+  leaveEmpoyeeHead,
   employeeSections,
-  recruitmentButtons,
   applicantsButtons,
+  recruitmentButtons,
+  performanceButtons,
+  leaveRequestButtons,
+  jobApplicationHead,
+  checkAttendanceHead,
+  employeesOnLeaveButtons,
 };

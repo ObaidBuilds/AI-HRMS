@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  createLeave,
+  assignSustitute,
   getLeavesByStatus,
   getEmployeesOnLeave,
   respondToLeaveRequest,
-  createLeave,
-  assignSustitute,
 } from "../services/leave.service";
 
 const initialState = {
@@ -31,7 +31,7 @@ const leavesSlice = createSlice({
       })
       .addCase(getLeavesByStatus.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch leaves";
+        state.error = action.payload;
       })
 
       // Handling getEmployeesOnLeave action
@@ -45,8 +45,7 @@ const leavesSlice = createSlice({
       })
       .addCase(getEmployeesOnLeave.rejected, (state, action) => {
         state.loading = false;
-        state.error =
-          action.payload || "Failed to fetch employees on leave today";
+        state.error = action.payload;
       })
 
       // Handling respondToLeaveRequest action
@@ -66,7 +65,7 @@ const leavesSlice = createSlice({
 
       .addCase(respondToLeaveRequest.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to respond to leave request";
+        state.error = action.payload;
       })
 
       // Handling createLeave action
@@ -80,7 +79,7 @@ const leavesSlice = createSlice({
       })
       .addCase(createLeave.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to create leave";
+        state.error = action.payload;
       })
 
       // Handling assignSubstitute action
@@ -102,7 +101,7 @@ const leavesSlice = createSlice({
 
       .addCase(assignSustitute.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to assign substitute";
+        state.error = action.payload;
       });
   },
 });

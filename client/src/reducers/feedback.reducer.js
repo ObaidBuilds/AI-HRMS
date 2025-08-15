@@ -26,7 +26,7 @@ const feedbackSlice = createSlice({
       })
       .addCase(getFeedbacks.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch feedbacks";
+        state.error = action.payload;
       })
 
       // Handling createFeedback action
@@ -39,7 +39,7 @@ const feedbackSlice = createSlice({
       })
       .addCase(createFeedback.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to create feedback";
+        state.error = action.payload;
       });
   },
 });

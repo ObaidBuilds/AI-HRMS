@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  getAllPayrolls,
   markAsPaid,
   updatePayroll,
+  getAllPayrolls,
 } from "../services/payroll.service";
 
 const initialState = {
@@ -30,7 +30,7 @@ const payrollSlice = createSlice({
       })
       .addCase(getAllPayrolls.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch payrolls";
+        state.error = action.payload;
       })
 
       // Handling the markAsPaid action
@@ -51,7 +51,7 @@ const payrollSlice = createSlice({
       })
       .addCase(markAsPaid.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to mark paid payroll";
+        state.error = action.payload;
       })
 
       // Handling the updatePayroll action
@@ -72,7 +72,7 @@ const payrollSlice = createSlice({
       })
       .addCase(updatePayroll.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to update payroll";
+        state.error = action.payload;
       });
   },
 });

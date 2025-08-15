@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { feedbackSchema } from "../../validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
 import { createFeedback } from "../../services/feedback.service";
-import { feedbackSchema } from "../../validations";
 
 const Feedback = () => {
   const dispatch = useDispatch();
+
   const loading = useSelector((state) => state.feedback.loading);
+
   const [rating, setRating] = useState(0);
 
   const {
@@ -47,7 +49,6 @@ const Feedback = () => {
             className="flex flex-col items-center gap-2 pb-8"
             onSubmit={handleSubmit(onSubmit)}
           >
-            {/* Rating Select */}
             <div className="w-[85%] relative">
               <select
                 id="select"
@@ -72,7 +73,6 @@ const Feedback = () => {
               )}
             </div>
 
-            {/* Suggestion Input */}
             <div className="w-[85%]">
               <input
                 type="text"
@@ -91,7 +91,6 @@ const Feedback = () => {
               )}
             </div>
 
-            {/* Feedback Description */}
             <div className="w-[85%]">
               <textarea
                 {...register("description")}
@@ -110,7 +109,6 @@ const Feedback = () => {
               )}
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}

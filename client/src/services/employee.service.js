@@ -1,8 +1,8 @@
+import axios from "axios";
+import useGetToken from "../hooks";
+import toast from "react-hot-toast";
 import axiosInstance from "../axios/axiosInstance";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import toast from "react-hot-toast";
-import useGetToken from "../hooks";
-import axios from "axios";
 
 // Fetch all employees
 export const getAllEmployees = createAsyncThunk(
@@ -22,12 +22,14 @@ export const getAllEmployees = createAsyncThunk(
       const { data } = await axiosInstance.get(`/employees?${queryParams}`);
       return data;
     } catch (error) {
-      return rejectWithValue(error.response?.data.message || error.message);
+      return rejectWithValue(
+        error.response?.data.message || "Failed to fecth employees"
+      );
     }
   }
 );
 
-// Fetch a single employee by ID
+// Fetch employee by ID
 export const getEmployeeById = createAsyncThunk(
   "employee/getEmployeeById",
   async (id, { rejectWithValue }) => {
@@ -35,7 +37,9 @@ export const getEmployeeById = createAsyncThunk(
       const { data } = await axiosInstance.get(`/employees/${id}`);
       return data.employee;
     } catch (error) {
-      return rejectWithValue(error.response?.data.message || error.message);
+      return rejectWithValue(
+        error.response?.data.message || "Failed to fecth employee"
+      );
     }
   }
 );
@@ -51,7 +55,9 @@ export const addEmployee = createAsyncThunk(
       return data.employee;
     } catch (error) {
       toast.error(error.response?.data.message || error.message);
-      return rejectWithValue(error.response?.data.message || error.message);
+      return rejectWithValue(
+        error.response?.data.message || "Failed to create employee"
+      );
     }
   }
 );
@@ -69,7 +75,9 @@ export const bulkUploadEmployees = createAsyncThunk(
       return data.employees;
     } catch (error) {
       toast.error(error.response?.data.message || error.message);
-      return rejectWithValue(error.response?.data.message || error.message);
+      return rejectWithValue(
+        error.response?.data.message || "Failed to bulk upload employees"
+      );
     }
   }
 );
@@ -84,7 +92,9 @@ export const editEmployee = createAsyncThunk(
       return data.employee;
     } catch (error) {
       toast.error(error.response?.data.message || error.message);
-      return rejectWithValue(error.response?.data.message || error.message);
+      return rejectWithValue(
+        error.response?.data.message || "Failed to update employee"
+      );
     }
   }
 );
@@ -99,7 +109,9 @@ export const deleteEmployee = createAsyncThunk(
       return id;
     } catch (error) {
       toast.error(error.response?.data.message || error.message);
-      return rejectWithValue(error.response?.data.message || error.message);
+      return rejectWithValue(
+        error.response?.data.message || "Failed to delete employee"
+      );
     }
   }
 );
@@ -123,7 +135,7 @@ export const updateProfile = async (setProfileLoading, formData) => {
     toast.success(data.message);
     return data.updatedProfile;
   } catch (error) {
-    toast.error(error.response?.data.message || error.message);
+    toast.error(error.response?.data.message || "Failed to update profile");
   } finally {
     setProfileLoading(false);
   }

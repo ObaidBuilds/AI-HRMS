@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,7 +7,6 @@
 }
 
 body {
-  cursor: url("/cursor.png") 10 10, auto;
   overflow-x: hidden;
 }
 

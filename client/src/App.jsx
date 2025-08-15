@@ -15,16 +15,18 @@ import { checkAuthorityValidity } from "./services/authentication.service";
 import ComponentLoader from "./components/shared/loaders/ComponentLoader";
 
 const Career = lazy(() => import("./careers/Career"));
-const ForgetPassword = lazy(() => import("./auth/ForgetPassword"));
-const EmailConfirmation = lazy(() => import("./auth/EmailConfirmation"));
 const ResetPassword = lazy(() => import("./auth/ResetPassword"));
+const ForgetPassword = lazy(() => import("./auth/ForgetPassword"));
 const InvalidResetLink = lazy(() => import("./auth/InvalidResetLink"));
+const EmailConfirmation = lazy(() => import("./auth/EmailConfirmation"));
 
 function HrmsForMetroCashAndCarry() {
   const token = useGetToken();
   const dispatch = useDispatch();
-  const [isValid, setIsValid] = useState(null);
+
   const { user } = useSelector((state) => state.authentication);
+
+  const [isValid, setIsValid] = useState(null);
 
   useEffect(() => {
     const validate = async () => {
@@ -84,8 +86,8 @@ function AuthRouter() {
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/careers" element={<Career />} />
-      <Route path="/forget/password" element={<ForgetPassword />} />
       <Route path="/reset/password" element={<ResetPassword />} />
+      <Route path="/forget/password" element={<ForgetPassword />} />
       <Route path="/email/confirmation" element={<EmailConfirmation />} />
       <Route path="/reset/password/invalid" element={<InvalidResetLink />} />
       <Route path="*" element={<Navigate to={"/"} />} />

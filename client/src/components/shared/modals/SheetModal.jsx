@@ -3,11 +3,11 @@ import React from "react";
 const SheetModal = ({
   onClose,
   departments,
-  selectedDepartment,
-  setSelectedDepartment,
   selectedDate,
   setSelectedDate,
   handleModalSubmit,
+  selectedDepartment,
+  setSelectedDepartment,
 }) => {
   return (
     <div className="fixed inset-0 z-40 bg-gray-800 bg-opacity-50 flex justify-center items-center">
@@ -16,7 +16,6 @@ const SheetModal = ({
         onSubmit={handleModalSubmit}
         className="bg-white text-black w-[90%] sm:max-w-lg p-6 border border-gray-300 rounded-lg shadow-xl space-y-5"
       >
-        {/* Modal Header */}
         <div className="flex justify-between items-center border-b border-gray-200 pb-3">
           <h2 className="font-bold text-gray-600 text-[0.95rem]">
             Department & Date
@@ -62,7 +61,6 @@ const SheetModal = ({
           </div>
         </div>
 
-        {/* Submit Button */}
         <div className="w-full flex justify-end">
           <button
             type="submit"

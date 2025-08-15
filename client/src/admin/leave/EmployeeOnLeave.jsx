@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { getEmployeesOnLeave } from "../../services/leave.service";
-import { useSelector, useDispatch } from "react-redux";
 import { convertDate, formatDate } from "../../utils";
+import { useSelector, useDispatch } from "react-redux";
 import Loader from "../../components/shared/loaders/Loader";
+import FetchError from "../../components/shared/error/FetchError";
+import { getEmployeesOnLeave } from "../../services/leave.service";
 import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import FilterButton from "../../components/shared/buttons/FilterButton";
-import { employeesOnLeaveButtons } from "../../data";
-import FetchError from "../../components/shared/error/FetchError";
+import { employeesOnLeaveButtons, leaveEmpoyeeHead } from "../../constants";
 import SubstituteModal from "../../components/shared/modals/SubstituteModal";
 
 function EmployeeOnLeave() {
@@ -57,16 +57,7 @@ function EmployeeOnLeave() {
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-headLight dark:bg-head text-primary">
-                {[
-                  "Emp ID",
-                  "Name",
-                  "Substitute",
-                  "Leave Type",
-                  "From",
-                  "To",
-                  // "Duration",
-                  "Action",
-                ].map((header, i) => (
+                {leaveEmpoyeeHead.map((header, i) => (
                   <th
                     key={i}
                     className="py-3 px-4 border-b border-gray-500"
@@ -117,9 +108,11 @@ function EmployeeOnLeave() {
                 ))}
             </tbody>
           </table>
+
           {!loading && !error && employeesOnLeaveToday.length === 0 && (
             <NoDataMessage message={`No employees on leave for ${status}.`} />
           )}
+
           {error && <FetchError error={error} />}
         </div>
 

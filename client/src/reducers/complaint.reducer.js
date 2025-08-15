@@ -9,7 +9,7 @@ const initialState = {
   complaints: [],
   loading: false,
   error: null,
-  pagination : null
+  pagination: null,
 };
 
 const complaintsSlice = createSlice({
@@ -30,7 +30,7 @@ const complaintsSlice = createSlice({
       })
       .addCase(getComplaints.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch complaints";
+        state.error = action.payload;
       })
 
       .addCase(respondToComplaintRequest.pending, (state) => {
@@ -49,7 +49,7 @@ const complaintsSlice = createSlice({
 
       .addCase(respondToComplaintRequest.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to respond to the complaint";
+        state.error = action.payload;
       });
 
     // Handle createComplaint action
@@ -64,7 +64,7 @@ const complaintsSlice = createSlice({
       })
       .addCase(createComplaint.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to create complaint";
+        state.error = action.payload;
       });
   },
 });

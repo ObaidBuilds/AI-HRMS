@@ -1,23 +1,24 @@
-import { useEffect, useState } from "react";
-import { formatDate } from "../../utils";
 import { FaStar } from "react-icons/fa";
-import { getFeedbacks } from "../../services/feedback.service";
+import { formatDate } from "../../utils";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/shared/loaders/Loader";
+import { getFeedbacks } from "../../services/feedback.service";
+import { feedbackButtons, feedbackHead } from "../../constants";
+import FetchError from "../../components/shared/error/FetchError";
 import Pagination from "../../components/shared/others/Pagination";
 import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import FilterButton from "../../components/shared/buttons/FilterButton";
-import { feedbackButtons } from "../../data";
-import FetchError from "../../components/shared/error/FetchError";
 
 function Feedback() {
   const dispatch = useDispatch();
+
   const { feedbacks, loading, pagination, error } = useSelector(
     (state) => state.feedback
   );
 
-  const [reviewFilter, setReviewFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [reviewFilter, setReviewFilter] = useState("");
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   useEffect(() => {
@@ -40,6 +41,7 @@ function Feedback() {
           ))}
         </div>
 
+        {/* Feedback Table */}
         <div
           id="overflow"
           className="overflow-x-auto min-h-[74vh] sm:min-h-[80vh]"
@@ -47,20 +49,8 @@ function Feedback() {
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="dark:bg-head bg-headLight text-primary">
-                {[
-                  "Emp ID",
-                  "Name",
-                  "Department",
-                  "Position",
-                  "AI Review",
-                  "Description",
-                  "Date",
-                  "Rating",
-                ].map((header, index) => (
-                  <th
-                    key={index}
-                    className="py-3 px-4 border-b border-secondary"
-                  >
+                {feedbackHead.map((header, i) => (
+                  <th key={i} className="py-3 px-4 border-b border-secondary">
                     {header}
                   </th>
                 ))}
@@ -74,16 +64,16 @@ function Feedback() {
                     className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
                   >
                     <td className="py-3 px-4 border-b border-secondary">
-                      {feedback?.employee?.employeeId || "Null"}
+                      {feedback.employee?.employeeId || "--"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {feedback?.employee?.name || "Null"}
+                      {feedback.employee?.name || "--"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {feedback?.employee?.department?.name || "Null"}
+                      {feedback.employee.department?.name || "--"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {feedback?.employee?.role?.name || "Null"}
+                      {feedback.employee.role?.name || "--"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
                       {feedback.review}
@@ -119,14 +109,15 @@ function Feedback() {
           {!loading && !error && feedbacks.length === 0 && (
             <NoDataMessage message={"No feedback found"} />
           )}
+
           {error && <FetchError error={error} />}
         </div>
-        
+
         {!loading && feedbacks.length > 0 && (
           <Pagination
             currentPage={currentPage}
-            totalPages={pagination?.totalPages}
             onPageChange={setCurrentPage}
+            totalPages={pagination?.totalPages}
           />
         )}
       </section>

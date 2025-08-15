@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { updatePerformance } from "../../../services/performance.service";
 import { useDispatch } from "react-redux";
+import { updatePerformance } from "../../../services/performance.service";
 
 const PerformanceModal = ({ onClose, performance }) => {
   const dispatch = useDispatch();

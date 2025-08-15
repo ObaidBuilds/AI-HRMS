@@ -1,13 +1,13 @@
 import express from "express";
 import {
   markAttendance,
-  getEmployeeAttendance,
   getAttendanceList,
+  markAbsentAtEndOfDay,
+  getEmployeeAttendance,
   markAttendanceByQrCode,
   genrateQrCodeForAttendance,
   getMonthlyAttendancePercentage,
   getEmployeeAttendanceByDepartment,
-  markAbsentAtEndOfDay,
 } from "../controllers/attendance.controller.js";
 import { verifyAdminToken, verifyEmployeeToken } from "../middlewares/index.js";
 

@@ -1,6 +1,6 @@
+import toast from "react-hot-toast";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../axios/axiosInstance";
-import toast from "react-hot-toast";
 
 // Fetch Roles
 export const getRoles = createAsyncThunk(
@@ -10,7 +10,6 @@ export const getRoles = createAsyncThunk(
       const { data } = await axiosInstance.get("/roles");
       return data.role;
     } catch (error) {
-      console.error(error || "Failed to fetch roles");
       return rejectWithValue(
         error.response?.data.message || "Failed to fetch roles"
       );
@@ -27,9 +26,8 @@ export const updateRole = createAsyncThunk(
       toast.success(data.message);
       return data.role;
     } catch (error) {
-      console.error(error || "Failed to fetch role");
       return rejectWithValue(
-        error.response?.data.message || "Failed to fetch role"
+        error.response?.data.message || "Failed to update role"
       );
     }
   }
@@ -44,9 +42,8 @@ export const createRole = createAsyncThunk(
       toast.success(data.message);
       return data.role;
     } catch (error) {
-      console.error(error || "Failed to fetch role");
       return rejectWithValue(
-        error.response?.data.message || "Failed to fetch role"
+        error.response?.data.message || "Failed to create role"
       );
     }
   }

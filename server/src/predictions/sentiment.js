@@ -1,6 +1,6 @@
 import getPredictionFromGeminiAI from "../gemini/index.js";
 
-/** Fallback sentiment analysis based on rating */
+/** Fallback sentiment analysis */
 function fallbackSentimentAnalysis(rating) {
   if (rating >= 4) return "Positive";
   if (rating === 3) return "Neutral";

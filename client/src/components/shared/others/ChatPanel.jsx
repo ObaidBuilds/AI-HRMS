@@ -7,13 +7,13 @@ import { chatWithGemini } from "../../../services/chat.service";
 
 const ChatPanel = () => {
   const { theme } = useTheme();
-  const [loading, setLoading] = useState(false);
 
   const {
     user: { profilePicture, name },
   } = useSelector((state) => state.authentication);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const loadMessages = () => {
     const storedMessages = sessionStorage.getItem("chatMessages");

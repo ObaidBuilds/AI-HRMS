@@ -1,5 +1,5 @@
-import Performance from "../models/performance.model.js";
 import { catchErrors } from "../utils/index.js";
+import Performance from "../models/performance.model.js";
 import { calculateAverageAttendance } from "./attendance.controller.js";
 
 const addPerformanceWithKPI = async (employee) => {
@@ -151,7 +151,7 @@ const deletePerformance = async (employee) => {
 
 export {
   deletePerformance,
-  getPerformanceMetricsById,
   getAllPerformances,
   addPerformanceWithKPI,
+  getPerformanceMetricsById,
 };

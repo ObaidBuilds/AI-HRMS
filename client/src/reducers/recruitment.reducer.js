@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  createJob,
-  createJobApplication,
-  getJobApplicants,
-  getJobOpenings,
-  inviteForInterview,
-  updateApplication,
   updateJob,
+  createJob,
+  getJobOpenings,
+  getJobApplicants,
+  updateApplication,
+  inviteForInterview,
+  createJobApplication,
 } from "../services/recruitment.service";
 
 const initialState = {
@@ -33,7 +33,7 @@ const recruitmentSlice = createSlice({
       })
       .addCase(createJob.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to create job";
+        state.error = action.payload;
       })
 
       // Handling the updateJob action
@@ -54,7 +54,7 @@ const recruitmentSlice = createSlice({
       })
       .addCase(updateJob.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to create job";
+        state.error = action.payload;
       })
 
       // Handling the createJobApplication action
@@ -67,7 +67,7 @@ const recruitmentSlice = createSlice({
       })
       .addCase(createJobApplication.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to create application";
+        state.error = action.payload;
       })
 
       // Handling the getJobOpenings action
@@ -81,7 +81,7 @@ const recruitmentSlice = createSlice({
       })
       .addCase(getJobOpenings.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch job";
+        state.error = action.payload;
       })
 
       // Handling the getJobApplicants action
@@ -95,7 +95,7 @@ const recruitmentSlice = createSlice({
       })
       .addCase(getJobApplicants.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch applications";
+        state.error = action.payload;
       })
 
       // Handling the updateApplication action
@@ -116,7 +116,7 @@ const recruitmentSlice = createSlice({
       })
       .addCase(updateApplication.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to update applications";
+        state.error = action.payload;
       })
 
       // Handling the inviteForInterview action
@@ -137,7 +137,7 @@ const recruitmentSlice = createSlice({
       })
       .addCase(inviteForInterview.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to invite for interview";
+        state.error = action.payload;
       });
   },
 });

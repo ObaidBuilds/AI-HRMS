@@ -7,7 +7,7 @@ const InviteModal = ({ onClose, application, jobId }) => {
 
   const [formData, setFormData] = useState({
     interviewDate: new Date().toISOString().split("T")[0],
-    interviewTime: "10:00" 
+    interviewTime: "10:00",
   });
 
   const handleChange = (e) => {
@@ -18,11 +18,13 @@ const InviteModal = ({ onClose, application, jobId }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(inviteForInterview({
-      jobId: jobId,
-      applicationId: application._id,
-      interviewDetails: formData,
-    }));
+    dispatch(
+      inviteForInterview({
+        jobId: jobId,
+        applicationId: application._id,
+        interviewDetails: formData,
+      })
+    );
 
     onClose();
   };
@@ -34,7 +36,6 @@ const InviteModal = ({ onClose, application, jobId }) => {
         onSubmit={handleSubmit}
         className="bg-white text-black w-[90%] sm:max-w-xl p-6 border border-gray-300 rounded-lg shadow-xl space-y-5"
       >
-        {/* Modal Header */}
         <div className="flex justify-between items-center border-b border-gray-200 pb-3">
           <h2 className="font-bold text-gray-600">Invite For Interview</h2>
           <button
@@ -46,7 +47,6 @@ const InviteModal = ({ onClose, application, jobId }) => {
           </button>
         </div>
 
-        {/* Interview Date */}
         <div className="w-full relative">
           <i className="far fa-calendar-alt text-sm icon absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600"></i>
           <input
@@ -60,7 +60,6 @@ const InviteModal = ({ onClose, application, jobId }) => {
           />
         </div>
 
-        {/* Interview Time */}
         <div className="w-full relative">
           <i className="far fa-clock text-sm icon absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600"></i>
           <input
@@ -73,7 +72,6 @@ const InviteModal = ({ onClose, application, jobId }) => {
           />
         </div>
 
-        {/* Submit Button */}
         <div className="w-full flex justify-end">
           <button
             type="submit"

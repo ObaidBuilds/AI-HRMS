@@ -1,10 +1,10 @@
-import { sidebarLinks } from "../../data";
+import { useTheme } from "../../context";
+import Modal from "../shared/modals/Modal";
+import Loader from "../shared/loaders/Loader";
+import { sidebarLinks } from "../../constants";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Modal from "../shared/modals/Modal";
-import { useTheme } from "../../context";
-import Loader from "../shared/loaders/Loader";
 import SettingModal from "../shared/modals/SettingModal";
 import { logout } from "../../services/authentication.service";
 
@@ -12,6 +12,7 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { theme } = useTheme();
+
   const { loading, user } = useSelector((state) => state.authentication);
 
   const [showSidebar, setShowSidebar] = useState(false);

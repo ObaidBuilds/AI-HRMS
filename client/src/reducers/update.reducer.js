@@ -24,7 +24,7 @@ const updateSlice = createSlice({
       })
       .addCase(getUpdates.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch insights";
+        state.error = action.payload;
       });
   },
 });

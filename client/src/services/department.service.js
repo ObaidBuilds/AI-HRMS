@@ -10,9 +10,6 @@ export const getDepartments = createAsyncThunk(
       const { data } = await axiosInstance.get(`/departments`);
       return data.department;
     } catch (error) {
-      console.error(
-        error.response?.data.message || "Failed to fetch departments"
-      );
       return rejectWithValue(
         error.response?.data.message || "Failed to fetch departments"
       );
@@ -20,7 +17,7 @@ export const getDepartments = createAsyncThunk(
   }
 );
 
-// Fetch Departments
+// Fetch Head
 export const getAllEmployeesForHead = createAsyncThunk(
   "department/getAllEmployeesForHead",
   async (_, { rejectWithValue }) => {
@@ -28,7 +25,6 @@ export const getAllEmployeesForHead = createAsyncThunk(
       const { data } = await axiosInstance.get(`/departments/head`);
       return data.employees;
     } catch (error) {
-      console.error(error || "Failed to fetch heads");
       return rejectWithValue(
         error.response?.data.message || "Failed to fetch heads"
       );
@@ -36,7 +32,7 @@ export const getAllEmployeesForHead = createAsyncThunk(
   }
 );
 
-// Update Departments
+// Update Department
 export const updateDepartment = createAsyncThunk(
   "department/updateDepartment",
   async ({ id, department }, { rejectWithValue }) => {
@@ -48,15 +44,14 @@ export const updateDepartment = createAsyncThunk(
       toast.success(data.message);
       return data.department;
     } catch (error) {
-      console.error(error || "Failed to fetch heads");
       return rejectWithValue(
-        error.response?.data.message || "Failed to fetch heads"
+        error.response?.data.message || "Failed to update department"
       );
     }
   }
 );
 
-// Fetch Departments
+// Create Department
 export const createDepartment = createAsyncThunk(
   "department/createDepartment",
   async (department, { rejectWithValue }) => {
@@ -65,9 +60,8 @@ export const createDepartment = createAsyncThunk(
       toast.success(data.message);
       return data.department;
     } catch (error) {
-      console.error(error || "Failed to fetch heads");
       return rejectWithValue(
-        error.response?.data.message || "Failed to fetch heads"
+        error.response?.data.message || "Failed to create department"
       );
     }
   }

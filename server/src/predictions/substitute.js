@@ -1,5 +1,5 @@
-import getPredictionFromGeminiAI from "../gemini/index.js";
 import Employee from "../models/employee.model.js";
+import getPredictionFromGeminiAI from "../gemini/index.js";
 
 async function getSubstitute({ department, shift }) {
   const shiftMapping = {

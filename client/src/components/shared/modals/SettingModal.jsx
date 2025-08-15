@@ -1,21 +1,22 @@
 import React, { useState } from "react";
-import { useTheme } from "../../../context";
 import { useForm } from "react-hook-form";
-import { sections, employeeSections } from "../../../data";
-import { updatePassword } from "../../../services/authentication.service";
 import { HiOutlineKey } from "react-icons/hi";
-import { HiOutlineLockClosed } from "react-icons/hi";
-import { updatePasswordSchema } from "../../../validations";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useDispatch, useSelector } from "react-redux";
+import { useTheme } from "../../../context";
 import ButtonLoader from "../loaders/ButtonLoader";
+import { HiOutlineLockClosed } from "react-icons/hi";
+import { useDispatch, useSelector } from "react-redux";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { updatePasswordSchema } from "../../../validations";
+import { sections, employeeSections } from "../../../constants";
 import { FiEdit2, FiUser, FiMail, FiUpload } from "react-icons/fi";
 import { updateProfile } from "../../../services/employee.service";
+import { updatePassword } from "../../../services/authentication.service";
 import { updateProfileState } from "../../../reducers/authentication.reducer";
 
 const SettingModal = ({ onClose, location = "admin" }) => {
   const dispatch = useDispatch();
   const { theme, toggleTheme } = useTheme();
+
   const [isHovering, setIsHovering] = useState(false);
   const [activeSection, setActiveSection] = useState("profile");
   const [profileLoading, setProfileLoading] = useState(false);
@@ -43,14 +44,14 @@ const SettingModal = ({ onClose, location = "admin" }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  function onSubmit(credentials) {
+  const onSubmit = (credentials) => {
     dispatch(updatePassword(credentials))
       .unwrap()
       .then(() => reset())
       .catch((error) => {
         console.error("Error in update password:", error);
       });
-  }
+  };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -166,7 +167,7 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                         </div>
                       </div>
                     )}
-                    {/* Old Password Field */}
+
                     <div className="mb-4">
                       <label className="block font-medium text-gray-600 mb-2">
                         Old Password
@@ -189,7 +190,6 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                       )}
                     </div>
 
-                    {/* New Password Field */}
                     <div className="mb-4">
                       <label className="block font-medium text-gray-600 mb-2">
                         New Password
@@ -212,7 +212,6 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                       )}
                     </div>
 
-                    {/* Confirm Password Field */}
                     <div className="mb-4">
                       <label className="block font-medium text-gray-600 mb-2">
                         Confirm Password
@@ -238,7 +237,6 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                       )}
                     </div>
 
-                    {/* Submit Button */}
                     <button
                       disabled={loading}
                       type="submit"
@@ -360,7 +358,6 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                       </div>
                     </div>
 
-                    {/* Submit Button */}
                     <button
                       disabled={profileLoading}
                       onClick={handleProfileSubmit}

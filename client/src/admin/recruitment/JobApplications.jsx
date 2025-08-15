@@ -1,42 +1,43 @@
+import { formatDate } from "../../utils";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/shared/loaders/Loader";
-import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import FetchError from "../../components/shared/error/FetchError";
-import { getJobApplicants } from "../../services/recruitment.service";
-import { useParams } from "react-router-dom";
-import { formatDate } from "../../utils";
-import FilterButton from "../../components/shared/buttons/FilterButton";
-import { applicantsButtons } from "../../data";
-import ApplicationModal from "../../components/shared/modals/ApplicantionModal";
 import InviteModal from "../../components/shared/modals/InviteModal";
+import { getJobApplicants } from "../../services/recruitment.service";
+import { applicantsButtons, jobApplicationHead } from "../../constants";
+import NoDataMessage from "../../components/shared/error/NoDataMessage";
+import FilterButton from "../../components/shared/buttons/FilterButton";
+import ApplicationModal from "../../components/shared/modals/ApplicantionModal";
 
 function JobApplications() {
   const { id } = useParams();
   const dispatch = useDispatch();
+
   const { jobApplications, loading, error } = useSelector(
     (state) => state.recruitment
   );
 
   const [reviewFilter, setReviewFilter] = useState("");
-  const [hoveredIndex, setHoveredIndex] = useState(null);
   const [toggleModal, setToggleModal] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
   const [toggleInviteModal, setToggleInviteModal] = useState(false);
   const [selectedApplication, setSelectedApplication] = useState(null);
 
-  function handleClick(application) {
+  const handleClick = (application) => {
     if (application) {
       setToggleModal(true);
       setSelectedApplication(application);
     }
-  }
+  };
 
-  function handleInvite(application) {
+  const handleInvite = (application) => {
     if (application) {
       setToggleInviteModal(true);
       setSelectedApplication(application);
     }
-  }
+  };
 
   useEffect(() => {
     dispatch(getJobApplicants({ status: reviewFilter, jobId: id }));
@@ -61,20 +62,8 @@ function JobApplications() {
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="dark:bg-head bg-headLight text-primary">
-                {[
-                  "Name",
-                  "Email",
-                  // "Phone",
-                  "Resume",
-                  "Cover letter",
-                  "Status",
-                  "Applied At",
-                  "Action",
-                ].map((header, index) => (
-                  <th
-                    key={index}
-                    className="py-3 px-4 border-b border-secondary"
-                  >
+                {jobApplicationHead.map((header, i) => (
+                  <th key={i} className="py-3 px-4 border-b border-secondary">
                     {header}
                   </th>
                 ))}
@@ -147,8 +136,8 @@ function JobApplications() {
 
                     <td className="pl-5 px-4 text-center border-b border-secondary">
                       <button
-                        onClick={() => handleClick(applicant)}
                         title="Update Status"
+                        onClick={() => handleClick(applicant)}
                       >
                         <i className="fa-solid fa-sliders"></i>
                       </button>
@@ -157,9 +146,9 @@ function JobApplications() {
                         applicant.status !== "Rejected" &&
                         applicant.status !== "Interview" && (
                           <button
+                            title="Invite to Interview"
                             onClick={() => handleInvite(applicant)}
                             className="text-blue-500 hover:text-blue-700 transition-colors ml-3"
-                            title="Invite to Interview"
                           >
                             <i className="fa-solid fa-calendar-plus"></i>
                           </button>
@@ -177,21 +166,21 @@ function JobApplications() {
           {error && <FetchError error={error} />}
         </div>
 
-          {toggleModal && (
-            <ApplicationModal
-              onClose={() => setToggleModal(false)}
-              jobId={id}
-              application={selectedApplication}
-            />
-          )}
+        {toggleModal && (
+          <ApplicationModal
+            onClose={() => setToggleModal(false)}
+            jobId={id}
+            application={selectedApplication}
+          />
+        )}
 
-          {toggleInviteModal && (
-            <InviteModal
-              onClose={() => setToggleInviteModal(false)}
-              jobId={id}
-              application={selectedApplication}
-            />
-          )}
+        {toggleInviteModal && (
+          <InviteModal
+            onClose={() => setToggleInviteModal(false)}
+            jobId={id}
+            application={selectedApplication}
+          />
+        )}
       </section>
     </>
   );

@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useTheme } from "../../../context";
+import { statuses } from "../../../constants";
 
 const FilterBar = ({ isOpen, hideFilterBar, handleApplyFilters }) => {
   const { theme } = useTheme();
+
+  const role = useSelector((state) => state.role.roles);
+  const departments = useSelector((state) => state.department.departments);
 
   const [filters, setFilters] = useState({
     department: "",
@@ -18,10 +22,6 @@ const FilterBar = ({ isOpen, hideFilterBar, handleApplyFilters }) => {
     position: true,
     status: true,
   });
-
-  const departments = useSelector((state) => state.department.departments);
-  const role = useSelector((state) => state.role.roles);
-  const statuses = ["Active", "Inactive", "Leave"];
 
   const handleToggle = (filterName) => {
     setToggleState((prevState) => ({

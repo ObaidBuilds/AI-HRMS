@@ -1,14 +1,15 @@
-import  { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import Error from "../../components/shared/error/Error";
-import { useDispatch, useSelector } from "react-redux";
-import { getEmployeeById } from "../../services/employee.service";
+import { useEffect } from "react";
 import { formatDate } from "../../utils";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Error from "../../components/shared/error/Error";
+import { getEmployeeById } from "../../services/employee.service";
 import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
 
 const ViewEmployee = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+
   const { employee, loading, error } = useSelector((state) => state.employee);
 
   useEffect(() => {
@@ -26,12 +27,12 @@ const ViewEmployee = () => {
         {/* Profile Section */}
         <div className="flex flex-col items-center bg-gray-100 dark:bg-navy p-5 rounded-lg mb-2 shadow">
           <img
-            src={employee?.profilePicture || "https://via.placeholder.com/150"}
-            alt={employee?.name}
+            src={employee?.profilePicture || "/unknown.jpeg"}
+            alt={employee.name}
             className="w-28 h-28 border-4 border-blue-500 rounded-full mb-4"
           />
-          <h2 className="text-xl font-bold">{employee?.name}</h2>
-          <p className="text-gray-500">{employee?.role.name}</p>
+          <h2 className="text-xl font-bold">{employee.name}</h2>
+          <p className="text-gray-500">{employee.role.name}</p>
         </div>
 
         <main className="bg-gray-100 dark:bg-secondary p-4 sm:p-6 rounded-lg space-y-6 text-[0.88rem] shadow">
@@ -42,19 +43,19 @@ const ViewEmployee = () => {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <p>
-                <strong>Email:</strong> {employee?.email}
+                <strong>Email:</strong> {employee.email}
               </p>
               <p>
-                <strong>Phone:</strong> {employee?.phoneNumber}
+                <strong>Phone:</strong> {employee.phoneNumber}
               </p>
               <p>
-                <strong>Gender:</strong> {employee?.gender}
+                <strong>Gender:</strong> {employee.gender}
               </p>
               <p>
-                <strong>Date of Birth:</strong> {formatDate(employee?.dob)}
+                <strong>Date of Birth:</strong> {formatDate(employee.dob)}
               </p>
               <p>
-                <strong>Marital Status:</strong> {employee?.martialStatus}
+                <strong>Marital Status:</strong> {employee.martialStatus}
               </p>
               <p>
                 <strong>Address:</strong>{" "}
@@ -120,15 +121,15 @@ const ViewEmployee = () => {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <p>
-                <strong>Contact Name:</strong>{" "}
+                <strong>Contact Name:</strong>
                 {employee?.emergencyContact?.name}
               </p>
               <p>
-                <strong>Relationship:</strong>{" "}
+                <strong>Relationship:</strong>
                 {employee?.emergencyContact?.relationship}
               </p>
               <p>
-                <strong>Phone Number:</strong>{" "}
+                <strong>Phone Number:</strong>
                 {employee?.emergencyContact?.phoneNumber}
               </p>
             </div>

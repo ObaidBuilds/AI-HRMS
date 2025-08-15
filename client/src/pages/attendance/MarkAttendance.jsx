@@ -1,17 +1,18 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
 import { formatDate } from "../../utils";
+import { useDispatch, useSelector } from "react-redux";
 import {
   generateQRCodeForAttendance,
   markAttendanceUsingQrCode,
 } from "../../services/attendance.service";
-import toast from "react-hot-toast";
 
 const MarkAttendance = () => {
   const dispatch = useDispatch();
+
   const { loading, qrcode } = useSelector((state) => state.attendance);
 
-  function handleQrCodeGeneration() {
+  const handleQrCodeGeneration = () => {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const latitude = position.coords.latitude;
@@ -22,16 +23,16 @@ const MarkAttendance = () => {
         toast.error("Error getting location:", error.message);
       }
     );
-  }
+  };
 
-  function handleMarkAttendanceUsingQr() {
+  const handleMarkAttendanceUsingQr = () => {
     dispatch(
       markAttendanceUsingQrCode({
         dispatch,
         qrcode,
       })
     );
-  }
+  };
 
   return (
     <section className="h-[80vh] sm:h-[90vh]">

@@ -104,7 +104,8 @@ const respondComplaint = catchErrors(async (req, res) => {
   );
 
   if (!complaint) throw new Error("Complaint not found");
-  if (complaint.status.toLowerCase() === "resolved")
+
+  if (complaint.status === "Resolved")
     throw new Error("Complaint already resolved");
 
   complaint.status = status;
@@ -114,11 +115,10 @@ const respondComplaint = catchErrors(async (req, res) => {
   await complaint.save();
 
   await complaintRespond({
-    email: complaint.employee.email,
-    name: complaint.employee.name,
+    status: complaint.status,
     type: complaint.complainType,
-    status:
-      complaint.status.slice(0, 1).toUpperCase() + complaint.status.slice(1),
+    name: complaint.employee.name,
+    email: complaint.employee.email,
   });
 
   myCache.del("insights");

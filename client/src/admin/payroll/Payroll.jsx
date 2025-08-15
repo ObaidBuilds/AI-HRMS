@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Modal from "../../components/shared/modals/Modal";
 import Loader from "../../components/shared/loaders/Loader";
-import Pagination from "../../components/shared/others/Pagination";
-import NoDataMessage from "../../components/shared/error/NoDataMessage";
-import FilterButton from "../../components/shared/buttons/FilterButton";
-import { payrollButtons } from "../../data";
-import { getAllPayrolls, markAsPaid } from "../../services/payroll.service";
 import { formatDate, getMonthAbbreviation } from "../../utils";
 import FetchError from "../../components/shared/error/FetchError";
-import Modal from "../../components/shared/modals/Modal";
+import Pagination from "../../components/shared/others/Pagination";
+import { months, payrollButtons, payrollHead } from "../../constants";
 import PayrollModal from "../../components/shared/modals/PayrollModal";
+import NoDataMessage from "../../components/shared/error/NoDataMessage";
+import FilterButton from "../../components/shared/buttons/FilterButton";
+import { getAllPayrolls, markAsPaid } from "../../services/payroll.service";
 
 function Payroll() {
   const dispatch = useDispatch();
@@ -66,21 +66,15 @@ function Payroll() {
             onChange={(e) => setSelectedMonth(e.target.value)}
             className="hidden w-[200px] bg-transparent sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-sm font-semibold border py-1 px-5 rounded-3xl transition-all ease-in-out duration-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
           >
-            <option value="1">January</option>
-            <option value="2">February</option>
-            <option value="3">March</option>
-            <option value="4">April</option>
-            <option value="5">May</option>
-            <option value="6">June</option>
-            <option value="7">July</option>
-            <option value="8">August</option>
-            <option value="9">September</option>
-            <option value="10">October</option>
-            <option value="11">November</option>
-            <option value="12">December</option>
+            {months.map((month) => (
+              <option key={month.value} value={month.value}>
+                {month.name}
+              </option>
+            ))}
           </select>
         </div>
 
+        {/* Payroll Table */}
         <div
           id="overflow"
           className="overflow-auto min-h-[74vh] sm:min-h-[80vh]"
@@ -88,23 +82,8 @@ function Payroll() {
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-headLight dark:bg-head text-primary">
-                {[
-                  "EMP ID",
-                  "Name",
-                  "Date",
-                  "Base Salary",
-                  "Allowances",
-                  "Detuctions",
-                  "Bonuses",
-                  "Net Salary",
-                  "Payment Status",
-                  "Payment Date",
-                  "Actions",
-                ].map((header, index) => (
-                  <th
-                    key={index}
-                    className="py-3 px-4 border-b border-secondary"
-                  >
+                {payrollHead.map((header, i) => (
+                  <th key={i} className="py-3 px-4 border-b border-secondary">
                     {header}
                   </th>
                 ))}
@@ -118,10 +97,10 @@ function Payroll() {
                     className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
                   >
                     <td className="py-3 px-4 border-b border-secondary">
-                      EMP {payroll?.employee?.employeeId || "Null"}
+                      EMP {payroll.employee?.employeeId || "--"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {payroll?.employee?.name || "Null"}
+                      {payroll.employee?.name || "--"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
                       {getMonthAbbreviation(payroll.month)}, {payroll.year}
@@ -157,24 +136,22 @@ function Payroll() {
                       {formatDate(payroll.paymentDate) || "Pending"}
                     </td>
                     <td className="py-3 justify-center border-b border-secondary flex items-center gap-3">
-                      {/* {!payroll.isPaid && ( */}
-                        <button
-                          onClick={() => {
-                            setSelectedId(payroll._id);
-                            setShowConfirmModal(true);
-                          }}
-                          className="text-blue-500"
-                          title="Salary Paid"
-                        >
-                          <i className="fa-solid fa-circle-check"></i>
-                        </button>
-                      {/* )} */}
                       <button
+                        title="Salary Paid"
+                        onClick={() => {
+                          setSelectedId(payroll._id);
+                          setShowConfirmModal(true);
+                        }}
+                        className="text-blue-500"
+                      >
+                        <i className="fa-solid fa-circle-check"></i>
+                      </button>
+                      <button
+                        title="Edit Payroll"
                         onClick={() => {
                           setSelectedPayroll(payroll);
                           setTogglePayrollModal(true);
                         }}
-                        title="Edit Payroll"
                         className="text-green-500 hover:text-green-400"
                       >
                         <i className="fa-solid fa-edit"></i>
@@ -188,8 +165,10 @@ function Payroll() {
           {!loading && !error && payrolls.length === 0 && (
             <NoDataMessage message={"No payroll found"} />
           )}
+
           {error && <FetchError error={error} />}
         </div>
+
         {!loading && payrolls.length > 0 && (
           <Pagination
             currentPage={currentPage}

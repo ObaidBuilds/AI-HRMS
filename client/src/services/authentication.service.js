@@ -1,5 +1,5 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../axios/axiosInstance";
 
 //  Login

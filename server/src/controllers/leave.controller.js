@@ -1,9 +1,9 @@
 import Leave from "../models/leave.model.js";
+import Payroll from "../models/payroll.model.js";
 import Employee from "../models/employee.model.js";
 import { getSubstitute } from "../predictions/index.js";
 import { catchErrors, formatDate, myCache } from "../utils/index.js";
 import { leaveRespond, notifySubstituteEmployee } from "../templates/index.js";
-import Payroll from "../models/payroll.model.js";
 
 const getLeaves = catchErrors(async (req, res) => {
   const { status = "pending" } = req.query;
@@ -93,6 +93,134 @@ const applyLeave = catchErrors(async (req, res) => {
   });
 });
 
+const rejectLeave = async (leave, remarks) => {
+  leave.status = "Rejected";
+  if (remarks) leave.remarks = remarks;
+  await leave.save();
+
+  await leaveRespond({
+    email: leave.employee.email,
+    name: leave.employee.name,
+    type: leave.leaveType,
+    status: leave.status,
+  });
+
+  return {
+    success: true,
+    message: "Leave rejected successfully",
+    leave,
+  };
+};
+
+const deductFromLeaveBalance = (employee, duration) => {
+  const daysFromBalance = Math.min(employee.leaveBalance, duration);
+  const daysFromSalary = duration - daysFromBalance;
+
+  if (daysFromBalance > 0) {
+    employee.leaveBalance -= daysFromBalance;
+  }
+
+  return { daysFromBalance, daysFromSalary };
+};
+
+const deductFromSalary = async (
+  employeeId,
+  fromDate,
+  days,
+  existingRemarks = ""
+) => {
+  const date = new Date(fromDate);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+
+  const payrollData = await Payroll.findOne({
+    employee: employeeId,
+    year,
+    month,
+  });
+
+  const deductionAmount = 1000 * days;
+  payrollData.deductions += deductionAmount;
+  payrollData.netSalary -= deductionAmount;
+  await payrollData.save();
+
+  return `${existingRemarks}Pay deducted for ${days} days (${deductionAmount.toFixed(
+    2
+  )}).`;
+};
+
+const approveLeave = async (leave, employee) => {
+  leave.status = "Approved";
+
+  if (employee.leaveBalance > 0) {
+    const { daysFromBalance, daysFromSalary } = deductFromLeaveBalance(
+      employee,
+      leave.duration
+    );
+
+    if (daysFromBalance > 0) {
+      leave.remarks = `${daysFromBalance} days deducted from leave balance. `;
+    }
+
+    if (daysFromSalary > 0) {
+      leave.remarks = await deductFromSalary(
+        leave.employee,
+        leave.fromDate,
+        daysFromSalary,
+        leave.remarks
+      );
+    }
+  } else {
+    leave.remarks = await deductFromSalary(
+      leave.employee,
+      leave.fromDate,
+      leave.duration
+    );
+  }
+
+  const substituteData = await getSubstitute({
+    department: employee.department,
+    shift: employee.shift,
+  });
+
+  let subsMsg = "";
+  if (substituteData.availability) {
+    leave.substitute = substituteData.id;
+    subsMsg = "Substitute assigned";
+
+    await notifySubstituteEmployee({
+      name: employee.name,
+      shift: employee.shift,
+      duration: leave.duration,
+      email: substituteData.email,
+      subsName: substituteData.name,
+      toDate: formatDate(leave.toDate),
+      department: employee.department.name,
+      fromDate: formatDate(leave.fromDate),
+    });
+  } else {
+    subsMsg = "Substitute not found";
+  }
+
+  await leave.save();
+  await employee.save();
+
+  await leaveRespond({
+    email: leave.employee.email,
+    name: leave.employee.name,
+    type: leave.leaveType,
+    status: leave.status,
+  });
+
+  myCache.del("insights");
+
+  return {
+    success: true,
+    message: `Leave approved successfully - ${subsMsg}`,
+    leave,
+  };
+};
+
 const respondLeave = catchErrors(async (req, res) => {
   const { id } = req.params;
   const { remarks, status } = req.body;
@@ -100,109 +228,24 @@ const respondLeave = catchErrors(async (req, res) => {
   const leave = await Leave.findById(id).populate("employee", "name email");
 
   if (!leave) throw new Error("Leave not found");
-  if (leave.status.toLowerCase() === "rejected")
-    throw new Error("Leave already rejected");
+
+  if (leave.status === "Rejected") throw new Error("Leave already rejected");
+
   if (!status) throw new Error("Leave status is required");
 
-  if (status.toLowerCase() === "rejected") {
-    leave.status = "Rejected";
-    if (remarks) leave.remarks = remarks;
-    await leave.save();
-    await leaveRespond({
-      email: leave.employee.email,
-      name: leave.employee.name,
-      type: leave.leaveType,
-      status: leave.status.slice(0, 1).toUpperCase() + leave.status.slice(1),
-    });
-    return res.status(200).json({
-      success: true,
-      message: "Leave rejected successfully",
-      leave,
-    });
+  if (status === "Rejected") {
+    const result = await rejectLeave(leave, remarks);
+    return res.status(200).json(result);
   }
 
-  if (status.toLowerCase() === "approved") {
-    leave.status = "Approved";
-
+  if (status === "Approved") {
     const employee = await Employee.findById(leave.employee).populate(
       "department"
     );
-
     if (!employee) throw new Error("Employee not found");
 
-    if (employee.leaveBalance >= leave.duration) {
-      employee.leaveBalance -= leave.duration;
-      leave.remarks = `${leave.duration} days deducted.`;
-    } else {
-      const fromDate = new Date(leave.fromDate);
-
-      const year = fromDate.getFullYear();
-
-      const month = fromDate.getMonth() + 1;
-
-      const payrollData = await Payroll.findOne({
-        employee: leave.employee,
-        year,
-        month,
-      });
-
-      // const dailySalary = payrollData.baseSalary / 30;
-      // const deductionAmount = dailySalary * leave.duration;
-
-      const deductionAmount = 1000 * leave.duration;
-
-      payrollData.deductions += deductionAmount;
-      payrollData.netSalary -= deductionAmount;
-
-      await payrollData.save();
-
-      leave.remarks = `Pay deducted for ${
-        leave.duration
-      } days (${deductionAmount.toFixed(2)}.`;
-    }
-
-    const substituteData = await getSubstitute({
-      department: employee.department,
-      shift: employee.shift,
-    });
-
-    let subsMsg = "";
-
-    if (substituteData.availability) {
-      leave.substitute = substituteData.id;
-      subsMsg = "Substitute assigned";
-
-      await notifySubstituteEmployee({
-        email: substituteData.email,
-        subsName: substituteData.name,
-        name: employee.name,
-        shift: employee.shift,
-        department: employee.department.name,
-        toDate: formatDate(leave.toDate),
-        fromDate: formatDate(leave.fromDate),
-        duration: leave.duration,
-      });
-    } else {
-      subsMsg = "Substitute not found";
-    }
-
-    await leave.save();
-    await employee.save();
-
-    await leaveRespond({
-      email: leave.employee.email,
-      name: leave.employee.name,
-      type: leave.leaveType,
-      status: leave.status.slice(0, 1).toUpperCase() + leave.status.slice(1),
-    });
-
-    myCache.del("insights");
-
-    return res.status(200).json({
-      success: true,
-      message: `Leave approved successfully - ${subsMsg}`,
-      leave,
-    });
+    const result = await approveLeave(leave, employee);
+    return res.status(200).json(result);
   }
 });
 
@@ -248,13 +291,13 @@ const assignSustitute = catchErrors(async (req, res) => {
 
   await notifySubstituteEmployee({
     email: substitute.email,
+    duration: leave.duration,
     subsName: substitute.name,
+    toDate: formatDate(leave.toDate),
     name: updatedLeave.employee.name,
     shift: updatedLeave.employee.shift,
-    department: updatedLeave.employee.department.name,
-    toDate: formatDate(leave.toDate),
     fromDate: formatDate(leave.fromDate),
-    duration: leave.duration,
+    department: updatedLeave.employee.department.name,
   });
 
   myCache.del("insights");

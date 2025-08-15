@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  createDepartment,
-  getAllEmployeesForHead,
   getDepartments,
+  createDepartment,
   updateDepartment,
+  getAllEmployeesForHead,
 } from "../services/department.service";
 
 const initialState = {
@@ -30,7 +30,7 @@ const departmentSlice = createSlice({
       })
       .addCase(getDepartments.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch departments";
+        state.error = action.payload;
       })
 
       // Handling the getAllEmployeesForHead action
@@ -44,7 +44,7 @@ const departmentSlice = createSlice({
       })
       .addCase(getAllEmployeesForHead.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch heads";
+        state.error = action.payload;
       })
 
       // Handling the updateDepartment action
@@ -53,19 +53,19 @@ const departmentSlice = createSlice({
         state.error = null;
       })
       .addCase(updateDepartment.fulfilled, (state, action) => {
-        const updatedDepartments = [...state.departments]
+        const updatedDepartments = [...state.departments];
         const findIndex = updatedDepartments.findIndex(
           (department) => department._id === action.payload._id
         );
-        if(findIndex !== -1){
-          updatedDepartments[findIndex] = action.payload
-          state.departments = updatedDepartments
+        if (findIndex !== -1) {
+          updatedDepartments[findIndex] = action.payload;
+          state.departments = updatedDepartments;
         }
         state.loading = false;
       })
       .addCase(updateDepartment.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch heads";
+        state.error = action.payload;
       })
 
       // Handling the createDepartment action
@@ -79,7 +79,7 @@ const departmentSlice = createSlice({
       })
       .addCase(createDepartment.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch heads";
+        state.error = action.payload;
       });
   },
 });

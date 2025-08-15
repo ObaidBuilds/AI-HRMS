@@ -24,7 +24,7 @@ const roleSlice = createSlice({
       })
       .addCase(getRoles.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch roles";
+        state.error = action.payload;
       })
 
       // Handling the updateDepartment action
@@ -34,7 +34,7 @@ const roleSlice = createSlice({
       })
       .addCase(updateRole.fulfilled, (state, action) => {
         const updatedRoles = [...state.roles];
-        console.log(action.payload)
+        console.log(action.payload);
         const findIndex = updatedRoles.findIndex(
           (role) => role._id === action.payload._id
         );
@@ -46,7 +46,7 @@ const roleSlice = createSlice({
       })
       .addCase(updateRole.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch heads";
+        state.error = action.payload;
       })
 
       // Handling the createRole action
@@ -60,7 +60,7 @@ const roleSlice = createSlice({
       })
       .addCase(createRole.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch heads";
+        state.error = action.payload;
       });
   },
 });

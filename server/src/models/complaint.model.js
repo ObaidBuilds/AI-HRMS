@@ -10,9 +10,9 @@ const complaintSchema = new mongoose.Schema(
       type: String,
       required: true,
       enum: [
+        "Leave",
         "Workplace",
         "Payroll",
-        "Leave",
         "Harassment",
         "Scheduling",
         "Misconduct",
@@ -32,6 +32,7 @@ const complaintSchema = new mongoose.Schema(
     status: {
       type: String,
       default: "Pending",
+      enum: ["Resolved", "Closed"],
     },
     assignComplaint: {
       type: mongoose.Schema.Types.ObjectId,

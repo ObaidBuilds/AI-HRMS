@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import ButtonLoader from "../loaders/ButtonLoader";
 import { createJobApplication } from "../../../services/recruitment.service";
 
@@ -39,7 +39,6 @@ const JobApplicationModal = ({ jobId, setJobId, loading }) => {
       <div id="overflow" className="w-[90%] sm:max-w-xl">
         <div id="modal" className="bg-white rounded-lg overflow-hidden">
           <form onSubmit={handleSubmit(onSubmit)} className="p-8 space-y-4">
-            {/* Modal Header */}
             <div className="flex justify-between items-center border-b border-gray-200 pb-3">
               <h2 className="font-bold text-gray-600">Job Application</h2>
               <button
@@ -51,9 +50,7 @@ const JobApplicationModal = ({ jobId, setJobId, loading }) => {
               </button>
             </div>
 
-            {/* Grid Row 1 */}
             <div className="grid grid-cols-1 gap-4">
-              {/* Name */}
               <div className="space-y-1">
                 <div className="relative">
                   <input
@@ -77,7 +74,6 @@ const JobApplicationModal = ({ jobId, setJobId, loading }) => {
                 )}
               </div>
 
-              {/* Email */}
               <div className="space-y-1">
                 <div className="relative">
                   <input
@@ -106,9 +102,7 @@ const JobApplicationModal = ({ jobId, setJobId, loading }) => {
               </div>
             </div>
 
-            {/* Grid Row 2 */}
             <div className="grid grid-cols-1 gap-4">
-              {/* Phone */}
               <div className="space-y-1">
                 <div className="relative">
                   <input
@@ -136,7 +130,6 @@ const JobApplicationModal = ({ jobId, setJobId, loading }) => {
                 )}
               </div>
 
-              {/* Resume Upload */}
               <div className="space-y-1">
                 <div className="relative">
                   <input
@@ -161,7 +154,6 @@ const JobApplicationModal = ({ jobId, setJobId, loading }) => {
               </div>
             </div>
 
-            {/* Cover Letter */}
             <div className="space-y-1">
               <textarea
                 id="coverLetter"
@@ -183,7 +175,6 @@ const JobApplicationModal = ({ jobId, setJobId, loading }) => {
               )}
             </div>
 
-            {/* Submit Button */}
             <div className="pt-2">
               <button
                 type="submit"

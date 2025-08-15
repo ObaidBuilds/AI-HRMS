@@ -2,11 +2,11 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 import * as bcrypt from "bcrypt";
 import { catchErrors } from "../utils/index.js";
 import Employee from "../models/employee.model.js";
 import { passwordRecovery, resetPasswordSuccess } from "../templates/index.js";
-import mongoose from "mongoose";
 
 const login = catchErrors(async (req, res) => {
   const { employeeId, password, authority, remember } = req.body;
@@ -220,9 +220,9 @@ const validateAuthority = catchErrors(async (req, res) => {
 export {
   login,
   logout,
+  resetPassword,
   updatePassword,
   forgetPassword,
-  resetPassword,
   validateAuthority,
   checkResetPasswordValidity,
 };

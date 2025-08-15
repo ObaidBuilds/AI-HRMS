@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllEmployeesForHead } from "../../../services/department.service";
 import { assignSustitute } from "../../../services/leave.service";
+import { getAllEmployeesForHead } from "../../../services/department.service";
 
 const SubstituteModal = ({ onClose, leaveId }) => {
   const dispatch = useDispatch();
@@ -28,7 +28,6 @@ const SubstituteModal = ({ onClose, leaveId }) => {
         onSubmit={handleSubmit}
         className="bg-white text-black w-[90%] sm:max-w-xl p-6 border border-gray-300 rounded-lg shadow-xl space-y-5"
       >
-        {/* Modal Header */}
         <div className="flex justify-between items-center border-b border-gray-200 pb-3">
           <h2 className="font-bold text-gray-600">Assign Substitute</h2>
           <button
@@ -40,7 +39,6 @@ const SubstituteModal = ({ onClose, leaveId }) => {
           </button>
         </div>
 
-        {/* Head Dropdown */}
         <div className="w-full relative">
           <i className="fa fa-building-columns text-sm icon absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600"></i>
           <select
@@ -61,7 +59,6 @@ const SubstituteModal = ({ onClose, leaveId }) => {
           </select>
         </div>
 
-        {/* Submit Button */}
         <div className="w-full flex justify-end">
           <button
             type="submit"

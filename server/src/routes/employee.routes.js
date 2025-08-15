@@ -1,11 +1,11 @@
 import express from "express";
 import {
+  updateProfile,
+  updateEmployee,
+  deleteEmployee,
   createEmployee,
   getAllEmployees,
   getEmployeeById,
-  deleteEmployee,
-  updateEmployee,
-  updateProfile,
   bulkCreateEmployees,
 } from "../controllers/employee.controller.js";
 import { upload } from "../config/index.js";

@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  updateApplication,
-  updateJob,
-} from "../../../services/recruitment.service";
+import { jobStatus } from "../../../constants";
+import { updateApplication } from "../../../services/recruitment.service";
 
 const ApplicationModal = ({ onClose, application, jobId }) => {
   const dispatch = useDispatch();
@@ -42,7 +40,6 @@ const ApplicationModal = ({ onClose, application, jobId }) => {
         onSubmit={handleSubmit}
         className="bg-white text-black w-[90%] sm:max-w-xl p-6 border border-gray-300 rounded-lg shadow-xl space-y-5"
       >
-        {/* Modal Header */}
         <div className="flex justify-between items-center border-b border-gray-200 pb-3">
           <h2 className="font-bold text-gray-600">Update Application</h2>
           <button
@@ -54,7 +51,6 @@ const ApplicationModal = ({ onClose, application, jobId }) => {
           </button>
         </div>
 
-        {/* Status Dropdown */}
         <div className="w-full relative">
           <i className="fa fa-building-columns text-sm icon absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600"></i>
           <select
@@ -65,16 +61,14 @@ const ApplicationModal = ({ onClose, application, jobId }) => {
             className="w-full bg-[#EFEFEF] text-center text-sm p-[17px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] pl-12"
             required
           >
-            <option value="">--- Select Status ---</option>
-            <option value="Applied">Applied</option>
-            <option value="Under Review">Under Review</option>
-            <option value="Interview">Interview</option>
-            <option value="Rejected">Rejected</option>
-            <option value="Hired">Hired</option>
+            {jobStatus.map((status) => (
+              <option key={status.value} value={status.value}>
+                {status.label}
+              </option>
+            ))}
           </select>
         </div>
 
-        {/* Submit Button */}
         <div className="w-full flex justify-end">
           <button
             type="submit"

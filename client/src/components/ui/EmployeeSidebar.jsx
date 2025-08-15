@@ -1,25 +1,26 @@
-import { navbarLinks } from "../../data";
-import { logout } from "../../services/authentication.service";
+import { useTheme } from "../../context";
+import Modal from "../shared/modals/Modal";
+import Loader from "../shared/loaders/Loader";
+import { navbarLinks } from "../../constants";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Modal from "../shared/modals/Modal";
-import { useTheme } from "../../context";
-import Loader from "../shared/loaders/Loader";
 import SettingModal from "../shared/modals/SettingModal";
 import ProfileModal from "../shared/modals/ProfileModal";
 import { updateProfile } from "../../services/employee.service";
+import { logout } from "../../services/authentication.service";
 
 const EmployeeSidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { theme } = useTheme();
+
   const { loading, user } = useSelector((state) => state.authentication);
 
   const [file, setFile] = useState(null);
-  const [showSidebar, setShowSidebar] = useState(false);
   const [showButton, setShowButton] = useState(false);
   const [toggleModal, setToggleModal] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
   const [profileLoading, setProfileLoading] = useState(false);
   const [openSubMenuIndex, setOpenSubMenuIndex] = useState(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);

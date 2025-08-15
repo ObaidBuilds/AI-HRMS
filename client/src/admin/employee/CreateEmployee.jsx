@@ -8,6 +8,7 @@ import ButtonLoader from "../../components/shared/loaders/ButtonLoader";
 
 const AddEmployee = () => {
   const dispatch = useDispatch();
+
   const roles = useSelector((state) => state.role.roles);
   const departments = useSelector((state) => state.department.departments);
   const { loading, formLoading } = useSelector((state) => state.employee);

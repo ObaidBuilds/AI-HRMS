@@ -1,12 +1,15 @@
+import { formatDate } from "../../utils";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getEmployeeAttendance } from "../../services/attendance.service";
-import { formatDate } from "../../utils";
 import Loader from "../../components/shared/loaders/Loader";
+import { getEmployeeAttendance } from "../../services/attendance.service";
+import { checkAttendanceHead } from "../../constants";
 
 const Attendance = () => {
   const dispatch = useDispatch();
+
   const attendance = useSelector((state) => state.attendance);
+
   const [filteredAttendance, setFilteredAttendance] = useState([]);
 
   const { attendancePercentage } = useSelector(
@@ -26,6 +29,7 @@ const Attendance = () => {
   return (
     <>
       {attendance.loading && <Loader />}
+
       <section className="bg-gray-100 border border-gray-300 dark:border-primary dark:bg-secondary p-3 h-[90vh] sm:min-h-screen rounded-lg shadow">
         <div className="flex justify-center items-center text-white">
           <div className="w-full rounded-2xl p-2">
@@ -36,16 +40,9 @@ const Attendance = () => {
               <table className="min-w-full table-auto text-sm text-white whitespace-nowrap">
                 <thead>
                   <tr className="bg-headLight sticky top-0 text-gray-200 text-left">
-                    {[
-                      "Emp ID",
-                      "Name",
-                      "Department",
-                      "Position",
-                      "Date",
-                      "Status",
-                    ].map((header, index) => (
+                    {checkAttendanceHead.map((header, i) => (
                       <th
-                        key={index}
+                        key={i}
                         className="py-3 px-4 border-b border-gray-500"
                       >
                         {header}
@@ -95,6 +92,7 @@ const Attendance = () => {
                     ))}
                 </tbody>
               </table>
+
               {!attendance.loading && filteredAttendance.length === 0 && (
                 <div className="w-full h-[60vh] flex flex-col justify-center items-center">
                   <i className="fas fa-ban text-2xl text-gray-400"></i>

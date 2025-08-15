@@ -72,10 +72,7 @@ const createFeedback = catchErrors(async (req, res) => {
   if (!employee || !description || !rating)
     throw new Error("All fields are required");
 
-  const review = await getSentimentAnalysis(
-    description,
-    parseInt(rating)
-  );
+  const review = await getSentimentAnalysis(description, parseInt(rating));
 
   const feedback = await Feedback.create({
     employee,

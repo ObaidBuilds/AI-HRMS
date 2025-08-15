@@ -1,6 +1,6 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axiosInstance from "../axios/axiosInstance";
 import toast from "react-hot-toast";
+import axiosInstance from "../axios/axiosInstance";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
 // Fetch Complaints
 export const getComplaints = createAsyncThunk(
@@ -34,7 +34,7 @@ export const createComplaint = createAsyncThunk(
     } catch (error) {
       toast.error(error.response?.data.message);
       return rejectWithValue(
-        error.response?.data.message || "Failed to respond to complaint request"
+        error.response?.data.message || "Failed to create complaint"
       );
     }
   }
@@ -54,7 +54,7 @@ export const respondToComplaintRequest = createAsyncThunk(
     } catch (error) {
       toast.error(error.response?.data.message);
       return rejectWithValue(
-        error.response?.data.message || "Failed to respond to complaint request"
+        error.response?.data.message || "Failed to respond to complaint"
       );
     }
   }

@@ -1,14 +1,15 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { authenticationSchema } from "../validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../services/authentication.service";
-import { authenticationSchema } from "../validations";
-import { Link } from "react-router-dom";
 import ButtonLoader from "../components/shared/loaders/ButtonLoader";
 
 const Login = () => {
   const dispatch = useDispatch();
+
   const { loading, loginError } = useSelector((state) => state.authentication);
 
   const [showPassword, setShowPassword] = useState(false);

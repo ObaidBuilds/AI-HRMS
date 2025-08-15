@@ -1,6 +1,6 @@
-import Employee from "../models/employee.model.js";
-import Payroll from "../models/payroll.model.js";
 import { catchErrors } from "../utils/index.js";
+import Payroll from "../models/payroll.model.js";
+import Employee from "../models/employee.model.js";
 
 const createPayroll = catchErrors(async (req, res) => {
   const { employee, month, year, baseSalary, allowances, deductions, bonuses } =

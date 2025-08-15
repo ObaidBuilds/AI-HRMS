@@ -1,5 +1,5 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../axios/axiosInstance";
 
 // Fetch Leaves by Status
@@ -86,7 +86,7 @@ export const assignSustitute = createAsyncThunk(
     } catch (error) {
       toast.success(error.response?.data.message);
       return rejectWithValue(
-        error.response?.data.message || "Failed to respond to leave request"
+        error.response?.data.message || "Failed to assign sustitute"
       );
     }
   }

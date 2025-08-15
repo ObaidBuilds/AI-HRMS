@@ -47,7 +47,6 @@ const JobOpeningModal = ({ onClose, job }) => {
           </button>
         </div>
 
-        {/* Status Dropdown */}
         <div className="w-full relative">
           <i className="fa fa-building-columns text-sm icon absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600"></i>
           <select
@@ -65,10 +64,9 @@ const JobOpeningModal = ({ onClose, job }) => {
           </select>
         </div>
 
-        {/* Deadline */}
         <div className="w-full">
           <input
-          type="date"
+            type="date"
             name="deadline"
             value={formData.deadline}
             onChange={handleChange}
@@ -76,7 +74,6 @@ const JobOpeningModal = ({ onClose, job }) => {
           />
         </div>
 
-        {/* Submit Button */}
         <div className="w-full flex justify-end">
           <button
             type="submit"

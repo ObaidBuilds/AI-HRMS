@@ -1,35 +1,36 @@
+import { formatDate } from "../../utils";
 import { useEffect, useState } from "react";
-import PerfromanceModal from "../../components/shared/modals/PerformanceModal";
+import { performanceButtons, perfromceHead } from "../../constants";
 import { useSelector, useDispatch } from "react-redux";
-import Pagination from "../../components/shared/others/Pagination";
 import Loader from "../../components/shared/loaders/Loader";
+import FetchError from "../../components/shared/error/FetchError";
+import Pagination from "../../components/shared/others/Pagination";
+import { getPerformances } from "../../services/performance.service";
 import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import FilterButton from "../../components/shared/buttons/FilterButton";
-import { performanceButtons } from "../../data";
-import { getPerformances } from "../../services/performance.service";
-import { formatDate } from "../../utils";
-import FetchError from "../../components/shared/error/FetchError";
+import PerfromanceModal from "../../components/shared/modals/PerformanceModal";
 
 function Perfromance() {
   const dispatch = useDispatch();
+
   const { performances, pagination, loading, error } = useSelector(
     (state) => state.performance
   );
 
   const [status, setStatus] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [hoveredIndex, setHoveredIndex] = useState(null);
   const [toggleModal, setToggleModal] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
   const [selectedPerformance, setSelectedPerformance] = useState(null);
 
   const goToPage = (page) => setCurrentPage(page);
 
-  function handleClick(performance) {
+  const handleClick = (performance) => {
     if (performance) {
       setToggleModal(true);
       setSelectedPerformance(performance);
     }
-  }
+  };
 
   useEffect(() => {
     dispatch(getPerformances({ status, currentPage }));
@@ -59,16 +60,7 @@ function Perfromance() {
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="dark:bg-head bg-headLight text-primary">
-                {[
-                  "Name",
-                  "Position",
-                  "Attendance",
-                  "Rating",
-                  "Feedback",
-                  "KPI Score",
-                  "Last Updated",
-                  "Actions",
-                ].map((header, i) => (
+                {perfromceHead.map((header, i) => (
                   <th key={i} className="py-3 px-4 border-b border-secondary">
                     {header}
                   </th>
@@ -76,8 +68,7 @@ function Perfromance() {
               </tr>
             </thead>
             <tbody className="text-[0.83rem]">
-              {performance &&
-                performances.length > 0 &&
+              {performances.length > 0 &&
                 performances.map((performance, index) => (
                   <tr
                     key={performance._id}
@@ -145,9 +136,9 @@ function Perfromance() {
                     </td>
                     <td className="py-[14.5px] pl-8 border-b border-secondary flex items-center gap-3">
                       <button
+                        title="Add Feedback"
                         onClick={() => handleClick(performance)}
                         className="text-blue-500 hover:text-blue-400"
-                        title="Add Feedback"
                       >
                         <i className="fa-solid fa-comment-dots"></i>
                       </button>
@@ -160,9 +151,10 @@ function Perfromance() {
           {!loading && !error && performances.length === 0 && (
             <NoDataMessage message={`No performance metrics found`} />
           )}
+
           {error && <FetchError error={error} />}
         </div>
-        {/* Pagination */}
+
         {performances.length > 0 && (
           <Pagination
             currentPage={currentPage}

@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
+import { formatDate } from "../../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { getUpdates } from "../../services/insights.service";
 import Loader from "../../components/shared/loaders/Loader";
-import { formatDate } from "../../utils";
+import { updateHead } from "../../constants";
 
 function Update() {
   const dispatch = useDispatch();
+
   const { updates, loading } = useSelector((state) => state.update);
 
   useEffect(() => {
@@ -15,6 +17,7 @@ function Update() {
   return (
     <>
       {loading && <Loader />}
+
       <section className="bg-gray-100 border border-gray-300 dark:border-primary dark:bg-secondary p-3 h-[90vh] sm:min-h-screen rounded-lg shadow">
         <div className="flex justify-center items-center text-white">
           <div className="w-full rounded-2xl p-2">
@@ -25,16 +28,9 @@ function Update() {
               <table className="min-w-full table-auto text-sm text-white whitespace-nowrap">
                 <thead>
                   <tr className="text-gray-200 bg-headLight">
-                    {[
-                      "Type",
-                      "Subject",
-                      "Description",
-                      "Status",
-                      "Date",
-                      "Remarks",
-                    ].map((header, index) => (
+                    {updateHead.map((header, i) => (
                       <th
-                        key={index}
+                        key={i}
                         className="py-3 px-4 border-b border-gray-500"
                       >
                         {header}
@@ -43,7 +39,7 @@ function Update() {
                   </tr>
                 </thead>
                 <tbody>
-                  {updates &&
+                  {updates.length > 0 &&
                     updates.map((update, index) => (
                       <tr
                         key={index}

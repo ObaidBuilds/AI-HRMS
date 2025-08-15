@@ -1,6 +1,6 @@
+import path from "path";
 import multer from "multer";
 import mongoose from "mongoose";
-import path from "path";
 import cloudinary from "cloudinary";
 import { v4 as uuidv4 } from "uuid";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
@@ -37,7 +37,7 @@ const createImageStorage = () => {
       folder: "uploads",
       allowed_formats: ["jpg", "png", "jpeg", "svg"],
       transformation: [{ quality: "auto", fetch_format: "auto" }],
-      max_file_size: 2097152, // 2MB
+      max_file_size: 2097152,
     },
   });
 };
@@ -48,7 +48,7 @@ const createResumeStorage = () => {
     params: (req, file) => {
       const allowedExtensions = [".pdf", ".doc", ".docx"];
       const fileExt = path.extname(file.originalname).toLowerCase();
-      
+
       if (!allowedExtensions.includes(fileExt)) {
         throw new Error("Invalid file type");
       }
@@ -64,12 +64,14 @@ const createResumeStorage = () => {
         allowed_formats: ["pdf", "doc", "docx"],
         public_id: `${sanitizedName}_${uuidv4().substring(0, 6)}`,
         format: fileExt.substring(1),
-        transformation: [{
-          flags: "attachment:inline",
-          quality: "auto:best",
-          fetch_format: "auto",
-        }],
-        max_file_size: 5242880, 
+        transformation: [
+          {
+            flags: "attachment:inline",
+            quality: "auto:best",
+            fetch_format: "auto",
+          },
+        ],
+        max_file_size: 5242880,
         invalidate: true,
         type: "authenticated",
         disposition: "inline",
@@ -83,7 +85,7 @@ const initializeUploader = (storage, options = {}) => {
   return multer({
     storage,
     limits: {
-      fileSize: options.maxFileSize || 5242880, 
+      fileSize: options.maxFileSize || 5242880,
       files: options.maxFiles || 1,
     },
     fileFilter: (req, file, cb) => {
@@ -96,7 +98,14 @@ const initializeUploader = (storage, options = {}) => {
       if (allowedMimeTypes.includes(file.mimetype)) {
         cb(null, true);
       } else {
-        cb(new Error(`Invalid file type. Only ${options.allowedTypes || 'specified'} files are allowed`), false);
+        cb(
+          new Error(
+            `Invalid file type. Only ${
+              options.allowedTypes || "specified"
+            } files are allowed`
+          ),
+          false
+        );
       }
     },
   });
@@ -109,7 +118,7 @@ const resumeStorage = createResumeStorage();
 const upload = initializeUploader(imageStorage, {
   allowedMimeTypes: ["image/jpeg", "image/png", "image/svg+xml"],
   maxFileSize: 2097152,
-  allowedTypes: "JPG, PNG, JPEG, SVG"
+  allowedTypes: "JPG, PNG, JPEG, SVG",
 });
 
 const uploadResume = initializeUploader(resumeStorage, {
@@ -118,8 +127,8 @@ const uploadResume = initializeUploader(resumeStorage, {
     "application/msword",
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   ],
-  maxFileSize: 5242880, 
-  allowedTypes: "PDF, DOC, DOCX"
+  maxFileSize: 5242880,
+  allowedTypes: "PDF, DOC, DOCX",
 });
 
 export { connectDB, disConnectDB, upload, uploadResume };

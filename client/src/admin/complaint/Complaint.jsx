@@ -1,22 +1,23 @@
+import { formatDate } from "../../utils";
 import { useEffect, useState } from "react";
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { complaintButtons, complaintHead } from "../../constants";
 import { useSelector, useDispatch } from "react-redux";
+import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import Pagination from "../../components/shared/others/Pagination";
 import {
   getComplaints,
   respondToComplaintRequest,
 } from "../../services/complaint.service";
-import Loader from "../../components/shared/loaders/Loader";
-import { formatDate } from "../../utils";
 import Modal from "../../components/shared/modals/Modal";
+import Loader from "../../components/shared/loaders/Loader";
+import FetchError from "../../components/shared/error/FetchError";
 import RemarksModal from "../../components/shared/modals/RemarksModal";
 import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import FilterButton from "../../components/shared/buttons/FilterButton";
-import { complaintButtons } from "../../data";
-import FetchError from "../../components/shared/error/FetchError";
 
 function Complaint() {
   const dispatch = useDispatch();
+
   const { complaints, loading, pagination, error } = useSelector(
     (state) => state.complaint
   );
@@ -45,7 +46,7 @@ function Complaint() {
       dispatch(
         respondToComplaintRequest({
           complaintID: selectedComplaint,
-          status: "resolved",
+          status: "Resolved",
           remarks: "Approved",
         })
       );
@@ -58,7 +59,7 @@ function Complaint() {
       dispatch(
         respondToComplaintRequest({
           complaintID: selectedComplaint,
-          status: "closed",
+          status: "Closed",
           remarks,
         })
       );
@@ -67,7 +68,7 @@ function Complaint() {
   };
 
   useEffect(() => {
-    dispatch(getComplaints({ status: status.toLowerCase(), currentPage }));
+    dispatch(getComplaints({ status: status, currentPage }));
   }, [status, currentPage]);
 
   return (
@@ -94,16 +95,7 @@ function Complaint() {
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="dark:bg-head bg-headLight text-primary">
-                {[
-                  "Emp ID",
-                  "Name",
-                  "Department",
-                  "Position",
-                  "Complaint Type",
-                  "Complaint Details",
-                  "Date",
-                  "Actions",
-                ].map((header, i) => {
+                {complaintHead.map((header, i) => {
                   if (header === "Actions" && status !== "Pending") return null;
                   return (
                     <th key={i} className="py-3 px-4 border-b border-secondary">
@@ -121,16 +113,16 @@ function Complaint() {
                     className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
                   >
                     <td className="py-3 px-4 border-b border-secondary">
-                      {complaint?.employee?.employeeId}
+                      {complaint.employee.employeeId}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {complaint?.employee?.name}
+                      {complaint.employee.name}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {complaint?.employee?.department?.name || "Null"}
+                      {complaint.employee.department.name || "--"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {complaint?.employee.role?.name || "Null"}
+                      {complaint.employee.role.name || "--"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
                       {complaint.complainType} Issue
@@ -154,16 +146,16 @@ function Complaint() {
                     {status === "Pending" && (
                       <td className="py-3 px-4 border-b border-secondary flex justify-center space-x-2 items-center">
                         <FaCheckCircle
-                          className="text-green-500 cursor-pointer hover:text-green-600"
                           size={20}
-                          onClick={() => handleApprove(complaint._id)}
                           title="Approve"
+                          className="text-green-500 cursor-pointer hover:text-green-600"
+                          onClick={() => handleApprove(complaint._id)}
                         />
                         <FaTimesCircle
-                          className="text-red-500 cursor-pointer hover:text-red-600"
                           size={20}
-                          onClick={() => handleReject(complaint._id)}
                           title="Reject"
+                          className="text-red-500 cursor-pointer hover:text-red-600"
+                          onClick={() => handleReject(complaint._id)}
                         />
                       </td>
                     )}
@@ -177,22 +169,23 @@ function Complaint() {
               message={`  No ${status.toLowerCase()} complaint found`}
             />
           )}
+
           {error && <FetchError error={error} />}
         </div>
 
         {complaints.length > 0 && (
           <Pagination
+            onPageChange={goToPage}
             currentPage={currentPage}
             totalPages={pagination?.totalPages}
-            onPageChange={goToPage}
           />
         )}
 
         {toggleModal && (
           <Modal
             action={"approve"}
-            onClose={() => setToggleModal(false)}
             isConfirm={isConfirm}
+            onClose={() => setToggleModal(false)}
           />
         )}
 

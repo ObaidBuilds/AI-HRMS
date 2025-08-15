@@ -365,11 +365,11 @@ const updateProfile = catchErrors(async (req, res) => {
     message: "Profile picture updated",
     updatedProfile: {
       _id: employee._id,
-      employeeId: employee.employeeId,
       name: employee.name,
       email: employee.email,
-      department: employee.department,
       position: employee.role,
+      department: employee.department,
+      employeeId: employee.employeeId,
       profilePicture: employee.profilePicture,
       authority: employee.admin ? "admin" : "employee",
     },

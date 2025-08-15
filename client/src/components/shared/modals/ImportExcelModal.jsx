@@ -4,11 +4,12 @@ import { useDispatch } from "react-redux";
 import { bulkUploadEmployees } from "../../../services/employee.service";
 
 const ImportExcelModal = ({ onClose }) => {
+  const dispatch = useDispatch();
+
   const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
-  const [isDragging, setIsDragging] = useState(false);
   const [jsonData, setJsonData] = useState(null);
-  const dispatch = useDispatch();
+  const [isDragging, setIsDragging] = useState(false);
 
   const handleFileUpload = (file) => {
     if (!file || !file.name.endsWith(".xlsx")) {

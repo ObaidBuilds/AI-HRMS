@@ -1,9 +1,9 @@
 import React from "react";
-import LineChart from "../../components/shared/charts/LineChart";
 import { useSelector } from "react-redux";
+import InfoCard from "../../components/shared/cards/InfoCard";
+import LineChart from "../../components/shared/charts/LineChart";
 import FetchError from "../../components/shared/error/FetchError";
 import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
-import InfoCard from "../../components/shared/cards/InfoCard";
 
 const Home = () => {
   const { employeeInsights, loading, error } = useSelector(
@@ -15,26 +15,11 @@ const Home = () => {
   });
 
   const employeeInsightsData = [
-    {
-      title: "Leaves Taken",
-      stats: employeeInsights?.leavesTaken,
-    },
-    {
-      title: "Leave Balance",
-      stats: employeeInsights?.leaveBalance,
-    },
-    {
-      title: "Feedbacks",
-      stats: employeeInsights?.feedbackSubmitted,
-    },
-    {
-      title: "Complaintss",
-      stats: employeeInsights?.complaintResolved,
-    },
-    {
-      title: "KPI Score",
-      stats: `${employeeInsights?.kpiScore}%`,
-    },
+    { title: "Leaves Taken", stats: employeeInsights?.leavesTaken },
+    { title: "Leave Balance", stats: employeeInsights?.leaveBalance },
+    { title: "Feedbacks", stats: employeeInsights?.feedbackSubmitted },
+    { title: "Complaintss", stats: employeeInsights?.complaintResolved },
+    { title: "KPI Score", stats: `${employeeInsights?.kpiScore}%` },
     {
       title: "Attendance",
       stats: `${employeeInsights?.attendancePercentage}%`,
@@ -63,8 +48,8 @@ const Home = () => {
           <div className="w-full pt-5 pr-6">
             <LineChart
               label="Attendance Percentage"
-              title="Monthly Attendance Percentage"
               chartData={attendanceByMonth}
+              title="Monthly Attendance Percentage"
             />
           </div>
         </div>

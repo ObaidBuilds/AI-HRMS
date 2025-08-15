@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { checkAttendanceHead } from "../../constants";
 import { useDispatch, useSelector } from "react-redux";
-import SheetModal from "../../components/shared/modals/SheetModal";
 import Loader from "../../components/shared/loaders/Loader";
-import { getEmployeeAttendanceByDepartment } from "../../services/attendance.service";
 import FetchError from "../../components/shared/error/FetchError";
+import SheetModal from "../../components/shared/modals/SheetModal";
+import { getEmployeeAttendanceByDepartment } from "../../services/attendance.service";
 
 function CheckAttendance() {
   const dispatch = useDispatch();
@@ -13,11 +14,11 @@ function CheckAttendance() {
     (state) => state.attendance
   );
 
+  const [showModal, setShowModal] = useState(false);
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split("T")[0]
   );
-  const [showModal, setShowModal] = useState(false);
 
   const handleModalSubmit = (e) => {
     e.preventDefault();
@@ -38,13 +39,11 @@ function CheckAttendance() {
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-headLight dark:bg-head text-primary">
-                {["EMP ID", "Name", "Department", "Position", "Status"].map(
-                  (header, i) => (
-                    <th key={i} className="py-3 px-4 border-b border-secondary">
-                      {header}
-                    </th>
-                  )
-                )}
+                {checkAttendanceHead.map((header, i) => (
+                  <th key={i} className="py-3 px-4 border-b border-secondary">
+                    {header}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
@@ -104,13 +103,13 @@ function CheckAttendance() {
 
         {showModal && (
           <SheetModal
-            onClose={() => setShowModal(false)}
             departments={departments}
-            setSelectedDate={setSelectedDate}
             selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            onClose={() => setShowModal(false)}
+            handleModalSubmit={handleModalSubmit}
             selectedDepartment={selectedDepartment}
             setSelectedDepartment={setSelectedDepartment}
-            handleModalSubmit={handleModalSubmit}
           />
         )}
       </section>

@@ -1,30 +1,31 @@
+import { Link } from "react-router-dom";
+import { formatDate } from "../../utils";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/shared/loaders/Loader";
-import NoDataMessage from "../../components/shared/error/NoDataMessage";
-import FilterButton from "../../components/shared/buttons/FilterButton";
-import { recruitmentButtons } from "../../data";
 import FetchError from "../../components/shared/error/FetchError";
 import { getJobOpenings } from "../../services/recruitment.service";
-import { formatDate } from "../../utils";
-import { Link } from "react-router-dom";
+import { jobOpeningHead, recruitmentButtons } from "../../constants";
+import NoDataMessage from "../../components/shared/error/NoDataMessage";
+import FilterButton from "../../components/shared/buttons/FilterButton";
 import JobOpeningModal from "../../components/shared/modals/JobOpeningModal";
 
 function JobOpenings() {
   const dispatch = useDispatch();
+
   const { jobs, loading, error } = useSelector((state) => state.recruitment);
 
   const [reviewFilter, setReviewFilter] = useState("");
-  const [hoveredIndex, setHoveredIndex] = useState(null);
   const [toggleModal, setToggleModal] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
   const [setSelectedJob, setsetSelectedJob] = useState(null);
 
-  function handleClick(job) {
+  const handleClick = (job) => {
     if (job) {
       setToggleModal(true);
       setsetSelectedJob(job);
     }
-  }
+  };
 
   useEffect(() => {
     dispatch(getJobOpenings({ status: reviewFilter, deadline: "" }));
@@ -50,21 +51,8 @@ function JobOpenings() {
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="dark:bg-head bg-headLight text-primary">
-                {[
-                  "Title",
-                  "Position",
-                  "Salary",
-                  "Type",
-                  "Description",
-                  "Deadline",
-                  "Applicants",
-                  "Status",
-                  "Action",
-                ].map((header, index) => (
-                  <th
-                    key={index}
-                    className="py-3 px-4 border-b border-secondary"
-                  >
+                {jobOpeningHead.map((header, i) => (
+                  <th key={i} className="py-3 px-4 border-b border-secondary">
                     {header}
                   </th>
                 ))}
@@ -146,7 +134,8 @@ function JobOpenings() {
                     <td className="pl-7 px-4 border-b border-secondary">
                       <button
                         title="Update Job"
-                      onClick={() => handleClick(job)}>
+                        onClick={() => handleClick(job)}
+                      >
                         <i className="fa-solid fa-sliders"></i>
                       </button>
                     </td>
@@ -158,6 +147,7 @@ function JobOpenings() {
           {!loading && !error && jobs.length === 0 && (
             <NoDataMessage message={"No Job opening found"} />
           )}
+
           {error && <FetchError error={error} />}
         </div>
 

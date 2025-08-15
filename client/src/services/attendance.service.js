@@ -1,6 +1,6 @@
+import toast from "react-hot-toast";
 import axiosInstance from "../axios/axiosInstance";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import toast from "react-hot-toast";
 import { removeQr } from "../reducers/attendance.reducer";
 
 // Get attendance list
@@ -16,9 +16,7 @@ export const getAttendanceList = createAsyncThunk(
       const { data } = await axiosInstance.get(`/attendance/?${queryParams}`);
       return data.employees;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data.message ||  error.message
-      );
+      return rejectWithValue(error.response?.data.message || error.message);
     }
   }
 );
@@ -38,9 +36,7 @@ export const getEmployeeAttendanceByDepartment = createAsyncThunk(
       );
       return data.attendanceRecord;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data.message ||  error.message
-      );
+      return rejectWithValue(error.response?.data.message || error.message);
     }
   }
 );
@@ -56,9 +52,7 @@ export const markAttendance = createAsyncThunk(
       toast.success(data.message);
     } catch (error) {
       toast.error(error.response?.data.message || "An error occurred.");
-      return rejectWithValue(
-        error.response?.data.message ||  error.message
-      );
+      return rejectWithValue(error.response?.data.message || error.message);
     }
   }
 );
@@ -72,9 +66,7 @@ export const getEmployeeAttendance = createAsyncThunk(
       return data.attendance;
     } catch (error) {
       console.log(error.response?.data.message || "An error occurred.");
-      return rejectWithValue(
-        error.response?.data.message ||  error.message
-      );
+      return rejectWithValue(error.response?.data.message || error.message);
     }
   }
 );
@@ -91,14 +83,12 @@ export const generateQRCodeForAttendance = createAsyncThunk(
       return data.qrcode;
     } catch (error) {
       toast.error(error.response?.data.message || "An error occurred.");
-      return rejectWithValue(
-        error.response?.data.message ||  error.message
-      );
+      return rejectWithValue(error.response?.data.message || error.message);
     }
   }
 );
 
-// Mark Attendance
+// Mark Attendance using QR
 export const markAttendanceUsingQrCode = createAsyncThunk(
   "attendance/markAttendanceUsingQrCode",
   async ({ dispatch, qrcode }, { rejectWithValue }) => {
@@ -112,9 +102,7 @@ export const markAttendanceUsingQrCode = createAsyncThunk(
       toast.success(data.message);
     } catch (error) {
       toast.error(error.response?.data.message || "An error occurred.");
-      return rejectWithValue(
-        error.response?.data.message ||  error.message
-      );
+      return rejectWithValue(error.response?.data.message || error.message);
     }
   }
 );

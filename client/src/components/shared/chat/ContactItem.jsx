@@ -1,5 +1,3 @@
-
-
 const ContactItem = ({ employee, isSelected, onSelect }) => (
   <div
     className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all ${

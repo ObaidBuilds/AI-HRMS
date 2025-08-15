@@ -1,15 +1,17 @@
+import Footer from "../components/ui/Footer";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/shared/loaders/Loader";
 import JobCard from "../components/shared/cards/JobCard";
 import { getJobOpenings } from "../services/recruitment.service";
 import JobApplicationModal from "../components/shared/modals/JobApplicationModal";
-import Footer from "../components/ui/Footer";
 
 const Career = () => {
   const dispatch = useDispatch();
-  const [jobId, setJobId] = useState(null);
+
   const { jobs, loading } = useSelector((state) => state.recruitment);
+
+  const [jobId, setJobId] = useState(null);
 
   useEffect(() => {
     dispatch(

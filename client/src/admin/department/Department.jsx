@@ -1,32 +1,22 @@
 import React, { useState } from "react";
-import { FaUsers, FaUserTie } from "react-icons/fa";
+import { colors } from "../../constants";
 import { useSelector } from "react-redux";
+import { FaUsers, FaUserTie } from "react-icons/fa";
 import Loader from "../../components/shared/loaders/Loader";
-import DepartmentModal from "../../components/shared/modals/DepartmentModal";
 import RoleModal from "../../components/shared/modals/RoleModal";
 import FetchError from "../../components/shared/error/FetchError";
-
-const colors = [
-  { bg: "bg-blue-500", darkBg: "dark:bg-blue-600" },
-  { bg: "bg-purple-500", darkBg: "dark:bg-purple-600" },
-  { bg: "bg-yellow-500", darkBg: "dark:bg-yellow-600" },
-  { bg: "bg-indigo-500", darkBg: "dark:bg-indigo-600" },
-  { bg: "bg-pink-500", darkBg: "dark:bg-pink-600" },
-  { bg: "bg-teal-500", darkBg: "dark:bg-teal-600" },
-  { bg: "bg-red-500", darkBg: "dark:bg-red-600" },
-  { bg: "bg-green-500", darkBg: "dark:bg-green-600" },
-];
+import DepartmentModal from "../../components/shared/modals/DepartmentModal";
 
 const Department = () => {
+  const { roles, loading: roleLoading } = useSelector((state) => state.role);
   const { departments, loading, error } = useSelector(
     (state) => state.department
   );
-  const { roles, loading: roleLoading } = useSelector((state) => state.role);
 
-  const [departmentModal, setDepartmentModal] = useState(null);
-  const [roleModal, setRoleModal] = useState(null);
   const [action, setAction] = useState("");
+  const [roleModal, setRoleModal] = useState(null);
   const [roleAction, setRoleAction] = useState("");
+  const [departmentModal, setDepartmentModal] = useState(null);
 
   if (error) return <FetchError error={error} />;
 
@@ -74,7 +64,7 @@ const Department = () => {
                   </h1>
 
                   <p className="text-sm font-medium text-gray-500 dark:text-gray-300 mb-2">
-                    {department?.description?.slice(0, 65) + "..."}
+                    {department.description.slice(0, 65) + "..."}
                   </p>
 
                   <p className="text-[0.85rem] text-gray-600 dark:text-gray-400 rounded-lg ">
@@ -132,7 +122,7 @@ const Department = () => {
                   </p>
 
                   <p className="text-[0.85rem] text-gray-600 dark:text-gray-400 rounded-lg">
-                    Total Employees : 20
+                    Total Employees : --
                   </p>
                 </div>
               </div>
@@ -148,10 +138,11 @@ const Department = () => {
           onClose={() => setDepartmentModal(null)}
         />
       )}
+
       {roleModal && (
         <RoleModal
-          action={roleAction}
           role={roleModal}
+          action={roleAction}
           onClose={() => setRoleModal(null)}
         />
       )}

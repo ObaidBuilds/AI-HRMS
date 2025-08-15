@@ -1,6 +1,6 @@
+import toast from "react-hot-toast";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../axios/axiosInstance";
-import toast from "react-hot-toast";
 
 // Fetch Payroll
 export const getAllPayrolls = createAsyncThunk(
@@ -16,7 +16,6 @@ export const getAllPayrolls = createAsyncThunk(
       const { data } = await axiosInstance.get(`/payrolls?${queryParams}`);
       return data;
     } catch (error) {
-      console.error(error || "Failed to fetch payroll");
       return rejectWithValue(
         error.response?.data.message || "Failed to fetch payroll"
       );

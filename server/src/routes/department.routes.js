@@ -3,10 +3,10 @@ import {
   createDepartment,
   getAllDepartments,
   getDepartmentById,
-  getDepartmentEmployees,
   deleteDepartment,
   updateDepartment,
   getAllEmployeesForHead,
+  getDepartmentEmployees,
 } from "../controllers/department.controller.js";
 import { verifyAdminToken } from "../middlewares/index.js";
 

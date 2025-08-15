@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { downloadXls } from "../../utils";
-import { useEffect, useState, useCallback } from "react";
+import { empoyeeHead } from "../../constants";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState, useCallback } from "react";
 import Error from "../../components/shared/error/Error";
 import Modal from "../../components/shared/modals/Modal";
 import Loader from "../../components/shared/loaders/Loader";
@@ -11,12 +12,13 @@ import {
   deleteEmployee,
   getAllEmployees,
 } from "../../services/employee.service";
+import FetchError from "../../components/shared/error/FetchError";
 import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import ImportExcelModal from "../../components/shared/modals/ImportExcelModal";
-import FetchError from "../../components/shared/error/FetchError";
 
 function Employee() {
   const dispatch = useDispatch();
+
   const { employees, pagination, loading, error } = useSelector(
     (state) => state.employee
   );
@@ -175,6 +177,7 @@ function Employee() {
           </div>
         </div>
 
+        {/* Employee Table */}
         <div
           id="overflow"
           className="overflow-x-auto min-h-[74vh] sm:min-h-[80vh]"
@@ -182,15 +185,7 @@ function Employee() {
           <table className="min-w-full text-left table-auto border-collapse text-[0.83rem] whitespace-nowrap">
             <thead>
               <tr className="bg-headLight dark:bg-head text-primary">
-                {[
-                  "Employee ID",
-                  "Name",
-                  "Department",
-                  "Position",
-                  "Status",
-                  "Contact Info",
-                  "Actions",
-                ].map((header) => (
+                {empoyeeHead.map((header) => (
                   <th
                     key={header}
                     className="py-3 px-4 border-b border-secondary"
@@ -217,10 +212,10 @@ function Employee() {
                       {employee.name}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {employee.department?.name || "Null"}
+                      {employee.department?.name || "--"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {employee.role?.name || "Null"}
+                      {employee.role?.name || "--"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
                       {employee.status}
@@ -265,9 +260,11 @@ function Employee() {
                 ))}
             </tbody>
           </table>
+
           {!loading && !error && employees.length === 0 && (
             <NoDataMessage message={"No employee found"} />
           )}
+
           {error && <FetchError error={error} />}
         </div>
 

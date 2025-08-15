@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
-import ButtonLoader from "../../components/shared/loaders/ButtonLoader";
 import { useDispatch, useSelector } from "react-redux";
 import { createJob } from "../../services/recruitment.service";
+import ButtonLoader from "../../components/shared/loaders/ButtonLoader";
 
 const PostJob = () => {
   const {
@@ -12,6 +12,7 @@ const PostJob = () => {
   } = useForm();
 
   const dispatch = useDispatch();
+
   const roles = useSelector((state) => state.role.roles);
   const { loading } = useSelector((state) => state.recruitment);
   const departments = useSelector((state) => state.department.departments);
@@ -26,14 +27,11 @@ const PostJob = () => {
       <div id="overflow" className="w-[97%] sm:max-w-xl">
         <div id="modal" className="bg-white rounded-lg overflow-hidden">
           <form onSubmit={handleSubmit(onSubmit)} className="p-8 space-y-4">
-            {/* Modal Header */}
             <div className="flex justify-between items-center border-b border-gray-200 pb-3">
               <h2 className="font-bold text-gray-600">Post New Job Opening</h2>
             </div>
 
-            {/* Grid Row 1 */}
             <div className="grid grid-cols-1 gap-4">
-              {/* Job Title */}
               <div className="space-y-1">
                 <div className="relative">
                   <input
@@ -57,7 +55,6 @@ const PostJob = () => {
                 )}
               </div>
 
-              {/* Application Deadline */}
               <div className="space-y-1">
                 <div className="relative">
                   <input
@@ -82,9 +79,7 @@ const PostJob = () => {
               </div>
             </div>
 
-            {/* Grid Row 2 */}
             <div className="grid grid-cols-1 gap-4">
-              {/* Department */}
               <div className="space-y-1">
                 <div className="relative">
                   <select
@@ -113,7 +108,6 @@ const PostJob = () => {
                 )}
               </div>
 
-              {/* Role */}
               <div className="space-y-1">
                 <div className="relative">
                   <select
@@ -141,9 +135,7 @@ const PostJob = () => {
               </div>
             </div>
 
-            {/* Grid Row 3 */}
             <div className="grid grid-cols-1 gap-4">
-              {/* Job Type */}
               <div className="space-y-1">
                 <div className="relative">
                   <select
@@ -168,7 +160,6 @@ const PostJob = () => {
                 )}
               </div>
 
-              {/* Location */}
               <div className="space-y-1">
                 <div className="relative">
                   <input
@@ -193,7 +184,6 @@ const PostJob = () => {
               </div>
             </div>
 
-            {/* Grid Row 4 - Salary */}
             <div className="grid grid-cols-1 gap-4">
               <div className="space-y-1">
                 <div className="relative">
@@ -225,7 +215,6 @@ const PostJob = () => {
               </div>
             </div>
 
-            {/* Job Description */}
             <div className="space-y-1">
               <textarea
                 id="description"
@@ -247,7 +236,6 @@ const PostJob = () => {
               )}
             </div>
 
-            {/* Submit Button */}
             <div className="pt-2">
               <button
                 type="submit"

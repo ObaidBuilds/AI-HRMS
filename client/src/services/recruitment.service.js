@@ -1,8 +1,8 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axiosInstance from "../axios/axiosInstance";
-import toast from "react-hot-toast";
 import axios from "axios";
 import useGetToken from "../hooks";
+import toast from "react-hot-toast";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axiosInstance from "../axios/axiosInstance";
 
 // Create Job
 export const createJob = createAsyncThunk(
@@ -15,7 +15,7 @@ export const createJob = createAsyncThunk(
     } catch (error) {
       toast.error(error.response.data.message);
       return rejectWithValue(
-        error.response?.data.message || "Failed to create jobs"
+        error.response?.data.message || "Failed to create job"
       );
     }
   }
@@ -35,7 +35,7 @@ export const updateJob = createAsyncThunk(
     } catch (error) {
       toast.error(error.response.data.message);
       return rejectWithValue(
-        error.response?.data.message || "Failed to create jobs"
+        error.response?.data.message || "Failed to update jobs"
       );
     }
   }
@@ -63,7 +63,7 @@ export const createJobApplication = createAsyncThunk(
     } catch (error) {
       toast.error(error.response.data.message);
       return rejectWithValue(
-        error.response?.data.message || "Failed to create jobs"
+        error.response?.data.message || "Failed to create application"
       );
     }
   }
@@ -83,7 +83,7 @@ export const updateApplication = createAsyncThunk(
     } catch (error) {
       toast.error(error.response.data.message);
       return rejectWithValue(
-        error.response?.data.message || "Failed to create jobs"
+        error.response?.data.message || "Failed to update application"
       );
     }
   }
@@ -103,7 +103,7 @@ export const getJobOpenings = createAsyncThunk(
       return data.jobs;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data.message || "Failed to fetch jobs"
+        error.response?.data.message || "Failed to fetch job openings"
       );
     }
   }
@@ -124,7 +124,7 @@ export const getJobApplicants = createAsyncThunk(
       return data.applicants;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data.message || "Failed to fetch jobs"
+        error.response?.data.message || "Failed to fetch applicntst"
       );
     }
   }
@@ -137,14 +137,14 @@ export const inviteForInterview = createAsyncThunk(
     try {
       const { data } = await axiosInstance.post(
         `/recruitment/${jobId}/applicants/${applicationId}/invite`,
-         interviewDetails 
+        interviewDetails
       );
       toast.success(data.message);
       return data.applicant;
     } catch (error) {
       toast.error(error.response.data.message);
       return rejectWithValue(
-        error.response?.data.message || "Failed to create jobs"
+        error.response?.data.message || "Failed to invite for interview"
       );
     }
   }

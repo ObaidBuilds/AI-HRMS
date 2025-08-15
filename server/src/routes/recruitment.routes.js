@@ -3,14 +3,14 @@ import {
   createJob,
   getAllJobs,
   getJobById,
-  updateJobStatus,
   createApplicant,
+  updateJobStatus,
   getJobApplications,
-  updateApplicationStatus,
   inviteForInterview,
+  updateApplicationStatus,
 } from "../controllers/recruitment.controller.js";
 import { verifyAdminToken } from "../middlewares/index.js";
-import {  uploadResume } from "../config/index.js";
+import { uploadResume } from "../config/index.js";
 
 const router = express.Router();
 
