@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { formatDate } from "../../utils";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +29,10 @@ const Attendance = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Attendance - Metro HR</title>
+      </Helmet>
+
       {attendance.loading && <Loader />}
 
       <section className="bg-gray-100 border border-gray-300 dark:border-primary dark:bg-secondary p-3 h-[90vh] sm:min-h-screen rounded-lg shadow">

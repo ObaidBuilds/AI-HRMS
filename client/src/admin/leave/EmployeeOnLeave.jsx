@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { useEffect, useState } from "react";
 import { convertDate, formatDate } from "../../utils";
 import { useSelector, useDispatch } from "react-redux";
@@ -37,6 +38,10 @@ function EmployeeOnLeave() {
 
   return (
     <>
+      <Helmet>
+        <title>{status} Leaves - Metro HR</title>
+      </Helmet>
+
       {loading && <Loader />}
 
       <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen shadow">

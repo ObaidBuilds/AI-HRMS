@@ -1,4 +1,4 @@
-import React from "react";
+import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
 import InfoCard from "../../components/shared/cards/InfoCard";
 import LineChart from "../../components/shared/charts/LineChart";
@@ -30,31 +30,37 @@ const Home = () => {
   if (loading || !employeeInsights) return <ComponentLoader />;
 
   return (
-    <section className="px-1 sm:px-0 bg-gray-200">
-      <div className="w-full flex flex-wrap gap-2 dark:bg-secondary rounded-lg">
-        {employeeInsightsData.map((report, index) => (
-          <InfoCard detail={report} key={index} />
-        ))}
-      </div>
+    <>
+      <Helmet>
+        <title>Dashbbard - Metro HR</title>
+      </Helmet>
 
-      <div className="flex gap-2 sm:gap-1 justify-between md:flex-row flex-col h-auto md:h-[400px] mt-2">
-        <div
-          id="overflow"
-          className="w-full block h-full rounded-lg  dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary p-4 overflow-auto"
-        >
-          <h3 className="text-[0.93rem] font-semibold mb-4 border-b dark:border-gray-600 pb-2">
-            Overall Attendance Overview
-          </h3>
-          <div className="w-full pt-5 pr-6">
-            <LineChart
-              label="Attendance Percentage"
-              chartData={attendanceByMonth}
-              title="Monthly Attendance Percentage"
-            />
+      <section className="px-1 sm:px-0 bg-gray-200">
+        <div className="w-full flex flex-wrap gap-2 dark:bg-secondary rounded-lg">
+          {employeeInsightsData.map((report, index) => (
+            <InfoCard detail={report} key={index} />
+          ))}
+        </div>
+
+        <div className="flex gap-2 sm:gap-1 justify-between md:flex-row flex-col h-auto md:h-[400px] mt-2">
+          <div
+            id="overflow"
+            className="w-full block h-full rounded-lg  dark:text-gray-200 text-gray-700 bg-gray-100 dark:bg-secondary border border-gray-300 dark:border-primary p-4 overflow-auto"
+          >
+            <h3 className="text-[0.93rem] font-semibold mb-4 border-b dark:border-gray-600 pb-2">
+              Overall Attendance Overview
+            </h3>
+            <div className="w-full pt-5 pr-6">
+              <LineChart
+                label="Attendance Percentage"
+                chartData={attendanceByMonth}
+                title="Monthly Attendance Percentage"
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

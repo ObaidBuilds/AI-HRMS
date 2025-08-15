@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { formatDate } from "../../utils";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -60,6 +61,10 @@ function LeaveRequest() {
 
   return (
     <>
+      <Helmet>
+        <title>{status} Leave Requests - Metro HR</title>
+      </Helmet>
+
       {loading && <Loader />}
 
       <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg sm:min-h-screen shadow">

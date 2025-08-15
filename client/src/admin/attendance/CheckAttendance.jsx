@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 import { checkAttendanceHead } from "../../constants";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/shared/loaders/Loader";
@@ -32,6 +33,10 @@ function CheckAttendance() {
 
   return (
     <>
+      <Helmet>
+        <title>Check Attendance - Metro HR</title>
+      </Helmet>
+
       {loading && <Loader />}
 
       <section className="bg-gray-100 border border-gray-300 dark:border-primary dark:bg-secondary p-3 min-h-screen rounded-lg shadow">

@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { formatDate } from "../../utils";
 import { useEffect, useState } from "react";
 import { complaintButtons, complaintHead } from "../../constants";
@@ -68,11 +69,15 @@ function Complaint() {
   };
 
   useEffect(() => {
-    dispatch(getComplaints({ status: status, currentPage }));
+    dispatch(getComplaints({ status: status.toLowerCase(), currentPage }));
   }, [status, currentPage]);
 
   return (
     <>
+      <Helmet>
+        <title>{status} Complaints - Metro HR</title>
+      </Helmet>
+
       {loading && <Loader />}
 
       <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg sm:min-h-screen shadow">

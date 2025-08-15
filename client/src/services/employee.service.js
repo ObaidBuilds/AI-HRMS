@@ -12,11 +12,11 @@ export const getAllEmployees = createAsyncThunk(
 
     try {
       const queryParams = new URLSearchParams({
-        page: currentPage,
         name: name || "",
-        department: department || "",
         role: role || "",
         status: status || "",
+        department: department || "",
+        page: currentPage,
       }).toString();
 
       const { data } = await axiosInstance.get(`/employees?${queryParams}`);

@@ -1,14 +1,15 @@
 import { formatDate } from "../../utils";
 import { useEffect, useState } from "react";
-import { performanceButtons, perfromceHead } from "../../constants";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../../components/shared/loaders/Loader";
 import FetchError from "../../components/shared/error/FetchError";
 import Pagination from "../../components/shared/others/Pagination";
+import { performanceButtons, perfromceHead } from "../../constants";
 import { getPerformances } from "../../services/performance.service";
 import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import FilterButton from "../../components/shared/buttons/FilterButton";
 import PerfromanceModal from "../../components/shared/modals/PerformanceModal";
+import { Helmet } from "react-helmet";
 
 function Perfromance() {
   const dispatch = useDispatch();
@@ -33,11 +34,15 @@ function Perfromance() {
   };
 
   useEffect(() => {
-    dispatch(getPerformances({ status, currentPage }));
+    dispatch(getPerformances({ status: status.toLowerCase(), currentPage }));
   }, [currentPage, status]);
 
   return (
     <>
+      <Helmet>
+        <title>{status} Performances - Metro HR</title>
+      </Helmet>
+
       {loading && <Loader />}
 
       <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg sm:min-h-screen shadow">

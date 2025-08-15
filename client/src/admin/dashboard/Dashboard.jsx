@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
 import PieChart from "../../components/shared/charts/Pie";
 import InfoCard from "../../components/shared/cards/InfoCard";
@@ -56,6 +57,10 @@ const Dashboard = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Dashboard - Metro HR</title>
+      </Helmet>
+
       <section className=" text-primary px-1 sm:px-0">
         <ChatPanel />
 

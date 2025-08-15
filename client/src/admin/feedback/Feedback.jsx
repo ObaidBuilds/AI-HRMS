@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { FaStar } from "react-icons/fa";
 import { formatDate } from "../../utils";
 import { useEffect, useState } from "react";
@@ -27,6 +28,10 @@ function Feedback() {
 
   return (
     <>
+      <Helmet>
+        <title>{reviewFilter} Feedbacks - Metro HR</title>
+      </Helmet>
+
       {loading && <Loader />}
 
       <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg sm:min-h-screen shadow">

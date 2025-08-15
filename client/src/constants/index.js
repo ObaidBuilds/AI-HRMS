@@ -1,7 +1,6 @@
 /* 
   - Constants for sidebar, navbar, and button configurations.
-  - Manages navigation and filtering (complaints, leave, feedback).
-  - Centralizes link/button data for UI consistency.
+
 */
 
 const sidebarLinks = [
@@ -51,7 +50,7 @@ const sidebarLinks = [
     name: "Recruitment & Hiring",
     iconClass: "far fa-address-card",
     childrens: [
-      { name: "Job Openings", link: "/recruitment" },
+      { name: "Job Openings", link: "/recruitments" },
       { name: "Post New Job", link: "/recruitment/create" },
     ],
   },
@@ -143,16 +142,16 @@ const employeesOnLeaveButtons = [
 
 const feedbackButtons = [
   { label: "All Feedbacks", value: "", icon: "fa-globe" },
-  { label: "Positive Feedbacks", value: "positive", icon: "fa-thumbs-up" },
-  { label: "Neutral Feedbacks", value: "neutral", icon: "fa-hand-paper" },
-  { label: "Negative Feedbacks", value: "negative", icon: "fa-thumbs-down" },
+  { label: "Positive Feedbacks", value: "Positive", icon: "fa-thumbs-up" },
+  { label: "Neutral Feedbacks", value: "Neutral", icon: "fa-hand-paper" },
+  { label: "Negative Feedbacks", value: "Negative", icon: "fa-thumbs-down" },
 ];
 
 const recruitmentButtons = [
   { label: "All Recuitments", value: "", icon: "fa-solid fa-briefcase" },
-  { label: "Open Recuitments", value: "open", icon: "fa-solid fa-door-open" },
-  { label: "Closed Recuitments", value: "closed", icon: "fa-solid fa-lock" },
-  { label: "Paused Recuitments", value: "paused", icon: "fa-solid fa-pause" },
+  { label: "Open Recuitments", value: "Open", icon: "fa-solid fa-door-open" },
+  { label: "Closed Recuitments", value: "Closed", icon: "fa-solid fa-lock" },
+  { label: "Paused Recuitments", value: "Paused", icon: "fa-solid fa-pause" },
 ];
 
 const applicantsButtons = [
@@ -163,31 +162,31 @@ const applicantsButtons = [
   },
   {
     label: "Interviewed Applicants",
-    value: "interview",
+    value: "Interview",
     icon: "fa-solid fa-handshake",
   },
   {
     label: "Hired Applicants",
-    value: "hired",
+    value: "Hired",
     icon: "fa-solid fa-user-tie",
   },
   {
     label: "Rejected Applicants",
-    value: "rejected",
+    value: "Rejected",
     icon: "fa-solid fa-user-xmark",
   },
 ];
 const performanceButtons = [
   { label: "All Metrices", value: "", icon: "fa-globe" },
-  { label: "Good metrices", value: "good", icon: "fa-thumbs-up" },
-  { label: "Average metrices", value: "average", icon: "fa-hand-paper" },
-  { label: "Poort metrices", value: "poor", icon: "fa-thumbs-down" },
+  { label: "Good metrices", value: "Good", icon: "fa-thumbs-up" },
+  { label: "Average metrices", value: "Average", icon: "fa-hand-paper" },
+  { label: "Poort metrices", value: "Poor", icon: "fa-thumbs-down" },
 ];
 
 const payrollButtons = [
   { label: "All Payrolls", value: "", icon: "fa-globe" },
-  { label: "Paid payrolls", value: "paid", icon: "fa-thumbs-up" },
-  { label: "Pending payrolls", value: "pending", icon: "fa-hand-paper" },
+  { label: "Paid payrolls", value: "Paid", icon: "fa-thumbs-up" },
+  { label: "Pending payrolls", value: "Pending", icon: "fa-hand-paper" },
 ];
 
 const navLinks = [

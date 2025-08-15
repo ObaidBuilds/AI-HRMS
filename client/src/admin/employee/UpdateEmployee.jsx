@@ -1,14 +1,15 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
+import { Helmet } from "react-helmet";
 import { convertDate } from "../../utils";
-import { editEmployee, getEmployeeById } from "../../services/employee.service";
-import Error from "../../components/shared/error/Error";
-import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
-import { updateEmployeeSchema } from "../../validations";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useDispatch, useSelector } from "react-redux";
+import Error from "../../components/shared/error/Error";
+import { updateEmployeeSchema } from "../../validations";
+import { useNavigate, useParams } from "react-router-dom";
 import ButtonLoader from "../../components/shared/loaders/ButtonLoader";
+import { editEmployee, getEmployeeById } from "../../services/employee.service";
+import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
 
 const EditEmployee = () => {
   const { id } = useParams();
@@ -88,6 +89,10 @@ const EditEmployee = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Update Employee - Metro HR</title>
+      </Helmet>
+
       <section className="w-full min-h-screen rounded-lg text-gray-700 bg-white dark:bg-secondary border border-gray-300  dark:border-gray-600 p-3 text-sm">
         <form
           id="form"

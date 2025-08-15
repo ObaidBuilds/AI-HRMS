@@ -63,7 +63,7 @@ const AdminApp = () => {
             <Route path="/leaves" element={<LeaveRequest />} />
             <Route path="/leave/active" element={<EmployeeOnLeave />} />
             <Route path="/performances" element={<Performance />} />
-            <Route path="/recruitment" element={<JobOpenings />} />
+            <Route path="/recruitments" element={<JobOpenings />} />
             <Route path="/applications/:id" element={<JobApplications />} />
             <Route path="/recruitment/create" element={<PostJob />} />
             <Route path="/payrolls" element={<Payroll />} />

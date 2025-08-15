@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { formatDate } from "../../utils";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,8 +24,11 @@ const ViewEmployee = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{employee?.name}'s Detail - Metro HR</title>
+      </Helmet>
+
       <section className="w-full rounded-lg text-gray-700 dark:text-primary">
-        {/* Profile Section */}
         <div className="flex flex-col items-center bg-gray-100 dark:bg-navy p-5 rounded-lg mb-2 shadow">
           <img
             src={employee?.profilePicture || "/unknown.jpeg"}
@@ -36,7 +40,6 @@ const ViewEmployee = () => {
         </div>
 
         <main className="bg-gray-100 dark:bg-secondary p-4 sm:p-6 rounded-lg space-y-6 text-[0.88rem] shadow">
-          {/* Personal Details */}
           <div>
             <h2 className="text-base font-semibold border-b border-gray-300 dark:border-gray-600 pb-2 mb-4">
               Personal Details
@@ -64,7 +67,6 @@ const ViewEmployee = () => {
             </div>
           </div>
 
-          {/* Department Details */}
           <div>
             <h2 className="text-base font-semibold border-b border-gray-300 dark:border-gray-600  pb-2 mb-4">
               Department Details
@@ -92,7 +94,6 @@ const ViewEmployee = () => {
             </div>
           </div>
 
-          {/* Salary Details */}
           <div>
             <h2 className="text-base font-semibold border-b border-gray-300 dark:border-gray-600  pb-2 mb-4">
               Salary Details
@@ -114,7 +115,6 @@ const ViewEmployee = () => {
             </div>
           </div>
 
-          {/* Emergency Contact */}
           <div className="pb-4">
             <h2 className="text-base font-semibold border-b border-gray-300 dark:border-gray-600  pb-2 mb-4">
               Emergency Contact

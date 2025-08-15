@@ -5,20 +5,18 @@ import axiosInstance from "../axios/axiosInstance";
 // Fetch Feedbacks
 export const getFeedbacks = createAsyncThunk(
   "feedbacks/getFeedbacks",
-  async ({ review, currentPage, limit = 13 }, { rejectWithValue }) => {
+  async ({ review, currentPage }, { rejectWithValue }) => {
     try {
       const queryParams = new URLSearchParams({
         page: currentPage,
         review: review || "",
-        limit: limit || "",
       }).toString();
 
       const { data } = await axiosInstance.get(`/feedbacks?${queryParams}`);
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data.message ||
-          "Failed to fetch feedbacks"
+        error.response?.data.message || "Failed to fetch feedbacks"
       );
     }
   }
@@ -35,8 +33,7 @@ export const createFeedback = createAsyncThunk(
     } catch (error) {
       toast.error(error.response?.data.message);
       return rejectWithValue(
-        error.response?.data.message ||
-          "Failed to create feedback"
+        error.response?.data.message || "Failed to create feedback"
       );
     }
   }

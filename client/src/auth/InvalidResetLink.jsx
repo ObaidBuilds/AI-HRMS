@@ -1,29 +1,36 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 
 const InvalidResetLink = () => {
   return (
-    <div className="h-[85vh] flex justify-center items-center">
-      <div className="flex flex-col justify-center items-center p-8 rounded-lg">
-        <img
-          className="w-[280px] sm:w-[430px] h-[250px]"
-          src="/verify.avif"
-          alt="verify_email"
-        />
-        <div className="flex flex-col justify-center items-center sm:w-[400px]">
-          <p className="font-medium text-gray-800 text-center text-[0.9rem]">
-            Oops! This reset link has expired or is invalid. Try requesting a
-            new one.
-          </p>
-          <Link
-            to="/"
-            className="inline-block px-7 py-3 bg-blue-500 text-white text-sm font-medium rounded-md transition duration-300 hover:bg-blue-600 mt-6"
-          >
-            Back to Login Page
-          </Link>
+    <>
+      <Helmet>
+        <title>Invalid Reset Link - Metro HR</title>
+      </Helmet>
+
+      <div className="h-[85vh] flex justify-center items-center">
+        <div className="flex flex-col justify-center items-center p-8 rounded-lg">
+          <img
+            className="w-[280px] sm:w-[430px] h-[250px]"
+            src="/verify.avif"
+            alt="verify_email"
+          />
+          <div className="flex flex-col justify-center items-center sm:w-[400px]">
+            <p className="font-medium text-gray-800 text-center text-[0.9rem]">
+              Oops! This reset link has expired or is invalid. Try requesting a
+              new one.
+            </p>
+            <Link
+              to="/"
+              className="inline-block px-7 py-3 bg-blue-500 text-white text-sm font-medium rounded-md transition duration-300 hover:bg-blue-600 mt-6"
+            >
+              Back to Login Page
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

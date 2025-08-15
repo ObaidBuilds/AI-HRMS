@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { formatDate } from "../../utils";
 import { useEffect, useState } from "react";
@@ -28,11 +29,17 @@ function JobOpenings() {
   };
 
   useEffect(() => {
-    dispatch(getJobOpenings({ status: reviewFilter, deadline: "" }));
+    dispatch(
+      getJobOpenings({ status: reviewFilter.toLowerCase(), deadline: "" })
+    );
   }, [reviewFilter]);
 
   return (
     <>
+      <Helmet>
+        <title>{reviewFilter} Recruitments - Metro HR</title>
+      </Helmet>
+
       {loading && <Loader />}
 
       <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg min-h-screen shadow">

@@ -8,9 +8,9 @@ export const getAllPayrolls = createAsyncThunk(
   async ({ currentPage, month, isPaid }, { rejectWithValue }) => {
     try {
       const queryParams = new URLSearchParams({
-        page: currentPage,
         month: month,
         isPaid: isPaid,
+        page: currentPage,
       }).toString();
 
       const { data } = await axiosInstance.get(`/payrolls?${queryParams}`);

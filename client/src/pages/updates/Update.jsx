@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { formatDate } from "../../utils";
+import { updateHead } from "../../constants";
 import { useDispatch, useSelector } from "react-redux";
 import { getUpdates } from "../../services/insights.service";
 import Loader from "../../components/shared/loaders/Loader";
-import { updateHead } from "../../constants";
+import { Helmet } from "react-helmet";
 
 function Update() {
   const dispatch = useDispatch();
@@ -16,6 +17,10 @@ function Update() {
 
   return (
     <>
+      <Helmet>
+        <title>Updates - Metro HR</title>
+      </Helmet>
+
       {loading && <Loader />}
 
       <section className="bg-gray-100 border border-gray-300 dark:border-primary dark:bg-secondary p-3 h-[90vh] sm:min-h-screen rounded-lg shadow">

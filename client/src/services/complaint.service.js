@@ -8,8 +8,8 @@ export const getComplaints = createAsyncThunk(
   async ({ status, currentPage, limit = 10 }, { rejectWithValue }) => {
     try {
       const queryParams = new URLSearchParams({
-        page: currentPage,
         status: status || "",
+        page: currentPage,
         limit: limit || "",
       }).toString();
 

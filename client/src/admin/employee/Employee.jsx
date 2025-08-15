@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { downloadXls } from "../../utils";
 import { empoyeeHead } from "../../constants";
@@ -127,6 +128,10 @@ function Employee() {
 
   return (
     <>
+      <Helmet>
+        <title>Employees - Metro HR</title>
+      </Helmet>
+
       {loading && <Loader />}
 
       <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg sm:min-h-screen shadow">

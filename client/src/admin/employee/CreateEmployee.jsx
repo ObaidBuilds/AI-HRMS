@@ -1,9 +1,10 @@
+import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
-import { addEmployee } from "../../services/employee.service";
 import { useForm, Controller } from "react-hook-form";
-import Loader from "../../components/shared/loaders/Loader";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createEmployeeSchema } from "../../validations";
+import Loader from "../../components/shared/loaders/Loader";
+import { addEmployee } from "../../services/employee.service";
 import ButtonLoader from "../../components/shared/loaders/ButtonLoader";
 
 const AddEmployee = () => {
@@ -29,7 +30,12 @@ const AddEmployee = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Create Employee - Metro HR</title>
+      </Helmet>
+
       {loading && <Loader />}
+
       <section className="w-full min-h-screen rounded-lg text-gray-700 bg-white dark:bg-secondary border border-gray-300  dark:border-gray-600 p-3 text-sm">
         <form
           id="form"
