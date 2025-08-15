@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/shared/loaders/Loader";
+import JobCard from "../components/shared/cards/JobCard";
 import { getJobOpenings } from "../services/recruitment.service";
 import JobApplicationModal from "../components/shared/modals/JobApplicationModal";
-import JobCard from "../components/shared/cards/JobCard";
+import Footer from "../components/ui/Footer";
 
 const Career = () => {
   const dispatch = useDispatch();
@@ -91,16 +92,42 @@ const Career = () => {
       </div>
 
       {/* Jobs Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
-        <div
-          id="jobs"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-        >
-          {jobs.map((job) => (
-            <JobCard key={job._id} job={job} onApply={setJobId} />
-          ))}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div id="jobs">
+          {jobs.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {jobs.map((job) => (
+                <JobCard key={job._id} job={job} onApply={setJobId} />
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center py-16 text-center">
+              <svg
+                className="w-20 h-20 sm:w-24 sm:h-24 text-gray-400 mb-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+              <h3 className="text-lg sm:text-xl font-medium text-gray-700 mb-3">
+                No Current Openings
+              </h3>
+              <p className="text-gray-500 max-w-sm text-sm">
+                We don't have any job openings at the moment, but please check
+                back later or follow us for updates on new opportunities.
+              </p>
+            </div>
+          )}
         </div>
       </div>
+      <Footer />
 
       {jobId && (
         <JobApplicationModal

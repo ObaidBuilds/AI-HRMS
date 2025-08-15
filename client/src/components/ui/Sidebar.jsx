@@ -88,7 +88,7 @@ const Sidebar = () => {
               className="text-center mt-1 text-base"
               style={{ fontFamily: "Bruno Ace, sans-serif" }}
             >
-              Metro Cash & Carry
+              Metro HR
             </h1>
           </div>
           <div

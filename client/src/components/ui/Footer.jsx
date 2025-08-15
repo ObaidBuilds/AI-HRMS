@@ -2,42 +2,42 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-[#0a2540] to-[#1d3557] py-6 text-[0.83rem] rounded-lg text-gray-200">
+    <footer className="w-[100vw] bg-gradient-to-r from-[#0a2540] to-[#1d3557] py-6 text-[0.83rem] rounded-t-md text-gray-200">
       <div className="w-full mx-auto px-6">
         <div className="flex justify-center sm:pb-4 animate-float">
           <div className="sm:w-[150px] flex flex-col items-center justify-center">
-            <img className="w-[55px]" src="/metro.png" alt="logo" />
+            <img src="/metro.png" alt="logo" />
             <h1
               className="text-center mt-1 text-base"
               style={{ fontFamily: "Bruno Ace, sans-serif" }}
             >
-              Metro Cash & Carry
+              Metro HR
             </h1>
           </div>
         </div>
 
         <div className="flex flex-wrap justify-around gap-5 md:gap-8 my-5 border-b border-gray-700 pt-5 pb-10">
           <div className="w-full md:w-[20%] pb-5 border-b border-gray-700 md:pb-0 md:border-0">
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-4">Career Links</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="hover:text-gray-300">
-                  Dashboard
+                <a href="#jobs" className="hover:text-gray-300">
+                  Open Positions
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-300">
-                  Daily Attendance
+                  Hiring Process
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-300">
-                  Onboarding
+                  Internships
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-300">
-                  Application
+                  Employee Benefits
                 </a>
               </li>
             </ul>
@@ -48,22 +48,22 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <a href="#" className="hover:text-gray-300">
-                  Payroll management
+                  Life at Metro
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-300">
-                  Reports & Analytics
+                  Our Culture
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-300">
-                  Software Settings
+                  Teams & Departments
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-300">
-                  My Account
+                  Career Growth
                 </a>
               </li>
             </ul>
@@ -74,22 +74,22 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <a href="#" className="hover:text-gray-300">
-                  Help Center
+                  Application Help
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-300">
-                  Community
+                  FAQs
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-300">
-                  Terms & Conditions
+                  Contact Recruiting
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-300">
-                  Privacy Policy
+                  Interview Tips
                 </a>
               </li>
             </ul>
@@ -100,7 +100,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <a href="#" className="hover:text-gray-300">
-                  Terms of Use
+                  Equal Opportunity
                 </a>
               </li>
               <li>
@@ -110,7 +110,7 @@ const Footer = () => {
               </li>
               <li>
                 <a href="#" className="hover:text-gray-300">
-                  Cookie Policy
+                  Candidate Privacy
                 </a>
               </li>
             </ul>
