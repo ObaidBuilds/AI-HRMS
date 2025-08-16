@@ -16,6 +16,7 @@ export const getAttendanceList = createAsyncThunk(
       const { data } = await axiosInstance.get(`/attendance/?${queryParams}`);
       return data.employees;
     } catch (error) {
+      toast.error(error.response.data.message);
       return rejectWithValue(error.response?.data.message || error.message);
     }
   }

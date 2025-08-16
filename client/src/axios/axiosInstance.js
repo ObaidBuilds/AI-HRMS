@@ -26,9 +26,7 @@ axiosInstance.interceptors.response.use(
         msg.includes("session expired"))
     ) {
       sessionStorage.clear();
-      localStorage.removeItem("session");
-      localStorage.removeItem("loggedInUser");
-      localStorage.removeItem("remember");
+      localStorage.clear();
 
       window.location.href = "/login";
     }

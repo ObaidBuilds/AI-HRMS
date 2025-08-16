@@ -109,7 +109,7 @@ const Complaint = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-[85%] rounded-full bg-blue-600 p-4 text-sm text-white transition hover:bg-blue-700"
+                className="w-[85%] rounded-full bg-blue-600 disabled:bg-blue-500 p-4 text-sm text-white transition hover:bg-blue-700"
               >
                 {loading ? (
                   <span className="flex items-center justify-center text-[0.8rem]">

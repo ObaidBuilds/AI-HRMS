@@ -6,6 +6,7 @@ import { leaveSchema } from "../../validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSelector, useDispatch } from "react-redux";
 import { createLeave } from "../../services/leave.service";
+import ButtonLoader from "../../components/shared/loaders/ButtonLoader";
 
 const Leave = () => {
   const dispatch = useDispatch();
@@ -149,7 +150,7 @@ const Leave = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-[85%] rounded-full bg-blue-600 p-4 text-sm text-white transition hover:bg-blue-700"
+                className="w-[85%] rounded-full bg-blue-600 disabled:bg-blue-500 p-4 text-sm text-white transition hover:bg-blue-700"
               >
                 {loading ? (
                   <span className="flex items-center justify-center text-[0.8rem]">

@@ -9,13 +9,12 @@ import {
   getAttendanceList,
   markAttendance,
 } from "../../services/attendance.service";
-import FetchError from "../../components/shared/error/FetchError";
 
 function Attendance() {
   const dispatch = useDispatch();
 
   const { departments } = useSelector((state) => state.department);
-  const { attendanceList, loading, error } = useSelector(
+  const { attendanceList, loading } = useSelector(
     (state) => state.attendance
   );
 
@@ -100,7 +99,7 @@ function Attendance() {
               </tr>
             </thead>
             <tbody>
-              {attendanceList.length >= 1 &&
+              {attendanceList.length > 0 &&
                 attendanceList.map((employee) => (
                   <tr
                     key={employee._id}
@@ -140,17 +139,13 @@ function Attendance() {
 
           {attendanceList.length === 0 && (
             <div className="flex flex-col items-center justify-center h-[60vh] sm:h-[70vh]">
-              {!selectedDepartment && (
-                <button
-                  onClick={() => setShowModal(true)}
-                  className="p-4 rounded-md text-center text-sm font-semibold text-gray-700 dark:text-gray-300"
-                >
-                  <i className="fas fa-building mr-2"></i>
-                  Select Department to get sheet
-                </button>
-              )}
-
-              {error && <FetchError error={error} />}
+              <button
+                onClick={() => setShowModal(true)}
+                className="p-4 rounded-md text-center text-sm font-semibold text-gray-700 dark:text-gray-300"
+              >
+                <i className="fas fa-building mr-2"></i>
+                Select Department to get sheet
+              </button>
             </div>
           )}
 

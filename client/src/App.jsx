@@ -22,11 +22,8 @@ function HrmsForMetroCashAndCarry() {
   useEffect(() => {
     const syncLogout = (event) => {
       if (event.key === "logout") {
-        sessionStorage.removeItem("session");
-        sessionStorage.removeItem("loggedInUser");
-        localStorage.removeItem("session");
-        localStorage.removeItem("loggedInUser");
-        localStorage.removeItem("remember");
+        sessionStorage.clear();
+        localStorage.clear();
 
         window.location.href = "/login";
       }
