@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SettingModal from "../shared/modals/SettingModal";
-import { logout } from "../../services/authentication.service";
+import { logout, logoutAll } from "../../services/authentication.service";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -15,6 +15,7 @@ const Sidebar = () => {
 
   const { loading, user } = useSelector((state) => state.authentication);
 
+  const [logoutType, setLogoutType] = useState("");
   const [showSidebar, setShowSidebar] = useState(false);
   const [openSubMenuIndex, setOpenSubMenuIndex] = useState(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -24,12 +25,21 @@ const Sidebar = () => {
     setOpenSubMenuIndex(openSubMenuIndex === index ? null : index);
 
   const handleLogout = () => {
-    dispatch(logout())
-      .unwrap()
-      .then(() => navigate("/"))
-      .catch((error) => {
-        console.error("Error Logging out:", error);
-      });
+    if (logoutType === "logout") {
+      dispatch(logout())
+        .unwrap()
+        .then(() => navigate("/"))
+        .catch((error) => {
+          console.error("Error Logging out:", error);
+        });
+    } else {
+      dispatch(logoutAll())
+        .unwrap()
+        .then(() => navigate("/"))
+        .catch((error) => {
+          console.error("Error Logging out all devices:", error);
+        });
+    }
   };
 
   const confirmLogout = () => {
@@ -66,7 +76,7 @@ const Sidebar = () => {
         <div className="w-[35px] h-[35px] border-[2px] border-gray-700 rounded-full overflow-hidden cursor-pointer">
           <img
             className="w-full"
-            src={user.profilePicture || "https://via.placeholder.com/40"}
+            src={user?.profilePicture || "/unkonwn.jpeg"}
             alt={user?.name}
           />
         </div>
@@ -159,16 +169,32 @@ const Sidebar = () => {
             </li>
           ))}
 
-          <button
-            onClick={() => {
-              setShowSidebar(false);
-              setShowConfirmModal(true);
-            }}
-            className="flex items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
-          >
-            <i className="far fa-arrow-alt-circle-right mr-3 text-[0.9rem] text-gray-300"></i>
-            <p className=" text-[0.72rem]">LOGOUT</p>
-          </button>
+          <div className="flex gap-3 items-center">
+            <button
+              onClick={() => {
+                setLogoutType("logout");
+                setShowSidebar(false);
+                setShowConfirmModal(true);
+              }}
+              className="flex items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
+            >
+              <i className="far fa-arrow-alt-circle-right mr-3 text-[0.9rem] text-gray-300"></i>
+              <p className=" text-[0.72rem]">LOGOUT</p>
+            </button>
+
+            <p>|</p>
+
+            <button
+              onClick={() => {
+                setLogoutType("logout from all devices");
+                setShowSidebar(false);
+                setShowConfirmModal(true);
+              }}
+              className="flex items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
+            >
+              <p className=" text-[0.72rem]">LOGOUT ALL</p>
+            </button>
+          </div>
 
           <div className="w-full bg-[#1d3557] dark:bg-[#182233] rounded-xl relative group">
             <button
@@ -184,7 +210,7 @@ const Sidebar = () => {
               <div className="w-[60px] h-[60px] rounded-full overflow-hidden cursor-pointer border-2 border-gray-500 hover:scale-105 transition-all duration-300">
                 <img
                   className="w-full h-full object-cover"
-                  src={user.profilePicture || "https://via.placeholder.com/60"}
+                  src={user.profilePicture || "/unknown.jpeg"}
                   alt="Profile"
                 />
               </div>
@@ -200,7 +226,7 @@ const Sidebar = () => {
       {showConfirmModal && (
         <Modal
           onClose={() => setShowConfirmModal(false)}
-          action="logout"
+          action={logoutType}
           isConfirm={confirmLogout}
         />
       )}

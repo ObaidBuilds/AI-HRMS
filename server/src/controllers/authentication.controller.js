@@ -4,7 +4,8 @@ dotenv.config();
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import * as bcrypt from "bcrypt";
-import { catchErrors } from "../utils/index.js";
+import { catchErrors, generateQrCode } from "../utils/index.js";
+import Session from "../models/session.model.js";
 import Employee from "../models/employee.model.js";
 import { passwordRecovery, resetPasswordSuccess } from "../templates/index.js";
 
@@ -23,8 +24,6 @@ const login = catchErrors(async (req, res) => {
       "Invalid credentials, try again with the correct credentials"
     );
 
-  if (employee?.loggedIn) throw new Error("Account already loggedIn");
-
   if (authority.toLowerCase() === "admin" && !employee.admin)
     throw new Error("Unauthorize access");
 
@@ -35,8 +34,16 @@ const login = catchErrors(async (req, res) => {
       "Invalid credentials, try again with the correct credentials"
     );
 
-  const token = jwt.sign({ employeeId: employee._id }, process.env.JWTSECRET, {
-    expiresIn: remember ? "10d" : "1d",
+  const token = jwt.sign(
+    { employeeId: employee._id, authority },
+    process.env.JWTSECRET,
+    { expiresIn: remember ? "10d" : "1d" }
+  );
+
+  await Session.create({
+    userId: employee._id,
+    authority,
+    token,
   });
 
   await employee.save();
@@ -98,9 +105,32 @@ const updatePassword = catchErrors(async (req, res) => {
 });
 
 const logout = catchErrors(async (req, res) => {
+  const user = req.user;
+
+  await Session.findOneAndDelete({
+    userId: user.id,
+    authority: user.authority,
+    token: user.token,
+  });
+
   return res.status(200).json({
     success: true,
     message: "Logged out successfully",
+  });
+});
+
+const logoutAll = catchErrors(async (req, res) => {
+  const user = req.user;
+
+  await Session.deleteMany({
+    userId: user.id,
+    authority: user.authority,
+    token: user.token,
+  });
+
+  return res.status(200).json({
+    success: true,
+    message: "Logged out from all devices successfully",
   });
 });
 
@@ -220,6 +250,7 @@ const validateAuthority = catchErrors(async (req, res) => {
 export {
   login,
   logout,
+  logoutAll,
   resetPassword,
   updatePassword,
   forgetPassword,

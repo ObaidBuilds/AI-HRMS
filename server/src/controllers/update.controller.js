@@ -3,7 +3,7 @@ import { catchErrors } from "../utils/index.js";
 import Complaint from "../models/complaint.model.js";
 
 const getUpdates = catchErrors(async (req, res) => {
-  const employee = req.user;
+  const employee = req.user.id;
 
   const leaveUpdates = await Leave.find({ employee })
     .sort({ createdAt: -1 })

@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  forgetPassword,
   login,
   logout,
+  logoutAll,
   resetPassword,
   updatePassword,
+  forgetPassword,
 } from "../services/authentication.service";
 
 function remember() {
@@ -26,20 +27,6 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    clearState: (state) => {
-      state.loading = false;
-      state.user = null;
-
-      if (remember()) {
-        localStorage.removeItem("session");
-        localStorage.removeItem("loggedInUser");
-        localStorage.removeItem("remember");
-      } else {
-        sessionStorage.removeItem("session");
-        sessionStorage.removeItem("loggedInUser");
-      }
-    },
-
     updateProfileState: (state, action) => {
       state.loading = false;
       state.user = action.payload;
@@ -127,9 +114,33 @@ const authSlice = createSlice({
       .addCase(logout.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+
+      // Handling logoutAll
+      .addCase(logoutAll.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(logoutAll.fulfilled, (state) => {
+        state.loading = false;
+        state.user = null;
+
+        if (remember()) {
+          localStorage.removeItem("session");
+          localStorage.removeItem("loggedInUser");
+          localStorage.removeItem("remember");
+        } else {
+          sessionStorage.removeItem("session");
+          sessionStorage.removeItem("loggedInUser");
+        }
+
+        localStorage.setItem("logout", Date.now());
+      })
+      .addCase(logoutAll.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });
 
 export default authSlice.reducer;
-export const { clearState, updateProfileState } = authSlice.actions;
+export const { updateProfileState } = authSlice.actions;

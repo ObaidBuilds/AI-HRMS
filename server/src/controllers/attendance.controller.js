@@ -68,7 +68,7 @@ const markAttendance = catchErrors(async (req, res) => {
 });
 
 const markAttendanceByQrCode = catchErrors(async (req, res) => {
-  const id = req.user;
+  const id = req.user.id;
   const { qrcode } = req.body;
 
   if (!qrcode) throw new Error("All fields are required");
@@ -108,7 +108,7 @@ const markAttendanceByQrCode = catchErrors(async (req, res) => {
 });
 
 const genrateQrCodeForAttendance = catchErrors(async (req, res) => {
-  const id = req.user;
+  const id = req.user.id;
   const { latitude, longitude } = req.body;
 
   console.log(latitude, longitude);
@@ -165,7 +165,7 @@ const markAbsentAtEndOfDay = catchErrors(async (req, res) => {
 });
 
 const getEmployeeAttendance = catchErrors(async (req, res) => {
-  const employeeID = req.user;
+  const employeeID = req.user.id;
 
   if (!employeeID) throw new Error("Please provide employee id");
 

@@ -8,7 +8,8 @@ export const login = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.post("/auth/login", credentials);
-      if (data.user.remember) {
+      if (data.remember) {
+        console.log("Run");
         localStorage.setItem("session", data.token);
         localStorage.setItem("loggedInUser", JSON.stringify(data.user));
       } else {
@@ -95,31 +96,27 @@ export const checkResetPasswordValidity = async (
   }
 };
 
-// Check Reset Password
-export const checkAuthorityValidity = async (
-  employeeId,
-  authority,
-  session
-) => {
-  try {
-    const { data } = await axiosInstance.post("/auth/authority/validate", {
-      employeeId,
-      authority,
-      session,
-    });
-
-    return data.success;
-  } catch (error) {
-    return false;
-  }
-};
-
 // Logout
 export const logout = createAsyncThunk(
   "auth/logout",
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.get("/auth/logout");
+      toast.success(data.message);
+      return data.success;
+    } catch (error) {
+      toast.error(error.response?.data.message || error.message);
+      return rejectWithValue(error.response?.data.message || error.message);
+    }
+  }
+);
+
+// Logout
+export const logoutAll = createAsyncThunk(
+  "auth/logoutALl",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.get("/auth/logout/all");
       toast.success(data.message);
       return data.success;
     } catch (error) {

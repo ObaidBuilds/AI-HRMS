@@ -2,7 +2,7 @@
 *
 Custom hook for getting token from session storage 
 */
-const useGetToken = () => {
+const getToken = () => {
   const remeber = localStorage.getItem("remember") === "true";
 
   try {
@@ -17,4 +17,4 @@ const useGetToken = () => {
   }
 };
 
-export default useGetToken;
+export default getToken;

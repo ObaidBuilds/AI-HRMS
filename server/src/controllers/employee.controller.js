@@ -335,7 +335,7 @@ const updateEmployee = catchErrors(async (req, res) => {
 });
 
 const updateProfile = catchErrors(async (req, res) => {
-  const id = req.user;
+  const id = req.user.id;
   const { name, email } = req.body;
 
   if (!name || !email) throw new Error("Please provide all fields");

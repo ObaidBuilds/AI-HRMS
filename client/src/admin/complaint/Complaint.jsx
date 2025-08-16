@@ -72,6 +72,8 @@ function Complaint() {
     dispatch(getComplaints({ status: status.toLowerCase(), currentPage }));
   }, [status, currentPage]);
 
+  if (error) return <FetchError error={error} />;
+
   return (
     <>
       <Helmet>
@@ -110,6 +112,7 @@ function Complaint() {
                 })}
               </tr>
             </thead>
+
             <tbody className="text-[0.83rem]">
               {complaints.length > 0 &&
                 complaints.map((complaint, index) => (
@@ -174,11 +177,9 @@ function Complaint() {
               message={`  No ${status.toLowerCase()} complaint found`}
             />
           )}
-
-          {error && <FetchError error={error} />}
         </div>
 
-        {complaints.length > 0 && (
+        {!loading && complaints.length > 0 && (
           <Pagination
             onPageChange={goToPage}
             currentPage={currentPage}

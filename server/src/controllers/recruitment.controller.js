@@ -6,7 +6,7 @@ import {
 } from "../templates/index.js";
 
 const createJob = catchErrors(async (req, res) => {
-  const postedBy = req.user;
+  const postedBy = req.user.id;
   const {
     title,
     department,

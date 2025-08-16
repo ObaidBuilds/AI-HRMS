@@ -96,10 +96,10 @@ function Update() {
               </table>
 
               {!loading && updates.length === 0 && (
-                <div className="w-full h-[40vh] bg-gray-700 flex flex-col justify-center items-center">
+                <div className="w-full h-[60vh] flex flex-col justify-center items-center">
                   <i className="fas fa-ban text-2xl text-gray-400"></i>
-                  <p className="mt-2 text-base text-gray-400">
-                    No updates available
+                  <p className="mt-2 text-sm text-gray-400">
+                    No update available
                   </p>
                 </div>
               )}

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SettingModal from "../shared/modals/SettingModal";
 import ProfileModal from "../shared/modals/ProfileModal";
 import { updateProfile } from "../../services/employee.service";
-import { logout } from "../../services/authentication.service";
+import { logout, logoutAll } from "../../services/authentication.service";
 
 const EmployeeSidebar = () => {
   const dispatch = useDispatch();
@@ -18,6 +18,7 @@ const EmployeeSidebar = () => {
   const { loading, user } = useSelector((state) => state.authentication);
 
   const [file, setFile] = useState(null);
+  const [logoutType, setLogoutType] = useState("");
   const [showButton, setShowButton] = useState(false);
   const [toggleModal, setToggleModal] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -31,12 +32,21 @@ const EmployeeSidebar = () => {
     setOpenSubMenuIndex(openSubMenuIndex === index ? null : index);
 
   const handleLogout = () => {
-    dispatch(logout())
-      .unwrap()
-      .then(() => navigate("/"))
-      .catch((error) => {
-        console.error("Error Logging out:", error);
-      });
+    if (logoutType === "logout") {
+      dispatch(logout())
+        .unwrap()
+        .then(() => navigate("/"))
+        .catch((error) => {
+          console.error("Error Logging out:", error);
+        });
+    } else {
+      dispatch(logoutAll())
+        .unwrap()
+        .then(() => navigate("/"))
+        .catch((error) => {
+          console.error("Error Logging out all session:", error);
+        });
+    }
   };
 
   const confirmLogout = () => {
@@ -156,16 +166,32 @@ const EmployeeSidebar = () => {
             </li>
           ))}
 
-          <button
-            onClick={() => {
-              setShowSidebar(false);
-              setShowConfirmModal(true);
-            }}
-            className="flex items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
-          >
-            <i className="far fa-arrow-alt-circle-right mr-3 text-[0.9rem] text-gray-300"></i>
-            <p className=" text-[0.72rem]">LOGOUT</p>
-          </button>
+          <div className="flex gap-3 items-center">
+            <button
+              onClick={() => {
+                setLogoutType("logout");
+                setShowSidebar(false);
+                setShowConfirmModal(true);
+              }}
+              className="flex items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
+            >
+              <i className="far fa-arrow-alt-circle-right mr-3 text-[0.9rem] text-gray-300"></i>
+              <p className=" text-[0.72rem]">LOGOUT</p>
+            </button>
+
+            <p>|</p>
+
+            <button
+              onClick={() => {
+                setLogoutType("logout from all devices");
+                setShowSidebar(false);
+                setShowConfirmModal(true);
+              }}
+              className="flex items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
+            >
+              <p className=" text-[0.72rem]">LOGOUT ALL</p>
+            </button>
+          </div>
 
           <div className="w-full bg-[#1d3557] dark:bg-[#182233] rounded-xl relative group bottom-0">
             <button

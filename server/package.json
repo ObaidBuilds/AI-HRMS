@@ -36,6 +36,7 @@
     "cors": "2.8.5",
     "dotenv": "16.4.5",
     "express": "4.21.1",
+    "express-rate-limit": "^8.0.1",
     "geolib": "^3.3.4",
     "jimp": "^1.6.0",
     "jsonwebtoken": "^9.0.2",

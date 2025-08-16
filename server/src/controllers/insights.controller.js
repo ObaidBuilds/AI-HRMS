@@ -166,7 +166,7 @@ const getAdminInsights = catchErrors(async (req, res) => {
 });
 
 const getEmployeeInsights = catchErrors(async (req, res) => {
-  const employee = req.user;
+  const employee = req.user.id;
 
   if (!employee) throw new Error("Employee ID is required");
 

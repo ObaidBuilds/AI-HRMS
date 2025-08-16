@@ -69,7 +69,7 @@ const getEmployeesOnLeave = catchErrors(async (req, res) => {
 });
 
 const applyLeave = catchErrors(async (req, res) => {
-  const employee = req.user;
+  const employee = req.user.id;
   const { leaveType, duration, fromDate, toDate } = req.body;
 
   if (!employee || !leaveType || !fromDate || !toDate)

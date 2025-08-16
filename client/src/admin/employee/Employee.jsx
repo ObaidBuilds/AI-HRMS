@@ -125,6 +125,7 @@ function Employee() {
   }, [uiState.toggleFilterBar]);
 
   if (!employees) return <Error />;
+  if (error) return <FetchError error={error} />;
 
   return (
     <>
@@ -269,8 +270,6 @@ function Employee() {
           {!loading && !error && employees.length === 0 && (
             <NoDataMessage message={"No employee found"} />
           )}
-
-          {error && <FetchError error={error} />}
         </div>
 
         {!loading && employees.length > 0 && (

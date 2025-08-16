@@ -26,6 +26,8 @@ function Feedback() {
     dispatch(getFeedbacks({ review: reviewFilter.toLowerCase(), currentPage }));
   }, [reviewFilter, currentPage]);
 
+  if (error) return <FetchError error={error} />;
+
   return (
     <>
       <Helmet>
@@ -114,8 +116,6 @@ function Feedback() {
           {!loading && !error && feedbacks.length === 0 && (
             <NoDataMessage message={"No feedback found"} />
           )}
-
-          {error && <FetchError error={error} />}
         </div>
 
         {!loading && feedbacks.length > 0 && (

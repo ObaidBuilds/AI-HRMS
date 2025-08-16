@@ -46,6 +46,8 @@ function JobApplications() {
     );
   }, [reviewFilter]);
 
+  if (error) return <FetchError error={error} />;
+
   return (
     <>
       <Helmet>
@@ -170,7 +172,6 @@ function JobApplications() {
             <NoDataMessage message={`No ${reviewFilter} applicant found`} />
           )}
 
-          {error && <FetchError error={error} />}
         </div>
 
         {toggleModal && (

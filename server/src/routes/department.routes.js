@@ -12,9 +12,9 @@ import { verifyAdminToken } from "../middlewares/index.js";
 
 const router = express.Router();
 
-router.get("/head", getAllEmployeesForHead);
+router.get("/head", verifyAdminToken, getAllEmployeesForHead);
 router.post("/", verifyAdminToken, createDepartment);
-router.get("/:id/employees", getDepartmentEmployees);
+router.get("/:id/employees", verifyAdminToken, getDepartmentEmployees);
 router.get("/", verifyAdminToken, getAllDepartments);
 router.get("/:id", verifyAdminToken, getDepartmentById);
 router.delete("/:id", verifyAdminToken, deleteDepartment);

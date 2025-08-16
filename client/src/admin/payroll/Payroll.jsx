@@ -48,6 +48,8 @@ function Payroll() {
     );
   }, [currentPage, payrollFilter, selectedMonth]);
 
+  if (error) return <FetchError error={error} />;
+
   return (
     <>
       <Helmet>
@@ -170,8 +172,6 @@ function Payroll() {
           {!loading && !error && payrolls.length === 0 && (
             <NoDataMessage message={"No payroll found"} />
           )}
-
-          {error && <FetchError error={error} />}
         </div>
 
         {!loading && payrolls.length > 0 && (

@@ -34,6 +34,8 @@ function JobOpenings() {
     );
   }, [reviewFilter]);
 
+  if (error) return <FetchError error={error} />;
+
   return (
     <>
       <Helmet>
@@ -154,8 +156,6 @@ function JobOpenings() {
           {!loading && !error && jobs.length === 0 && (
             <NoDataMessage message={"No Job opening found"} />
           )}
-
-          {error && <FetchError error={error} />}
         </div>
 
         {toggleModal && (

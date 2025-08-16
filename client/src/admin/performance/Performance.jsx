@@ -37,6 +37,8 @@ function Perfromance() {
     dispatch(getPerformances({ status: status.toLowerCase(), currentPage }));
   }, [currentPage, status]);
 
+  if (error) return <FetchError error={error} />;
+
   return (
     <>
       <Helmet>
@@ -156,11 +158,9 @@ function Perfromance() {
           {!loading && !error && performances.length === 0 && (
             <NoDataMessage message={`No performance metrics found`} />
           )}
-
-          {error && <FetchError error={error} />}
         </div>
 
-        {performances.length > 0 && (
+        {!loading && performances.length > 0 && (
           <Pagination
             currentPage={currentPage}
             totalPages={pagination?.totalPages}

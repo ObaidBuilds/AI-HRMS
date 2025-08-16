@@ -49,7 +49,7 @@ const getComplaints = catchErrors(async (req, res) => {
 });
 
 const createComplaint = catchErrors(async (req, res) => {
-  const employee = req.user;
+  const employee = req.user.id;
   const { complainType, complaintDetails, complainSubject } = req.body;
 
   if (!employee || !complainType || !complaintDetails || !complainSubject)
