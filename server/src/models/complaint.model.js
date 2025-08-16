@@ -32,7 +32,7 @@ const complaintSchema = new mongoose.Schema(
     status: {
       type: String,
       default: "Pending",
-      enum: ["Resolved", "Closed"],
+      enum: ["Pending", "Resolved", "Closed"],
     },
     assignComplaint: {
       type: mongoose.Schema.Types.ObjectId,
