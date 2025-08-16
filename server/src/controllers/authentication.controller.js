@@ -119,20 +119,19 @@ const logout = catchErrors(async (req, res) => {
   });
 });
 
-const logoutAll = catchErrors(async (req, res) => {
+const logoutAll = async (req, res) => {
   const user = req.user;
 
   await Session.deleteMany({
     userId: user.id,
     authority: user.authority,
-    token: user.token,
   });
 
-  return res.status(200).json({
+  res.status(200).json({
     success: true,
     message: "Logged out from all devices successfully",
   });
-});
+};
 
 const forgetPassword = catchErrors(async (req, res) => {
   const { email } = req.body;
@@ -217,36 +216,6 @@ const checkResetPasswordValidity = catchErrors(async (req, res) => {
   });
 });
 
-const validateAuthority = catchErrors(async (req, res) => {
-  const { employeeId, authority, session } = req.body;
-
-  if (!mongoose.Types.ObjectId.isValid(employeeId)) {
-    throw new Error("Invalid employee ID format");
-  }
-
-  const employee = await Employee.findById(employeeId);
-  if (!employee) throw new Error("Unauthorized access");
-
-  const decoded = jwt.verify(session, process.env.JWTSECRET);
-  const sessionUser = await Employee.findById(decoded.employeeId);
-  if (!sessionUser) throw new Error("Unauthorized access");
-
-  const requestedAdmin = authority === "admin";
-
-  if (!employee.admin && requestedAdmin) {
-    throw new Error("Unauthorized access");
-  }
-
-  if (sessionUser._id.toString() !== employeeId) {
-    throw new Error("Session mismatch");
-  }
-
-  return res.status(200).json({
-    success: true,
-    message: "Authority validated successfully",
-  });
-});
-
 export {
   login,
   logout,
@@ -254,6 +223,5 @@ export {
   resetPassword,
   updatePassword,
   forgetPassword,
-  validateAuthority,
   checkResetPasswordValidity,
 };
