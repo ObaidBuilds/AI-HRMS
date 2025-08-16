@@ -112,7 +112,7 @@ async function resetPasswordSuccess({ email, name }) {
   await sendMail(message);
 }
 
-async function leaveRespond({ email, name, status, type }) {
+async function leaveRespond({ email, name, status, type, remarks }) {
   const message = {
     email,
     subject: `Metro HRMS - Leave Request ${status}`,
@@ -127,6 +127,9 @@ async function leaveRespond({ email, name, status, type }) {
                 style="color: #007bff;">${name}</strong>,</p>
         <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">
             Your ${type} leave request has been <strong style="color: #4CAF50;">${status.toLowerCase()}</strong>.
+        </p>
+         <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">
+        ${leave.remarks}
         </p>
         <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">
             Please ensure all your tasks are handed over before your leave begins. Enjoy your time off!

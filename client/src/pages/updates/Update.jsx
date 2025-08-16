@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { formatDate } from "../../utils";
 import { updateHead } from "../../constants";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUpdates } from "../../services/insights.service";
 import Loader from "../../components/shared/loaders/Loader";
-import { Helmet } from "react-helmet";
 
 function Update() {
   const dispatch = useDispatch();
 
   const { updates, loading } = useSelector((state) => state.update);
+
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   useEffect(() => {
     dispatch(getUpdates());
@@ -18,7 +20,7 @@ function Update() {
   return (
     <>
       <Helmet>
-        <title>Updates - Metro HR</title>
+        <title>Updates ({updates.length.toString()}) - Metro HR</title>
       </Helmet>
 
       {loading && <Loader />}
@@ -43,53 +45,54 @@ function Update() {
                     ))}
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="text-black">
                   {updates.length > 0 &&
                     updates.map((update, index) => (
                       <tr
-                        key={index}
-                        className="even:bg-gray-100 text-gray-700 odd:bg-gray-200  hover:bg-gray-300"
+                        key={update._id}
+                        className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
                       >
-                        <td className="py-3 px-4 border-b border-gray-500">
-                          {update.leaveType ? "Leave" : "Complaint"}
+                        <td className="py-3 px-4 border-b border-secondary">
+                          {update.employee?.employeeId || "--"}
                         </td>
-                        <td className="py-3 px-4 text-center border-b border-gray-500">
-                          {update.leaveType
-                            ? update.remarks.slice(0, 10) + "..."
-                            : update.complainSubject.slice(0, 10) + "..."}
+                        <td className="py-3 px-4 border-b border-secondary">
+                          {update.employee?.name || "--"}
                         </td>
-                        <td className="py-3 px-4 text-center border-b border-gray-500">
-                          {update.leaveType
-                            ? update.status === "Approved"
-                              ? "Leave Approved"
-                              : update.status === "Rejected"
-                              ? "Leave Rejected"
-                              : "Leave Pending"
-                            : update.complaintDetails.slice(0, 15) + "..."}
+                        <td className="py-3 px-4 border-b border-secondary">
+                          {update.employee.department?.name || "--"}
                         </td>
-                        <td
-                          className={`py-3 px-4 border-b border-gray-500 font-bold ${
-                            update.status === "Approved"
-                              ? "text-green-400"
-                              : update.status === "Pending"
-                              ? "text-yellow-400"
-                              : update.status === "Rejected"
-                              ? "text-red-400"
-                              : "text-blue-400"
-                          }`}
-                        >
+                        <td className="py-3 px-4 border-b border-secondary">
+                          {update.employee?.role?.name || "--"}
+                        </td>
+                        <td className="py-3 px-4 border-b border-secondary">
+                          {update.type}
+                        </td>
+                        <td className="py-3 px-4 border-b border-secondary">
                           {update.status}
                         </td>
-                        <td className="py-3 px-4 border-b border-gray-500">
-                          {update.leaveType
-                            ? formatDate(update.fromDate)
-                            : formatDate(update.createdAt)}
+
+                        {/* Description with Tooltip */}
+                        <td
+                          className="py-3 px-4 border-b border-secondary relative cursor-pointer"
+                          onMouseEnter={() => setHoveredIndex(index)}
+                          onMouseLeave={() => setHoveredIndex(null)}
+                        >
+                          {update.remarks.slice(0, 10) + "...."}
+
+                          {hoveredIndex === index && (
+                            <div className="absolute left-0 top-full mt-1 max-w-[300px] h-auto bg-gray-900 dark:bg-gray-200 dark:text-black text-white text-xs p-2 rounded shadow-lg z-10 break-words whitespace-normal">
+                              <i className="fas fa-quote-left dark:text-gray-700 text-white mr-2"></i>
+                              {update.remarks}
+                            </div>
+                          )}
                         </td>
-                        <td className="py-3 px-4 text-center border-b border-gray-500">
-                          {update.leaveType
-                            ? update.remarks.slice(0, 10)
-                            : "--"}
+
+                        <td className="py-3 px-4 border-b border-secondary">
+                          {formatDate(update.createdAt)}
                         </td>
+                        {/* <td className="py-3 px-4 border-b border-secondary flex items-center gap-2">
+                          {feedback.rating} <FaStar color="gold" />
+                        </td> */}
                       </tr>
                     ))}
                 </tbody>

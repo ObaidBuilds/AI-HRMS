@@ -1,6 +1,7 @@
-import { catchErrors } from "../utils/index.js";
+import { catchErrors, getMonthName } from "../utils/index.js";
 import Payroll from "../models/payroll.model.js";
 import Employee from "../models/employee.model.js";
+import { createUpdate } from "./update.controller.js";
 
 const createPayroll = catchErrors(async (req, res) => {
   const { employee, month, year, baseSalary, allowances, deductions, bonuses } =
@@ -119,6 +120,13 @@ const markAsPaid = catchErrors(async (req, res) => {
   payroll.paymentDate = new Date();
 
   await payroll.save();
+
+  await createUpdate({
+    employee: payroll.employee._id,
+    status: isPaid ? "Paid" : "Not Paid",
+    type: `Payroll - ${getMonthName(payroll.month)}`,
+    remarks: "--",
+  });
 
   return res.status(200).json({
     success: true,

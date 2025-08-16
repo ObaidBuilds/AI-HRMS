@@ -121,16 +121,16 @@ function Complaint() {
                     className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
                   >
                     <td className="py-3 px-4 border-b border-secondary">
-                      {complaint.employee.employeeId}
+                      {complaint?.employee?.employeeId}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {complaint.employee.name}
+                      {complaint?.employee?.name}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {complaint.employee.department.name || "--"}
+                      {complaint?.employee?.department.name || "--"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
-                      {complaint.employee.role.name || "--"}
+                      {complaint?.employee?.role.name || "--"}
                     </td>
                     <td className="py-3 px-4 border-b border-secondary">
                       {complaint.complainType} Issue
@@ -189,7 +189,7 @@ function Complaint() {
 
         {toggleModal && (
           <Modal
-            action={"approve"}
+            action={"resolve"}
             isConfirm={isConfirm}
             onClose={() => setToggleModal(false)}
           />

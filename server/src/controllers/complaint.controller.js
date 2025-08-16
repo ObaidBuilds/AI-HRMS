@@ -1,4 +1,5 @@
 import Complaint from "../models/complaint.model.js";
+import { createUpdate } from "./update.controller.js";
 import { complaintRespond } from "../templates/index.js";
 import { catchErrors, myCache } from "../utils/index.js";
 
@@ -113,6 +114,13 @@ const respondComplaint = catchErrors(async (req, res) => {
   if (remarks) complaint.remarks = remarks;
 
   await complaint.save();
+
+  await createUpdate({
+    employee: complaint.employee._id,
+    status: complaint.status,
+    type: `Complaint - ${complaint.complainType}`,
+    remarks: remarks || "--",
+  });
 
   await complaintRespond({
     status: complaint.status,

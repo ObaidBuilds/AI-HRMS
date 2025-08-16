@@ -17,7 +17,7 @@ const RemarksModal = ({ onClose, isConfirm }) => {
           value={remarks}
           onChange={(e) => setRemarks(e.target.value)}
           placeholder="Write your remarks"
-          className="w-full p-4 bg-[#EFEFEF] text-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 resize-none"
+          className="w-full p-4 text-black bg-[#EFEFEF] text-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 resize-none"
           rows={4}
           required
         />

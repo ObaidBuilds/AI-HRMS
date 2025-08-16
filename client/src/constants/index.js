@@ -357,12 +357,14 @@ const leaveEmpoyeeHead = [
 ];
 
 const updateHead = [
+  "Emp ID",
+  "Name",
+  "Department",
+  "Position",
   "Type",
-  "Subject",
-  "Description",
   "Status",
-  "Date",
   "Remarks",
+  "Date"
 ];
 
 const complaintTypes = [

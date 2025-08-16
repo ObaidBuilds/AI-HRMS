@@ -1,18 +1,29 @@
 import Leave from "../models/leave.model.js";
 import { catchErrors } from "../utils/index.js";
 import Complaint from "../models/complaint.model.js";
+import Update from "../models/update.model.js";
+
+const createUpdate = async ({ employee, type, status, remarks }) => {
+  await Update.create({ employee, type, status, remarks });
+};
 
 const getUpdates = catchErrors(async (req, res) => {
   const employee = req.user.id;
 
-  const leaveUpdates = await Leave.find({ employee })
-    .sort({ createdAt: -1 })
-    .limit(5);
-  const complaintUpdates = await Complaint.find({ employee })
-    .sort({ createdAt: -1 })
-    .limit(5);
-
-  const updates = [...leaveUpdates, ...complaintUpdates];
+  const updates = await Update.find({ employee }).populate({
+    path: "employee",
+    select: "name employeeId department role",
+    populate: [
+      {
+        path: "department",
+        select: "name",
+      },
+      {
+        path: "role",
+        select: "name",
+      },
+    ],
+  });
 
   return res.status(200).json({
     success: true,
@@ -21,4 +32,4 @@ const getUpdates = catchErrors(async (req, res) => {
   });
 });
 
-export { getUpdates };
+export { getUpdates, createUpdate };

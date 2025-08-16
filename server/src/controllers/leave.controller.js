@@ -4,6 +4,7 @@ import Employee from "../models/employee.model.js";
 import { getSubstitute } from "../predictions/index.js";
 import { catchErrors, formatDate, myCache } from "../utils/index.js";
 import { leaveRespond, notifySubstituteEmployee } from "../templates/index.js";
+import { createUpdate } from "./update.controller.js";
 
 const getLeaves = catchErrors(async (req, res) => {
   const { status = "pending" } = req.query;
@@ -98,11 +99,19 @@ const rejectLeave = async (leave, remarks) => {
   if (remarks) leave.remarks = remarks;
   await leave.save();
 
+  await createUpdate({
+    employee: leave.employee._id,
+    status: leave.status,
+    type: `Leave - ${leave.leaveType}`,
+    remarks: remarks || "--",
+  });
+
   await leaveRespond({
     email: leave.employee.email,
     name: leave.employee.name,
     type: leave.leaveType,
     status: leave.status,
+    remarks: leave.remarks,
   });
 
   return {
@@ -204,6 +213,13 @@ const approveLeave = async (leave, employee) => {
 
   await leave.save();
   await employee.save();
+
+  await createUpdate({
+    employee: leave.employee._id,
+    status: leave.status,
+    type: `Leave - ${leave.leaveType}`,
+    remarks: remarks || "--",
+  });
 
   await leaveRespond({
     email: leave.employee.email,
