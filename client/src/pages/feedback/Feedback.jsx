@@ -5,6 +5,7 @@ import { feedbackSchema } from "../../validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
 import { createFeedback } from "../../services/feedback.service";
+import ButtonLoader from "../../components/shared/loaders/ButtonLoader";
 
 const Feedback = () => {
   const dispatch = useDispatch();
@@ -120,7 +121,10 @@ const Feedback = () => {
                 className="w-[85%] rounded-full bg-blue-600 p-4 text-sm text-white transition hover:bg-blue-700"
               >
                 {loading ? (
-                  <i className="fa fa-spinner fa-spin"></i>
+                  <span className="flex items-center justify-center text-[0.8rem]">
+                    <ButtonLoader />
+                    Submitting
+                  </span>
                 ) : (
                   "Submit Feedback"
                 )}

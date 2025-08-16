@@ -6,6 +6,7 @@ import { complaintSchema } from "../../validations";
 import { useSelector, useDispatch } from "react-redux";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createComplaint } from "../../services/complaint.service";
+import ButtonLoader from "../../components/shared/loaders/ButtonLoader";
 
 const Complaint = () => {
   const dispatch = useDispatch();
@@ -111,7 +112,10 @@ const Complaint = () => {
                 className="w-[85%] rounded-full bg-blue-600 p-4 text-sm text-white transition hover:bg-blue-700"
               >
                 {loading ? (
-                  <i className="fa fa-spinner fa-spin"></i>
+                  <span className="flex items-center justify-center text-[0.8rem]">
+                    <ButtonLoader />
+                    Submitting
+                  </span>
                 ) : (
                   "Submit Complaint"
                 )}

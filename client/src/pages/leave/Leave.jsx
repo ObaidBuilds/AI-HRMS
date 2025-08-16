@@ -1,11 +1,11 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
+import { leaveTypes } from "../../constants";
 import { leaveSchema } from "../../validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSelector, useDispatch } from "react-redux";
 import { createLeave } from "../../services/leave.service";
-import { leaveTypes } from "../../constants";
 
 const Leave = () => {
   const dispatch = useDispatch();
@@ -152,9 +152,12 @@ const Leave = () => {
                 className="w-[85%] rounded-full bg-blue-600 p-4 text-sm text-white transition hover:bg-blue-700"
               >
                 {loading ? (
-                  <i className="fa fa-spinner fa-spin"></i>
+                  <span className="flex items-center justify-center text-[0.8rem]">
+                    <ButtonLoader />
+                    Submitting
+                  </span>
                 ) : (
-                  "Submit Leave Application"
+                  "Submit Leave"
                 )}
               </button>
             </form>
