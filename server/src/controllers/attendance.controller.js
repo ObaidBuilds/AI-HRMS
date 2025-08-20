@@ -149,13 +149,13 @@ const markAbsentAtEndOfDay = catchErrors(async (req, res) => {
       date: today,
     });
 
-    // if (!attendance) {
+    if (!attendance) {
       await Attendance.create({
         employee: employee._id,
         status: "Absent",
         date: today,
       });
-    // }
+    }
   }
 
   return res.json({

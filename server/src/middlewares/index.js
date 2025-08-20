@@ -85,4 +85,13 @@ const verifyAdminToken = catchErrors(async (req, res, next) => {
   next();
 });
 
-export { verifyEmployeeToken, verifyAdminToken, loginLimiter };
+const verifyCornJob = catchErrors(async (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token || token !== process.env.JWTSECRET)
+    throw new Error("Unauthorized access");
+
+  next();
+});
+
+export { verifyEmployeeToken, verifyAdminToken, loginLimiter, verifyCornJob };

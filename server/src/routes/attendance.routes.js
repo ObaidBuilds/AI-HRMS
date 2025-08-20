@@ -13,9 +13,9 @@ import { verifyAdminToken, verifyEmployeeToken } from "../middlewares/index.js";
 
 const router = express.Router();
 
-router.post("/mark-absent", markAbsentAtEndOfDay);
 router.get("/", verifyAdminToken, getAttendanceList);
 router.post("/mark", verifyAdminToken, markAttendance);
+router.post("/mark-absent", verifyCornJob, markAbsentAtEndOfDay);
 router.get("/employee", verifyEmployeeToken, getEmployeeAttendance);
 router.post("/mark/qr", verifyEmployeeToken, markAttendanceByQrCode);
 router.get("/month", verifyAdminToken, getMonthlyAttendancePercentage);
