@@ -1,10 +1,10 @@
 import { Helmet } from "react-helmet";
 import { formatDate } from "../../utils";
 import React, { useEffect, useState } from "react";
+import { checkAttendanceHead } from "../../constants";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/shared/loaders/Loader";
 import { getEmployeeAttendance } from "../../services/attendance.service";
-import { checkAttendanceHead } from "../../constants";
 
 const Attendance = () => {
   const dispatch = useDispatch();
@@ -13,8 +13,8 @@ const Attendance = () => {
 
   const [filteredAttendance, setFilteredAttendance] = useState([]);
 
-  const { attendancePercentage } = useSelector(
-    (state) => state.insight.employeeInsights
+  const attendancePercentage = useSelector(
+    (state) => state.insight.employeeInsights.attendancePercentage
   );
 
   useEffect(() => {
@@ -111,7 +111,7 @@ const Attendance = () => {
             <div className="mt-2 bg-headLight border border-gray-200 p-7 rounded-lg text-center text-gray-200">
               <h2 className="text-lg font-semibold">Average Percentage</h2>
               <p className="text-2xl font-bold mt-3">
-                {attendancePercentage} %
+                {attendancePercentage || "--"} %
               </p>
             </div>
           </div>
