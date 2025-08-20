@@ -25,8 +25,9 @@ import {
 import { swaggerUi, swaggerSpec } from "./doc/index.js";
 // import {
 //   deleteAllPayrollRecords,
-//   generatePayrollDataForMonths,
 //   generatePayrollDataForYear,
+//   generatePayrollDataForMonths,
+//   deleteTodayAttendanceRecords
 // } from "./seeders/index.js";
 
 const app = express();
@@ -65,6 +66,7 @@ cloudinary.v2.config({
 });
 
 // deleteAllPayrollRecords()
+// deleteTodayAttendanceRecords()
 // generatePayrollDataForMonths(8)
 // generatePayrollDataForYear(2025)
 

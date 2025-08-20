@@ -5,11 +5,10 @@ import Employee from "../models/employee.model.js";
 import Feedback from "../models/feedback.model.js";
 import Complaint from "../models/complaint.model.js";
 import {
-  getDepartmentAttendancePercentage,
   getEmployeeAttendanceByMonth,
   getMonthlyAttendancePercentage,
+  getDepartmentAttendancePercentage,
 } from "./attendance.controller.js";
-import { getSentimentAnalysis } from "../predictions/index.js";
 import Recruitment from "../models/recruitment.model.js";
 import Performance from "../models/performance.model.js";
 
@@ -122,10 +121,6 @@ const getAdminInsights = catchErrors(async (req, res) => {
     })(),
   ]);
 
-  const sentimentAnalysis = getSentimentAnalysis(
-    feedbackResult[0]?.avgRating || 0
-  );
-
   // Calculate rates
   const leaveRejectionRate =
     totalLeaves > 0 ? (rejectedLeaves / totalLeaves) * 100 : 0;
@@ -138,21 +133,23 @@ const getAdminInsights = catchErrors(async (req, res) => {
   const complaintCloseRate =
     totalAllComplaints > 0 ? (closedComplaints / totalAllComplaints) * 100 : 0;
 
+  const totalFemaleEmployees = totalEmployees - totalMaleEmployees;
+
   const insights = {
-    totalEmployees,
-    totalComplaints,
     pendingLeaves,
+    totalEmployees,
+    feedbackResult,
+    jobApplications,
+    totalComplaints,
     employeesOnLeave,
-    sentimentAnalysis,
     totalMaleEmployees,
-    totalFemaleEmployees: totalEmployees - totalMaleEmployees,
-    departmentAttandancePercent,
-    overallAttendancePercentage,
     leaveRejectionRate,
     leaveApprovalRate,
-    complaintResolutionRate,
     complaintCloseRate,
-    jobApplications,
+    totalFemaleEmployees,
+    complaintResolutionRate,
+    overallAttendancePercentage,
+    departmentAttandancePercent,
   };
 
   // myCache.set(cacheKey, insights);

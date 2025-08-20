@@ -42,7 +42,7 @@ function Payroll() {
       getAllPayrolls({
         currentPage,
         isPaid:
-          payrollFilter === "paid" ? true : payrollFilter === "" ? "" : false,
+          payrollFilter === "Paid" ? true : payrollFilter === "" ? "" : false,
         month: selectedMonth,
       })
     );

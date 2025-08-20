@@ -19,8 +19,8 @@ const Dashboard = () => {
     { id: 5, title: "Emp on Leaves Today", stats: insights?.employeesOnLeave },
     {
       id: 6,
-      title: "AI Sentiment Analysis",
-      stats: insights?.sentimentAnalysis === "Positive" ? "``🙂``" : "``😐``",
+      title: "Average Rating",
+      stats: insights?.feedbackResult[0].avgRating.toFixed(2),
     },
   ];
 

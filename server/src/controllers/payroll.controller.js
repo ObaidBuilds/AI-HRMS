@@ -117,13 +117,15 @@ const markAsPaid = catchErrors(async (req, res) => {
   if (!payroll) throw new Error("Payroll record not found");
 
   payroll.isPaid = !payroll.isPaid;
-  payroll.paymentDate = new Date();
+
+  if (payroll.isPaid) payroll.paymentDate = new Date();
+  else payroll.paymentDate = null;
 
   await payroll.save();
 
   await createUpdate({
     employee: payroll.employee._id,
-    status: isPaid ? "Paid" : "Not Paid",
+    status: payroll.isPaid ? "Paid" : "Not Paid",
     type: `Payroll - ${getMonthName(payroll.month)}`,
     remarks: "--",
   });
@@ -206,6 +208,46 @@ const generateEmployeeYearlyPayroll = async (
   }
 };
 
+const generatePayrollForNextYear = catchErrors(async (req, res) => {
+  const year = currentYear + 1;
+  const currentYear = new Date().getFullYear();
+
+  if (year < 2024 || year > currentYear + 1) {
+    throw new Error(`Year must be between 2024 and ${currentYear + 1}.`);
+  }
+
+  const employees = await Employee.find();
+  if (!employees.length) throw new Error("No employees found.");
+
+  const payrollData = [];
+
+  for (const employee of employees) {
+    const baseSalary = employee.salary || 0;
+
+    for (let month = 1; month <= 12; month++) {
+      payrollData.push({
+        employee: employee._id,
+        month: month,
+        year: year,
+        baseSalary,
+        allowances: 0,
+        deductions: 0,
+        bonuses: 0,
+        netSalary: baseSalary,
+        isPaid: false,
+        paymentDate: null,
+      });
+    }
+  }
+
+  await Payroll.insertMany(payrollData);
+
+  return res.status(200).json({
+    success: true,
+    message: `Generated payroll data for all 12 months of ${year} for ${employees.length} employees.`,
+  });
+});
+
 export {
   markAsPaid,
   deletePayroll,
@@ -214,5 +256,6 @@ export {
   updatePayroll,
   getPayrollByEmployee,
   getEmployeePayrollHistory,
+  generatePayrollForNextYear,
   generateEmployeeYearlyPayroll,
 };

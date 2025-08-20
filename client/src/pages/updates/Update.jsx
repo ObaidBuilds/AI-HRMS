@@ -73,18 +73,21 @@ function Update() {
 
                         {/* Description with Tooltip */}
                         <td
-                          className="py-3 px-4 border-b border-secondary relative cursor-pointer"
+                          className="text-center py-3 px-4 border-b border-secondary relative cursor-pointer"
                           onMouseEnter={() => setHoveredIndex(index)}
                           onMouseLeave={() => setHoveredIndex(null)}
                         >
-                          {update.remarks.slice(0, 10) + "...."}
+                          {update.remarks == "--"
+                            ? update.remarks
+                            : update.remarks.slice(0, 10) + "...."}
 
-                          {hoveredIndex === index && (
-                            <div className="absolute left-0 top-full mt-1 max-w-[300px] h-auto bg-gray-900 dark:bg-gray-200 dark:text-black text-white text-xs p-2 rounded shadow-lg z-10 break-words whitespace-normal">
-                              <i className="fas fa-quote-left dark:text-gray-700 text-white mr-2"></i>
-                              {update.remarks}
-                            </div>
-                          )}
+                          {hoveredIndex === index &&
+                            update.remarks !== "--" && (
+                              <div className="absolute left-0 top-full mt-1 max-w-[300px] h-auto bg-gray-900 dark:bg-gray-200 dark:text-black text-white text-xs p-2 rounded shadow-lg z-10 break-words whitespace-normal">
+                                <i className="fas fa-quote-left dark:text-gray-700 text-white mr-2"></i>
+                                {update.remarks}
+                              </div>
+                            )}
                         </td>
 
                         <td className="py-3 px-4 border-b border-secondary">

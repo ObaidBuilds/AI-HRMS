@@ -5,6 +5,7 @@ import Employee from "../models/employee.model.js";
 import Department from "../models/department.model.js";
 import Performance from "../models/performance.model.js";
 import { calculateAverageAttendance } from "../controllers/attendance.controller.js";
+import Attendance from "../models/attendance.model.js";
 
 const startHrmsApplication = async () => {
   try {
@@ -217,6 +218,24 @@ const deleteAllPayrollRecords = async () => {
   }
 };
 
+const deleteTodayAttendanceRecords = async () => {
+  try {
+    const startOfDay = new Date();
+    startOfDay.setHours(0, 0, 0, 0);
+
+    const endOfDay = new Date(startOfDay);
+    endOfDay.setDate(endOfDay.getDate() + 1);
+
+    await Attendance.deleteMany({
+      date: { $gte: startOfDay, $lt: endOfDay },
+    });
+
+    console.log("Today's attendance records deleted successfully.");
+  } catch (error) {
+    console.error("Error deleting today's attendance records:", error);
+  }
+};
+
 const alterEmployeeData = async () => {
   await Employee.updateMany(
     { profilePicture: "https://via.placeholder.com/50" },
@@ -235,6 +254,7 @@ export {
   generatePerformanceData,
   deleteAllPayrollRecords,
   generatePayrollDataForYear,
+  deleteTodayAttendanceRecords,
   deleteAllPerformanceRecords,
   generatePayrollDataForMonths,
 };
