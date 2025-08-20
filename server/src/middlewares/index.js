@@ -86,6 +86,7 @@ const verifyAdminToken = catchErrors(async (req, res, next) => {
 });
 
 const verifyCornJob = catchErrors(async (req, res, next) => {
+  console.log("Cron request headers:", req.headers);
   const token = req.headers.authorization;
 
   if (!token || token !== process.env.JWTSECRET)
