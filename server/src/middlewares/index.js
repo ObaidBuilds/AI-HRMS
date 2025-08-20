@@ -86,7 +86,7 @@ const verifyAdminToken = catchErrors(async (req, res, next) => {
 });
 
 const verifyCornJob = catchErrors(async (req, res, next) => {
-  const token = req.headers.authorization?.split(" ")[1];
+  const token = req.headers.authorization;
 
   if (!token || token !== process.env.JWTSECRET)
     throw new Error("Unauthorized access");
