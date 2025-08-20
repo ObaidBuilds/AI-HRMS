@@ -86,7 +86,8 @@ const verifyAdminToken = catchErrors(async (req, res, next) => {
 });
 
 const verifyCornJob = catchErrors(async (req, res, next) => {
-  const token = req.headers.secret;
+
+  const token = req.headers.secret?.trim();
 
   if (!token || token !== "imrankhanzindabad")
     throw new Error("Unauthorized access");
