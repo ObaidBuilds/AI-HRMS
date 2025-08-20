@@ -141,7 +141,7 @@ const genrateQrCodeForAttendance = catchErrors(async (req, res) => {
 });
 
 const markAbsentAtEndOfDay = catchErrors(async (req, res) => {
-  const employees = await Employee.find();
+  const employees = await Employee.find({});
 
   for (const employee of employees) {
     const attendance = await Attendance.findOne({

@@ -13,7 +13,7 @@ import { verifyAdminToken, verifyEmployeeToken } from "../middlewares/index.js";
 
 const router = express.Router();
 
-router.get("/mark/absent", markAbsentAtEndOfDay);
+router.post("/mark-absent", markAbsentAtEndOfDay);
 router.get("/", verifyAdminToken, getAttendanceList);
 router.post("/mark", verifyAdminToken, markAttendance);
 router.get("/employee", verifyEmployeeToken, getEmployeeAttendance);

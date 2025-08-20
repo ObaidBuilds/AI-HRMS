@@ -1,5 +1,5 @@
 import axios from "axios";
-import useGetToken from "../hooks";
+import { getToken } from "../utils";
 import toast from "react-hot-toast";
 import axiosInstance from "../axios/axiosInstance";
 import { createAsyncThunk } from "@reduxjs/toolkit";
@@ -119,7 +119,7 @@ export const deleteEmployee = createAsyncThunk(
 // Update Profile
 export const updateProfile = async (setProfileLoading, formData) => {
   try {
-    const token = useGetToken();
+    const token = getToken();
     setProfileLoading(true);
 
     const { data } = await axios.patch(

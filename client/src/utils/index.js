@@ -40,4 +40,19 @@ const getMonthAbbreviation = (month) => {
   return months[month - 1] || "Invalid";
 };
 
-export { formatDate, downloadXls, getMonthAbbreviation, convertDate };
+const getToken = () => {
+  const remeber = localStorage.getItem("remember") === "true";
+
+  try {
+    const token = remeber
+      ? localStorage.getItem("session")
+      : sessionStorage.getItem("session");
+
+    return token || null;
+  } catch (error) {
+    console.log(error.message);
+    return null;
+  }
+};
+
+export { formatDate, downloadXls, getMonthAbbreviation, convertDate, getToken };

@@ -1,5 +1,5 @@
 import axios from "axios";
-import useGetToken from "../hooks";
+import { getToken } from "../utils";
 import toast from "react-hot-toast";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../axios/axiosInstance";
@@ -46,7 +46,7 @@ export const createJobApplication = createAsyncThunk(
   "recruitment/createJobApplication",
   async ({ jobId, application }, { rejectWithValue }) => {
     try {
-      const token = useGetToken();
+      const token = getToken();
 
       const { data } = await axios.post(
         `${import.meta.env.VITE_URL}/recruitment/${jobId}/apply`,
