@@ -36,7 +36,7 @@ const login = catchErrors(async (req, res) => {
 
   const token = jwt.sign(
     { employeeId: employee._id, authority },
-    process.env.JWTSECRET,
+    process.env.JWT_SECRET,
     { expiresIn: remember ? "10d" : "1d" }
   );
 
@@ -142,7 +142,7 @@ const forgetPassword = catchErrors(async (req, res) => {
 
   if (!employee) throw new Error("Invalid email address");
 
-  const token = jwt.sign({ employeeId: employee._id }, process.env.JWTSECRET, {
+  const token = jwt.sign({ employeeId: employee._id }, process.env.JWT_SECRET, {
     expiresIn: "1h",
   });
 

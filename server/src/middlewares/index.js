@@ -36,7 +36,7 @@ const verifyEmployeeToken = catchErrors(async (req, res, next) => {
 
   if (!token) throw new Error("Unauthorized access");
 
-  const decoded = jwt.verify(token, process.env.JWTSECRET);
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
   if (!decoded.employeeId) throw new Error("Unauthorized access");
 
@@ -62,7 +62,7 @@ const verifyAdminToken = catchErrors(async (req, res, next) => {
 
   if (!token) throw new Error("Unauthorized access");
 
-  const decoded = jwt.verify(token, process.env.JWTSECRET);
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
   const session = await Session.findOne({
     userId: decoded.employeeId,
@@ -86,10 +86,9 @@ const verifyAdminToken = catchErrors(async (req, res, next) => {
 });
 
 const verifyCornJob = catchErrors(async (req, res, next) => {
+  const token = req.headers.secret.trim();
 
-  const token = req.headers.secret?.trim();
-
-  if (!token || token !== "imrankhanzindabad")
+  if (!token || token !== process.env.CRON_SECRET)
     throw new Error("Unauthorized access");
 
   next();
