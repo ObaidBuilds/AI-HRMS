@@ -9,7 +9,11 @@ import {
   getMonthlyAttendancePercentage,
   getEmployeeAttendanceByDepartment,
 } from "../controllers/attendance.controller.js";
-import { verifyAdminToken, verifyEmployeeToken } from "../middlewares/index.js";
+import {
+  verifyAdminToken,
+  verifyCornJob,
+  verifyEmployeeToken,
+} from "../middlewares/index.js";
 
 const router = express.Router();
 
