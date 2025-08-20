@@ -46,8 +46,6 @@ const verifyEmployeeToken = catchErrors(async (req, res, next) => {
     token,
   });
 
-  console.log(session);
-
   if (!session) throw new Error("Session expired, please login again");
 
   req.user = {
