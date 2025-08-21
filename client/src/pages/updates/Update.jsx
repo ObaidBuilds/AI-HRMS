@@ -61,9 +61,9 @@ function Update() {
                         <td className="py-3 px-4 border-b border-secondary">
                           {update.employee.department?.name || "--"}
                         </td>
-                        <td className="py-3 px-4 border-b border-secondary">
+                        {/* <td className="py-3 px-4 border-b border-secondary">
                           {update.employee?.role?.name || "--"}
-                        </td>
+                        </td> */}
                         <td className="py-3 px-4 border-b border-secondary">
                           {update.type}
                         </td>

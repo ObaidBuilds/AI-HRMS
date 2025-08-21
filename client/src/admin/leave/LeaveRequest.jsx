@@ -22,6 +22,7 @@ function LeaveRequest() {
 
   const [status, setStatus] = useState("Pending");
   const [toggleModal, setToggleModal] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
   const [selectedLeave, setSelectedLeave] = useState(null);
   const [toggleRemarkModal, setToggleRemarkModal] = useState(false);
 
@@ -113,10 +114,23 @@ function LeaveRequest() {
                       {leave.employee.department?.name || "--"}
                     </td>
                     <td className="py-3 px-4 border-b border-gray-500">
-                      {leave.employee.role?.name || "--"}
-                    </td>
-                    <td className="py-3 px-4 border-b border-gray-500">
                       {leave.leaveType} Leave
+                    </td>
+                    <td
+                      onMouseEnter={() => setHoveredIndex(index)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                      className="py-3 px-4 border-b border-gray-500 text-center cursor-pointer"
+                    >
+                      {leave.description
+                        ? leave.description.slice(0, 10) + "...."
+                        : "--"}
+
+                      {hoveredIndex === index && (
+                        <div className="absolute left-0 top-full mt-1 max-w-[300px] h-auto bg-gray-900 dark:bg-gray-200 dark:text-black text-white text-xs p-2 rounded shadow-lg z-10 break-words whitespace-normal">
+                          <i className="fas fa-quote-left dark:text-gray-700 text-white mr-2"></i>
+                          {leave.description}
+                        </div>
+                      )}
                     </td>
                     <td className="py-3 px-4 border-b border-gray-500">
                       {formatDate(leave.fromDate)}

@@ -197,10 +197,10 @@ td {
 
 .scan-overlay {
   position: absolute;
-  top: 0;
+  top: -30px;
   left: 250px;
   right: 0;
-  bottom: 0;
+  bottom: 110px;
   display: flex;
   justify-content: center;
   align-items: center;

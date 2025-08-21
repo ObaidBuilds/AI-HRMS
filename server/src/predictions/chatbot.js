@@ -3,16 +3,18 @@ import Feedback from "../models/feedback.model.js";
 import Employee from "../models/employee.model.js";
 import Complaint from "../models/complaint.model.js";
 import Performance from "../models/performance.model.js";
+import Recruitment from "../models/recruitment.model.js";
 import getPredictionFromGeminiAI from "../gemini/index.js";
 
 async function getAnswerFromChatbot(prompt) {
-  const [leaves, feedbacks, performances, employees, complaints] =
+  const [leaves, feedbacks, performances, employees, complaints, jobs] =
     await Promise.all([
       Leave.find().populate("employee", "name").lean(),
       Feedback.find().populate("employee", "name").lean(),
       Performance.find().populate("employee", "name").lean(),
       Employee.find().populate("department role").lean(),
       Complaint.find().populate("employee", "name").lean(),
+      Recruitment.find().populate("department role postedBy", "name").lean(),
     ]);
 
   const formattedPrompt = `
@@ -27,7 +29,7 @@ async function getAnswerFromChatbot(prompt) {
     4. **Performance Management**  
     5. **Feedback and Complaint Management**  
     6. **AI-Based Sentiment Analysis**  
-    7. **Recruitment Management**  
+    7. **Recruitment Management** (Jobs + Applicants)  
     8. **Analytics and Reporting**  
     
     ---
@@ -98,6 +100,35 @@ async function getAnswerFromChatbot(prompt) {
           `${index + 1}. **Name:** ${feed?.employee?.name} | **Review:** ${
             feed?.review
           } | **Rating:** ${feed?.rating} | **Suggestion:** ${feed?.suggestion}`
+      )
+      .join("\n")}
+
+    #### **Recruitment Data**  
+    ${jobs
+      .map(
+        (job, index) => `
+        ${index + 1}. **Job Title:** ${job?.title} | **Department:** ${
+          job?.department?.name
+        } | **Role:** ${job?.role?.name} | **Location:** ${
+          job?.location
+        } | **Salary Range:** ${job?.minSalary} - ${
+          job?.maxSalary
+        } | **Type:** ${job?.type} | **Status:** ${
+          job?.status
+        } | **Posted By:** ${job?.postedBy?.name} | **Deadline:** ${
+          job?.deadline
+        }
+        
+        **Applicants:**  
+        ${job?.applicants
+          .map(
+            (app, i) =>
+              `   - ${i + 1}. **Name:** ${app?.name} | **Email:** ${
+                app?.email
+              } | **Phone:** ${app?.phone} | **Status:** ${app?.status}`
+          )
+          .join("\n")}
+      `
       )
       .join("\n")}
     

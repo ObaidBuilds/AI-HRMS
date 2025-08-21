@@ -123,7 +123,7 @@ const genrateQrCodeForAttendance = catchErrors(async (req, res) => {
 
   const distance = getLocation(latitude, longitude);
 
-  if (!(distance <= 500)) {
+  if (!(distance <= 1000)) {
     throw new Error(
       "You are not within the allowed location radius to mark attendance."
     );

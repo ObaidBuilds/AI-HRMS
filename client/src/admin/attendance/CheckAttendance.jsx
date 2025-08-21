@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet";
+import { formatDate } from "../../utils";
 import { checkAttendanceHead } from "../../constants";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/shared/loaders/Loader";
@@ -69,6 +70,9 @@ function CheckAttendance() {
                     </td>
                     <td className="py-3 px-4 border-b border-gray-500">
                       {attendance.employee.role.name}
+                    </td>
+                    <td className="py-3 px-4 border-b border-gray-500">
+                      {formatDate(attendance.date)}
                     </td>
                     <td
                       className={`py-3 px-4 border-b border-gray-500 font-semibold flex items-center gap-2 ${

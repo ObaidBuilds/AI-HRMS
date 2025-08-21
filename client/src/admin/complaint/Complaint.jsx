@@ -136,7 +136,7 @@ function Complaint() {
                       {complaint.complainType} Issue
                     </td>
                     <td
-                      className="relative py-3 px-4 border-b border-secondary"
+                      className="relative py-3 px-4 border-b border-secondary cursor-pointer"
                       onMouseEnter={() => setHoveredIndex(index)}
                       onMouseLeave={() => setHoveredIndex(null)}
                     >

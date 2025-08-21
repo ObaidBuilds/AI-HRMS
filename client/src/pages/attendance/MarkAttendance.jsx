@@ -1,14 +1,18 @@
-import { Helmet } from "react-helmet";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
 import { formatDate } from "../../utils";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   generateQRCodeForAttendance,
   markAttendanceUsingQrCode,
 } from "../../services/attendance.service";
+import axiosInstance from "../../axios/axiosInstance";
 
 const MarkAttendance = () => {
   const dispatch = useDispatch();
+
+  const [currentDate, setCurrentDate] = useState(null);
 
   const { loading, qrcode } = useSelector((state) => state.attendance);
 
@@ -34,6 +38,15 @@ const MarkAttendance = () => {
     );
   };
 
+  useEffect(() => {
+    async function getDateFromAPI() {
+      const { data } = await axiosInstance.get("/insights/date");
+      console.log(data);
+      setCurrentDate(data.datetime);
+    }
+    getDateFromAPI();
+  }, []);
+
   return (
     <>
       <Helmet>
@@ -53,7 +66,7 @@ const MarkAttendance = () => {
                 <button
                   disabled={loading}
                   onClick={handleMarkAttendanceUsingQr}
-                  className="text-sm py-3 w-[300px] bg-green-600 rounded-3xl font-bold hover:bg-green-700 text-gray-300"
+                  className="text-sm py-3 mt-10 w-[300px] bg-green-600 rounded-3xl font-bold hover:bg-green-700 text-gray-300"
                 >
                   {loading ? (
                     <i className="fas fa-spinner fa-spin"></i>
@@ -78,11 +91,15 @@ const MarkAttendance = () => {
               className="text-sm py-3 w-[300px] bg-green-600 rounded-3xl font-bold hover:bg-green-700 text-gray-200"
             >
               {loading ? (
-                <i className="fas fa-spinner fa-spin"></i>
+                <div className="flex gap-2 justify-center">
+                  Marking
+                  <i className="fas fa-spinner fa-spin"></i>
+                </div>
               ) : (
                 <>
                   <i className="fas fa-qrcode mr-2"></i>
-                  Generate QR code for {formatDate(new Date())}
+                  Generate QR code for{" "}
+                  {currentDate ? formatDate(currentDate) : "loading..."}
                 </>
               )}
             </button>

@@ -23,7 +23,7 @@ function getLocation(latitude, longitude) {
     latitude,
     longitude,
   });
-  console.log(distance);
+
   return distance;
 }
 

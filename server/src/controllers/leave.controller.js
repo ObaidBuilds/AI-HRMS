@@ -71,7 +71,7 @@ const getEmployeesOnLeave = catchErrors(async (req, res) => {
 
 const applyLeave = catchErrors(async (req, res) => {
   const employee = req.user.id;
-  const { leaveType, duration, fromDate, toDate } = req.body;
+  const { leaveType, duration, fromDate, toDate, description } = req.body;
 
   if (!employee || !leaveType || !fromDate || !toDate)
     throw new Error("All fields are required");
@@ -82,6 +82,7 @@ const applyLeave = catchErrors(async (req, res) => {
     fromDate,
     toDate,
     duration,
+    description,
     status: "Pending",
   });
 
@@ -218,7 +219,7 @@ const approveLeave = async (leave, employee) => {
     employee: leave.employee._id,
     status: leave.status,
     type: `Leave - ${leave.leaveType}`,
-    remarks: remarks || "--",
+    remarks: leave.remarks || "--",
   });
 
   await leaveRespond({
