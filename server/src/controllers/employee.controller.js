@@ -377,11 +377,11 @@ const updateProfile = catchErrors(async (req, res) => {
 });
 
 export {
+  updateProfile,
+  updateEmployee,
+  deleteEmployee,
   createEmployee,
   getAllEmployees,
   getEmployeeById,
-  deleteEmployee,
-  updateEmployee,
-  updateProfile,
   bulkCreateEmployees,
 };
