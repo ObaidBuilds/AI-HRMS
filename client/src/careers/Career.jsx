@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet";
-import Footer from "../components/ui/Footer";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/shared/loaders/Loader";
@@ -134,7 +133,6 @@ const Career = () => {
             )}
           </div>
         </div>
-        <Footer />
 
         {jobId && (
           <JobApplicationModal
