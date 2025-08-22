@@ -6,6 +6,7 @@ import {
   markAttendanceUsingQrCode,
   generateQRCodeForAttendance,
   getEmployeeAttendanceByDepartment,
+  getEmployeeMonthlyAttendanceByDepartment,
 } from "../services/attendance.service.js";
 
 const initialState = {
@@ -108,7 +109,27 @@ const attendanceSlice = createSlice({
       .addCase(getEmployeeAttendanceByDepartment.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+
+      // Handling getEmployeeMonthlyAttendanceByDepartment
+      .addCase(getEmployeeMonthlyAttendanceByDepartment.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(
+        getEmployeeMonthlyAttendanceByDepartment.fulfilled,
+        (state, action) => {
+          state.attendanceRecord = action.payload;
+          state.loading = false;
+        }
+      )
+      .addCase(
+        getEmployeeMonthlyAttendanceByDepartment.rejected,
+        (state, action) => {
+          state.loading = false;
+          state.error = action.payload;
+        }
+      );
   },
 });
 

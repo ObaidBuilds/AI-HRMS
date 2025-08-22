@@ -111,7 +111,7 @@ const genrateQrCodeForAttendance = catchErrors(async (req, res) => {
   const id = req.user.id;
   const { latitude, longitude } = req.body;
 
-  // console.log(`latitude ${latitude}  longitude ${longitude} `)
+  console.log(`latitude ${latitude}  longitude ${longitude} `);
 
   const isPresent = await Attendance.findOne({
     employee: id,
@@ -271,6 +271,87 @@ const getEmployeeAttendanceByDepartment = catchErrors(async (req, res) => {
   return res.status(200).json({
     success: true,
     message: "Attendance fetched successfully",
+    attendanceRecord,
+  });
+});
+
+const getEmployeeMonthAttendanceByDepartment = catchErrors(async (req, res) => {
+  const { department, month } = req.query;
+
+  if (!department || !month) {
+    throw new Error("Please provide department and month");
+  }
+
+  const currentYear = new Date().getFullYear();
+  const monthInt = parseInt(month, 10);
+
+  if (monthInt < 1 || monthInt > 12) {
+    throw new Error("Invalid month. Must be between 1 and 12");
+  }
+
+  const startDate = new Date(currentYear, monthInt - 1, 1);
+  const endDate = new Date(currentYear, monthInt, 0, 23, 59, 59, 999);
+
+  const departmentId = new mongoose.Types.ObjectId(department);
+
+  const attendanceRecord = await Attendance.aggregate([
+    {
+      $match: {
+        date: { $gte: startDate, $lte: endDate },
+      },
+    },
+    {
+      $lookup: {
+        from: "employees",
+        localField: "employee",
+        foreignField: "_id",
+        as: "employee",
+      },
+    },
+    { $unwind: "$employee" },
+    {
+      $lookup: {
+        from: "departments",
+        localField: "employee.department",
+        foreignField: "_id",
+        as: "employee.department",
+      },
+    },
+    { $unwind: "$employee.department" },
+    {
+      $lookup: {
+        from: "roles",
+        localField: "employee.role",
+        foreignField: "_id",
+        as: "employee.role",
+      },
+    },
+    { $unwind: "$employee.role" },
+    {
+      $match: { "employee.department._id": departmentId },
+    },
+    {
+      $project: {
+        _id: 1,
+        date: 1,
+        status: 1,
+        "employee.name": 1,
+        "employee.employeeId": 1,
+        "employee.department.name": 1,
+        "employee.role.name": 1,
+      },
+    },
+    { $sort: { date: -1 } },
+  ]);
+
+  if (attendanceRecord.length === 0)
+    throw new Error(
+      "No attendance records found for this department in the selected month"
+    );
+
+  return res.status(200).json({
+    success: true,
+    message: "Monthly attendance fetched successfully",
     attendanceRecord,
   });
 });
@@ -471,4 +552,5 @@ export {
   getMonthlyAttendancePercentage,
   getDepartmentAttendancePercentage,
   getEmployeeAttendanceByDepartment,
+  getEmployeeMonthAttendanceByDepartment,
 };

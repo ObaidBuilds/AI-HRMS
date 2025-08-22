@@ -6,7 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/shared/loaders/Loader";
 import FetchError from "../../components/shared/error/FetchError";
 import SheetModal from "../../components/shared/modals/SheetModal";
-import { getEmployeeAttendanceByDepartment } from "../../services/attendance.service";
+import MonthSheetModal from "../../components/shared/modals/MonthSheetModal";
+import {
+  getEmployeeAttendanceByDepartment,
+  getEmployeeMonthlyAttendanceByDepartment,
+} from "../../services/attendance.service";
+import NoDataMessage from "../../components/shared/error/NoDataMessage";
 
 function CheckAttendance() {
   const dispatch = useDispatch();
@@ -17,6 +22,7 @@ function CheckAttendance() {
   );
 
   const [showModal, setShowModal] = useState(false);
+  const [showMonthModal, setShowMonthModal] = useState(false);
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split("T")[0]
@@ -32,6 +38,19 @@ function CheckAttendance() {
     setShowModal(false);
   };
 
+  const handleMonthModalSubmit = (e) => {
+    e.preventDefault();
+    if (selectedDepartment && selectedDate) {
+      dispatch(
+        getEmployeeMonthlyAttendanceByDepartment({
+          selectedDepartment,
+          selectedDate,
+        })
+      );
+    }
+    setShowMonthModal(false);
+  };
+
   return (
     <>
       <Helmet>
@@ -41,6 +60,30 @@ function CheckAttendance() {
       {loading && <Loader />}
 
       <section className="bg-gray-100 border border-gray-300 dark:border-primary dark:bg-secondary p-3 min-h-screen rounded-lg shadow">
+        <div className="flex gap-4 py-1">
+          <button
+            onClick={() => setShowModal(true)}
+            className={`hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-sm font-semibold border py-1 px-5 rounded-3xl transition-all  ease-in-out duration-300
+   hover:border-blue-500 hover:bg-blue-100 hover:text-blue-600 
+   dark:hover:border-blue-500 dark:hover:bg-transparent dark:hover:text-blue-500 
+   focus:outline-none focus:ring-1 focus:ring-blue-500`}
+          >
+            <i className="fas fa-calendar-day text-sm"></i>
+            Daily Attendance
+          </button>
+
+          <button
+            onClick={() => setShowMonthModal(true)}
+            className={`hidden sm:flex flex-grow sm:flex-grow-0 justify-center items-center gap-2 text-sm font-semibold border py-1 px-5 rounded-3xl transition-all  ease-in-out duration-300
+   hover:border-blue-500 hover:bg-blue-100 hover:text-blue-600 
+   dark:hover:border-blue-500 dark:hover:bg-transparent dark:hover:text-blue-500 
+   focus:outline-none focus:ring-1 focus:ring-blue-500`}
+          >
+            <i className="fas fa-calendar-day text-sm"></i>
+            Monthly Attendance
+          </button>
+        </div>
+
         <div id="overflow" className="overflow-x-auto mt-3">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
@@ -96,15 +139,7 @@ function CheckAttendance() {
           </table>
 
           {!selectedDepartment && attendanceRecord.length === 0 && (
-            <div className="flex flex-col items-center justify-center h-[60vh] sm:h-[70vh]">
-              <button
-                onClick={() => setShowModal(true)}
-                className="p-4 rounded-md text-center text-sm font-semibold text-gray-700 dark:text-gray-300"
-              >
-                <i className="fas fa-building mr-2"></i>
-                Select Department to see attendance
-              </button>
-            </div>
+            <NoDataMessage message={`Fetch Sheet to see attendance`} />
           )}
 
           {error && <FetchError error={error} />}
@@ -117,6 +152,18 @@ function CheckAttendance() {
             setSelectedDate={setSelectedDate}
             onClose={() => setShowModal(false)}
             handleModalSubmit={handleModalSubmit}
+            selectedDepartment={selectedDepartment}
+            setSelectedDepartment={setSelectedDepartment}
+          />
+        )}
+
+        {showMonthModal && (
+          <MonthSheetModal
+            departments={departments}
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            onClose={() => setShowMonthModal(false)}
+            handleModalSubmit={handleMonthModalSubmit}
             selectedDepartment={selectedDepartment}
             setSelectedDepartment={setSelectedDepartment}
           />

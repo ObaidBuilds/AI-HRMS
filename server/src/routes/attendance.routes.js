@@ -8,6 +8,7 @@ import {
   genrateQrCodeForAttendance,
   getMonthlyAttendancePercentage,
   getEmployeeAttendanceByDepartment,
+  getEmployeeMonthAttendanceByDepartment,
 } from "../controllers/attendance.controller.js";
 import {
   verifyAdminToken,
@@ -25,5 +26,10 @@ router.post("/mark/qr", verifyEmployeeToken, markAttendanceByQrCode);
 router.get("/month", verifyAdminToken, getMonthlyAttendancePercentage);
 router.post("/generate", verifyEmployeeToken, genrateQrCodeForAttendance);
 router.get("/department", verifyAdminToken, getEmployeeAttendanceByDepartment);
+router.get(
+  "/month/department",
+  verifyAdminToken,
+  getEmployeeMonthAttendanceByDepartment
+);
 
 export default router;
