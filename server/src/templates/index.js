@@ -129,7 +129,7 @@ async function leaveRespond({ email, name, status, type, remarks }) {
             Your ${type} leave request has been <strong style="color: #4CAF50;">${status.toLowerCase()}</strong>.
         </p>
          <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">
-        ${leave.remarks}
+        ${remarks}
         </p>
         <p style="color: #cccccc; font-size: 14px; line-height: 1.6; margin: 8px 0;">
             Please ensure all your tasks are handed over before your leave begins. Enjoy your time off!

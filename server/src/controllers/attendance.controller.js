@@ -111,6 +111,8 @@ const genrateQrCodeForAttendance = catchErrors(async (req, res) => {
   const id = req.user.id;
   const { latitude, longitude } = req.body;
 
+  // console.log(`latitude ${latitude}  longitude ${longitude} `)
+
   const isPresent = await Attendance.findOne({
     employee: id,
     date: {
