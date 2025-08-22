@@ -104,7 +104,7 @@ const rejectLeave = async (leave, remarks) => {
     employee: leave.employee._id,
     status: leave.status,
     type: `Leave - ${leave.leaveType}`,
-    remarks: remarks || "--",
+    remarks: leave.remarks || "--",
   });
 
   await leaveRespond({
