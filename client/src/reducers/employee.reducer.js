@@ -15,12 +15,17 @@ const initialState = {
   loading: false,
   formLoading: false,
   error: null,
+  fetch: true,
 };
 
 const employeeSlice = createSlice({
   name: "employee",
   initialState,
-  reducers: {},
+  reducers: {
+    setFetchFlag: (state, action) => {
+      state.fetch = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Handle getAllEmployees async action
@@ -30,6 +35,7 @@ const employeeSlice = createSlice({
       })
       .addCase(getAllEmployees.fulfilled, (state, action) => {
         state.loading = false;
+        state.fetch = false;
         state.employees = action.payload.employees;
         state.pagination = action.payload.pagination;
       })
@@ -117,4 +123,5 @@ const employeeSlice = createSlice({
   },
 });
 
+export const { setFetchFlag } = employeeSlice.actions;
 export default employeeSlice.reducer;

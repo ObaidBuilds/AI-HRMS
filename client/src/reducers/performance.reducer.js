@@ -9,12 +9,17 @@ const initialState = {
   pagination: null,
   loading: false,
   error: null,
+  fetch: true,
 };
 
 const performanceSlice = createSlice({
   name: "performance",
   initialState,
-  reducers: {},
+  reducers: {
+    setFetchFlag: (state, action) => {
+      state.fetch = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Handling the getPerformances action
@@ -26,6 +31,7 @@ const performanceSlice = createSlice({
         state.performances = action.payload.performances;
         state.pagination = action.payload.pagination;
         state.loading = false;
+        state.fetch = false;
       })
       .addCase(getPerformances.rejected, (state, action) => {
         state.loading = false;
@@ -38,13 +44,12 @@ const performanceSlice = createSlice({
         state.error = null;
       })
       .addCase(updatePerformance.fulfilled, (state, action) => {
-        const updatedPerformance = [...state.performances];
-        const findIndex = updatedPerformance.findIndex(
-          (perfromance) => perfromance._id == action.payload._id
+        const index = state.performances.findIndex(
+          (performance) => performance._id === action.payload._id
         );
-        if (findIndex !== -1) {
-          updatedPerformance[findIndex] = action.payload;
-          state.performances = updatedPerformance;
+
+        if (index !== -1) {
+          state.performances[index] = action.payload;
         }
         state.loading = false;
       })
@@ -55,4 +60,5 @@ const performanceSlice = createSlice({
   },
 });
 
+export const { setFetchFlag } = performanceSlice.actions;
 export default performanceSlice.reducer;

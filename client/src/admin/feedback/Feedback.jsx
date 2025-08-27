@@ -5,16 +5,17 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/shared/loaders/Loader";
 import { getFeedbacks } from "../../services/feedback.service";
+import { setFetchFlag } from "../../reducers/feedback.reducer";
 import { feedbackButtons, feedbackHead } from "../../constants";
 import FetchError from "../../components/shared/error/FetchError";
 import Pagination from "../../components/shared/others/Pagination";
-import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import FilterButton from "../../components/shared/buttons/FilterButton";
+import NoDataMessage from "../../components/shared/error/NoDataMessage";
 
 function Feedback() {
   const dispatch = useDispatch();
 
-  const { feedbacks, loading, pagination, error } = useSelector(
+  const { feedbacks, loading, pagination, error, fetch } = useSelector(
     (state) => state.feedback
   );
 
@@ -22,9 +23,24 @@ function Feedback() {
   const [reviewFilter, setReviewFilter] = useState("");
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
+  const handleReviewFilter = (filter) => {
+    dispatch(setFetchFlag(true));
+    setReviewFilter(filter);
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page) => {
+    dispatch(setFetchFlag(true));
+    setCurrentPage(page);
+  };
+
   useEffect(() => {
-    dispatch(getFeedbacks({ review: reviewFilter.toLowerCase(), currentPage }));
-  }, [reviewFilter, currentPage]);
+    if (fetch) {
+      dispatch(
+        getFeedbacks({ review: reviewFilter.toLowerCase(), currentPage })
+      );
+    }
+  }, [reviewFilter, currentPage, fetch]);
 
   if (error) return <FetchError error={error} />;
 
@@ -41,7 +57,7 @@ function Feedback() {
           {feedbackButtons.map((filter, i) => (
             <FilterButton
               key={i}
-              setState={setReviewFilter}
+              setState={handleReviewFilter}
               state={reviewFilter}
               filter={filter}
             />
@@ -121,7 +137,7 @@ function Feedback() {
         {!loading && feedbacks.length > 0 && (
           <Pagination
             currentPage={currentPage}
-            onPageChange={setCurrentPage}
+            onPageChange={handlePageChange}
             totalPages={pagination?.totalPages}
           />
         )}

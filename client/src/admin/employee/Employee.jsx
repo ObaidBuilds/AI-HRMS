@@ -16,11 +16,12 @@ import {
 import FetchError from "../../components/shared/error/FetchError";
 import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import ImportExcelModal from "../../components/shared/modals/ImportExcelModal";
+import { setFetchFlag } from "../../reducers/employee.reducer";
 
 function Employee() {
   const dispatch = useDispatch();
 
-  const { employees, pagination, loading, error } = useSelector(
+  const { employees, pagination, loading, error, fetch } = useSelector(
     (state) => state.employee
   );
 
@@ -42,8 +43,10 @@ function Employee() {
     roleName: "",
   });
 
-  const goToPage = (page) =>
+  const goToPage = (page) => {
+    dispatch(setFetchFlag(true));
     setUiState((prev) => ({ ...prev, currentPage: page }));
+  };
 
   const confirmation = useCallback(() => {
     dispatch(deleteEmployee(uiState.deletedEmployee._id));
@@ -86,11 +89,13 @@ function Employee() {
   }, [employees]);
 
   const handleApplyFilters = (newFilters) => {
+    dispatch(setFetchFlag(true));
     setFilters(newFilters);
     setUiState((prev) => ({ ...prev, toggleFilterBar: false }));
   };
 
   const clearFilter = (filterKey) => {
+    dispatch(setFetchFlag(true));
     setFilters((prevFilters) => ({
       ...prevFilters,
       [filterKey]: "",
@@ -117,8 +122,10 @@ function Employee() {
     ));
 
   useEffect(() => {
-    dispatch(getAllEmployees({ currentPage: uiState.currentPage, filters }));
-  }, [dispatch, uiState.currentPage, filters]);
+    if (fetch) {
+      dispatch(getAllEmployees({ currentPage: uiState.currentPage, filters }));
+    }
+  }, [dispatch, uiState.currentPage, filters, fetch]);
 
   useEffect(() => {
     document.body.classList.toggle("no-scroll", uiState.toggleFilterBar);

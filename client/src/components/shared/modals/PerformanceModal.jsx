@@ -6,8 +6,8 @@ const PerformanceModal = ({ onClose, performance }) => {
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
-    rating: "",
-    feedback: "",
+    rating: performance.rating || "",
+    feedback: performance.feedback || "",
   });
 
   const handleChange = (e) => {

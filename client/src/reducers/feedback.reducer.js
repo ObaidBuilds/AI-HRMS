@@ -6,12 +6,17 @@ const initialState = {
   pagination: null,
   loading: false,
   error: null,
+  fetch: true,
 };
 
 const feedbackSlice = createSlice({
   name: "feedback",
   initialState,
-  reducers: {},
+  reducers: {
+    setFetchFlag: (state, action) => {
+      state.fetch = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Handling getFeedbacks action
@@ -23,6 +28,7 @@ const feedbackSlice = createSlice({
         state.feedbacks = action.payload.feedback;
         state.pagination = action.payload.pagination;
         state.loading = false;
+        state.fetch = false;
       })
       .addCase(getFeedbacks.rejected, (state, action) => {
         state.loading = false;
@@ -36,6 +42,7 @@ const feedbackSlice = createSlice({
       })
       .addCase(createFeedback.fulfilled, (state) => {
         state.loading = false;
+        state.fetch = true;
       })
       .addCase(createFeedback.rejected, (state, action) => {
         state.loading = false;
@@ -44,4 +51,5 @@ const feedbackSlice = createSlice({
   },
 });
 
+export const { setFetchFlag } = feedbackSlice.actions;
 export default feedbackSlice.reducer;
