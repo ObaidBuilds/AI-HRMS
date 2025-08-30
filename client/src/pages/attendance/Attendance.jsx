@@ -10,6 +10,7 @@ const Attendance = () => {
   const dispatch = useDispatch();
 
   const attendance = useSelector((state) => state.attendance);
+  const fetch = useSelector((state) => state.attendance.fetch);
 
   const [filteredAttendance, setFilteredAttendance] = useState([]);
 
@@ -18,7 +19,9 @@ const Attendance = () => {
   );
 
   useEffect(() => {
-    dispatch(getEmployeeAttendance());
+    if (fetch) {
+      dispatch(getEmployeeAttendance());
+    }
   }, [dispatch]);
 
   useEffect(() => {
@@ -40,7 +43,7 @@ const Attendance = () => {
           <div className="w-full rounded-2xl p-2">
             <div
               id="overflow"
-              className="overflow-auto bg-gray-100 shadow h-[71vh] mt-2"
+              className="overflow-auto bg-gray-100 shadow h-[75vh] mt-2"
             >
               <table className="min-w-full table-auto text-sm text-white whitespace-nowrap">
                 <thead>

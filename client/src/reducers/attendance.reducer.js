@@ -15,6 +15,7 @@ const initialState = {
   loading: false,
   error: null,
   qrcode: null,
+  fetch: true,
 };
 
 const attendanceSlice = createSlice({
@@ -23,7 +24,9 @@ const attendanceSlice = createSlice({
   reducers: {
     removeQr: (state) => {
       state.qrcode = null;
-      console.log(state.qrcode);
+    },
+    setFetchFlag: (state, action) => {
+      state.fetch = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -49,6 +52,7 @@ const attendanceSlice = createSlice({
       })
       .addCase(markAttendance.fulfilled, (state) => {
         state.loading = false;
+        state.fetch = true;
         state.attendanceList = [];
       })
       .addCase(markAttendance.rejected, (state, action) => {
@@ -63,6 +67,7 @@ const attendanceSlice = createSlice({
       })
       .addCase(getEmployeeAttendance.fulfilled, (state, action) => {
         state.loading = false;
+        state.fetch = false;
         state.attendanceList = action.payload;
       })
       .addCase(getEmployeeAttendance.rejected, (state, action) => {
@@ -91,6 +96,7 @@ const attendanceSlice = createSlice({
       })
       .addCase(markAttendanceUsingQrCode.fulfilled, (state) => {
         state.loading = false;
+        state.fetch = true;
       })
       .addCase(markAttendanceUsingQrCode.rejected, (state, action) => {
         state.loading = false;
@@ -133,6 +139,5 @@ const attendanceSlice = createSlice({
   },
 });
 
-export const { removeQr } = attendanceSlice.actions;
-
+export const { removeQr, setFetchFlag } = attendanceSlice.actions;
 export default attendanceSlice.reducer;

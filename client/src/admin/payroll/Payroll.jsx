@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../components/shared/modals/Modal";
 import Loader from "../../components/shared/loaders/Loader";
+import { setFetchFlag } from "../../reducers/payroll.reducer";
 import { formatDate, getMonthAbbreviation } from "../../utils";
 import FetchError from "../../components/shared/error/FetchError";
 import Pagination from "../../components/shared/others/Pagination";
@@ -15,7 +16,7 @@ import { getAllPayrolls, markAsPaid } from "../../services/payroll.service";
 function Payroll() {
   const dispatch = useDispatch();
 
-  const { payrolls, pagination, loading, error } = useSelector(
+  const { payrolls, pagination, loading, error, fetch } = useSelector(
     (state) => state.payroll
   );
 
@@ -31,22 +32,35 @@ function Payroll() {
     dispatch(markAsPaid(selectedId));
   };
 
+  const goToPage = (page) => {
+    dispatch(setFetchFlag(true));
+    setCurrentPage(page);
+  };
+
   const confirmMarkAsPaid = () => {
     handleMarkAsPaid();
     setSelectedId(null);
     setShowConfirmModal(false);
   };
 
+  const handleReviewFilter = (filter) => {
+    dispatch(setFetchFlag(true));
+    setPayrollFilter(filter);
+    setCurrentPage(1);
+  };
+
   useEffect(() => {
-    dispatch(
-      getAllPayrolls({
-        currentPage,
-        isPaid:
-          payrollFilter === "Paid" ? true : payrollFilter === "" ? "" : false,
-        month: selectedMonth,
-      })
-    );
-  }, [currentPage, payrollFilter, selectedMonth]);
+    if (fetch) {
+      dispatch(
+        getAllPayrolls({
+          currentPage,
+          isPaid:
+            payrollFilter === "Paid" ? true : payrollFilter === "" ? "" : false,
+          month: selectedMonth,
+        })
+      );
+    }
+  }, [currentPage, payrollFilter, selectedMonth, fetch]);
 
   if (error) return <FetchError error={error} />;
 
@@ -63,7 +77,7 @@ function Payroll() {
           {payrollButtons.map((filter, i) => (
             <FilterButton
               key={i}
-              setState={setPayrollFilter}
+              setState={handleReviewFilter}
               state={payrollFilter}
               filter={filter}
             />
@@ -178,7 +192,7 @@ function Payroll() {
           <Pagination
             currentPage={currentPage}
             totalPages={pagination?.totalPages}
-            onPageChange={setCurrentPage}
+            onPageChange={goToPage}
           />
         )}
 

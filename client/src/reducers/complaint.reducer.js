@@ -10,12 +10,17 @@ const initialState = {
   loading: false,
   error: null,
   pagination: null,
+  fetch: true,
 };
 
 const complaintsSlice = createSlice({
   name: "complaints",
   initialState,
-  reducers: {},
+  reducers: {
+    setFetchFlag: (state, action) => {
+      state.fetch = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     // Handle getComplaints action
     builder
@@ -24,6 +29,7 @@ const complaintsSlice = createSlice({
         state.error = null;
       })
       .addCase(getComplaints.fulfilled, (state, action) => {
+        state.fetch = false;
         state.loading = false;
         state.complaints = action.payload.complaint;
         state.pagination = action.payload.pagination;
@@ -69,4 +75,5 @@ const complaintsSlice = createSlice({
   },
 });
 
+export const { setFetchFlag } = complaintsSlice.actions;
 export default complaintsSlice.reducer;
