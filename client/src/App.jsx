@@ -16,7 +16,7 @@ const ForgetPassword = lazy(() => import("./auth/ForgetPassword"));
 const InvalidResetLink = lazy(() => import("./auth/InvalidResetLink"));
 const EmailConfirmation = lazy(() => import("./auth/EmailConfirmation"));
 
-function HrmsForMetroCashAndCarry() {
+function MetroHrmsApp() {
   const { user } = useSelector((state) => state.authentication);
 
   useEffect(() => {
@@ -79,7 +79,7 @@ const RootApp = () => {
   return (
     <Suspense fallback={<Loader />}>
       <Toaster />
-      <HrmsForMetroCashAndCarry />
+      <MetroHrmsApp />
     </Suspense>
   );
 };

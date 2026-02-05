@@ -1,7 +1,9 @@
+# Ignore Some Public Images
+./public/Batch 21-25.jpg
+
 # Node.js dependencies
 client/node_modules
 server/node_modules
-
 
 # Ignore all .env files
 server/.env
