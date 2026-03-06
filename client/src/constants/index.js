@@ -54,12 +54,12 @@ const sidebarLinks = [
       { name: "Post New Job", link: "/recruitment/create" },
     ],
   },
-  // {
-  //   name: "Employee Communication",
-  //   iconClass: "far fa-envelope",
-  //   link: "/mails",
-  //   childrens: [],
-  // },
+  {
+    name: "Employee Communication",
+    iconClass: "far fa-envelope",
+    link: "/mails",
+    childrens: [],
+  },
   {
     name: "Complaint Handling",
     iconClass: "far fa-bell",
