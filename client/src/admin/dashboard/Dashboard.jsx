@@ -20,7 +20,8 @@ const Dashboard = () => {
     {
       id: 6,
       title: "Average Rating",
-      stats: insights?.feedbackResult[0].avgRating.toFixed(2),
+      stats: insights?.feedbackResult?.[0]?.avgRating.toFixed(2)??"0.00",
+      
     },
   ];
 
