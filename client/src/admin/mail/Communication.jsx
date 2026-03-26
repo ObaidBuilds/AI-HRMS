@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { Helmet } from "react-helmet";
 import { FaSearch } from "react-icons/fa";
 import ChatPanel from "../../components/shared/chat/ChatPanel";
 import ContactItem from "../../components/shared/chat/ContactItem";
@@ -70,6 +71,10 @@ const Communication = () => {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Communication - Metro HR</title>
+      </Helmet>
     <div
     className="flex h-[92vh] rounded-lg sm:h-[99vh] bg-gray-100 dark:bg-gray-900 text-sm sm:text-[0.92rem] overflow-hidden">
       <div
@@ -120,6 +125,7 @@ const Communication = () => {
         selectedEmployee={selectedEmployee}
       />
     </div>
+    </>
   );
 };
 
