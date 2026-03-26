@@ -1,7 +1,9 @@
+import { Helmet } from "react-helmet";
 import { formatDate } from "../../utils";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../../components/shared/loaders/Loader";
+import { setFetchFlag } from "../../reducers/performance.reducer";
 import FetchError from "../../components/shared/error/FetchError";
 import Pagination from "../../components/shared/others/Pagination";
 import { performanceButtons, perfromceHead } from "../../constants";
@@ -9,12 +11,11 @@ import { getPerformances } from "../../services/performance.service";
 import NoDataMessage from "../../components/shared/error/NoDataMessage";
 import FilterButton from "../../components/shared/buttons/FilterButton";
 import PerfromanceModal from "../../components/shared/modals/PerformanceModal";
-import { Helmet } from "react-helmet";
 
 function Perfromance() {
   const dispatch = useDispatch();
 
-  const { performances, pagination, loading, error } = useSelector(
+  const { performances, pagination, loading, error, fetch } = useSelector(
     (state) => state.performance
   );
 
@@ -24,7 +25,10 @@ function Perfromance() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [selectedPerformance, setSelectedPerformance] = useState(null);
 
-  const goToPage = (page) => setCurrentPage(page);
+  const goToPage = (page) => {
+    dispatch(setFetchFlag(true));
+    setCurrentPage(page);
+  };
 
   const handleClick = (performance) => {
     if (performance) {
@@ -33,9 +37,17 @@ function Perfromance() {
     }
   };
 
+  const handleReviewFilter = (filter) => {
+    dispatch(setFetchFlag(true));
+    setStatus(filter);
+    setCurrentPage(1);
+  };
+
   useEffect(() => {
-    dispatch(getPerformances({ status: status.toLowerCase(), currentPage }));
-  }, [currentPage, status]);
+    if (fetch) {
+      dispatch(getPerformances({ status: status.toLowerCase(), currentPage }));
+    }
+  }, [currentPage, status, fetch]);
 
   if (error) return <FetchError error={error} />;
 
@@ -52,7 +64,7 @@ function Perfromance() {
           {performanceButtons.map((filter, i) => (
             <FilterButton
               key={i}
-              setState={setStatus}
+              setState={handleReviewFilter}
               state={status}
               filter={filter}
             />

@@ -6,6 +6,7 @@ import {
   markAttendanceUsingQrCode,
   generateQRCodeForAttendance,
   getEmployeeAttendanceByDepartment,
+  getEmployeeMonthlyAttendanceByDepartment,
 } from "../services/attendance.service.js";
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   loading: false,
   error: null,
   qrcode: null,
+  fetch: true,
 };
 
 const attendanceSlice = createSlice({
@@ -22,7 +24,9 @@ const attendanceSlice = createSlice({
   reducers: {
     removeQr: (state) => {
       state.qrcode = null;
-      console.log(state.qrcode);
+    },
+    setFetchFlag: (state, action) => {
+      state.fetch = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -48,6 +52,7 @@ const attendanceSlice = createSlice({
       })
       .addCase(markAttendance.fulfilled, (state) => {
         state.loading = false;
+        state.fetch = true;
         state.attendanceList = [];
       })
       .addCase(markAttendance.rejected, (state, action) => {
@@ -62,6 +67,7 @@ const attendanceSlice = createSlice({
       })
       .addCase(getEmployeeAttendance.fulfilled, (state, action) => {
         state.loading = false;
+        state.fetch = false;
         state.attendanceList = action.payload;
       })
       .addCase(getEmployeeAttendance.rejected, (state, action) => {
@@ -90,6 +96,7 @@ const attendanceSlice = createSlice({
       })
       .addCase(markAttendanceUsingQrCode.fulfilled, (state) => {
         state.loading = false;
+        state.fetch = true;
       })
       .addCase(markAttendanceUsingQrCode.rejected, (state, action) => {
         state.loading = false;
@@ -108,10 +115,29 @@ const attendanceSlice = createSlice({
       .addCase(getEmployeeAttendanceByDepartment.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+
+      // Handling getEmployeeMonthlyAttendanceByDepartment
+      .addCase(getEmployeeMonthlyAttendanceByDepartment.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(
+        getEmployeeMonthlyAttendanceByDepartment.fulfilled,
+        (state, action) => {
+          state.attendanceRecord = action.payload;
+          state.loading = false;
+        }
+      )
+      .addCase(
+        getEmployeeMonthlyAttendanceByDepartment.rejected,
+        (state, action) => {
+          state.loading = false;
+          state.error = action.payload;
+        }
+      );
   },
 });
 
-export const { removeQr } = attendanceSlice.actions;
-
+export const { removeQr, setFetchFlag } = attendanceSlice.actions;
 export default attendanceSlice.reducer;

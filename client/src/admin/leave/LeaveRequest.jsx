@@ -9,6 +9,7 @@ import {
   respondToLeaveRequest,
 } from "../../services/leave.service";
 import Modal from "../../components/shared/modals/Modal";
+import { setFetchFlag } from "../../reducers/leave.reducer";
 import { leaveHead, leaveRequestButtons } from "../../constants";
 import FetchError from "../../components/shared/error/FetchError";
 import RemarksModal from "../../components/shared/modals/RemarksModal";
@@ -18,13 +19,18 @@ import FilterButton from "../../components/shared/buttons/FilterButton";
 function LeaveRequest() {
   const dispatch = useDispatch();
 
-  const { leaves, loading, error } = useSelector((state) => state.leave);
+  const { leaves, loading, error, fetch } = useSelector((state) => state.leave);
 
   const [status, setStatus] = useState("Pending");
   const [toggleModal, setToggleModal] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [selectedLeave, setSelectedLeave] = useState(null);
   const [toggleRemarkModal, setToggleRemarkModal] = useState(false);
+
+  const handleReviewFilter = (filter) => {
+    dispatch(setFetchFlag(true));
+    setStatus(filter);
+  };
 
   const handleApprove = (id) => {
     setSelectedLeave(id);
@@ -57,8 +63,10 @@ function LeaveRequest() {
   };
 
   useEffect(() => {
-    dispatch(getLeavesByStatus(status));
-  }, [status]);
+    if (fetch) {
+      dispatch(getLeavesByStatus(status));
+    }
+  }, [status, fetch]);
 
   return (
     <>
@@ -73,7 +81,7 @@ function LeaveRequest() {
           {leaveRequestButtons.map((filter, i) => (
             <FilterButton
               key={i}
-              setState={setStatus}
+              setState={handleReviewFilter}
               state={status}
               filter={filter}
             />

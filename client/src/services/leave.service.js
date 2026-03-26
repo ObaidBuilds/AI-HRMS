@@ -59,6 +59,7 @@ export const respondToLeaveRequest = createAsyncThunk(
         remarks,
         status,
       });
+      console.log(data)
       toast.success(data.message);
       return data.leave;
     } catch (error) {

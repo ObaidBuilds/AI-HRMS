@@ -14,12 +14,17 @@ const initialState = {
   jobApplications: [],
   loading: false,
   error: null,
+  fetch: true,
 };
 
 const recruitmentSlice = createSlice({
   name: "recruitment",
   initialState,
-  reducers: {},
+  reducers: {
+    setFetchFlag: (state, action) => {
+      state.fetch = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Handling the createJob action
@@ -42,13 +47,12 @@ const recruitmentSlice = createSlice({
         state.error = null;
       })
       .addCase(updateJob.fulfilled, (state, action) => {
-        const updatedJob = [...state.jobs];
-        const findIndex = updatedJob.findIndex(
-          (job) => job._id == action.payload._id
+        const index = state.jobs.findIndex(
+          (job) => job._id === action.payload._id
         );
-        if (findIndex !== -1) {
-          updatedJob[findIndex] = action.payload;
-          state.jobs = updatedJob;
+
+        if (index !== -1) {
+          state.jobs[index] = action.payload;
         }
         state.loading = false;
       })
@@ -78,6 +82,8 @@ const recruitmentSlice = createSlice({
       .addCase(getJobOpenings.fulfilled, (state, action) => {
         state.jobs = action.payload;
         state.loading = false;
+        state.fetch = false;
+        state.fetch = false;
       })
       .addCase(getJobOpenings.rejected, (state, action) => {
         state.loading = false;
@@ -104,13 +110,12 @@ const recruitmentSlice = createSlice({
         state.error = null;
       })
       .addCase(updateApplication.fulfilled, (state, action) => {
-        const updatedApplication = [...state.jobApplications];
-        const findIndex = updatedApplication.findIndex(
-          (applicant) => applicant._id == action.payload._id
+        const index = state.jobApplications.findIndex(
+          (applicant) => applicant._id === action.payload._id
         );
-        if (findIndex !== -1) {
-          updatedApplication[findIndex] = action.payload;
-          state.jobApplications = updatedApplication;
+
+        if (index !== -1) {
+          state.jobApplications[index] = action.payload;
         }
         state.loading = false;
       })
@@ -125,13 +130,12 @@ const recruitmentSlice = createSlice({
         state.error = null;
       })
       .addCase(inviteForInterview.fulfilled, (state, action) => {
-        const updatedApplication = [...state.jobApplications];
-        const findIndex = updatedApplication.findIndex(
-          (applicant) => applicant._id == action.payload._id
+        const index = state.jobApplications.findIndex(
+          (applicant) => applicant._id === action.payload._id
         );
-        if (findIndex !== -1) {
-          updatedApplication[findIndex] = action.payload;
-          state.jobApplications = updatedApplication;
+
+        if (index !== -1) {
+          state.jobApplications[index] = action.payload;
         }
         state.loading = false;
       })
@@ -142,4 +146,5 @@ const recruitmentSlice = createSlice({
   },
 });
 
+export const { setFetchFlag } = recruitmentSlice.actions;
 export default recruitmentSlice.reducer;

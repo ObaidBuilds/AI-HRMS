@@ -322,7 +322,10 @@ const updateEmployee = catchErrors(async (req, res) => {
       admin,
     },
     { new: true }
-  );
+  )
+    .populate("department", "name")
+    .populate("role", "name")
+    .select("-password");
 
   myCache.del("insights");
   clearEmployeeCache();

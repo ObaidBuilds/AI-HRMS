@@ -10,12 +10,17 @@ const initialState = {
   pagination: null,
   loading: false,
   error: null,
+  fetch: true,
 };
 
 const payrollSlice = createSlice({
   name: "payroll",
   initialState,
-  reducers: {},
+  reducers: {
+    setFetchFlag: (state, action) => {
+      state.fetch = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Handling the getAllPayrolls action
@@ -24,9 +29,10 @@ const payrollSlice = createSlice({
         state.error = null;
       })
       .addCase(getAllPayrolls.fulfilled, (state, action) => {
+        state.fetch = false;
+        state.loading = false;
         state.payrolls = action.payload.payrolls;
         state.pagination = action.payload.pagination;
-        state.loading = false;
       })
       .addCase(getAllPayrolls.rejected, (state, action) => {
         state.loading = false;
@@ -39,13 +45,12 @@ const payrollSlice = createSlice({
         state.error = null;
       })
       .addCase(markAsPaid.fulfilled, (state, action) => {
-        const updatedPayroll = [...state.payrolls];
-        const findIndex = updatedPayroll.findIndex(
-          (payroll) => payroll._id == action.payload._id
+        const index = state.payrolls.findIndex(
+          (payroll) => payroll._id === action.payload._id
         );
-        if (findIndex !== -1) {
-          updatedPayroll[findIndex] = action.payload;
-          state.payrolls = updatedPayroll;
+
+        if (index !== -1) {
+          state.payrolls[index] = action.payload;
         }
         state.loading = false;
       })
@@ -60,13 +65,12 @@ const payrollSlice = createSlice({
         state.error = null;
       })
       .addCase(updatePayroll.fulfilled, (state, action) => {
-        const updatedPayroll = [...state.payrolls];
-        const findIndex = updatedPayroll.findIndex(
-          (payroll) => payroll._id == action.payload._id
+        const index = state.payrolls.findIndex(
+          (payroll) => payroll._id === action.payload._id
         );
-        if (findIndex !== -1) {
-          updatedPayroll[findIndex] = action.payload;
-          state.payrolls = updatedPayroll;
+
+        if (index !== -1) {
+          state.payrolls[index] = action.payload;
         }
         state.loading = false;
       })
@@ -77,4 +81,5 @@ const payrollSlice = createSlice({
   },
 });
 
+export const { setFetchFlag } = payrollSlice.actions;
 export default payrollSlice.reducer;

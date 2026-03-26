@@ -42,6 +42,26 @@ export const getEmployeeAttendanceByDepartment = createAsyncThunk(
   }
 );
 
+// Get monthly attendance data
+export const getEmployeeMonthlyAttendanceByDepartment = createAsyncThunk(
+  "attendance/getEmployeeMonthlyAttendanceByDepartment",
+  async ({ selectedDepartment, selectedDate }, { rejectWithValue }) => {
+    try {
+      const queryParams = new URLSearchParams({
+        department: selectedDepartment || "",
+        month: selectedDate || "",
+      }).toString();
+
+      const { data } = await axiosInstance.get(
+        `/attendance/month/department/?${queryParams}`
+      );
+      return data.attendanceRecord;
+    } catch (error) {
+      return rejectWithValue(error.response?.data.message || error.message);
+    }
+  }
+);
+
 // Mark Attendance
 export const markAttendance = createAsyncThunk(
   "attendance/markAttendance",

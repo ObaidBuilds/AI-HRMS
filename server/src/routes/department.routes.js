@@ -15,7 +15,7 @@ const router = express.Router();
 router.get("/head", verifyAdminToken, getAllEmployeesForHead);
 router.post("/", verifyAdminToken, createDepartment);
 router.get("/:id/employees", verifyAdminToken, getDepartmentEmployees);
-router.get("/", verifyAdminToken, getAllDepartments);
+router.get("/", getAllDepartments);
 router.get("/:id", verifyAdminToken, getDepartmentById);
 router.delete("/:id", verifyAdminToken, deleteDepartment);
 router.patch("/:id", verifyAdminToken, updateDepartment);

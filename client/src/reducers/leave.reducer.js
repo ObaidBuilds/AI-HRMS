@@ -12,12 +12,17 @@ const initialState = {
   employeesOnLeaveToday: [],
   loading: false,
   error: null,
+  fetch: true,
 };
 
 const leavesSlice = createSlice({
   name: "leave",
   initialState,
-  reducers: {},
+  reducers: {
+    setFetchFlag: (state, action) => {
+      state.fetch = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Handling getLeavesByStatus action
@@ -26,8 +31,9 @@ const leavesSlice = createSlice({
         state.error = null;
       })
       .addCase(getLeavesByStatus.fulfilled, (state, action) => {
-        state.leaves = action.payload;
+        state.fetch = false;
         state.loading = false;
+        state.leaves = action.payload;
       })
       .addCase(getLeavesByStatus.rejected, (state, action) => {
         state.loading = false;
@@ -88,13 +94,12 @@ const leavesSlice = createSlice({
         state.error = null;
       })
       .addCase(assignSustitute.fulfilled, (state, action) => {
-        const updatedLeave = [...state.employeesOnLeaveToday];
-        const findIndex = updatedLeave.findIndex(
-          (leave) => leave._id == action.payload._id
+        const index = state.employeesOnLeaveToday.findIndex(
+          (emp) => emp._id === action.payload._id
         );
-        if (findIndex !== -1) {
-          updatedLeave[findIndex] = action.payload;
-          state.employeesOnLeaveToday = updatedLeave;
+
+        if (index !== -1) {
+          state.employeesOnLeaveToday[index] = action.payload;
         }
         state.loading = false;
       })
@@ -106,4 +111,5 @@ const leavesSlice = createSlice({
   },
 });
 
+export const { setFetchFlag } = leavesSlice.actions;
 export default leavesSlice.reducer;

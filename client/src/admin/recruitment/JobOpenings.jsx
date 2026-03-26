@@ -4,6 +4,7 @@ import { formatDate } from "../../utils";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/shared/loaders/Loader";
+import { setFetchFlag } from "../../reducers/recruitment.reducer";
 import FetchError from "../../components/shared/error/FetchError";
 import { getJobOpenings } from "../../services/recruitment.service";
 import { jobOpeningHead, recruitmentButtons } from "../../constants";
@@ -14,7 +15,9 @@ import JobOpeningModal from "../../components/shared/modals/JobOpeningModal";
 function JobOpenings() {
   const dispatch = useDispatch();
 
-  const { jobs, loading, error } = useSelector((state) => state.recruitment);
+  const { jobs, loading, error, fetch } = useSelector(
+    (state) => state.recruitment
+  );
 
   const [reviewFilter, setReviewFilter] = useState("");
   const [toggleModal, setToggleModal] = useState(false);
@@ -28,11 +31,19 @@ function JobOpenings() {
     }
   };
 
+  const handleReviewFilter = (filter) => {
+    dispatch(setFetchFlag(true));
+    setReviewFilter(filter);
+    setCurrentPage(1);
+  };
+
   useEffect(() => {
-    dispatch(
-      getJobOpenings({ status: reviewFilter.toLowerCase(), deadline: "" })
-    );
-  }, [reviewFilter]);
+    if (fetch) {
+      dispatch(
+        getJobOpenings({ status: reviewFilter.toLowerCase(), deadline: "" })
+      );
+    }
+  }, [reviewFilter, fetch]);
 
   if (error) return <FetchError error={error} />;
 
@@ -49,7 +60,7 @@ function JobOpenings() {
           {recruitmentButtons.map((filter, i) => (
             <FilterButton
               key={i}
-              setState={setReviewFilter}
+              setState={handleReviewFilter}
               state={reviewFilter}
               filter={filter}
             />

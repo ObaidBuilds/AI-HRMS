@@ -11,6 +11,7 @@ import {
 } from "../../services/complaint.service";
 import Modal from "../../components/shared/modals/Modal";
 import Loader from "../../components/shared/loaders/Loader";
+import { setFetchFlag } from "../../reducers/complaint.reducer";
 import FetchError from "../../components/shared/error/FetchError";
 import RemarksModal from "../../components/shared/modals/RemarksModal";
 import NoDataMessage from "../../components/shared/error/NoDataMessage";
@@ -19,7 +20,7 @@ import FilterButton from "../../components/shared/buttons/FilterButton";
 function Complaint() {
   const dispatch = useDispatch();
 
-  const { complaints, loading, pagination, error } = useSelector(
+  const { complaints, loading, pagination, error, fetch } = useSelector(
     (state) => state.complaint
   );
 
@@ -30,7 +31,16 @@ function Complaint() {
   const [selectedComplaint, setSelectedComplaint] = useState(null);
   const [toggleRemarkModal, setToggleRemarkModal] = useState(false);
 
-  const goToPage = (page) => setCurrentPage(page);
+  const goToPage = (page) => {
+    dispatch(setFetchFlag(true));
+    setCurrentPage(page);
+  };
+
+  const handleReviewFilter = (filter) => {
+    dispatch(setFetchFlag(true));
+    setStatus(filter);
+    setCurrentPage(1);
+  };
 
   const handleApprove = (id) => {
     setSelectedComplaint(id);
@@ -69,8 +79,10 @@ function Complaint() {
   };
 
   useEffect(() => {
-    dispatch(getComplaints({ status: status.toLowerCase(), currentPage }));
-  }, [status, currentPage]);
+    if (fetch) {
+      dispatch(getComplaints({ status: status.toLowerCase(), currentPage }));
+    }
+  }, [status, currentPage, fetch]);
 
   if (error) return <FetchError error={error} />;
 
@@ -87,7 +99,7 @@ function Complaint() {
           {complaintButtons.map((filter, i) => (
             <FilterButton
               key={i}
-              setState={setStatus}
+              setState={handleReviewFilter}
               state={status}
               filter={filter}
             />
