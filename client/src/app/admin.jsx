@@ -72,7 +72,7 @@ const AdminApp = () => {
             <Route path="/feedbacks" element={<Feedback />} />
             <Route path="/complaints" element={<Complaint />} />
             <Route path="/reports" element={<Report />} />
-            <Route path="/mails" element={<Communication />} />
+            <Route path="/mails" element={<Communication />}  />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
