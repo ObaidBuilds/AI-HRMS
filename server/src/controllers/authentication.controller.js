@@ -9,6 +9,9 @@ import Session from "../models/session.model.js";
 import Employee from "../models/employee.model.js";
 import { passwordRecovery, resetPasswordSuccess } from "../templates/index.js";
 
+const JWT_SECRET = process.env.JWT_SECRET || process.env.JWTSECRET;
+if (!JWT_SECRET) throw new Error("Server configuration error: JWT_SECRET must be set");
+
 const login = catchErrors(async (req, res) => {
   const { employeeId, password, authority, remember } = req.body;
 
@@ -36,7 +39,7 @@ const login = catchErrors(async (req, res) => {
 
   const token = jwt.sign(
     { employeeId: employee._id, authority },
-    process.env.JWT_SECRET,
+    JWT_SECRET,
     { expiresIn: remember ? "10d" : "1d" }
   );
 
@@ -142,7 +145,7 @@ const forgetPassword = catchErrors(async (req, res) => {
 
   if (!employee) throw new Error("Invalid email address");
 
-  const token = jwt.sign({ employeeId: employee._id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ employeeId: employee._id }, JWT_SECRET, {
     expiresIn: "1h",
   });
 

@@ -4,6 +4,9 @@ import Session from "../models/session.model.js";
 import Employee from "../models/employee.model.js";
 import rateLimit, { ipKeyGenerator } from "express-rate-limit";
 
+const JWT_SECRET = process.env.JWT_SECRET || process.env.JWTSECRET;
+if (!JWT_SECRET) throw new Error("Server configuration error: JWT_SECRET must be set");
+
 const loginLimiter = rateLimit({
   windowMs: 1 * 60 * 1000,
   max: 4,
@@ -36,7 +39,7 @@ const verifyEmployeeToken = catchErrors(async (req, res, next) => {
 
   if (!token) throw new Error("Unauthorized access");
 
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const decoded = jwt.verify(token, JWT_SECRET);
 
   if (!decoded.employeeId) throw new Error("Unauthorized access");
 
@@ -62,7 +65,7 @@ const verifyAdminToken = catchErrors(async (req, res, next) => {
 
   if (!token) throw new Error("Unauthorized access");
 
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const decoded = jwt.verify(token, JWT_SECRET);
 
   const session = await Session.findOne({
     userId: decoded.employeeId,

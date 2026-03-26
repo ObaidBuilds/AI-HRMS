@@ -11,6 +11,9 @@ import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
 const Dashboard = () => {
   const { insights, loading, error } = useSelector((state) => state.insight);
 
+  // Safe access to feedbackResult with fallback
+  const avgRating = insights?.feedbackResult?.[0]?.avgRating?.toFixed(2) || "0.00";
+
   const infoCardData = [
     { id: 1, title: "Total Employees", stats: insights?.totalEmployees },
     { id: 2, title: "Job Applications", stats: insights?.jobApplications },
@@ -20,7 +23,7 @@ const Dashboard = () => {
     {
       id: 6,
       title: "Average Rating",
-      stats: insights?.feedbackResult[0].avgRating.toFixed(2),
+      stats: avgRating,
     },
   ];
 

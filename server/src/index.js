@@ -1,6 +1,14 @@
 import dotenv from "dotenv";
 dotenv.config();
 
+// Validate critical environment variables early
+const ENV_JWT_SECRET = process.env.JWT_SECRET || process.env.JWTSECRET;
+if (!ENV_JWT_SECRET) {
+  console.error("FATAL: JWT_SECRET/JWTSECRET is not configured. Please set it in your .env file.");
+  process.exit(1);
+}
+process.env.JWT_SECRET = ENV_JWT_SECRET;
+
 import cors from "cors";
 import path from "path";
 import express from "express";
@@ -40,7 +48,12 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.static(path.join(__dirname, "public")));
 
-const allowedOrigins = [process.env.CLIENT_URL, "http://localhost:5173/"];
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "http://localhost:5173/",
+  "http://localhost:8000",
+  "http://localhost:8000/",
+];
 
 app.use(
   cors({
