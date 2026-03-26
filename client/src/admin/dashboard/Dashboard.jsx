@@ -11,6 +11,7 @@ import ComponentLoader from "../../components/shared/loaders/ComponentLoader";
 const Dashboard = () => {
   const { insights, loading, error } = useSelector((state) => state.insight);
 
+```bhai ye again kiu psuh kiya he ??? ye pahle hi main me he tuny pull ni liya ?
   // Safe access to feedbackResult with fallback
   const avgRating = insights?.feedbackResult?.[0]?.avgRating?.toFixed(2) || "0.00";
 
