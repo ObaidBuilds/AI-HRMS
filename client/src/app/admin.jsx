@@ -7,6 +7,7 @@ import Loader from "../components/shared/loaders/Loader";
 import NotFound from "../components/shared/error/NotFound";
 import { getInsights } from "../services/insights.service";
 import { getDepartments } from "../services/department.service";
+import Communication from "../admin/mail/Communication";
 
 const Dashboard = lazy(() => import("../admin/dashboard/Dashboard"));
 const Employee = lazy(() => import("../admin/employee/Employee"));
@@ -71,6 +72,7 @@ const AdminApp = () => {
             <Route path="/feedbacks" element={<Feedback />} />
             <Route path="/complaints" element={<Complaint />} />
             <Route path="/reports" element={<Report />} />
+            <Route path="/mails" element={<Communication />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

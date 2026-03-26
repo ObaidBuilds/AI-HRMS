@@ -59,7 +59,7 @@ const Dashboard = () => {
   return (
     <>
       <Helmet>
-        <title>Dashboard - Metro HR</title>
+        <title>Dashboard - Metro HR </title>
       </Helmet>
 
       <section className=" text-primary px-1 sm:px-0">
