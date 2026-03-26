@@ -60,11 +60,10 @@ const Sidebar = () => {
       {loading && <Loader />}
 
       <nav
-        className={`w-full fixed top-0 left-0 lg:hidden h-[70px] ${
-          theme === "light"
+        className={`w-full fixed top-0 left-0 lg:hidden h-[70px] ${theme === "light"
             ? "bg-gradient-to-r from-[#0a2540] to-[#1d3557]"
             : "bg-gradient-to-r from-[#212d3f] to-[#1e293b]"
-        } flex justify-between items-center px-7 z-50`}
+          } flex justify-between items-center px-7 z-50`}
       >
         <img
           className="w-[25px]"
@@ -84,13 +83,11 @@ const Sidebar = () => {
 
       <aside
         id="overflow"
-        className={`fixed top-0 h-screen ${
-          theme === "light"
+        className={`fixed top-0 h-screen ${theme === "light"
             ? "bg-gradient-to-r from-[#0a2540] to-[#1d3557]"
             : "bg-gradient-to-r from-[#1e293b] to-[#212d3f]"
-        }  transition-all duration-300 ease-in-out z-50 overflow-y-auto text-[0.72rem] font-medium ${
-          showSidebar ? "left-0" : "-left-full"
-        } lg:left-0 w-[75%] lg:w-[255px]`}
+          }  transition-all duration-300 ease-in-out z-50 overflow-y-auto text-[0.72rem] font-medium ${showSidebar ? "left-0" : "-left-full"
+          } lg:left-0 w-[75%] lg:w-[255px]`}
       >
         <div className="p-3 mt-3 sm:mt-5 flex justify-between lg:justify-center items-center space-x-2 px-7 animate-float">
           <div className="flex flex-col items-center">
@@ -131,11 +128,10 @@ const Sidebar = () => {
 
                 {item.childrens && item.childrens.length > 0 && (
                   <i
-                    className={`fas text-[0.6rem] text-gray-400 transition-transform ${
-                      openSubMenuIndex === index
+                    className={`fas text-[0.6rem] text-gray-400 transition-transform ${openSubMenuIndex === index
                         ? "fa-chevron-up"
                         : "fa-chevron-down"
-                    }`}
+                      }`}
                   ></i>
                 )}
               </div>
@@ -145,9 +141,8 @@ const Sidebar = () => {
                 openSubMenuIndex === index && (
                   <ul
                     key={index}
-                    className={`flex flex-col gap-2 pl-5 p-3 my-2 rounded-lg ${
-                      theme === "light" ? "bg-[#233d64]" : "bg-gray-700"
-                    } dropdown-active`}
+                    className={`flex flex-col gap-2 pl-5 p-3 my-2 rounded-lg ${theme === "light" ? "bg-[#233d64]" : "bg-gray-700"
+                      } dropdown-active`}
                   >
                     {item.childrens.map((subLink, subIndex) => (
                       <Link
@@ -170,19 +165,21 @@ const Sidebar = () => {
           ))}
 
           <div className="flex gap-3 items-center">
-            <button
-              onClick={() => {
-                setLogoutType("logout");
-                setShowSidebar(false);
-                setShowConfirmModal(true);
-              }}
-              className="flex items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
-            >
-              <i className="far fa-arrow-alt-circle-right mr-3 text-[0.9rem] text-gray-300"></i>
-              <p className=" text-[0.72rem]">LOGOUT</p>
-            </button>
+            <div className="border-b border-gray-700 w-full py-[4px]">
+              <button
+                onClick={() => {
+                  setLogoutType("logout");
+                  setShowSidebar(false);
+                  setShowConfirmModal(true);
+                }}
+                className="flex items-center hover:text-gray-300 w-full"
+              >
+                <i className="far fa-arrow-alt-circle-right mr-3 text-[0.9rem] text-gray-300"></i>
+                <p className="text-[0.72rem]">LOGOUT</p>
+              </button>
+            </div>
 
-            <p>|</p>
+
 
             <button
               onClick={() => {
@@ -190,7 +187,7 @@ const Sidebar = () => {
                 setShowSidebar(false);
                 setShowConfirmModal(true);
               }}
-              className="flex items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
+              className="hidden items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
             >
               <p className=" text-[0.72rem]">LOGOUT ALL</p>
             </button>
