@@ -22,6 +22,7 @@ import {
   recruitment,
   authentication,
 } from "./routes/index.routes.js";
+import { ENV } from "./constants/index.js";
 import { swaggerUi, swaggerSpec } from "./doc/index.js";
 // import {
 //   deleteAllPayrollRecords,
@@ -40,18 +41,32 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.static(path.join(__dirname, "public")));
 
-const allowedOrigins = [process.env.CLIENT_URL, "http://localhost:5173/"];
+const allowedOrigins = [process.env.CLIENT_URL, "http://localhost:5173"];
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
+      if (process.env.NODE_ENV === ENV.DEVELOPMENT) {
+        return callback(null, true);
       }
+
+      // Allow requests with no origin (like mobile apps / Postman)
+      if (!origin) return callback(null, true);
+
+      // Allow exact matches
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      // Allow Netlify preview URLs
+      if (/^https:\/\/.*-metrohrms\.netlify\.app$/.test(origin)) {
+        return callback(null, true);
+      }
+
+      // Block everything else
+      callback(new Error("Not allowed by CORS"));
     },
-    methods: "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+    methods: "GET,POST,PUT,DELETE,PATCH,OPTIONS",
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
     exposedHeaders: ["Set-Cookie"],
