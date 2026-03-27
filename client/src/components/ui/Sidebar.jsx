@@ -170,19 +170,21 @@ const Sidebar = () => {
           ))}
 
           <div className="flex gap-3 items-center">
+            <div className="border-b border-gray-700 w-full py-[4px]">
             <button
               onClick={() => {
                 setLogoutType("logout");
                 setShowSidebar(false);
                 setShowConfirmModal(true);
               }}
-              className="flex items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
+              className="flex items-center py-[4px] border-gray-700 hover:text-gray-300"
             >
               <i className="far fa-arrow-alt-circle-right mr-3 text-[0.9rem] text-gray-300"></i>
               <p className=" text-[0.72rem]">LOGOUT</p>
             </button>
+            </div>
 
-            <p>|</p>
+            {/* <p>|</p> */}
 
             <button
               onClick={() => {
@@ -190,7 +192,7 @@ const Sidebar = () => {
                 setShowSidebar(false);
                 setShowConfirmModal(true);
               }}
-              className="flex items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
+              className="hidden items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
             >
               <p className=" text-[0.72rem]">LOGOUT ALL</p>
             </button>
