@@ -5,7 +5,7 @@
 </div>
 
 ## _Prerequisites_ :
- 
+
 - _Node.js and npm must be installed on your machine_
 - _You can install them from the [Node.js Official Website](https://nodejs.org/)_
 
@@ -39,6 +39,7 @@ VITE_ENV=
 # In server .env
 PORT=
 JWTSECRET=
+NODE_ENV=
 CLIENT_URL=
 SERVER_URL=
 MONGO_URI=
