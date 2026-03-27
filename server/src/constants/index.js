@@ -1,6 +1,6 @@
 const ENV = {
-  PRODUCTION: "production",
-  DEVELOPMENT: "development",
+   PRODUCTION: "production",
+   DEVELOPMENT: "development"
 };
 
 const MODELS = {
