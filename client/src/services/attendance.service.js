@@ -81,7 +81,7 @@ export const markAttendance = createAsyncThunk(
 // Get all employees attendance
 export const getEmployeeAttendance = createAsyncThunk(
   "attendance/getEmployeeAttendance",
-  async ({ page = 1, limit = 12 }, { rejectWithValue }) => {
+  async ({ page = 1, limit = 7 }, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.get(
         `/attendance/employee?page=${page}&limit=${limit}`,

@@ -25,7 +25,7 @@ const Attendance = () => {
   };
 
   useEffect(() => {
-    dispatch(getEmployeeAttendance({ page: currentPage, limit: 12 }));
+    dispatch(getEmployeeAttendance({ page: currentPage, limit: 7 }));
   }, [dispatch, currentPage, fetch]);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const Attendance = () => {
         <div className="w-full rounded-2xl p-2 flex-grow">
           <div
             id="overflow"
-            className="overflow-auto bg-gray-100 shadow h-[65vh] mt-2 rounded-md"
+            className="overflow-auto bg-gray-100 shadow h-[61.5vh] mt-2 rounded-md"
           >
             <table className="min-w-full table-auto text-sm text-white whitespace-nowrap">
               <thead>

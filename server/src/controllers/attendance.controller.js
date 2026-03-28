@@ -167,7 +167,7 @@ const markAbsentAtEndOfDay = catchErrors(async (req, res) => {
 const getEmployeeAttendance = catchErrors(async (req, res) => {
   const employeeID = req.user.id;
 
-  const { page = 1, limit = 12 } = req.query;
+  const { page = 1, limit = 7 } = req.query;
   if (!employeeID) throw new Error("Please provide employee id");
   // Pagination calculation
   const pageNumber = Math.max(parseInt(page), 1);
