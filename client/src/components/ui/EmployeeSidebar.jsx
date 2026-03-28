@@ -179,7 +179,8 @@ const EmployeeSidebar = () => {
               <p className=" text-[0.72rem]">LOGOUT</p>
             </button>
 
-            {/* <p>|</p>
+           {/* Temporarily Hidden TODO: Fix this func later */}
+            <p className="hidden">|</p>
 
             <button
               onClick={() => {
@@ -187,10 +188,10 @@ const EmployeeSidebar = () => {
                 setShowSidebar(false);
                 setShowConfirmModal(true);
               }}
-              className="flex items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
+              className="hidden items-center border-b py-[4px] border-gray-700 hover:text-gray-300"
             >
               <p className=" text-[0.72rem]">LOGOUT ALL</p>
-            </button> */}
+            </button>
           </div>
 
           <div className="w-full bg-[#1d3557] dark:bg-[#182233] rounded-xl relative group bottom-0">
