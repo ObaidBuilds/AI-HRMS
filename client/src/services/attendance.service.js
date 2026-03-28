@@ -81,9 +81,11 @@ export const markAttendance = createAsyncThunk(
 // Get all employees attendance
 export const getEmployeeAttendance = createAsyncThunk(
   "attendance/getEmployeeAttendance",
-  async (_, { rejectWithValue }) => {
+  async ({ page = 1, limit = 12 }, { rejectWithValue }) => {
     try {
-      const { data } = await axiosInstance.get("/attendance/employee");
+      const { data } = await axiosInstance.get(
+        `/attendance/employee?page=${page}&limit=${limit}`,
+      );
       return data.attendance;
     } catch (error) {
       console.log(error.response?.data.message || "An error occurred.");
