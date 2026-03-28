@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import ReactMarkdown from "react-markdown";
 import { useTheme } from "../../../context";
+import { useEffect, useRef, useState } from "react";
 import ChatbotLoader from "../loaders/ChatbotLoader";
-import React, { useEffect, useRef, useState } from "react";
 import { chatWithGemini } from "../../../services/chat.service";
 
 const ChatPanel = () => {
@@ -12,11 +12,14 @@ const ChatPanel = () => {
     user: { profilePicture, name },
   } = useSelector((state) => state.authentication);
 
+  const [input, setInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const chatEndRef = useRef(null);
+
+  const CHAT_HISTORY_KEY = "chat_history";
   const shouldPreserveChat = localStorage.getItem("preserveChat") === "true";
-  const CHAT_HISTORY_KEY = "gemini_chat_history";
   const storage = shouldPreserveChat ? localStorage : sessionStorage;
 
   const loadMessages = () => {
@@ -27,13 +30,6 @@ const ChatPanel = () => {
   };
 
   const [messages, setMessages] = useState(loadMessages);
-
-  useEffect(() => {
-    storage.setItem(CHAT_HISTORY_KEY, JSON.stringify(messages));
-  }, [messages, storage]);
-
-  const [input, setInput] = useState("");
-  const chatEndRef = useRef(null);
 
   const sendMessage = async () => {
     if (input.trim() === "") return;
@@ -50,10 +46,13 @@ const ChatPanel = () => {
 
     try {
       const result = await chatWithGemini(input, setLoading);
-      const fullText = result?.response || "⚠️ Failed to generate response, Try again later";
+      const fullText =
+        result?.response || "⚠️ Failed to generate response, Try again later";
 
       setMessages((prev) =>
-        prev.map((msg) => (msg.loading ? { ...msg, text: "", loading: false } : msg))
+        prev.map((msg) =>
+          msg.loading ? { ...msg, text: "", loading: false } : msg,
+        ),
       );
 
       let index = 0;
@@ -62,23 +61,30 @@ const ChatPanel = () => {
           prev.map((msg, i) =>
             i === prev.length - 1
               ? { ...msg, text: fullText.substring(0, index + 1) }
-              : msg
-          )
+              : msg,
+          ),
         );
 
         index++;
         if (index >= fullText.length) clearInterval(interval);
       }, 20);
     } catch (error) {
-      const errorMsg = error?.message || "⚠️ Failed to generate response, Try again later";
+      const errorMsg =
+        error?.message || "⚠️ Failed to generate response, Try again later";
       setMessages((prev) =>
-        prev.map((msg) => (msg.loading ? { ...msg, text: errorMsg, loading: false } : msg))
+        prev.map((msg) =>
+          msg.loading ? { ...msg, text: errorMsg, loading: false } : msg,
+        ),
       );
       console.error("ChatPanel error:", error);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    storage.setItem(CHAT_HISTORY_KEY, JSON.stringify(messages));
+  }, [messages, storage]);
 
   useEffect(() => {
     if (chatEndRef.current) {

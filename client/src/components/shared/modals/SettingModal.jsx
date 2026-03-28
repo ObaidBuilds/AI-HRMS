@@ -20,14 +20,14 @@ const SettingModal = ({ onClose, location = "admin" }) => {
   const [isHovering, setIsHovering] = useState(false);
   const [activeSection, setActiveSection] = useState("profile");
   const [profileLoading, setProfileLoading] = useState(false);
-  
+
   // Preserve Chat toggle state — reads from localStorage
   const [preserveChat, setPreserveChat] = useState(
-    () => localStorage.getItem("preserveChat") === "true"
+    () => localStorage.getItem("preserveChat") === "true",
   );
 
   const { loading, updatePasswordError, user } = useSelector(
-    (state) => state.authentication
+    (state) => state.authentication,
   );
   const [formData, setFormData] = useState({
     name: user.name,
@@ -85,26 +85,24 @@ const SettingModal = ({ onClose, location = "admin" }) => {
     const next = !preserveChat;
     setPreserveChat(next);
 
-    
     localStorage.setItem("preserveChat", String(next));
 
-  
-    const CHAT_HISTORY_KEY = "gemini_chat_history";
+    const CHAT_HISTORY_KEY = "chat_history";
+
     if (next) {
-      // OFF → ON: move from sessionStorage to localStorage
       const existing = sessionStorage.getItem(CHAT_HISTORY_KEY);
       if (existing) {
         localStorage.setItem(CHAT_HISTORY_KEY, existing);
         sessionStorage.removeItem(CHAT_HISTORY_KEY);
       }
     } else {
-      // jb hum on se off kry gy tu local se session me chla jye ga idhr
       const existing = localStorage.getItem(CHAT_HISTORY_KEY);
       if (existing) {
         sessionStorage.setItem(CHAT_HISTORY_KEY, existing);
         localStorage.removeItem(CHAT_HISTORY_KEY);
       }
     }
+
   };
 
   return (
@@ -187,7 +185,10 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                   >
                     <i className="fas fa-database text-sm text-gray-500 pr-2"></i>
                     <p className="text-xs">PRESERVE CHAT</p>
-                    <label className="switch" onClick={(e) => e.stopPropagation()}>
+                    <label
+                      className="switch"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       <input
                         type="checkbox"
                         checked={preserveChat}
