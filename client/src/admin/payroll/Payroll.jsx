@@ -72,7 +72,7 @@ function Payroll() {
 
       {loading && <Loader />}
 
-      <section className="bg-gray-100 dark:bg-secondary max-h-auto sm:min-h-screen p-3 sm:p-4 rounded-lg shadow lg:w-full">
+      <section className="bg-gray-100 dark:bg-secondary max-h-auto sm:min-h-screen p-3 sm:p-4 rounded-lg shadow lg:w-[98%]">
         <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
           {payrollButtons.map((filter, i) => (
             <FilterButton
@@ -98,9 +98,9 @@ function Payroll() {
         {/* Payroll Table */}
         <div
           id="overflow"
-          className="overflow-auto min-h-[74vh] sm:min-h-[80vh]"
+          className="overflow-x-auto overflow-y-auto pr-4 min-h-[74vh] sm:min-h-[80vh]"
         >
-          <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
+          <table className="w-max min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-headLight dark:bg-head text-primary">
                 {payrollHead.map((header, i) => (
@@ -156,27 +156,29 @@ function Payroll() {
                     <td className="pl-7 px-4 border-b border-secondary">
                       {formatDate(payroll.paymentDate) || "Pending"}
                     </td>
-                    <td className="py-3 justify-center border-b border-secondary flex items-center gap-3">
-                      <button
-                        title="Salary Paid"
-                        onClick={() => {
-                          setSelectedId(payroll._id);
-                          setShowConfirmModal(true);
-                        }}
-                        className="text-blue-500"
-                      >
-                        <i className="fa-solid fa-circle-check"></i>
-                      </button>
-                      <button
-                        title="Edit Payroll"
-                        onClick={() => {
-                          setSelectedPayroll(payroll);
-                          setTogglePayrollModal(true);
-                        }}
-                        className="text-green-500 hover:text-green-400"
-                      >
-                        <i className="fa-solid fa-edit"></i>
-                      </button>
+                    <td className="py-3 px-4 border-b border-secondary min-w-[130px]">
+                      <div className="flex items-center justify-center gap-3">
+                        <button
+                          title="Salary Paid"
+                          onClick={() => {
+                            setSelectedId(payroll._id);
+                            setShowConfirmModal(true);
+                          }}
+                          className="text-blue-500"
+                        >
+                          <i className="fa-solid fa-circle-check"></i>
+                        </button>
+                        <button
+                          title="Edit Payroll"
+                          onClick={() => {
+                            setSelectedPayroll(payroll);
+                            setTogglePayrollModal(true);
+                          }}
+                          className="text-green-500 hover:text-green-400"
+                        >
+                          <i className="fa-solid fa-edit"></i>
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
