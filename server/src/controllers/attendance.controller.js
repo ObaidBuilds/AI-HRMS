@@ -167,7 +167,12 @@ const markAbsentAtEndOfDay = catchErrors(async (req, res) => {
 const getEmployeeAttendance = catchErrors(async (req, res) => {
   const employeeID = req.user.id;
 
+  const { page = 1, limit = 7 } = req.query;
   if (!employeeID) throw new Error("Please provide employee id");
+  // Pagination calculation
+  const pageNumber = Math.max(parseInt(page), 1);
+  const limitNumber = Math.max(parseInt(limit), 1);
+  const skip = (pageNumber - 1) * limitNumber;
 
   const attendanceRecord = await Attendance.find({ employee: employeeID })
     .populate({
@@ -184,16 +189,33 @@ const getEmployeeAttendance = catchErrors(async (req, res) => {
         },
       ],
     })
-    .sort({ date: -1 });
+    .sort({ date: -1 })
+    .skip(skip)
+    .limit(limitNumber);
 
-  if (!attendanceRecord || attendanceRecord.length === 0)
-    throw new Error("No attendance records found");
+  const [totalRecords, totalPresentDays] = await Promise.all([
+    Attendance.countDocuments({ employee: employeeID }),
+    Attendance.countDocuments({ employee: employeeID, status: "Present" }),
+  ]);
+  const totalPages = Math.ceil(totalRecords / limitNumber);
 
-  const totalDays = attendanceRecord.length;
-  const presentDays = attendanceRecord.filter(
-    (record) => record.status === "Present"
-  ).length;
-  const attendancePercentage = (presentDays / totalDays) * 100;
+  if (totalRecords === 0) {
+    return res.status(200).json({
+      success: true,
+      message: "No attendance records found",
+      attendance: {
+        attendancePercentage: "0.00",
+        attendanceRecord: [],
+        pagination: {
+          currentPage: pageNumber,
+          totalPages: 0,
+          totalRecords: 0,
+          limit: limitNumber,
+        },
+      },
+    });
+  }
+  const attendancePercentage = (totalPresentDays / totalRecords) * 100;
 
   return res.status(200).json({
     success: true,
@@ -201,6 +223,12 @@ const getEmployeeAttendance = catchErrors(async (req, res) => {
     attendance: {
       attendancePercentage: attendancePercentage.toFixed(2),
       attendanceRecord,
+      pagination: {
+        currentPage: pageNumber,
+        totalPages,
+        totalRecords,
+        limit: limitNumber,
+      },
     },
   });
 });
