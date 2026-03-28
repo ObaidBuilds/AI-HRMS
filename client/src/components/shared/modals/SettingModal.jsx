@@ -102,7 +102,6 @@ const SettingModal = ({ onClose, location = "admin" }) => {
         localStorage.removeItem(CHAT_HISTORY_KEY);
       }
     }
-
   };
 
   return (
@@ -198,9 +197,12 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                     </label>
                   </button>
                   <p className="text-xs text-gray-400 mt-3 leading-relaxed">
+                    <span className="mr-2">
+                    <i className="fa-solid fa-circle-exclamation"></i>
+                    </span>
                     {preserveChat
-                      ? "✅ Chat history is saved in local storage — persists across tabs and browser sessions."
-                      : "🔴 Chat history is in session storage — cleared when the tab is closed."}
+                      ? "Chat history persists across tabs"
+                      : "Chat history is cleared when the tab is closed."}
                   </p>
                 </div>
               )}
