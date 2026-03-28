@@ -15,8 +15,12 @@ const ChatPanel = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const shouldPreserveChat = localStorage.getItem("preserveChat") === "true";
+  const CHAT_HISTORY_KEY = "gemini_chat_history";
+  const storage = shouldPreserveChat ? localStorage : sessionStorage;
+
   const loadMessages = () => {
-    const storedMessages = sessionStorage.getItem("chatMessages");
+    const storedMessages = storage.getItem(CHAT_HISTORY_KEY);
     return storedMessages
       ? JSON.parse(storedMessages)
       : [{ text: "Hello! How can I help?", sender: "gemini" }];
@@ -25,8 +29,8 @@ const ChatPanel = () => {
   const [messages, setMessages] = useState(loadMessages);
 
   useEffect(() => {
-    sessionStorage.setItem("chatMessages", JSON.stringify(messages));
-  }, [messages]);
+    storage.setItem(CHAT_HISTORY_KEY, JSON.stringify(messages));
+  }, [messages, storage]);
 
   const [input, setInput] = useState("");
   const chatEndRef = useRef(null);
@@ -46,32 +50,31 @@ const ChatPanel = () => {
 
     try {
       const result = await chatWithGemini(input, setLoading);
+      const fullText = result?.response || "⚠️ Failed to generate response, Try again later";
 
-      if (result) {
-        let index = 0;
-        const fullText = result.response;
+      setMessages((prev) =>
+        prev.map((msg) => (msg.loading ? { ...msg, text: "", loading: false } : msg))
+      );
 
+      let index = 0;
+      const interval = setInterval(() => {
         setMessages((prev) =>
-          prev.map((msg) =>
-            msg.loading ? { ...msg, text: "", loading: false } : msg
+          prev.map((msg, i) =>
+            i === prev.length - 1
+              ? { ...msg, text: fullText.substring(0, index + 1) }
+              : msg
           )
         );
 
-        const interval = setInterval(() => {
-          setMessages((prev) =>
-            prev.map((msg, i) =>
-              i === prev.length - 1
-                ? { ...msg, text: fullText.substring(0, index + 1) }
-                : msg
-            )
-          );
-
-          index++;
-          if (index === fullText.length) clearInterval(interval);
-        }, 20);
-      }
+        index++;
+        if (index >= fullText.length) clearInterval(interval);
+      }, 20);
     } catch (error) {
-      console.log(error.message);
+      const errorMsg = error?.message || "⚠️ Failed to generate response, Try again later";
+      setMessages((prev) =>
+        prev.map((msg) => (msg.loading ? { ...msg, text: errorMsg, loading: false } : msg))
+      );
+      console.error("ChatPanel error:", error);
     } finally {
       setLoading(false);
     }
