@@ -20,6 +20,12 @@ const SettingModal = ({ onClose, location = "admin" }) => {
   const [isHovering, setIsHovering] = useState(false);
   const [activeSection, setActiveSection] = useState("profile");
   const [profileLoading, setProfileLoading] = useState(false);
+  
+  // Preserve Chat toggle state — reads from localStorage
+  const [preserveChat, setPreserveChat] = useState(
+    () => localStorage.getItem("preserveChat") === "true"
+  );
+
   const { loading, updatePasswordError, user } = useSelector(
     (state) => state.authentication
   );
@@ -71,6 +77,33 @@ const SettingModal = ({ onClose, location = "admin" }) => {
 
     if (updatedProfile) {
       dispatch(updateProfileState(updatedProfile));
+    }
+  };
+
+  // Toggle handler — migrates chat history between storages
+  const handlePreserveChatToggle = () => {
+    const next = !preserveChat;
+    setPreserveChat(next);
+
+    
+    localStorage.setItem("preserveChat", String(next));
+
+  
+    const CHAT_HISTORY_KEY = "gemini_chat_history";
+    if (next) {
+      // OFF → ON: move from sessionStorage to localStorage
+      const existing = sessionStorage.getItem(CHAT_HISTORY_KEY);
+      if (existing) {
+        localStorage.setItem(CHAT_HISTORY_KEY, existing);
+        sessionStorage.removeItem(CHAT_HISTORY_KEY);
+      }
+    } else {
+      // jb hum on se off kry gy tu local se session me chla jye ga idhr
+      const existing = localStorage.getItem(CHAT_HISTORY_KEY);
+      if (existing) {
+        sessionStorage.setItem(CHAT_HISTORY_KEY, existing);
+        localStorage.removeItem(CHAT_HISTORY_KEY);
+      }
     }
   };
 
@@ -142,6 +175,32 @@ const SettingModal = ({ onClose, location = "admin" }) => {
                       <span className="slider round"></span>
                     </label>
                   </button>
+                </div>
+              )}
+
+              {/* Preserve Chat Section */}
+              {activeSection === "preserveChat" && (
+                <div>
+                  <button
+                    onClick={handlePreserveChatToggle}
+                    className="flex gap-5 justify-between items-center border-b py-[4px] border-gray-700 w-full"
+                  >
+                    <i className="fas fa-database text-sm text-gray-500 pr-2"></i>
+                    <p className="text-xs">PRESERVE CHAT</p>
+                    <label className="switch" onClick={(e) => e.stopPropagation()}>
+                      <input
+                        type="checkbox"
+                        checked={preserveChat}
+                        onChange={handlePreserveChatToggle}
+                      />
+                      <span className="slider round"></span>
+                    </label>
+                  </button>
+                  <p className="text-xs text-gray-400 mt-3 leading-relaxed">
+                    {preserveChat
+                      ? "✅ Chat history is saved in local storage — persists across tabs and browser sessions."
+                      : "🔴 Chat history is in session storage — cleared when the tab is closed."}
+                  </p>
                 </div>
               )}
 

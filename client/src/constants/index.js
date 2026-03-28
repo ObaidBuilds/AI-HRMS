@@ -226,6 +226,7 @@ const sections = [
   { id: "profile", label: "Profile", icon: "fas fa-user-circle" },
   { id: "security", label: "Security", icon: "fas fa-lock" },
   { id: "appearance", label: "Appearance", icon: "fas fa-palette" },
+  { id: "preserveChat", label: "Preserve Chat", icon: "fas fa-database" },
 ];
 
 const employeeSections = [
