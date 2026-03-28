@@ -21,10 +21,12 @@ import {
   performance,
   recruitment,
   authentication,
+  predictionModel
 } from "./routes/index.routes.js";
 import { ENV } from "./constants/index.js";
 import { swaggerUi, swaggerSpec } from "./doc/index.js";
 // import {
+//   seedPredictionModels
 //   deleteAllPayrollRecords,
 //   generatePayrollDataForYear,
 //   generatePayrollDataForMonths,
@@ -84,6 +86,7 @@ cloudinary.v2.config({
 // deleteTodayAttendanceRecords()
 // generatePayrollDataForMonths(8)
 // generatePayrollDataForYear(2025)
+// seedPredictionModels();
 
 app.use("/api/roles", role);
 app.use("/api/leaves", leave);
@@ -97,6 +100,7 @@ app.use("/api/attendance", attendance);
 app.use("/api/departments", department);
 app.use("/api/performance", performance);
 app.use("/api/recruitment", recruitment);
+app.use("/api/prediction_models", predictionModel);
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

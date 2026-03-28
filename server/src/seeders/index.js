@@ -2,10 +2,11 @@ import Role from "../models/role.model.js";
 import Payroll from "../models/payroll.model.js";
 import { getMonthName } from "../utils/index.js";
 import Employee from "../models/employee.model.js";
+import Attendance from "../models/attendance.model.js";
 import Department from "../models/department.model.js";
 import Performance from "../models/performance.model.js";
+import PredictionModel from "../models/predictionModel.js";
 import { calculateAverageAttendance } from "../controllers/attendance.controller.js";
-import Attendance from "../models/attendance.model.js";
 
 const startHrmsApplication = async () => {
   try {
@@ -248,8 +249,41 @@ const alterEmployeeData = async () => {
   console.log("Altered");
 };
 
+const seedPredictionModels = async () => {
+  try {
+    const data = [
+      {
+        owner: "google",
+        modelName: "gemini-2.5-flash",
+        customName: "Gemini 2.5 Flash",
+        status: "active",
+        type: "generative",
+      },
+       {
+        owner: "google",
+        modelName: "gemini-1.5-flash",
+        customName: "Gemini 1.5 Flash",
+        status: "deprecated",
+        type: "generative",
+      },
+    ];
+
+    await PredictionModel.deleteMany({ modelName: "Gemini" });
+
+    const inserted = await PredictionModel.insertMany(data);
+
+    console.log("Seeded Prediction Models:", inserted);
+
+    console.log("MongoDB disconnected");
+  } catch (err) {
+    console.error("Seeder error:", err);
+    process.exit(1);
+  }
+};
+
 export {
   alterEmployeeData,
+  seedPredictionModels,
   startHrmsApplication,
   generatePerformanceData,
   deleteAllPayrollRecords,
