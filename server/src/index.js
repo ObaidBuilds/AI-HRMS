@@ -89,7 +89,10 @@ cloudinary.v2.config({
 // generatePayrollDataForYear(2025)
 // seedPredictionModels();
 
+// Request Logger
 app.use(logger);
+
+// REST Endpoints
 app.use("/api/roles", role);
 app.use("/api/leaves", leave);
 app.use("/api/payrolls", payroll);
