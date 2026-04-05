@@ -24,7 +24,6 @@ import {
   predictionModel
 } from "./routes/index.routes.js";
 import { ENV } from "./constants/index.js";
-import logger from "./middlewares/logger.js";
 import { swaggerUi, swaggerSpec } from "./doc/index.js";
 // import {
 //   seedPredictionModels
@@ -88,9 +87,6 @@ cloudinary.v2.config({
 // generatePayrollDataForMonths(8)
 // generatePayrollDataForYear(2025)
 // seedPredictionModels();
-
-// Request Logger
-app.use(logger);
 
 // REST Endpoints
 app.use("/api/roles", role);
