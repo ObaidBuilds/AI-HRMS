@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
-import { catchErrors } from "../utils/index.js";
 import Session from "../models/session.model.js";
 import Employee from "../models/employee.model.js";
+import { catchErrors, HttpError } from "../utils/index.js";
 import rateLimit, { ipKeyGenerator } from "express-rate-limit";
 
 const loginLimiter = rateLimit({
@@ -34,11 +34,11 @@ const loginLimiter = rateLimit({
 const verifyEmployeeToken = catchErrors(async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
 
-  if (!token) throw new Error("Unauthorized access");
+  if (!token) throw new HttpError(400, "Unauthorized access");
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-  if (!decoded.employeeId) throw new Error("Unauthorized access");
+  if (!decoded.employeeId) throw new HttpError(400, "Unauthorized access");
 
   const session = await Session.findOne({
     userId: decoded.employeeId,
@@ -46,7 +46,7 @@ const verifyEmployeeToken = catchErrors(async (req, res, next) => {
     token,
   });
 
-  if (!session) throw new Error("Session expired, please login again");
+  if (!session) throw new HttpError(400, "Session expired, please login again");
 
   req.user = {
     id: decoded.employeeId,
@@ -60,7 +60,7 @@ const verifyEmployeeToken = catchErrors(async (req, res, next) => {
 const verifyAdminToken = catchErrors(async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
 
-  if (!token) throw new Error("Unauthorized access");
+  if (!token) throw new HttpError(400, "Unauthorized access");
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
@@ -70,11 +70,11 @@ const verifyAdminToken = catchErrors(async (req, res, next) => {
     token,
   });
 
-  if (!session) throw new Error("Session expired, please login again");
+  if (!session) throw new HttpError(400, "Session expired, please login again");
 
   const user = await Employee.findById(decoded.employeeId);
 
-  if (!user || !user.admin) throw new Error("Unauthorized access");
+  if (!user || !user.admin) throw new HttpError(400, "Unauthorized access");
 
   req.user = {
     id: decoded.employeeId,
@@ -89,7 +89,7 @@ const verifyCornJob = catchErrors(async (req, res, next) => {
   const token = req.headers.secret.trim();
 
   if (!token || token !== process.env.CRON_SECRET)
-    throw new Error("Unauthorized access");
+    throw new HttpError(400, "Unauthorized access");
 
   next();
 });

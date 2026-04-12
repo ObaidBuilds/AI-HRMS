@@ -21,18 +21,12 @@ import {
   performance,
   recruitment,
   authentication,
-  predictionModel
+  predictionModel,
 } from "./routes/index.routes.js";
 import { ENV } from "./constants/index.js";
+import { HttpError } from "./utils/index.js";
 import logger from "./middlewares/logger.js";
 import { swaggerUi, swaggerSpec } from "./doc/index.js";
-// import {
-//   seedPredictionModels
-//   deleteAllPayrollRecords,
-//   generatePayrollDataForYear,
-//   generatePayrollDataForMonths,
-//   deleteTodayAttendanceRecords
-// } from "./seeders/index.js";
 
 const app = express();
 
@@ -73,7 +67,7 @@ app.use(
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
     exposedHeaders: ["Set-Cookie"],
-  })
+  }),
 );
 
 cloudinary.v2.config({
@@ -83,14 +77,8 @@ cloudinary.v2.config({
   secure: true,
 });
 
-// deleteAllPayrollRecords()
-// deleteTodayAttendanceRecords()
-// generatePayrollDataForMonths(8)
-// generatePayrollDataForYear(2025)
-// seedPredictionModels();
-
 // Logger
-app.use(logger)
+app.use(logger);
 
 // REST Endpoints
 app.use("/api/roles", role);
@@ -121,19 +109,23 @@ connectDB()
     });
   })
   .catch((err) => {
-    console.error(err.message);
+    throw new HttpError(500, err.message);
   });
 
 app.use((req, res, next) => {
   const error = new Error("404 Endpoint Not Found");
   error.status = 404;
-  next(error.message);
+  next(error);
 });
 
 app.use((err, req, res, next) => {
-  const message = err || "Internal server error";
-  res.status(500).json({
+  const status = err.status || 500;
+  const message = err.message || "Internal server error";
+
+  res.status(status).json({
     success: false,
+    status,
     message,
+    stack: process.env.NODE_ENV === ENV.DEVELOPMENT ? err.stack : null,
   });
 });

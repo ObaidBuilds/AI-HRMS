@@ -37,11 +37,11 @@ const uploadToCloudinary = (buffer) => {
       (error, result) => {
         if (error) {
           return reject(
-            new Error(`Cloudinary upload failed: ${error.message}`)
+            new Error(`Cloudinary upload failed: ${error.message}`),
           );
         }
         resolve(result);
-      }
+      },
     );
     streamifier.createReadStream(buffer).pipe(uploadStream);
   });
@@ -68,10 +68,20 @@ async function generateQrCode(employeeId) {
   }
 }
 
+class HttpError extends Error {
+  constructor(status, message) {
+    super(message);
+    this.status = status;
+  }
+}
+
 const catchErrors = (fn) => {
   return (req, res, next) => {
     fn(req, res, next).catch((err) => {
-      next(err.message);
+      next({
+        status: err.status,
+        message: err.message,
+      });
     });
   };
 };
@@ -169,6 +179,7 @@ const getMonthName = (month) => {
 
 export {
   myCache,
+  HttpError,
   sendMail,
   decodeQR,
   formatDate,
