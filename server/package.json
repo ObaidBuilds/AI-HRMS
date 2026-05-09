@@ -28,6 +28,7 @@
     "Attendance"
   ],
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.95.1",
     "@google/generative-ai": "^0.21.0",
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
@@ -47,6 +48,7 @@
     "node-cache": "^5.1.2",
     "nodemailer": "^6.9.16",
     "nodemon": "^3.1.9",
+    "openai": "^6.37.0",
     "qrcode": "^1.5.4",
     "socket.io": "^4.8.1",
     "streamifier": "^0.1.1",

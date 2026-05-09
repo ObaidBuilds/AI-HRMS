@@ -22,6 +22,7 @@ import {
   recruitment,
   authentication,
   predictionModel,
+  aiModel,
 } from "./routes/index.routes.js";
 import { ENV } from "./constants/index.js";
 import { HttpError } from "./utils/index.js";
@@ -94,6 +95,7 @@ app.use("/api/departments", department);
 app.use("/api/performance", performance);
 app.use("/api/recruitment", recruitment);
 app.use("/api/prediction_models", predictionModel);
+app.use("/api/ai_models", aiModel);
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

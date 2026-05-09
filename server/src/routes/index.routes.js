@@ -11,6 +11,7 @@ import performance from "./performance.routes.js";
 import recruitment from "./recruitment.routes.js";
 import authentication from "./authentication.routes.js";
 import predictionModel from "./predictionModel.routes.js";
+import aiModel from "./aiModel.route.js";
 
 export {
   role,
@@ -25,5 +26,6 @@ export {
   performance,
   recruitment,
   authentication,
-  predictionModel
+  predictionModel,
+  aiModel
 };

@@ -101,6 +101,12 @@ const employeeSchema = new mongoose.Schema(
       default: false,
     },
     forgetPasswordToken: String,
+    ai_settings: {
+      preferred_model_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "AIModel",
+      },
+    },
   },
   {
     timestamps: true,

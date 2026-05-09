@@ -3,7 +3,7 @@ import ReactMarkdown from "react-markdown";
 import { useTheme } from "../../../context";
 import { useEffect, useRef, useState } from "react";
 import ChatbotLoader from "../loaders/ChatbotLoader";
-import { chatWithGemini } from "../../../services/chat.service";
+import { chatWithAI, fetchAIModels } from "../../../services/chat.service";
 
 const ChatPanel = () => {
   const { theme } = useTheme();
@@ -15,6 +15,33 @@ const ChatPanel = () => {
   const [input, setInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [models, setModels] = useState([]);
+  const [selectedModelId, setSelectedModelId] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const getProviderLogo = (provider) => {
+    switch (provider) {
+      case "openai":
+        return (
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0462 6.0462 0 0 0 5.45-3.1818 5.9847 5.9847 0 0 0 3.998-2.9 6.0462 6.0462 0 0 0-.426-7.0971zM10.8423 22.0628a4.9408 4.9408 0 0 1-3.9535-1.9567l8.6031-4.9664a1.0503 1.0503 0 0 0 .532-.9064v-6.7032l2.0298 1.1717a4.9314 4.9314 0 0 1 1.9573 3.953 4.9314 4.9314 0 0 1-2.9 4.4925l-6.2687 3.6158zm-7.6186-5.836a4.9408 4.9408 0 0 1-1.04-4.2982l8.6031 4.9664v6.7032l-2.0298-1.1717a4.9314 4.9314 0 0 1-1.9573-3.953 4.9314 4.9314 0 0 1 .425-5.2635l-3.996-2.3065a4.9408 4.9408 0 0 1-.005 5.3233zm16.4862-2.1462l-8.6031-4.9664a1.0503 1.0503 0 0 0-1.064 0l-5.8118 3.354 2.0298-1.1717v-6.7032l3.996 2.3065a4.9314 4.9314 0 0 1 2.475 4.2785 4.9314 4.9314 0 0 1-2.475 4.2785l-1.9798 1.1425v-2.285zm-5.8118-8.919l5.8118 3.354-2.0298 1.1717v6.7032l-3.996-2.3065a4.9314 4.9314 0 0 1-2.475-4.2785 4.9314 4.9314 0 0 1 2.475-4.2785l1.9798-1.1425v2.285a1.0503 1.0503 0 0 0 1.064 0zm-8.6031-4.9664a4.9408 4.9408 0 0 1 3.9535 1.9567l-8.6031 4.9664a1.0503 1.0503 0 0 0-.532.9064v6.7032l-2.0298-1.1717a4.9314 4.9314 0 0 1-1.9573-3.953 4.9314 4.9314 0 0 1 2.9-4.4925l6.2687-3.6158zm7.6186 5.836a4.9408 4.9408 0 0 1 1.04 4.2982l-8.6031-4.9664v-6.7032l2.0298 1.1717a4.9314 4.9314 0 0 1 1.9573 3.953 4.9314 4.9314 0 0 1-.425 5.2635l3.996 2.3065a4.9408 4.9408 0 0 1 .005-5.3233z" />
+          </svg>
+        );
+      case "anthropic":
+        return (
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21.562 10.655h-4.254l-3.155-5.467h-2.126l4.636 8.032H11.58L9.278 9.227 4.153 18.11H6.13l2.062-3.573H13.68l2.061 3.573h1.977l-4.634-8.031h4.15l3.155 5.466h2.127l-4.636-8.032zM8.865 13.38H11.6l-1.368-2.37-1.367 2.37z" />
+          </svg>
+        );
+      case "gemini":
+      default:
+        return (
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.01 0l1.37 4.28a9.42 9.42 0 0 0 6.34 6.34L24 12.01l-4.28 1.37a9.42 9.42 0 0 0-6.34 6.34L12.01 24l-1.37-4.28a9.42 9.42 0 0 0-6.34-6.34L0 12.01l4.28-1.37a9.42 9.42 0 0 0 6.34-6.34L12.01 0z"/>
+          </svg>
+        );
+    }
+  };
 
   const chatEndRef = useRef(null);
 
@@ -45,7 +72,7 @@ const ChatPanel = () => {
     ]);
 
     try {
-      const result = await chatWithGemini(input, setLoading);
+      const result = await chatWithAI(input, selectedModelId, setLoading);
       const fullText =
         result?.response || "⚠️ Failed to generate response, Try again later";
 
@@ -95,10 +122,30 @@ const ChatPanel = () => {
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add("no-scroll");
+      // Fetch available AI models
+      const loadModels = async () => {
+        try {
+          const res = await fetchAIModels();
+          if (res?.data) {
+            setModels(res.data);
+            const defaultModel = res.data.find(m => m.provider === 'gemini') || res.data[0];
+            setSelectedModelId(localStorage.getItem("preferred_model_id") || defaultModel?.model_id || "");
+          }
+        } catch (error) {
+          console.error("Failed to load models", error);
+        }
+      };
+      loadModels();
     } else {
       document.body.classList.remove("no-scroll");
     }
   }, [isOpen]);
+
+  const handleModelChange = (id) => {
+    setSelectedModelId(id);
+    localStorage.setItem("preferred_model_id", id);
+    setIsDropdownOpen(false);
+  };
 
   return (
     <>
@@ -175,7 +222,37 @@ const ChatPanel = () => {
           <div ref={chatEndRef} />
         </div>
 
-        <div className="w-[94%] bottom-4 right-2 absolute">
+        <div className="w-[94%] bottom-4 right-2 absolute flex flex-col gap-2 z-10">
+          {models.length > 0 && (
+            <div className="relative mx-auto max-w-fit">
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="bg-gray-900 text-[0.8rem] px-5 py-[8px] rounded-full focus:outline focus:outline-2 focus:outline-gray-700 font-[500] text-gray-300 shadow-lg hover:bg-gray-800 transition flex items-center justify-center gap-2"
+              >
+                {getProviderLogo(models.find(m => m.model_id === selectedModelId)?.provider)}
+                <span>{models.find(m => m.model_id === selectedModelId)?.model_name || "Select Model"}</span>
+                <i className={`fas fa-chevron-down text-[0.6rem] transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}></i>
+              </button>
+              
+              {isDropdownOpen && (
+                <div className="absolute bottom-full mb-2 w-max min-w-full bg-gray-900 border border-gray-700 rounded-xl overflow-hidden shadow-2xl flex flex-col z-20">
+                  {models.map(m => (
+                    <button
+                      key={m.model_id}
+                      onClick={() => handleModelChange(m.model_id)}
+                      className={`flex items-center gap-2 px-4 py-3 text-left text-[0.8rem] transition hover:bg-gray-800 ${selectedModelId === m.model_id ? 'bg-gray-800 text-white' : 'text-gray-300'}`}
+                    >
+                      {getProviderLogo(m.provider)}
+                      <span>{m.model_name}</span>
+                      {selectedModelId === m.model_id && (
+                        <i className="fas fa-check text-green-400 text-xs ml-auto pl-2"></i>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
           <div className="relative">
             <i className="fas fa-robot text-sm absolute left-4 pl-1 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
             <input
