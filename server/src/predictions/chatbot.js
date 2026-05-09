@@ -4,9 +4,9 @@ import Employee from "../models/employee.model.js";
 import Complaint from "../models/complaint.model.js";
 import Performance from "../models/performance.model.js";
 import Recruitment from "../models/recruitment.model.js";
-import getPredictionFromGeminiAI from "../gemini/index.js";
+import getPredictionFromAI from "../ai-router/index.js";
 
-async function getAnswerFromChatbot(prompt) {
+async function getAnswerFromChatbot(prompt, modelId, userId) {
   const [leaves, feedbacks, performances, employees, complaints, jobs] =
     await Promise.all([
       Leave.find().populate("employee", "name").lean(),
@@ -137,7 +137,7 @@ async function getAnswerFromChatbot(prompt) {
     ### Generate an insightful and concise response to the admin's query based on the provided data.
     `;
 
-  const response = await getPredictionFromGeminiAI(formattedPrompt);
+  const response = await getPredictionFromAI(formattedPrompt, modelId, userId);
 
   return response || "⚠️ Failed to generate response, Try again later";
 }
