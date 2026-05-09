@@ -72,7 +72,7 @@ function Payroll() {
 
       {loading && <Loader />}
 
-      <section className="bg-gray-100 dark:bg-secondary max-h-auto sm:min-h-screen p-3 sm:p-4 rounded-lg shadow lg:w-[98%]">
+      <section className="bg-gray-100 dark:bg-secondary p-3 sm:p-4 rounded-lg sm:min-h-screen shadow">
         <div className="mb-4 sm:px-4 flex flex-wrap items-center gap-2 sm:gap-3">
           {payrollButtons.map((filter, i) => (
             <FilterButton
@@ -98,9 +98,9 @@ function Payroll() {
         {/* Payroll Table */}
         <div
           id="overflow"
-          className="overflow-x-auto overflow-y-auto pr-4 min-h-[74vh] sm:min-h-[80vh]"
+          className="w-full overflow-x-auto min-h-[74vh] sm:min-h-[80vh]"
         >
-          <table className="w-max min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
+          <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-headLight dark:bg-head text-primary">
                 {payrollHead.map((header, i) => (

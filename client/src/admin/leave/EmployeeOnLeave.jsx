@@ -57,7 +57,7 @@ function EmployeeOnLeave() {
         </div>
         <div
           id="overflow"
-          className="overflow-x-auto min-h-[70vh] sm:min-h-[78vh]"
+          className="w-full overflow-x-auto min-h-[70vh] sm:min-h-[78vh]"
         >
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>

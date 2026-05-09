@@ -30,9 +30,9 @@ function Update() {
           <div className="w-full rounded-2xl p-2">
             <div
               id="overflow"
-              className="overflow-auto bg-gray-100 shadow h-[71vh] mt-2"
+              className="w-full overflow-auto bg-gray-100 shadow h-[71vh] mt-2"
             >
-              <table className="min-w-full table-auto text-sm text-white whitespace-nowrap">
+              <table className="min-w-full text-left table-auto border-collapse text-sm text-white whitespace-nowrap">
                 <thead>
                   <tr className="text-gray-200 bg-headLight">
                     {updateHead.map((header, i) => (

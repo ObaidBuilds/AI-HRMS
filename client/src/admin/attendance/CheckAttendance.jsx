@@ -84,7 +84,7 @@ function CheckAttendance() {
           </button>
         </div>
 
-        <div id="overflow" className="overflow-x-auto mt-3">
+        <div id="overflow" className="w-full overflow-x-auto mt-3">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-headLight dark:bg-head text-primary">

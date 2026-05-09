@@ -46,9 +46,9 @@ const Attendance = () => {
         <div className="w-full rounded-2xl p-2 flex-grow">
           <div
             id="overflow"
-            className="overflow-auto bg-gray-100 shadow h-[61.5vh] mt-2 rounded-md"
+            className="w-full overflow-auto bg-gray-100 shadow h-[61.5vh] mt-2 rounded-md"
           >
-            <table className="min-w-full table-auto text-sm text-white whitespace-nowrap">
+            <table className="min-w-full text-left table-auto border-collapse text-sm text-white whitespace-nowrap">
               <thead>
                 <tr className="bg-headLight sticky top-0 text-gray-200 text-left z-10">
                   {checkAttendanceHead.map((header, i) => (

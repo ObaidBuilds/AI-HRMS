@@ -67,7 +67,7 @@ function JobOpenings() {
           ))}
         </div>
 
-        <div id="overflow" className="overflow-x-auto sm:min-h-[80vh]">
+        <div id="overflow" className="w-full overflow-x-auto sm:min-h-[80vh]">
           <table className="min-w-full text-left table-auto border-collapse text-sm whitespace-nowrap">
             <thead>
               <tr className="dark:bg-head bg-headLight text-primary">
