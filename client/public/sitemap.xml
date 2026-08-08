@@ -2,13 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://metrohrms.site/</loc>
+    <loc>https://metrohrms.netlify.app/</loc>
     <lastmod>2025-08-04</lastmod>
     <priority>1.00</priority>
   </url>
 
   <url>
-    <loc>https://metrohrms.site/careers</loc>
+    <loc>https://metrohrms.netlify.app/careers</loc>
     <lastmod>2025-08-04</lastmod>
     <priority>0.80</priority>
   </url>
