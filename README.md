@@ -1,6 +1,6 @@
 <div align="center">
     <a href="https://metrohrms.site">
-  <img src="https://metrohrms.site/metro.png" width="128px" />
+  <img src="client/public/metro.png" width="128px" />
     </a>
     <h1><i>AI-Driven Human Resource Management ⚡</i></h1>
     <p align="center">
