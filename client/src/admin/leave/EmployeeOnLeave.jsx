@@ -75,7 +75,7 @@ function EmployeeOnLeave() {
             </thead>
             <tbody className="text-[0.83rem]">
               {employeesOnLeaveToday.length > 0 &&
-                employeesOnLeaveToday.map((leave, index) => (
+                employeesOnLeaveToday.map((leave) => (
                   <tr
                     key={leave._id}
                     className="dark:even:bg-gray-800 odd:bg-gray-200 dark:odd:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"

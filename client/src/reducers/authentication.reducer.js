@@ -59,7 +59,7 @@ const authSlice = createSlice({
       .addCase(forgetPassword.pending, (state) => {
         state.loading = true;
       })
-      .addCase(forgetPassword.fulfilled, (state, action) => {
+      .addCase(forgetPassword.fulfilled, (state) => {
         state.loading = false;
         state.forgetPasswordError = null;
       })

@@ -25,7 +25,7 @@ const ViewEmployee = () => {
   return (
     <>
       <Helmet>
-        <title>{employee?.name}'s Detail - Metro HR</title>
+        <title>{employee?.name}&apos;s Detail - Metro HR</title>
       </Helmet>
 
       <section className="w-full rounded-lg text-gray-700 dark:text-primary">

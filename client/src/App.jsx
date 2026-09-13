@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Loader from "./components/shared/loaders/Loader";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect } from "react";
 
 const Career = lazy(() => import("./careers/Career"));
 const ResetPassword = lazy(() => import("./auth/ResetPassword"));

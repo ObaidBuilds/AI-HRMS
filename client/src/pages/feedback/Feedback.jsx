@@ -12,7 +12,7 @@ const Feedback = () => {
 
   const loading = useSelector((state) => state.feedback.loading);
 
-  const [rating, setRating] = useState(0);
+  const [, setRating] = useState(0);
 
   const {
     register,

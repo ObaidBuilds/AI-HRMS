@@ -89,7 +89,7 @@ export const checkResetPasswordValidity = async (
     );
 
     return data.success;
-  } catch (error) {
+  } catch {
     return false;
   } finally {
     setLoading(false);

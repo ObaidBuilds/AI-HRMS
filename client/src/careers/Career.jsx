@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/shared/loaders/Loader";
 import JobCard from "../components/shared/cards/JobCard";
@@ -51,7 +51,7 @@ const Career = () => {
           <div className="relative z-50 text-center px-4 mx-auto text-white mt-10 sm:mt-6">
             <div className="mb-8 animate-float">
               <span className="inline-block bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-full mb-4">
-                We're Hiring
+                We&apos;re Hiring
               </span>
               <h1 className="text-[2rem] md:text-[3rem] font-extrabold my-3 sm:my-4 leading-tight">
                 Build Your Career <br /> With Us
@@ -126,7 +126,7 @@ const Career = () => {
                   No Current Openings
                 </h3>
                 <p className="text-gray-500 max-w-sm text-sm">
-                  We don't have any job openings at the moment, but please check
+                  We don&apos;t have any job openings at the moment, but please check
                   back later or follow us for updates on new opportunities.
                 </p>
               </div>

@@ -9,7 +9,6 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
-import { useSelector } from "react-redux";
 
 ChartJS.register(
   CategoryScale,

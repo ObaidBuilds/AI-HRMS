@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useTheme } from "../../../context";
 import { statuses } from "../../../constants";

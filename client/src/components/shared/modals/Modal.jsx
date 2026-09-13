@@ -1,4 +1,3 @@
-import React from "react";
 
 const Modal = ({ onClose, isConfirm, action }) => {
   return (

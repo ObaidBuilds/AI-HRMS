@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet";
 import { formatDate } from "../../utils";
 import { updateHead } from "../../constants";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUpdates } from "../../services/insights.service";
 import Loader from "../../components/shared/loaders/Loader";
