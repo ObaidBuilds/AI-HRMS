@@ -2,7 +2,7 @@ import { useTheme } from "../../context";
 import Modal from "../shared/modals/Modal";
 import Loader from "../shared/loaders/Loader";
 import { sidebarLinks } from "../../constants";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SettingModal from "../shared/modals/SettingModal";

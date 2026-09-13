@@ -66,7 +66,7 @@ const recruitmentSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(createJobApplication.fulfilled, (state, action) => {
+      .addCase(createJobApplication.fulfilled, (state) => {
         state.loading = false;
       })
       .addCase(createJobApplication.rejected, (state, action) => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { jobStatus } from "../../../constants";
 import { updateApplication } from "../../../services/recruitment.service";

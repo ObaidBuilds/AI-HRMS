@@ -102,7 +102,7 @@ const EditEmployee = () => {
           {/* Basic Details */}
           <div className="dark:bg-gray-800 text-[0.9rem] p-5 rounded-lg">
             <h4 className="dark:text-primary font-semibold mb-3 text-[0.95rem]">
-              <i class="fas fa-user mr-2"></i>
+              <i className="fas fa-user mr-2"></i>
               Basic Details
             </h4>
             <div className="grid gap-4 sm:grid-cols-2 text-[0.82rem]">
@@ -296,7 +296,7 @@ const EditEmployee = () => {
           {/* Address Details */}
           <div className="dark:bg-gray-800 text-[0.9rem] p-5 rounded-lg">
             <h4 className="dark:text-primary font-semibold mb-3">
-              <i class="fas fa-map-marker-alt mr-2"></i>
+              <i className="fas fa-map-marker-alt mr-2"></i>
               Address
             </h4>
             <div className="grid gap-4 sm:grid-cols-2 text-[0.82rem]">
@@ -440,7 +440,7 @@ const EditEmployee = () => {
 
           <div className="dark:bg-gray-800 text-[0.9rem] p-5 rounded-lg">
             <h4 className="dark:text-primary font-semibold mb-3">
-              <i class="fas fa-briefcase mr-2"></i>
+              <i className="fas fa-briefcase mr-2"></i>
               Department & Role
             </h4>
             <div className="grid gap-4 sm:grid-cols-2 text-[0.82rem]">
@@ -648,7 +648,7 @@ const EditEmployee = () => {
           {/* Bank Details */}
           <div className="dark:bg-gray-800 text-[0.9rem] p-5 rounded-lg">
             <h4 className="dark:text-primary font-semibold mb-3">
-              <i class="fas fa-university mr-2"></i>
+              <i className="fas fa-university mr-2"></i>
               Bank Details
             </h4>
             <div className="grid gap-4 sm:grid-cols-2 text-[0.82rem]">
@@ -712,7 +712,7 @@ const EditEmployee = () => {
           {/* Emergency Contact */}
           <div className="dark:bg-gray-800 text-[0.9rem] p-5 rounded-lg">
             <h4 className="dark:text-primary font-semibold mb-3">
-              <i class="fas fa-user-shield mr-2"></i>
+              <i className="fas fa-user-shield mr-2"></i>
               Emergency Contact
             </h4>
             <div className="grid gap-4 sm:grid-cols-2 text-[0.82rem]">

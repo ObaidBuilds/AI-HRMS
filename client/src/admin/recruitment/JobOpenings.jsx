@@ -23,6 +23,7 @@ function JobOpenings() {
   const [toggleModal, setToggleModal] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [setSelectedJob, setsetSelectedJob] = useState(null);
+  const [, setCurrentPage] = useState(1);
 
   const handleClick = (job) => {
     if (job) {

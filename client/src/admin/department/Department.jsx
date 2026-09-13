@@ -1,5 +1,5 @@
+import {useState} from "react";
 import { Helmet } from "react-helmet";
-import React, { useState } from "react";
 import { colors } from "../../constants";
 import { useSelector } from "react-redux";
 import { FaUsers, FaUserTie } from "react-icons/fa";

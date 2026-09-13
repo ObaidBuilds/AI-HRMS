@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,44 +12,12 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 const ResetPassword = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
   const searchQuery = new URLSearchParams(location.search);
   const forgetPasswordToken = searchQuery.get("verifyToken") || "";
   const employeeId = searchQuery.get("employee") || "";
-
-  if (!employeeId || !forgetPasswordToken) return <Navigate to={"/"} />;
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const { loading, resetPasswordError } = useSelector(
-    (state) => state.authentication
-  );
-  const [validateLoading, setLoading] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(resetPasswordSchema),
-  });
-
-  const onSubmit = (data) => {
-    dispatch(
-      resetPassword({
-        newPassword: data.newPassword,
-        confirmPassword: data.confirmPassword,
-        employeeId,
-        forgetPasswordToken,
-      })
-    )
-      .unwrap()
-      .then(() => navigate("/"))
-      .catch((error) => {
-        console.error("Error in reset:", error);
-      });
-  };
 
   useEffect(() => {
     async function validateResetLink() {
@@ -63,6 +31,37 @@ const ResetPassword = () => {
 
     validateResetLink();
   }, [employeeId, forgetPasswordToken, navigate]);
+
+  const { loading, resetPasswordError } = useSelector(
+    (state) => state.authentication,
+  );
+  const [validateLoading, setLoading] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(resetPasswordSchema),
+  });
+
+  if (!employeeId || !forgetPasswordToken) return <Navigate to={"/"} />;
+
+  const onSubmit = (data) => {
+    dispatch(
+      resetPassword({
+        newPassword: data.newPassword,
+        confirmPassword: data.confirmPassword,
+        employeeId,
+        forgetPasswordToken,
+      }),
+    )
+      .unwrap()
+      .then(() => navigate("/"))
+      .catch((error) => {
+        console.error("Error in reset:", error);
+      });
+  };
 
   if (validateLoading)
     return (
@@ -94,7 +93,7 @@ const ResetPassword = () => {
             {resetPasswordError && (
               <div id="modal" className="flex justify-center items-center mb-4">
                 <div className="text-sm bg-red-100 text-red-800 w-[80%] p-3 rounded-lg flex gap-3 items-start border border-red-200 shadow-sm border-l-4 border-l-red-500 font-normal">
-                  <i class="fa-solid fa-triangle-exclamation text-red-600 text-lg"></i>
+                  <i className="fa-solid fa-triangle-exclamation text-red-600 text-lg"></i>
                   <p className="text-[0.82rem]">{resetPasswordError}</p>
                 </div>
               </div>

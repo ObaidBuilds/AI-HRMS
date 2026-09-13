@@ -1,4 +1,3 @@
-import React from "react";
 import { months } from "../../../constants";
 
 const MonthSheetModal = ({
@@ -59,7 +58,9 @@ const MonthSheetModal = ({
           >
             <option value="">--- Select Month ---</option>
             {months.map((month) => (
-              <option value={month.value}>{month.name}</option>
+              <option key={month.value} value={month.value}>
+                {month.name}
+              </option>
             ))}
           </select>
         </div>
